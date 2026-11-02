@@ -1,0 +1,11 @@
+/target
+.DS_Store
+
+# Local notes and agent instructions stay out of the repository.
+/_local/
+AGENTS.md
+
+# Machine-specific configuration; commit templates only.
+.env
+.env.*
+!.env.example
