@@ -62,7 +62,19 @@ The app is in `apps/desktop/src-tauri/target/release/bundle/`. On Linux, ask for
 
 ## Desktop app
 
-Download Desktop from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
+On macOS, add `--desktop` to the install command. It checks the release signature, then puts `Hoista.app` in `/Applications` (or `~/Applications` if that isn't writable):
+
+```bash
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2 "$HOME/.local/bin" --start-at-login --desktop
+```
+
+Hoista isn't signed with an Apple Developer ID yet. A `.dmg` downloaded in a browser gets macOS's "unidentified developer" warning, and the script avoids it because files fetched with `curl` aren't flagged by the browser. If you do download the `.dmg` yourself, run this once after dragging the app to Applications:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Hoista.app
+```
+
+On Linux, download the package from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
 
 | System | Package |
 | --- | --- |

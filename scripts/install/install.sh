@@ -3,7 +3,11 @@
 # hoist and hoistd in ~/.local/bin (or the folder you give). By default
 # Hoista then starts at login; --no-service installs the programs only.
 #
-#   sh install.sh v0.1.0-beta.2 [destination] [--start-at-login | --no-service]
+#   sh install.sh v0.1.0-beta.2 [destination] [--start-at-login | --no-service] [--desktop]
+#
+# --desktop (macOS only) also installs the Desktop app into /Applications.
+# Files fetched by curl carry no quarantine flag, so macOS opens the app
+# without the unidentified developer warning. The signature is still checked.
 #
 # Needs cosign 3: an unsigned or altered release is never installed.
 set -eu
@@ -17,6 +21,11 @@ fail() {
 }
 
 # Arguments
+desktop=no
+for arg in "$@"; do
+  shift
+  if [ "$arg" = --desktop ]; then desktop=yes; else set -- "$@" "$arg"; fi
+done
 [ "$#" -le 3 ] || fail 'Too many arguments.'
 version=${1:?Give the release to install, for example v0.1.0-beta.2}
 destination=${2:-"$HOME/.local/bin"}
@@ -86,6 +95,35 @@ for document in LICENSE THIRD-PARTY-NOTICES.txt DEPENDENCIES.json; do
   install -m 644 "$workdir/$document" "$destination/hoista-notices/$document"
 done
 printf 'Installed Hoista to %s. Add this directory to PATH.\n' "$destination"
+
+install_desktop() {
+  [ "$(uname -s)" = Darwin ] || fail '--desktop is only for macOS. Linux packages are on the releases page.'
+  command -v hdiutil >/dev/null 2>&1 || fail 'hdiutil is missing; cannot open the Desktop disk image.'
+  case "$(uname -m)" in arm64) arch=aarch64 ;; *) arch=x64 ;; esac
+  dmg="Hoista_${version#v}_$arch.dmg"
+  download "$base/$dmg" "$workdir/$dmg"
+  download "$base/$dmg.sigstore.json" "$workdir/dmg-signature.json"
+  cosign verify-blob \
+    --bundle "$workdir/dmg-signature.json" \
+    --certificate-identity "https://github.com/$REPOSITORY/.github/workflows/release.yml@refs/tags/$version" \
+    --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+    "$workdir/$dmg"
+  mount="$workdir/mount"
+  mkdir -p "$mount"
+  hdiutil attach -nobrowse -readonly -quiet -mountpoint "$mount" "$workdir/$dmg" ||
+    fail 'Could not open the Desktop disk image.'
+  [ -d "$mount/Hoista.app" ] || { hdiutil detach -quiet "$mount" || true; fail 'Hoista.app is not in the disk image.'; }
+  apps=/Applications
+  [ -w "$apps" ] || { apps="$HOME/Applications"; mkdir -p "$apps"; }
+  rm -rf "$apps/Hoista.app"
+  ditto "$mount/Hoista.app" "$apps/Hoista.app"
+  hdiutil detach -quiet "$mount" || true
+  printf 'Installed Hoista Desktop to %s/Hoista.app.\n' "$apps"
+}
+
+if [ "$desktop" = yes ]; then
+  install_desktop
+fi
 
 if [ "$service_mode" = --start-at-login ]; then
   "$destination/hoist" service install ||
