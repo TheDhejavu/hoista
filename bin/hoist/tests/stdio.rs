@@ -117,6 +117,7 @@ async fn stdio_over_native_ipc_requires_initialization_and_owner_approval() {
     command
         .args(["mcp", "--name", "Scripted stdio", "--state-dir"])
         .env("HOISTA_NO_BROWSER", "1")
+        .env("HOISTA_NO_KEYCHAIN", "1")
         .arg(paths.root())
         .stdin(std::process::Stdio::piped())
         .stdout(std::process::Stdio::piped())
@@ -462,6 +463,7 @@ async fn stdio_over_native_ipc_requires_initialization_and_owner_approval() {
         process
             .args(["mcp", "--state-dir"])
             .arg(paths.root())
+            .env("HOISTA_NO_KEYCHAIN", "1")
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::null())

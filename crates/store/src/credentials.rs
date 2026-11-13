@@ -483,6 +483,26 @@ impl CredentialStore for SystemKeychain {
     }
 }
 
+/// Behaves like a machine with no keychain: every call reports it unavailable.
+/// Selected by setting `HOISTA_NO_KEYCHAIN`, which the tests use so a saved
+/// credential on the machine running them can't change what they check.
+#[derive(Clone, Copy, Debug)]
+struct NoKeychain;
+
+impl CredentialStore for NoKeychain {
+    fn get(&self, _: &str) -> Result<Secret, CredentialError> {
+        Err(CredentialError::Unavailable)
+    }
+
+    fn set(&self, _: &str, _: &Secret) -> Result<(), CredentialError> {
+        Err(CredentialError::Unavailable)
+    }
+
+    fn delete(&self, _: &str) -> Result<(), CredentialError> {
+        Err(CredentialError::Unavailable)
+    }
+}
+
 /// Provider tokens kept in the system keychain, for the engine to use.
 ///
 /// Everything one program keeps lives in a single keychain entry (a JSON map
@@ -540,6 +560,9 @@ impl NativeVault {
     /// kept by the coding-tool bridge).
     #[must_use]
     pub fn named(name: &str) -> Self {
+        if std::env::var_os("HOISTA_NO_KEYCHAIN").is_some() {
+            return Self::in_store(name, Arc::new(NoKeychain));
+        }
         Self::in_store(name, Arc::new(SystemKeychain))
     }
 
