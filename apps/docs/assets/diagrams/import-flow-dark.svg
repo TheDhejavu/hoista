@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="if-d" viewBox="0 0 1280 564" width="1280" height="564" role="img" aria-labelledby="if-d-t if-d-d">
 <title id="if-d-t">Importing a project</title><desc id="if-d-d">Hoista finds the resources on your connected accounts and groups them by provider project. You review and import them as a watching project. Linking a source and switching to managed is a separate step you take later.</desc>
 <style>#if-d text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#ededed}#if-d .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#if-d .h2{fill:#a1a1aa}#if-d .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#if-d .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#7a7a82;letter-spacing:0.08em}#if-d .eyebrow{font-size:12.5px;fill:#8b8b93}#if-d .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#if-d .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#if-d .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#a1a1aa}#if-d .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#d4d4d8}#if-d .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#if-d .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#ededed;letter-spacing:0.06em}#if-d .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#if-d .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#c8c8cc}#if-d .sheet{fill:#0a0a0a;stroke:#262626}#if-d .card{fill:#141414;stroke:#2a2a2a}#if-d .hoistd{fill:#141414;stroke:#ededed;stroke-width:1.4}#if-d .ring{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:8}#if-d .tile{fill:#1c1c1c;stroke:#2e2e2e}#if-d .chip{fill:#1c1c1c;stroke:#2e2e2e}#if-d .pill{fill:#141414;stroke:#2e2e2e}#if-d .zone{fill:#111111;stroke:#3a3a3a;stroke-dasharray:5 4}#if-d .dot{fill:#3f3f46}#if-d .badge{fill:#ededed}#if-d .ink{fill:#0a0a0a}#if-d .eye{fill:#ededed}#if-d .ic{fill:none;stroke:#d4d4d8;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#if-d .logo{fill:#a1a1aa}#if-d .link{fill:none;stroke:#4f4f56;stroke-width:1.4;stroke-linejoin:round}#if-d .dash{stroke-dasharray:5 4}#if-d .head{fill:none;stroke:#7a7a82;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#if-d .rule{stroke:#262626;stroke-dasharray:4 4}</style>
-<defs><g id="if-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="if-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="if-d-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.36"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.45"/></filter><filter id="if-d-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.55"/></filter></defs>
+<defs><g id="if-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="if-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker></defs>
 <rect x="0.5" y="0.5" width="1279" height="563" rx="20" class="sheet"/>
 <rect x="462" y="150" width="356" height="196" rx="16" class="zone"/>
 <text x="482" y="176" class="zl">runs on your computer</text>
 <path d="M348 208 L477 208" class="link" marker-end="url(#if-d-open)"/>
 <path d="M800 208 L929 208" class="link" marker-end="url(#if-d-open)"/>
 <path d="M1082 276 L1082 409" class="link dash" marker-end="url(#if-d-open)"/>
-<rect x="48" y="172" width="300" height="106" rx="12" class="card" filter="url(#if-d-lift)"/>
+<rect x="48" y="174" width="300" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="48" y="172" width="300" height="106" rx="12" class="card"/>
 <rect x="68" y="192" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(76 200)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
 <text x="116" y="205" class="eyebrow">Connected</text>
 <text x="116" y="228" class="title">Your accounts</text>
 <text x="116" y="254" class="detail">Railway · Neon</text>
 <rect x="480" y="184" width="320" height="138" rx="13" class="ring"/>
-<rect x="480" y="184" width="320" height="138" rx="12" class="hoistd" filter="url(#if-d-lift2)"/>
+<rect x="480" y="188" width="320" height="138" rx="12" fill="#000" fill-opacity="0.45"/><rect x="480" y="184" width="320" height="138" rx="12" class="hoistd"/>
 <circle cx="502" cy="203" r="3.6" class="dot"/>
 <circle cx="514" cy="203" r="3.6" class="dot"/>
 <circle cx="526" cy="203" r="3.6" class="dot"/>
@@ -23,13 +23,13 @@
 <text x="546" y="244" class="title-lg">hoistd</text>
 <text x="546" y="276" class="detail">finds each resource</text>
 <text x="546" y="296" class="detail">groups them by project</text>
-<rect x="932" y="172" width="300" height="106" rx="12" class="card" filter="url(#if-d-lift)"/>
+<rect x="932" y="174" width="300" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="932" y="172" width="300" height="106" rx="12" class="card"/>
 <rect x="952" y="192" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(960 200)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="1000" y="205" class="eyebrow">Watching project</text>
 <text x="1000" y="228" class="title">my-app</text>
 <text x="1000" y="254" class="detail">status · logs</text>
-<rect x="932" y="412" width="300" height="106" rx="12" class="card" filter="url(#if-d-lift)"/>
+<rect x="932" y="414" width="300" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="932" y="412" width="300" height="106" rx="12" class="card"/>
 <rect x="952" y="432" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(960 440)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="1000" y="445" class="eyebrow">Managed project</text>

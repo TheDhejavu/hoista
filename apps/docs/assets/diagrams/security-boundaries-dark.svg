@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="sb-d" viewBox="0 0 1280 836" width="1280" height="836" role="img" aria-labelledby="sb-d-t sb-d-d">
 <title id="sb-d-t">Trust boundaries</title><desc id="sb-d-d">Agents connect with their own scoped credential and you with Touch ID, your password or a passkey. Both reach your providers only through hoistd, which checks access, asks you before anything that can't be undone and journals every change. On your computer, provider tokens sit in the OS credential store; on a remote, a separate credential keeper holds them in a sealed file. hoistd itself is trusted.</desc>
 <style>#sb-d text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#ededed}#sb-d .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#sb-d .h2{fill:#a1a1aa}#sb-d .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#sb-d .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#7a7a82;letter-spacing:0.08em}#sb-d .eyebrow{font-size:12.5px;fill:#8b8b93}#sb-d .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#sb-d .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#sb-d .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#a1a1aa}#sb-d .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#d4d4d8}#sb-d .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#sb-d .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#ededed;letter-spacing:0.06em}#sb-d .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#sb-d .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#c8c8cc}#sb-d .sheet{fill:#0a0a0a;stroke:#262626}#sb-d .card{fill:#141414;stroke:#2a2a2a}#sb-d .hoistd{fill:#141414;stroke:#ededed;stroke-width:1.4}#sb-d .ring{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:8}#sb-d .tile{fill:#1c1c1c;stroke:#2e2e2e}#sb-d .chip{fill:#1c1c1c;stroke:#2e2e2e}#sb-d .pill{fill:#141414;stroke:#2e2e2e}#sb-d .zone{fill:#111111;stroke:#3a3a3a;stroke-dasharray:5 4}#sb-d .dot{fill:#3f3f46}#sb-d .badge{fill:#ededed}#sb-d .ink{fill:#0a0a0a}#sb-d .eye{fill:#ededed}#sb-d .ic{fill:none;stroke:#d4d4d8;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#sb-d .logo{fill:#a1a1aa}#sb-d .link{fill:none;stroke:#4f4f56;stroke-width:1.4;stroke-linejoin:round}#sb-d .dash{stroke-dasharray:5 4}#sb-d .head{fill:none;stroke:#7a7a82;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#sb-d .rule{stroke:#262626;stroke-dasharray:4 4}</style>
-<defs><g id="sb-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="sb-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="sb-d-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.36"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.45"/></filter><filter id="sb-d-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.55"/></filter></defs>
+<defs><g id="sb-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="sb-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker></defs>
 <rect x="0.5" y="0.5" width="1279" height="835" rx="20" class="sheet"/>
 <rect x="462" y="150" width="356" height="242" rx="16" class="zone"/>
 <text x="482" y="176" class="zl">policy is enforced here</text>
@@ -14,7 +14,7 @@
 <path d="M640 424 L1030 424 L1030 497" class="link" marker-end="url(#sb-d-open)"/>
 <path d="M48 686 H1232" class="rule"/>
 <rect x="480" y="190" width="320" height="178" rx="13" class="ring"/>
-<rect x="480" y="190" width="320" height="178" rx="12" class="hoistd" filter="url(#sb-d-lift2)"/>
+<rect x="480" y="194" width="320" height="178" rx="12" fill="#000" fill-opacity="0.45"/><rect x="480" y="190" width="320" height="178" rx="12" class="hoistd"/>
 <circle cx="502" cy="209" r="3.6" class="dot"/>
 <circle cx="514" cy="209" r="3.6" class="dot"/>
 <circle cx="526" cy="209" r="3.6" class="dot"/>
@@ -24,35 +24,35 @@
 <text x="546" y="302" class="detail">asks you before deletes</text>
 <text x="546" y="322" class="detail">journals every change first</text>
 <text x="546" y="342" class="detail">strips secrets from replies</text>
-<rect x="48" y="172" width="300" height="125" rx="12" class="card" filter="url(#sb-d-lift)"/>
+<rect x="48" y="174" width="300" height="125" rx="12" fill="#000" fill-opacity="0.3"/><rect x="48" y="172" width="300" height="125" rx="12" class="card"/>
 <rect x="68" y="192" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(76 200)"><path d="M8 2.2 9.3 6.7 13.8 8 9.3 9.3 8 13.8 6.7 9.3 2.2 8 6.7 6.7z"/></g>
 <text x="116" y="205" class="eyebrow">Their own credential</text>
 <text x="116" y="228" class="title">Agents</text>
 <text x="116" y="254" class="detail">MCP: stdio, or OAuth</text>
 <text x="116" y="273" class="detail">View · Ask · Full access</text>
-<rect x="48" y="320" width="300" height="125" rx="12" class="card" filter="url(#sb-d-lift)"/>
+<rect x="48" y="322" width="300" height="125" rx="12" fill="#000" fill-opacity="0.3"/><rect x="48" y="320" width="300" height="125" rx="12" class="card"/>
 <rect x="68" y="340" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(76 348)"><circle cx="8" cy="5.4" r="2.6"/><path d="M3 13.6c.7-2.5 2.7-3.9 5-3.9s4.3 1.4 5 3.9"/></g>
 <text x="116" y="353" class="eyebrow">Touch ID · password · passkey</text>
 <text x="116" y="376" class="title">You</text>
 <text x="116" y="402" class="detail">Desktop app · hoist</text>
 <text x="116" y="421" class="detail">approve what can't be undone</text>
-<rect x="932" y="200" width="300" height="130" rx="12" class="card" filter="url(#sb-d-lift)"/>
+<rect x="932" y="202" width="300" height="130" rx="12" fill="#000" fill-opacity="0.3"/><rect x="932" y="200" width="300" height="130" rx="12" class="card"/>
 <rect x="952" y="220" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(960 228)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
 <text x="1000" y="242" class="title">Your providers</text>
 <text x="1000" y="268" class="detail">Railway · Vercel · Neon</text>
 <text x="1000" y="287" class="detail">Cloudflare · Fly.io …</text>
 <text x="1000" y="306" class="detail">token scopes cap Hoista</text>
-<rect x="455" y="500" width="370" height="125" rx="12" class="card" filter="url(#sb-d-lift)"/>
+<rect x="455" y="502" width="370" height="125" rx="12" fill="#000" fill-opacity="0.3"/><rect x="455" y="500" width="370" height="125" rx="12" class="card"/>
 <rect x="475" y="520" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(483 528)"><rect x="2" y="2.5" width="12" height="8.5" rx="1.5"/><path d="M5.8 13.8h4.4M8 11v2.8"/></g>
 <text x="523" y="533" class="eyebrow">On your computer</text>
 <text x="523" y="556" class="title">OS credential store</text>
 <text x="523" y="582" class="detail">Keychain · Credential Manager</text>
 <text x="523" y="601" class="detail">Secret Service · 1Password ref</text>
-<rect x="847" y="500" width="365" height="125" rx="12" class="card" filter="url(#sb-d-lift)"/>
+<rect x="847" y="502" width="365" height="125" rx="12" fill="#000" fill-opacity="0.3"/><rect x="847" y="500" width="365" height="125" rx="12" class="card"/>
 <rect x="867" y="520" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(875 528)"><circle cx="5.5" cy="10.5" r="3"/><path d="M7.7 8.3 13.5 2.5M11.2 4.8l1.8 1.8M9.6 6.4l1.4 1.4"/></g>
 <text x="915" y="533" class="eyebrow">On a remote · separate user</text>

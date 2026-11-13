@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="cf-l" viewBox="0 0 1280 564" width="1280" height="564" role="img" aria-labelledby="cf-l-t cf-l-d">
 <title id="cf-l-t">Connecting a provider</title><desc id="cf-l-d">You approve Hoista on the provider’s page or paste a token. hoistd checks it works, keeps it in the keychain, reads the account and lists the projects it finds, ready to add.</desc>
 <style>#cf-l text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#111111}#cf-l .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#cf-l .h2{fill:#6b6b6b}#cf-l .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#cf-l .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#9a9a9a;letter-spacing:0.08em}#cf-l .eyebrow{font-size:12.5px;fill:#8f8f8f}#cf-l .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#cf-l .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#cf-l .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#737373}#cf-l .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#4a4a4a}#cf-l .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#888888}#cf-l .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#111111;letter-spacing:0.06em}#cf-l .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8a8a8a}#cf-l .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#555555}#cf-l .sheet{fill:#ffffff;stroke:#e4e4e7}#cf-l .card{fill:#ffffff;stroke:#e3e3e3}#cf-l .hoistd{fill:#ffffff;stroke:#111111;stroke-width:1.4}#cf-l .ring{fill:none;stroke:rgba(0,0,0,0.04);stroke-width:8}#cf-l .tile{fill:#f5f5f5;stroke:#e6e6e6}#cf-l .chip{fill:#f0f0f0;stroke:#e2e2e2}#cf-l .pill{fill:#ffffff;stroke:#e3e3e3}#cf-l .zone{fill:#fafafa;stroke:#cfcfcf;stroke-dasharray:5 4}#cf-l .dot{fill:#dcdcdc}#cf-l .badge{fill:#111111}#cf-l .ink{fill:#ffffff}#cf-l .eye{fill:#111111}#cf-l .ic{fill:none;stroke:#4a4a4a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#cf-l .logo{fill:#7a7a7a}#cf-l .link{fill:none;stroke:#c2c2c2;stroke-width:1.4;stroke-linejoin:round}#cf-l .dash{stroke-dasharray:5 4}#cf-l .head{fill:none;stroke:#9a9a9a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#cf-l .rule{stroke:#e4e4e7;stroke-dasharray:4 4}</style>
-<defs><g id="cf-l-mascot"><g fill="#ffffff"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#111111"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="cf-l-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="cf-l-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.04"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.05"/></filter><filter id="cf-l-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<defs><g id="cf-l-mascot"><g fill="#ffffff"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#111111"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="cf-l-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker></defs>
 <rect x="0.5" y="0.5" width="1279" height="563" rx="20" class="sheet"/>
 <rect x="462" y="150" width="356" height="196" rx="16" class="zone"/>
 <text x="482" y="176" class="zl">runs on your computer</text>
@@ -9,7 +9,7 @@
 <path d="M800 208 L929 208" class="link" marker-end="url(#cf-l-open)"/>
 <path d="M640 322 L640 409" class="link" marker-end="url(#cf-l-open)"/>
 <path d="M480 292 L405 292 L405 464 L351 464" class="link" marker-end="url(#cf-l-open)"/>
-<rect x="48" y="172" width="300" height="125" rx="12" class="card" filter="url(#cf-l-lift)"/>
+<rect x="48" y="174" width="300" height="125" rx="12" fill="#000" fill-opacity="0.045"/><rect x="48" y="172" width="300" height="125" rx="12" class="card"/>
 <rect x="68" y="192" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(76 200)"><path d="M3.2 8.6 6.6 12 12.8 4.6"/></g>
 <text x="116" y="205" class="eyebrow">Connect a provider</text>
@@ -17,7 +17,7 @@
 <text x="116" y="254" class="detail">in Desktop, or</text>
 <text x="116" y="273" class="detail">hoist accounts add</text>
 <rect x="480" y="184" width="320" height="138" rx="13" class="ring"/>
-<rect x="480" y="184" width="320" height="138" rx="12" class="hoistd" filter="url(#cf-l-lift2)"/>
+<rect x="480" y="188" width="320" height="138" rx="12" fill="#000" fill-opacity="0.07"/><rect x="480" y="184" width="320" height="138" rx="12" class="hoistd"/>
 <circle cx="502" cy="203" r="3.6" class="dot"/>
 <circle cx="514" cy="203" r="3.6" class="dot"/>
 <circle cx="526" cy="203" r="3.6" class="dot"/>
@@ -25,19 +25,19 @@
 <text x="546" y="244" class="title-lg">hoistd</text>
 <text x="546" y="276" class="detail">checks the token works</text>
 <text x="546" y="296" class="detail">keeps it · reads the account</text>
-<rect x="932" y="172" width="300" height="106" rx="12" class="card" filter="url(#cf-l-lift)"/>
+<rect x="932" y="174" width="300" height="106" rx="12" fill="#000" fill-opacity="0.045"/><rect x="932" y="172" width="300" height="106" rx="12" class="card"/>
 <rect x="952" y="192" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(960 200)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
 <text x="1000" y="205" class="eyebrow">Your account</text>
 <text x="1000" y="228" class="title">Cloudflare</text>
 <text x="1000" y="254" class="detail">Sam’s Account</text>
-<rect x="480" y="412" width="320" height="106" rx="12" class="card" filter="url(#cf-l-lift)"/>
+<rect x="480" y="414" width="320" height="106" rx="12" fill="#000" fill-opacity="0.045"/><rect x="480" y="412" width="320" height="106" rx="12" class="card"/>
 <rect x="500" y="432" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(508 440)"><circle cx="5.5" cy="10.5" r="3"/><path d="M7.7 8.3 13.5 2.5M11.2 4.8l1.8 1.8M9.6 6.4l1.4 1.4"/></g>
 <text x="548" y="445" class="eyebrow">The token</text>
 <text x="548" y="468" class="title">Keychain</text>
 <text x="548" y="494" class="detail">stays on this computer</text>
-<rect x="48" y="412" width="300" height="106" rx="12" class="card" filter="url(#cf-l-lift)"/>
+<rect x="48" y="414" width="300" height="106" rx="12" fill="#000" fill-opacity="0.045"/><rect x="48" y="412" width="300" height="106" rx="12" class="card"/>
 <rect x="68" y="432" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(76 440)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="116" y="445" class="eyebrow">Found on your providers</text>

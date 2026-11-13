@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="en-d" viewBox="0 0 1280 576" width="1280" height="576" role="img" aria-labelledby="en-d-t en-d-d">
 <title id="en-d-t">Environments</title><desc id="en-d-d">Projects sit in one environment each, such as default or production. Provider accounts, agents, settings and billing are shared by every environment.</desc>
 <style>#en-d text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#ededed}#en-d .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#en-d .h2{fill:#a1a1aa}#en-d .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#en-d .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#7a7a82;letter-spacing:0.08em}#en-d .eyebrow{font-size:12.5px;fill:#8b8b93}#en-d .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#en-d .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#en-d .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#a1a1aa}#en-d .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#d4d4d8}#en-d .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#en-d .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#ededed;letter-spacing:0.06em}#en-d .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#en-d .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#c8c8cc}#en-d .sheet{fill:#0a0a0a;stroke:#262626}#en-d .card{fill:#141414;stroke:#2a2a2a}#en-d .hoistd{fill:#141414;stroke:#ededed;stroke-width:1.4}#en-d .ring{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:8}#en-d .tile{fill:#1c1c1c;stroke:#2e2e2e}#en-d .chip{fill:#1c1c1c;stroke:#2e2e2e}#en-d .pill{fill:#141414;stroke:#2e2e2e}#en-d .zone{fill:#111111;stroke:#3a3a3a;stroke-dasharray:5 4}#en-d .dot{fill:#3f3f46}#en-d .badge{fill:#ededed}#en-d .ink{fill:#0a0a0a}#en-d .eye{fill:#ededed}#en-d .ic{fill:none;stroke:#d4d4d8;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#en-d .logo{fill:#a1a1aa}#en-d .link{fill:none;stroke:#4f4f56;stroke-width:1.4;stroke-linejoin:round}#en-d .dash{stroke-dasharray:5 4}#en-d .head{fill:none;stroke:#7a7a82;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#en-d .rule{stroke:#262626;stroke-dasharray:4 4}</style>
-<defs><g id="en-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="en-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="en-d-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.36"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.45"/></filter><filter id="en-d-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.55"/></filter></defs>
+<defs><g id="en-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="en-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker></defs>
 <rect x="0.5" y="0.5" width="1279" height="575" rx="20" class="sheet"/>
 <rect x="48" y="112" width="600" height="196" rx="16" class="zone"/>
 <text x="68" y="138" class="zl">environment · default</text>
@@ -11,43 +11,43 @@
 <text x="800" y="138" class="zl">the same in every environment</text>
 <path d="M648 210 L714 210 L714 430 L648 430" class="link"/>
 <path d="M714 320 L777 320" class="link" marker-end="url(#en-d-open)"/>
-<rect x="68" y="164" width="270" height="106" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="68" y="166" width="270" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="68" y="164" width="270" height="106" rx="12" class="card"/>
 <rect x="88" y="184" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(96 192)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="136" y="197" class="eyebrow">Project</text>
 <text x="136" y="220" class="title">moodboard</text>
 <text x="136" y="246" class="detail">Cloudflare · Neon</text>
-<rect x="358" y="164" width="270" height="106" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="358" y="166" width="270" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="358" y="164" width="270" height="106" rx="12" class="card"/>
 <rect x="378" y="184" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(386 192)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="426" y="197" class="eyebrow">Project</text>
 <text x="426" y="220" class="title">waitlist-v2</text>
 <text x="426" y="246" class="detail">Cloudflare</text>
-<rect x="68" y="384" width="270" height="106" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="68" y="386" width="270" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="68" y="384" width="270" height="106" rx="12" class="card"/>
 <rect x="88" y="404" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(96 412)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="136" y="417" class="eyebrow">Project</text>
 <text x="136" y="440" class="title">portfolio-api</text>
 <text x="136" y="466" class="detail">Railway · Supabase</text>
-<rect x="358" y="384" width="270" height="106" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="358" y="386" width="270" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="358" y="384" width="270" height="106" rx="12" class="card"/>
 <rect x="378" y="404" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(386 412)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
 <text x="426" y="417" class="eyebrow">Project</text>
 <text x="426" y="440" class="title">cron-worker</text>
 <text x="426" y="466" class="detail">Railway</text>
-<rect x="800" y="160" width="412" height="106" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="800" y="162" width="412" height="106" rx="12" fill="#000" fill-opacity="0.3"/><rect x="800" y="160" width="412" height="106" rx="12" class="card"/>
 <rect x="820" y="180" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(828 188)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
 <text x="868" y="193" class="eyebrow">Connected once</text>
 <text x="868" y="216" class="title">Your accounts</text>
 <text x="868" y="242" class="detail">Cloudflare · Neon · Railway · Supabase</text>
-<rect x="800" y="282" width="412" height="111" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="800" y="284" width="412" height="111" rx="12" fill="#000" fill-opacity="0.3"/><rect x="800" y="282" width="412" height="111" rx="12" class="card"/>
 <rect x="820" y="302" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(828 310)"><path d="M8 2.2 9.3 6.7 13.8 8 9.3 9.3 8 13.8 6.7 9.3 2.2 8 6.7 6.7z"/></g>
 <text x="868" y="324" class="title">Agents and settings</text>
 <text x="868" y="350" class="detail">an agent can be limited to</text>
 <text x="868" y="369" class="detail">some environments</text>
-<rect x="800" y="411" width="412" height="92" rx="12" class="card" filter="url(#en-d-lift)"/>
+<rect x="800" y="413" width="412" height="92" rx="12" fill="#000" fill-opacity="0.3"/><rect x="800" y="411" width="412" height="92" rx="12" class="card"/>
 <rect x="820" y="431" width="32" height="32" rx="8" class="tile"/>
 <g class="ic" transform="translate(828 439)"><path d="M10.8 5.1C10.3 4.1 9.3 3.6 8 3.6c-1.6 0-2.7.8-2.7 2 0 2.9 5.5 1.5 5.5 4.6 0 1.3-1.2 2.2-2.8 2.2-1.4 0-2.4-.6-2.9-1.6M8 2v12"/></g>
 <text x="868" y="453" class="title">Billing</text>
