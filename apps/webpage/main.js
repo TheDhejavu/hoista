@@ -138,7 +138,7 @@ const STEPS = [
   {
     title: '~/moodboard — zsh',
     lines: [
-      ['command', 'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2'],
+      ['command', 'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.3'],
       ['output', 'Verified OK'],
       ['output', 'Installed Hoista to /Users/sam/.local/bin. Add this directory to PATH.'],
       ['output', 'Hoista will start at login and restart after exit.'],
@@ -398,7 +398,7 @@ async function setUpDownloads() {
     const command = document.querySelector('[data-install]');
     if (command) {
       command.textContent =
-        'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2 "$HOME/.local/bin" --start-at-login --desktop';
+        'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.3 "$HOME/.local/bin" --start-at-login --desktop';
     }
   }
 

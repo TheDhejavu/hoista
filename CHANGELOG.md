@@ -4,6 +4,23 @@ All notable changes to Hoista are recorded here. The format follows [Keep a Chan
 
 Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas are published on GitHub as pre-releases; each one replaces the last, until `0.1.0` itself is released.
 
+## [0.1.0-beta.3] - 2026-11-13
+
+### Fixed
+
+- Hoista Desktop for Mac was not sealed with a signature, so a copy downloaded in a browser opened as "damaged and can't be opened", with no way past it. It is now sealed, and macOS shows its normal "can't verify" prompt, which **Open Anyway** in System Settings clears.
+
+### Added
+
+- On a Mac, `install.sh --desktop` also installs Desktop into `/Applications`, after checking its signature. It opens without a warning because the file never passes through a browser. hoista.dev shows this command on Macs.
+
+### Known limitations
+
+- Hoista Desktop is not yet signed with an Apple Developer ID or notarized, so macOS asks you to confirm the first open.
+- No Windows builds yet, of Desktop or the CLI.
+- Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
+- The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
+
 ## [0.1.0-beta.2] - 2026-11-13
 
 Replaces `0.1.0-beta.1`, which was published without downloads because its release build failed on Linux and Windows.

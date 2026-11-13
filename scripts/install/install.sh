@@ -3,7 +3,7 @@
 # hoist and hoistd in ~/.local/bin (or the folder you give). By default
 # Hoista then starts at login; --no-service installs the programs only.
 #
-#   sh install.sh v0.1.0-beta.2 [destination] [--start-at-login | --no-service] [--desktop]
+#   sh install.sh v0.1.0-beta.3 [destination] [--start-at-login | --no-service] [--desktop]
 #
 # --desktop (macOS only) also installs the Desktop app into /Applications.
 # Files fetched by curl carry no quarantine flag, so macOS opens the app
@@ -27,7 +27,7 @@ for arg in "$@"; do
   if [ "$arg" = --desktop ]; then desktop=yes; else set -- "$@" "$arg"; fi
 done
 [ "$#" -le 3 ] || fail 'Too many arguments.'
-version=${1:?Give the release to install, for example v0.1.0-beta.2}
+version=${1:?Give the release to install, for example v0.1.0-beta.3}
 destination=${2:-"$HOME/.local/bin"}
 service_mode=${3:---start-at-login}
 

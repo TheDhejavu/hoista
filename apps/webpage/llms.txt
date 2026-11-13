@@ -14,10 +14,10 @@ Key facts:
 
 ## Install
 
-Current release: Hoista 0.1.0 Beta 2 (`v0.1.0-beta.2`), a public beta. Release notes: https://docs.hoista.dev/changelog. Downloads: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.2.
+Current release: Hoista 0.1.0 Beta 2 (`v0.1.0-beta.3`), a public beta. Release notes: https://docs.hoista.dev/changelog. Downloads: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3.
 
-- [Download for macOS](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.2): also Linux.
-- Command line: `curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2` (needs cosign)
+- [Download for macOS](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3): also Linux.
+- Command line: `curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.3` (needs cosign)
 - Claude Code: `claude mcp add --scope user hoista -- hoist mcp`
 - Cursor, Codex and other coding tools: run `hoist mcp` as an MCP server.
 - Chat apps and cloud agents: point a tunnel or HTTPS proxy at port 8788 on the computer (MCP over HTTP, on by default), or set up a remote; then paste the Hoista URL ending in /mcp into the app's connector settings. See https://docs.hoista.dev/agents/tools/chatgpt.
