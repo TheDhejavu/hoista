@@ -19,10 +19,7 @@
 </p>
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="apps/webpage/assets/shots/desk-02-01-apps-dark.webp">
-    <img src="apps/webpage/assets/shots/desk-02-01-apps.webp" alt="Hoista Desktop showing projects across Cloudflare, Railway, Fly.io and Vercel" width="900">
-  </picture>
+  <img src="apps/webpage/assets/shots/desk-02-01-apps-dark.webp" alt="Hoista Desktop showing projects across Cloudflare, Railway, Fly.io and Vercel" width="900">
 </p>
 
 Most projects end up spread across providers: the frontend on Vercel, the API on Railway or Fly.io, Postgres on Neon, a Worker on Cloudflare, email through Resend. Each has its own dashboard, CLI, logs and bill, and each coding agent you use wants its own API token for each of them.
