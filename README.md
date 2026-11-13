@@ -2,7 +2,7 @@
   <img src="apps/docs/assets/logo-banner.svg" alt="Hoista" height="96">
 </p>
 
-<p align="center"><strong>The open-source control plane for your infrastructure, built for AI agents.</strong></p>
+<p align="center"><strong>Open-source control plane between your AI agents and your infrastructure.</strong></p>
 
 <p align="center">
   <a href="https://github.com/TheDhejavu/hoista/actions/workflows/rust.yml"><img src="https://github.com/TheDhejavu/hoista/actions/workflows/rust.yml/badge.svg" alt="CI"></a>
