@@ -121,7 +121,7 @@ fn descriptor(name: &str, daemon: &str, root: &str, sid: &str) -> anyhow::Result
         argument(&normal_path(root))
     ));
     Ok(format!(
-        r#"<?xml version="1.0" encoding="UTF-8"?>
+        r#"<?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
 <RegistrationInfo><Description>Hoista per-user daemon {name}</Description></RegistrationInfo>
 <Triggers>
