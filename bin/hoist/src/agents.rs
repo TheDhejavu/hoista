@@ -683,7 +683,7 @@ async fn http(
     if link.get("listening").and_then(Value::as_bool) != Some(true) {
         ui::note(&format!(
             "MCP over HTTP is on, but Hoista can't listen at {local}: another app is using port {}. Close that app.",
-            hoista_server::link::PORT
+            hoista_server::link::mcp_port()
         ));
         return Ok(());
     }

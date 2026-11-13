@@ -1,4 +1,4 @@
-//! Where Hoista keeps its files (`~/.hoista` unless told otherwise), and the
+//! Where Hoista keeps its files (`~/.hoista`, or `~/.hoista-dev` for a development build, unless told otherwise), and the
 //! lock that lets only one engine at a time use them.
 
 use std::{
@@ -14,7 +14,8 @@ pub struct StatePaths {
 }
 
 impl StatePaths {
-    /// The given folder, or `~/.hoista`.
+    /// The given folder, or this channel's folder in the home folder: `~/.hoista`
+    /// for a release, `~/.hoista-dev` for a development build.
     ///
     /// # Errors
     /// Fails when no folder is given and the home folder can't be found.
@@ -25,7 +26,7 @@ impl StatePaths {
                 .ok_or_else(|| {
                     io::Error::other("Cannot find your home directory; pass --state-dir.")
                 })?
-                .join(".hoista"),
+                .join(crate::channel::current().state_folder_name()),
         };
         Ok(Self { root })
     }

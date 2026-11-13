@@ -3,6 +3,7 @@
 //!
 //! Nothing here knows about providers, projects or deploys.
 
+pub mod channel;
 pub mod files;
 pub mod paths;
 pub mod process;

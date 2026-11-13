@@ -1,6 +1,14 @@
 use crate::error::{Error, Result};
 
-const SERVICE: &str = "ai.hoista.desktop";
+/// A development build keeps its keys apart from an installed release's.
+fn service() -> &'static str {
+    match std::env::var("HOISTA_CHANNEL").ok().as_deref() {
+        Some("dev") => "ai.hoista.desktop.dev",
+        Some("stable") => "ai.hoista.desktop",
+        _ if cfg!(debug_assertions) => "ai.hoista.desktop.dev",
+        _ => "ai.hoista.desktop",
+    }
+}
 const MAX_REMOTE_ID_BYTES: usize = 64;
 
 /// This computer's key for each remote, in the system keychain.
@@ -40,7 +48,7 @@ fn entry(remote_id: &str) -> Result<keyring::Entry> {
         ));
     }
     Ok(keyring::Entry::new(
-        SERVICE,
+        service(),
         &format!("remote-{remote_id}"),
     )?)
 }

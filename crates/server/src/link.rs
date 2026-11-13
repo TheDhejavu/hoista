@@ -42,7 +42,11 @@ const CALLS_PER_MINUTE: u32 = 600;
 const PAGES_OPENED_PER_MINUTE: u32 = 6;
 
 /// The port MCP over HTTP listens on, on loopback.
-pub const PORT: u16 = 8788;
+/// The port MCP over HTTP listens on: 8788 for a release, 8789 for a
+/// development build, so the two can run together.
+pub fn mcp_port() -> u16 {
+    hoista_system::channel::current().mcp_port()
+}
 
 /// Where an address the person set is kept, so it outlasts a restart. A
 /// learned address isn't kept: the next request through the tunnel teaches it
@@ -81,7 +85,7 @@ fn describe(engine: &Engine) -> serde_json::Value {
     };
     serde_json::json!({
         "listening": engine.mcp_http_open(),
-        "local": (!engine.is_server()).then(|| format!("http://127.0.0.1:{PORT}")),
+        "local": (!engine.is_server()).then(|| format!("http://127.0.0.1:{}", mcp_port())),
         "url": url,
         "mcp": url.as_ref().map(|url| format!("{url}/mcp")),
         "seen_at": url.as_ref().and_then(|_| engine.link_seen()),
@@ -211,7 +215,7 @@ pub async fn serve(
             .await
             .is_ok_and(|settings| settings.mcp_http);
         match (wanted, open.is_some()) {
-            (true, false) => match tokio::net::TcpListener::bind(("127.0.0.1", PORT)).await {
+            (true, false) => match tokio::net::TcpListener::bind(("127.0.0.1", mcp_port())).await {
                 Ok(listener) => {
                     let stop = shutdown.child_token();
                     let until = stop.clone();
@@ -234,10 +238,10 @@ pub async fn serve(
                     });
                     engine.set_mcp_http_open(true);
                     open = Some((stop, task));
-                    tracing::info!(code = "mcp_http.ready", port = PORT);
+                    tracing::info!(code = "mcp_http.ready", port = mcp_port());
                 }
                 Err(error) => {
-                    tracing::warn!(code = "mcp_http.unavailable", port = PORT, %error);
+                    tracing::warn!(code = "mcp_http.unavailable", port = mcp_port(), %error);
                 }
             },
             (false, true) => {
@@ -316,7 +320,8 @@ fn forwarded_origin(headers: &HeaderMap) -> Option<String> {
 }
 
 fn local_host(host: &str) -> bool {
-    host == format!("127.0.0.1:{PORT}") || host == format!("localhost:{PORT}")
+    let port = mcp_port();
+    host == format!("127.0.0.1:{port}") || host == format!("localhost:{port}")
 }
 
 /// Answers only under its public address (set, or learned from the first

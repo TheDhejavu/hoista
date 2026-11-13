@@ -299,8 +299,10 @@ mod store {
     use super::{CredentialError, Secret};
     use std::process::{Command, Stdio};
 
-    /// Keychain Access shows entries under this name.
-    const SERVICE: &str = "Hoista";
+    /// Keychain Access shows entries under this name; each channel has its own.
+    fn service() -> &'static str {
+        hoista_system::channel::current().keychain_label()
+    }
     /// `security` exits with this when the entry doesn't exist.
     const NOT_FOUND: i32 = 44;
     const MAX_REFERENCE_BYTES: usize = 200;
@@ -325,7 +327,7 @@ mod store {
         let output = security(&[
             "find-generic-password",
             "-s",
-            SERVICE,
+            service(),
             "-a",
             reference,
             "-w",
@@ -366,8 +368,9 @@ mod store {
             .stderr(Stdio::null())
             .spawn()
             .map_err(|_| CredentialError::Unavailable)?;
+        let service = service();
         let line = format!(
-            "add-generic-password -U -s \"{SERVICE}\" -a \"{reference}\" -l \"{SERVICE}\" -X \"{value}\"\n"
+            "add-generic-password -U -s \"{service}\" -a \"{reference}\" -l \"{service}\" -X \"{value}\"\n"
         );
         let written = child
             .stdin
@@ -391,7 +394,7 @@ mod store {
     }
 
     fn delete_entry(reference: &str) -> Result<(), CredentialError> {
-        let output = security(&["delete-generic-password", "-s", SERVICE, "-a", reference])?;
+        let output = security(&["delete-generic-password", "-s", service(), "-a", reference])?;
         if output.status.success() || output.status.code() == Some(NOT_FOUND) {
             Ok(())
         } else {
@@ -434,11 +437,13 @@ mod store {
 mod store {
     use super::{CredentialError, Secret};
 
-    /// The service name entries are kept under.
-    const SERVICE: &str = "ai.hoista";
+    /// The service name entries are kept under; each channel has its own.
+    fn service() -> &'static str {
+        hoista_system::channel::current().credential_service()
+    }
 
     fn entry(reference: &str) -> Result<keyring::Entry, CredentialError> {
-        keyring::Entry::new(SERVICE, reference).map_err(|_| CredentialError::Unavailable)
+        keyring::Entry::new(service(), reference).map_err(|_| CredentialError::Unavailable)
     }
 
     fn failure(error: keyring::Error) -> CredentialError {

@@ -13,7 +13,8 @@
 # build, or restarts a running one so it picks up the new build. A restart
 # waits for work under way to finish; nothing is killed.
 #
-# The engine keeps its state in ~/.hoista. For another state folder, point
+# A development build keeps its state in ~/.hoista-dev, apart from an installed
+# release in ~/.hoista. For another state folder, point
 # HOISTA_SOCKET at the socket inside it; the engine and app both use it:
 #   HOISTA_SOCKET=/tmp/hoista-test-state/hoistd.sock scripts/dev.sh
 #
@@ -142,8 +143,8 @@ if [ -n "$demo" ]; then
   echo "Engine:       the demo engine on Sam Rivera's example projects, state in $demo"
   echo "Desktop:      opens in its own window, on the demo (the first start compiles it, a few minutes)"
 else
-  echo "Engine:       running on this build ($("$hoist" --version 2>/dev/null || echo hoist)), state in ${HOISTA_SOCKET:+$(dirname "$HOISTA_SOCKET")}${HOISTA_SOCKET:-$HOME/.hoista}"
-  echo "Desktop:      opens in its own window, on the engine at ${HOISTA_SOCKET:-$HOME/.hoista/hoistd.sock} (the first start compiles it, a few minutes)"
+  echo "Engine:       running on this build ($("$hoist" --version 2>/dev/null || echo hoist)), state in ${HOISTA_SOCKET:+$(dirname "$HOISTA_SOCKET")}${HOISTA_SOCKET:-$HOME/.hoista-dev}"
+  echo "Desktop:      opens in its own window, on the engine at ${HOISTA_SOCKET:-$HOME/.hoista-dev/hoistd.sock} (the first start compiles it, a few minutes)"
 fi
 echo "Press Ctrl-C to stop."
 

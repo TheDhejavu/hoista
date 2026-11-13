@@ -18,7 +18,8 @@ scripts/dev.sh
 `scripts/dev.sh` rebuilds `hoist` and `hoistd`, installs npm packages when the lockfile changed, starts the engine on the new build (or restarts a running one onto it), and opens the desktop app. Ctrl-C closes the app; the engine keeps running.
 
 - `scripts/dev.sh --demo` (or `npm run demo`) opens the app on the demo engine: Hoista's real engine on Sam Rivera's example projects, in `~/.hoista-demo`, with providers answered locally so nothing reaches the internet. Add `--fresh` to start over from the seed.
-- `HOISTA_SOCKET=/some/dir/hoistd.sock scripts/dev.sh` runs against a separate state folder, so you don't touch `~/.hoista`.
+- A development build is its own channel: it keeps state in `~/.hoista-dev`, its credentials under a separate Keychain name and MCP over HTTP on port 8789. It can run beside an installed release (`~/.hoista`, port 8788) without sharing anything. `HOISTA_CHANNEL=stable` or `dev` overrides the choice.
+- `HOISTA_SOCKET=/some/dir/hoistd.sock scripts/dev.sh` runs against a separate state folder, so you don't touch `~/.hoista-dev`.
 - `npm run docs:dev` serves the docs at http://localhost:3001, and `npm run webpage:dev` serves hoista.dev at http://localhost:3000.
 
 ## Project layout
