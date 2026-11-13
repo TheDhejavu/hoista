@@ -392,11 +392,21 @@ async function setUpDownloads() {
   const intel = document.querySelector('[data-mac-other]');
   const { system, chip } = await detectComputer();
 
+  // On a Mac the install command also installs Desktop, without the
+  // "unidentified developer" warning a browser-downloaded .dmg gets.
+  if (system === 'macOS') {
+    const command = document.querySelector('[data-install]');
+    if (command) {
+      command.textContent =
+        'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2 "$HOME/.local/bin" --start-at-login --desktop';
+    }
+  }
+
   if (system === 'macOS' && chip === 'x86') {
     useIntelBuild();
     say('Detected a Mac with an Intel chip.');
   } else if (system === 'macOS' && chip === 'arm') {
-    say('Detected a Mac with Apple Silicon.');
+    say('Detected a Mac with Apple Silicon. The command below installs Desktop without macOS’s unidentified developer warning.');
   } else if (system === 'macOS') {
     say('Detected a Mac. On an Intel Mac? ', link(intel.href, 'Get the Intel version'), '.');
   } else if (system === 'Linux') {
