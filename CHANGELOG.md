@@ -9,6 +9,7 @@ Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas 
 ### Fixed
 
 - Hoista Desktop for Mac was not sealed with a signature, so a copy downloaded in a browser opened as "damaged and can't be opened", with no way past it. It is now sealed, and macOS shows its normal "can't verify" prompt, which **Open Anyway** in System Settings clears.
+- Installing a release over an older one failed while the older engine was still running: the installer reported that the engine and CLI versions differ, and Desktop showed "Try again" on every screen. The installer now stops the previous engine, and the new one starts at login or on the next `hoist` command.
 
 ### Added
 

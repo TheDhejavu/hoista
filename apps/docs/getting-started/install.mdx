@@ -83,6 +83,12 @@ On Linux, download the package from [GitHub releases](https://github.com/TheDhej
 
 Desktop uses the same daemon as the CLI, so install the CLI and daemon too.
 
+## Upgrade
+
+Run the install command again with the new version. The installer replaces `hoist` and `hoistd`, and stops the engine from the old version so the new one starts in its place. Your projects, accounts and settings stay where they are.
+
+If you installed an earlier beta with an older copy of the script and Desktop shows "Try again", the old engine is still running. Run `hoist service restart`, or quit and open Desktop again.
+
 ## Check it works
 
 ```bash
