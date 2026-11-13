@@ -222,6 +222,7 @@ def add_disconnected_account(hoista, _scratch):
         "scopes": [],
         "status": "disconnected",
         "connected_at": "2026-11-02T00:00:00Z",
+        "in_1password": False,
     }
     with sqlite3.connect(hoista.state / "hoista.db") as database:
         database.execute(
@@ -370,6 +371,9 @@ def main():
     args = parser.parse_args()
     if os.name != "posix":
         raise SystemExit("This test needs a Unix terminal and signals.")
+    # hoist never prompts when CI is set (CI services set it), and this test
+    # checks the real prompt, so run it as a person at a terminal would.
+    os.environ.pop("CI", None)
 
     # In /tmp, so the socket's path stays under the system's length limit.
     with tempfile.TemporaryDirectory(prefix="hoista-ipc-", dir="/tmp") as folder:
