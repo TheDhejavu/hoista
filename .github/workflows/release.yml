@@ -129,5 +129,14 @@ jobs:
           case "$RELEASE_TAG" in
             *-*) prerelease=(--prerelease) ;;
           esac
-          gh release create "$RELEASE_TAG" release/* --draft --verify-tag \
-            --title "Hoista ${RELEASE_TAG#v}" --notes-file notes.md "${prerelease[@]}"
+          title="Hoista ${RELEASE_TAG#v}"
+          # Publishing a release in GitHub's web page is what creates its tag,
+          # so the release can exist before its files do. Turn it back into a
+          # draft for review and attach what this run built.
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release edit "$RELEASE_TAG" --draft --title "$title" --notes-file notes.md "${prerelease[@]}"
+            gh release upload "$RELEASE_TAG" release/* --clobber
+          else
+            gh release create "$RELEASE_TAG" release/* --draft --verify-tag \
+              --title "$title" --notes-file notes.md "${prerelease[@]}"
+          fi
