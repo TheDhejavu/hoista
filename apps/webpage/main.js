@@ -138,7 +138,7 @@ const STEPS = [
   {
     title: '~/moodboard — zsh',
     lines: [
-      ['command', 'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1'],
+      ['command', 'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2'],
       ['output', 'Verified OK'],
       ['output', 'Installed Hoista to /Users/sam/.local/bin. Add this directory to PATH.'],
       ['output', 'Hoista will start at login and restart after exit.'],
@@ -387,8 +387,6 @@ function setUpTerminal() {
  * Apple Silicon one; elsewhere a Mac gets Apple Silicon, with Intel offered.
  * ------------------------------------------------------------------------ */
 
-const WINDOWS_INSTALL = 'https://docs.hoista.dev/getting-started/install#windows';
-
 async function setUpDownloads() {
   const note = document.querySelector('.detected');
   const intel = document.querySelector('[data-mac-other]');
@@ -406,11 +404,7 @@ async function setUpDownloads() {
     const deb = document.querySelector('[data-linux="deb"]').href;
     say('Detected Linux. Get the ', link(appImage, 'AppImage'), ' or the ', link(deb, '.deb'), '.');
   } else if (system === 'Windows') {
-    say(
-      'Detected Windows. Desktop for Windows is coming soon; until then, ',
-      link(WINDOWS_INSTALL, 'install the CLI'),
-      '.',
-    );
+    say('Detected Windows. Hoista for Windows is coming soon.');
   } else if (system === 'iOS' || system === 'Android') {
     say('Hoista runs on a computer. Open this page on a Mac or Linux PC to download it.');
   }

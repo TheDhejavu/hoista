@@ -7,11 +7,11 @@ Hoista has two core programs. `hoist` is the CLI and `hoistd` is the daemon. Des
 
 <CodeGroup>
 ```bash macOS and Linux
-curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2
 ```
 
 ```powershell Windows
-.\install.ps1 -Version v0.1.0-beta.1
+.\install.ps1 -Version v0.1.0-beta.2
 ```
 
 ```bash From source
@@ -36,7 +36,7 @@ The script works on macOS (Apple Silicon or Intel) and Linux (x86_64). It instal
 To skip login startup, give the folder too:
 
 ```bash
-curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1 "$HOME/.local/bin" --no-service
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.2 "$HOME/.local/bin" --no-service
 ```
 
 Without the login service, `hoist` still starts the daemon when a command needs it.

@@ -4,6 +4,23 @@ All notable changes to Hoista are recorded here. The format follows [Keep a Chan
 
 Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas are published on GitHub as pre-releases; each one replaces the last, until `0.1.0` itself is released.
 
+## [0.1.0-beta.2] - 2026-11-13
+
+Replaces `0.1.0-beta.1`, which was published without downloads because its release build failed on Linux and Windows.
+
+### Changed
+
+- This beta has no Windows builds. They return once Hoista's deployment tests pass on Windows.
+- The release build frees disk space on the Linux runner before compiling.
+- hoista.dev links straight to each installer, says which Mac chip a download is for, and offers the Intel build to Intel Macs.
+
+### Known limitations
+
+- Hoista Desktop is not yet signed with an Apple Developer ID or notarized, so macOS blocks it on first open.
+- No Windows builds yet, of Desktop or the CLI.
+- Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
+- The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
+
 ## [0.1.0-beta.1] - 2026-11-13
 
 The first public beta of Hoista: the open-source control plane for your infrastructure, built for AI agents.
@@ -32,4 +49,5 @@ The first public beta of Hoista: the open-source control plane for your infrastr
 - Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
 - The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
 
+[0.1.0-beta.2]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1
