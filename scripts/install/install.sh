@@ -20,6 +20,10 @@ fail() {
   exit 1
 }
 
+step() {
+  printf '%s\n' "$1"
+}
+
 # Arguments
 desktop=no
 for arg in "$@"; do
@@ -52,6 +56,8 @@ case "$(uname -s):$(uname -m)" in
   *) fail 'Unsupported platform; build from source.' ;;
 esac
 
+printf 'Installing Hoista %s for %s\n\n' "$version" "$target"
+
 # Download the release and its signature, and check the signature came from
 # this repository's release workflow for this exact tag.
 workdir=$(mktemp -d)
@@ -60,18 +66,32 @@ trap 'rm -rf "$workdir"' EXIT HUP INT TERM
 archive="hoista-$target.tar.gz"
 base="https://github.com/$REPOSITORY/releases/download/$version"
 
+# Shows a progress bar when someone is watching, and stays quiet in scripts.
 download() {
-  curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' "$1" -o "$2"
+  if [ -t 2 ]; then
+    curl --fail --progress-bar --show-error --location --proto '=https' --proto-redir '=https' "$1" -o "$2"
+  else
+    curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' "$1" -o "$2"
+  fi
 }
 
+# Checks a file against its signature, and says nothing unless it fails.
+verify() {
+  if ! cosign verify-blob \
+    --bundle "$2" \
+    --certificate-identity "https://github.com/$REPOSITORY/.github/workflows/release.yml@refs/tags/$version" \
+    --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+    "$1" >"$workdir/cosign.log" 2>&1; then
+    cat "$workdir/cosign.log" >&2
+    fail 'The signature check failed, so nothing was installed.'
+  fi
+}
+
+step 'Downloading Hoista'
 download "$base/$archive" "$workdir/$archive"
 download "$base/$archive.sigstore.json" "$workdir/signature.json"
-
-cosign verify-blob \
-  --bundle "$workdir/signature.json" \
-  --certificate-identity "https://github.com/$REPOSITORY/.github/workflows/release.yml@refs/tags/$version" \
-  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
-  "$workdir/$archive"
+step 'Checking its signature'
+verify "$workdir/$archive" "$workdir/signature.json"
 
 # Unpack only the expected files, and only as regular files.
 tar -tzf "$workdir/$archive" | while IFS= read -r entry; do
@@ -87,20 +107,19 @@ for file in $RELEASE_FILES; do
   [ -f "$workdir/$file" ] && [ ! -L "$workdir/$file" ] || fail 'Release files must be regular files.'
 done
 
-# Install.
+step "Installing to $destination"
 mkdir -p "$destination" "$destination/hoista-notices"
 install -m 755 "$workdir/hoist" "$destination/hoist"
 install -m 755 "$workdir/hoistd" "$destination/hoistd"
 for document in LICENSE THIRD-PARTY-NOTICES.txt DEPENDENCIES.json; do
   install -m 644 "$workdir/$document" "$destination/hoista-notices/$document"
 done
-printf 'Installed Hoista to %s. Add this directory to PATH.\n' "$destination"
 
 # A daemon from the previous install keeps running its old code, and the new
 # hoist and Desktop refuse to talk to a daemon of another version. Stop it;
 # the login service or the next hoist command starts the new one.
 if pgrep -f "$destination/hoistd" >/dev/null 2>&1; then
-  echo 'Stopping the previous version of the Hoista engine.'
+  step 'Stopping the previous version of the Hoista engine'
   pkill -f "$destination/hoistd" >/dev/null 2>&1 || true
   waited=0
   while pgrep -f "$destination/hoistd" >/dev/null 2>&1 && [ "$waited" -lt 20 ]; do
@@ -114,13 +133,12 @@ install_desktop() {
   command -v hdiutil >/dev/null 2>&1 || fail 'hdiutil is missing; cannot open the Desktop disk image.'
   case "$(uname -m)" in arm64) arch=aarch64 ;; *) arch=x64 ;; esac
   dmg="Hoista_${version#v}_$arch.dmg"
+  step 'Downloading Hoista Desktop'
   download "$base/$dmg" "$workdir/$dmg"
   download "$base/$dmg.sigstore.json" "$workdir/dmg-signature.json"
-  cosign verify-blob \
-    --bundle "$workdir/dmg-signature.json" \
-    --certificate-identity "https://github.com/$REPOSITORY/.github/workflows/release.yml@refs/tags/$version" \
-    --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
-    "$workdir/$dmg"
+  step 'Checking its signature'
+  verify "$workdir/$dmg" "$workdir/dmg-signature.json"
+  step 'Installing Hoista Desktop'
   mount="$workdir/mount"
   mkdir -p "$mount"
   hdiutil attach -nobrowse -readonly -quiet -mountpoint "$mount" "$workdir/$dmg" ||
@@ -131,7 +149,7 @@ install_desktop() {
   rm -rf "$apps/Hoista.app"
   ditto "$mount/Hoista.app" "$apps/Hoista.app"
   hdiutil detach -quiet "$mount" || true
-  printf 'Installed Hoista Desktop to %s/Hoista.app.\n' "$apps"
+  desktop_path="$apps/Hoista.app"
 }
 
 if [ "$desktop" = yes ]; then
@@ -139,9 +157,26 @@ if [ "$desktop" = yes ]; then
 fi
 
 if [ "$service_mode" = --start-at-login ]; then
-  "$destination/hoist" service install ||
+  step 'Setting Hoista to start at login'
+  if ! output=$("$destination/hoist" service install 2>&1); then
+    printf '%s\n' "$output" >&2
     fail 'Hoista is installed, but it could not be set to start at login. Run hoist service install from your own login session to try again, or hoist start for now.'
+  fi
+  login='Hoista starts at login.'
 else
-  echo 'Hoista won’t start at login. Run hoist service install when you want it to; any hoist command also starts it when needed.'
+  login='Hoista won’t start at login. Run hoist service install when you want it to; any hoist command also starts it when needed.'
 fi
+
+printf '\nHoista %s is installed.\n' "$version"
+printf '  CLI and engine  %s\n' "$destination"
+[ -z "${desktop_path:-}" ] || printf '  Desktop         %s\n' "$desktop_path"
+printf '  %s\n' "$login"
+case ":$PATH:" in
+  *":$destination:"*) ;;
+  *)
+    printf '\nAdd %s to your PATH to use hoist from any folder:\n' "$destination"
+    printf "  export PATH=\"%s:\$PATH\"\n" "$destination"
+    ;;
+esac
+echo
 echo 'Next: hoist accounts add, then hoist mcp config to connect your coding tool.'
