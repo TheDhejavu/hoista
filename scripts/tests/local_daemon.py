@@ -143,7 +143,8 @@ def token_prompt_never_shows_the_token(hoista, _scratch):
         assert found == pid, "The prompt didn't exit"
         exited = True
         assert os.waitstatus_to_exitcode(status) != 0
-        assert typed and FAKE_TOKEN not in transcript
+        assert typed, f"The token prompt never appeared. The terminal showed: {transcript!r}"
+        assert FAKE_TOKEN not in transcript
         assert b"control characters" in transcript, repr(transcript)
     finally:
         os.close(terminal)

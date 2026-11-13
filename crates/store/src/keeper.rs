@@ -4,6 +4,9 @@
 //!
 //! Messages are length-prefixed JSON over a Unix socket.
 
+// The keeper serves over a Unix socket, so on Windows nothing calls into it yet.
+#![cfg_attr(windows, allow(dead_code))]
+
 use super::{
     onepassword::{self, ReferencedVault},
     process::{self, ProcessError},
