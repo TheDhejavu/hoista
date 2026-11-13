@@ -3,6 +3,14 @@ all-features = false
 
 [advisories]
 version = 2
+# Reviewed exceptions. Each one needs a reason and should be dropped when the
+# dependency moves on.
+ignore = [
+  { id = "RUSTSEC-2026-0459", reason = "SQLite before 3.54 can leak memory when it opens a database file with a mismatched -wal file written by someone else. Hoista only opens its own database in its own data folder. Fixed by moving to sqlx 0.9, which is planned." },
+  { id = "RUSTSEC-2026-0370", reason = "zvariant is unmaintained and has no replacement. It comes in through keyring's Secret Service support on Linux. Revisit when keyring moves off it." },
+  { id = "RUSTSEC-2026-0371", reason = "zbus_names is unmaintained and has no replacement. Same path as zvariant, through keyring on Linux." },
+  { id = "RUSTSEC-2026-0372", reason = "zvariant_derive is unmaintained and has no replacement. Same path as zvariant, through keyring on Linux." },
+]
 
 [licenses]
 version = 2

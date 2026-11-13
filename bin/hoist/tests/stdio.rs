@@ -203,15 +203,23 @@ async fn stdio_over_native_ipc_requires_initialization_and_owner_approval() {
             .is_err()
     );
     // Connecting asks straight away: the request is there before any tool call.
-    let request = loop {
-        let requests = owner.get_json("/agents/connection-requests").await.unwrap();
-        if let Some(found) = requests["items"]
-            .as_array()
-            .and_then(|items| items.iter().find(|item| item["name"] == "Scripted stdio"))
-        {
-            break found.clone();
+    let waiting = tokio::time::timeout(std::time::Duration::from_secs(20), async {
+        loop {
+            let requests = owner.get_json("/agents/connection-requests").await.unwrap();
+            if let Some(found) = requests["items"]
+                .as_array()
+                .and_then(|items| items.iter().find(|item| item["name"] == "Scripted stdio"))
+            {
+                break found.clone();
+            }
+            tokio::time::sleep(std::time::Duration::from_millis(50)).await;
         }
-        tokio::time::sleep(std::time::Duration::from_millis(50)).await;
+    })
+    .await;
+    let Ok(request) = waiting else {
+        child.kill().await.unwrap();
+        let log = stderr_task.await.unwrap();
+        panic!("the bridge never asked to connect. Its stderr:\n{log}");
     };
     assert_eq!(request["code"].as_str().unwrap().len(), 7);
     owner
@@ -360,26 +368,34 @@ async fn stdio_over_native_ipc_requires_initialization_and_owner_approval() {
     // it reuses the credential it saved; without one (as here) it asks again,
     // and allowing that makes a fresh identity.
     async fn allow_named(owner: &LocalClient, name: &str) {
-        loop {
-            let requests = owner.get_json("/agents/connection-requests").await.unwrap();
-            if let Some(found) = requests["items"]
-                .as_array()
-                .and_then(|items| items.iter().find(|item| item["name"] == name))
-            {
-                owner
-                    .post_json(
-                        &format!(
-                            "/agents/connection-requests/{}",
-                            found["id"].as_str().unwrap()
-                        ),
-                        &json!({"allow": true}),
-                    )
-                    .await
-                    .unwrap();
-                return;
+        let wait = async {
+            loop {
+                let requests = owner.get_json("/agents/connection-requests").await.unwrap();
+                if let Some(found) = requests["items"]
+                    .as_array()
+                    .and_then(|items| items.iter().find(|item| item["name"] == name))
+                {
+                    owner
+                        .post_json(
+                            &format!(
+                                "/agents/connection-requests/{}",
+                                found["id"].as_str().unwrap()
+                            ),
+                            &json!({"allow": true}),
+                        )
+                        .await
+                        .unwrap();
+                    return;
+                }
+                tokio::time::sleep(std::time::Duration::from_millis(50)).await;
             }
-            tokio::time::sleep(std::time::Duration::from_millis(50)).await;
-        }
+        };
+        tokio::time::timeout(std::time::Duration::from_secs(20), wait)
+            .await
+            .expect(
+                "no connection request appeared. On a machine with a keychain the session \
+                 reuses its saved credential and never asks again; this test expects none",
+            );
     }
     let mut resumed = command.spawn().unwrap();
     let mut resumed_input = resumed.stdin.take().unwrap();

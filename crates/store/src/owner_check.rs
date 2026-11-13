@@ -64,7 +64,7 @@ mod platform {
             windows: WindowsText::new_truncated("Hoista", reason),
         };
         let (send, answer) = std::sync::mpsc::channel::<bool>();
-        // Kept until the answer arrives, so the prompt isn't cancelled.
+        // Lives to the end of this function, so the prompt isn't cancelled before the answer arrives.
         let context = Context::new(());
         context
             .authenticate(text, &policy, move |result| {
@@ -72,7 +72,6 @@ mod platform {
             })
             .map_err(|_| unavailable())?;
         let confirmed = answer.recv_timeout(WAIT).unwrap_or(false);
-        drop(context);
         if confirmed { Ok(()) } else { Err(declined()) }
     }
 }

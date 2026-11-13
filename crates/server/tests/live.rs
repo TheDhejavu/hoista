@@ -565,6 +565,7 @@ fn cleanup_requires_exact_unambiguous_identity_and_complete_required_inventory()
         region: None,
         status: ResourceStatus::Unknown,
         url: None,
+        group: None,
     };
     let mut report = DiscoveryReport {
         resources: vec![resource("other", "worker:other")],
@@ -638,6 +639,7 @@ impl ProviderAdapter for CleanupFixture {
                 region: None,
                 status: ResourceStatus::Unknown,
                 url: None,
+                group: None,
             }]
         } else {
             vec![]
