@@ -76,7 +76,7 @@ impl LeakScanner {
     /// Compiles the patterns.
     ///
     /// # Errors
-    /// Returns an error if one of [`PATTERNS`] isn't a valid regular expression.
+    /// Returns an error if one of `PATTERNS` isn't a valid regular expression.
     pub fn new() -> Result<Self, regex::Error> {
         let patterns = PATTERNS
             .into_iter()

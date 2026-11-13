@@ -170,11 +170,11 @@ impl<'a> DeployService<'a> {
             .await
     }
 
-    /// [`Engine::provider_action`], with the approval an agent got for a
-    /// destructive action (see [`Engine::provider_action_gate`]).
+    /// `Engine::provider_action`, with the approval an agent got for a
+    /// destructive action (see `Engine::provider_action_gate`).
     ///
     /// # Errors
-    /// As [`Engine::provider_action`], plus a missing or unmatched approval.
+    /// As `Engine::provider_action`, plus a missing or unmatched approval.
     pub async fn provider_action_approved(
         self,
         actor: &Actor,

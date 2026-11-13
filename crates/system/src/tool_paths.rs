@@ -28,7 +28,7 @@ const MAX_DIRECTORY_CHARS: usize = 4096;
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ToolPaths {
-    /// Always [`FORMAT_VERSION`].
+    /// Always `FORMAT_VERSION`.
     pub version: u32,
     /// Absolute folders, searched in this order.
     pub directories: Vec<PathBuf>,

@@ -155,7 +155,7 @@ impl<'a> ProjectService<'a> {
         Ok(result)
     }
 
-    /// Groups the chosen candidates from a reviewed [`Engine::resolve_description`] result.
+    /// Groups the chosen candidates from a reviewed `Engine::resolve_description` result.
     /// The usual project checks apply; no dependency is assumed and nothing changes at the provider.
     /// # Errors
     /// Rejects a stale review token, unauthorized writes, invalid choices and resources in
