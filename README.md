@@ -26,10 +26,12 @@ It's not a host. Your apps keep running on your providers, and nothing sits betw
 
 ## Install
 
-The desktop app and the CLI are on [GitHub releases](https://github.com/TheDhejavu/hoista/releases). For the CLI on macOS or Linux:
+Hoista is in public beta. The current release is **0.1.0 Beta 1** (`v0.1.0-beta.1`): [download it](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1) and read [what's in it](CHANGELOG.md).
+
+The desktop app (macOS and Linux) and the CLI are on that release page. For the CLI on macOS or Linux:
 
 ```sh
-curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1
 ```
 
 The installer verifies the release signature with [cosign](https://docs.sigstore.dev/cosign/system_config/installation/), puts `hoist` and `hoistd` in `~/.local/bin`, and starts Hoista at login. Windows and other options: [Install](https://docs.hoista.dev/getting-started/install).

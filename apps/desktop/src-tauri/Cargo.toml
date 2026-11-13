@@ -1,6 +1,6 @@
 [package]
 name = "hoista-desktop"
-version = "0.1.0"
+version = "0.1.0-beta.1"
 description = "Hoista Desktop: the window and menu bar app for Hoista"
 edition = "2024"
 license = "MIT"

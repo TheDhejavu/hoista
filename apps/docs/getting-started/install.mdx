@@ -7,11 +7,11 @@ Hoista has two core programs. `hoist` is the CLI and `hoistd` is the daemon. Des
 
 <CodeGroup>
 ```bash macOS and Linux
-curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1
 ```
 
 ```powershell Windows
-.\install.ps1 -Version v0.1.0
+.\install.ps1 -Version v0.1.0-beta.1
 ```
 
 ```bash From source
@@ -36,7 +36,7 @@ The script works on macOS (Apple Silicon or Intel) and Linux (x86_64). It instal
 To skip login startup, give the folder too:
 
 ```bash
-curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0 "$HOME/.local/bin" --no-service
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1 "$HOME/.local/bin" --no-service
 ```
 
 Without the login service, `hoist` still starts the daemon when a command needs it.
@@ -62,12 +62,28 @@ The app is in `apps/desktop/src-tauri/target/release/bundle/`. On Linux, ask for
 
 ## Desktop app
 
-Download Desktop from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
+Download Desktop from the [v0.1.0-beta.1 release](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1). Use only the files listed on the release page.
 
 | System | Package |
 | --- | --- |
-| macOS | Apple Silicon and Intel |
+| macOS, Apple Silicon | `Hoista_0.1.0-beta.1_aarch64.dmg` |
+| macOS, Intel | `Hoista_0.1.0-beta.1_x64.dmg` |
 | Linux | AppImage and Debian package |
+
+Each file has a `.sigstore.json` signature beside it. To check one before opening it:
+
+```bash
+cosign verify-blob --bundle Hoista_0.1.0-beta.1_aarch64.dmg.sigstore.json \
+  --certificate-identity "https://github.com/TheDhejavu/hoista/.github/workflows/release.yml@refs/tags/v0.1.0-beta.1" \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  Hoista_0.1.0-beta.1_aarch64.dmg
+```
+
+During the beta, the macOS app is not signed with an Apple Developer ID or notarized, so macOS refuses to open it the first time. After moving Hoista to Applications, clear the download flag once:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Hoista.app
+```
 
 Desktop uses the same daemon as the CLI, so install the CLI and daemon too.
 
