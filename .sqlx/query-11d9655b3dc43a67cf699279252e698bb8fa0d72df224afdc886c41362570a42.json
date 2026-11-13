@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM secret_metadata WHERE resource_id = ? AND name = ?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "11d9655b3dc43a67cf699279252e698bb8fa0d72df224afdc886c41362570a42"
+}

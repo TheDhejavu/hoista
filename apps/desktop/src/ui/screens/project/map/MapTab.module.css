@@ -1,0 +1,123 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 334px;
+  align-items: start;
+  gap: 16px;
+  padding: 20px var(--page-gutter) 32px;
+}
+
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: var(--bg-soft);
+  background-image: radial-gradient(var(--line-strong) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+.overlay {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.zoomButton,
+.fitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border: none;
+  border-radius: 999px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+  color: var(--text);
+}
+
+.zoomButton {
+  width: 30px;
+}
+
+.fitButton {
+  padding: 0 14px;
+}
+
+.zoomButton:hover,
+.fitButton:hover {
+  background: var(--bg-hover);
+}
+
+.canvasArea {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 24px 0;
+}
+
+.caption {
+  padding: 0 16px 14px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.filterNote {
+  color: var(--text-3);
+  font-size: var(--text-sm);
+}
+
+/* The bottom edge: drag it for a taller map. */
+.resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 12px;
+  cursor: ns-resize;
+  touch-action: none;
+}
+
+.resize::after {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 44px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  content: '';
+  transform: translateX(-50%);
+}
+
+.resize:hover::after,
+.resize:focus-visible::after,
+.resizing::after {
+  background: var(--text-3);
+}
+
+.resizing {
+  cursor: ns-resize;
+}
+
+/* While the map loads: boxes where the resources go. */
+.mapSkeleton {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  min-height: 320px;
+  padding: 40px;
+}

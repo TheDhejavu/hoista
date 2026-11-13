@@ -1,0 +1,3 @@
+# Hand-formatted: the logo and pixel-art paths are long lines of data, and
+# Prettier would rewrap the inline markup in ways that are harder to read.
+index.html

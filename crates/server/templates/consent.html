@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# An agent asks to use Hoista: who it is, the code to match, and what it may reach. #}
+{% block content %}
+<div class="pair"><span class="tile">{% include "icons/terminal.svg" %}</span>{% call parts::to_hoista(false) %}{% endcall %}</div>
+<p class="where">Connecting to <b>{{ place }}</b></p>
+{%- if let Some(host) = returns_to %}
+<p class="where">Afterwards your browser goes back to <b>{{ host }}</b></p>
+{%- endif %}
+<form class="card wide" method="post" id="consent"{% for level in levels_said %} data-s{{ loop.index0 }}="{{ level.summary }}" data-a{{ loop.index0 }}="{{ level.asks }}"{% endfor %}>
+<input type="hidden" name="token" value="{{ token }}">
+{%- if let Some(back) = back %}<input type="hidden" name="back" value="{{ back }}">{% endif %}
+<h1>{{ name }}</h1>
+<p class="sub">wants to use your Hoista</p>
+{#- The app shows the same code when it sees this sign-in, so the two can be matched. #}
+<div class="code">Request code <b>{{ code }}</b> <span>The Hoista app shows the same code.</span></div>
+<p class="summary" id="summary">{{ summary_first|safe }}</p>
+<details><summary>{% include "icons/chevron.svg" %}<span class="when-open">Hide permissions</span><span class="when-shut">Show permissions</span></summary>
+<ul class="perms">
+{%- for perm in permissions %}<li class="perm" data-level="{{ perm.from }}"{% if perm.hidden %} hidden{% endif %}>{% include "icons/tick.svg" %}<span><b>{{ perm.title }}</b>: {{ perm.detail }}<code>{{ perm.scope }}</code></span></li>{% endfor -%}
+<li class="always">{% include "icons/lock.svg" %}<span id="asks">{{ asks_first }}</span></li></ul></details>
+{%- if !can_ask %}
+<p class="note">{{ name }} can't show Hoista's questions, so it gets View only or Full access. With Full access it changes anything, including deleting, without asking.</p>
+{%- endif %}
+<div class="panel"><button type="button" class="settings" id="edit" aria-expanded="false" aria-controls="choices"><span class="settings-text"><b>Access settings</b><span id="chosen">{{ chosen }}</span></span><span class="edit">Edit {% include "icons/chevron.svg" %}</span></button>
+<div class="choices" id="choices" hidden>
+<input type="hidden" name="env_ids" id="env_ids" value=""><input type="hidden" name="project_ids" id="project_ids" value="">
+<div class="step"><span class="num">1</span><div class="step-body"><b>Environments it can reach</b><span class="hint">Projects in the others are hidden from it.</span><div class="checks" id="envs">
+{%- for environment in environments %}<label class="check"><input type="checkbox" class="env" value="{{ environment.id }}" data-name="{{ environment.name }}" checked><span>{{ environment.name }}</span></label>{% endfor -%}
+</div><span class="warn" id="no-env" hidden>Pick at least one environment.</span></div></div>
+<div class="step"><span class="num">2</span><div class="step-body"><b>Projects it can see and change</b><span class="hint" id="scope-hint">From every environment.</span>
+<div class="opts" role="radiogroup" aria-label="Projects it can see and change"><label class="opt"><input type="radio" name="scope" value="all" checked><span><b id="every">Every project</b><span class="hint" id="every-hint">And ones you add later</span></span></label><label class="opt"><input type="radio" name="scope" value="some"><span><b>Only the projects I pick</b><span class="hint">It can’t see the rest</span></span></label></div>
+<div class="pick" id="pick" hidden><div class="find"><input type="search" id="find" placeholder="Find a project" aria-label="Find a project" autocomplete="off"><span class="count" id="count"></span></div>
+<div class="plist" id="projects">
+{%- for project in projects %}<label class="prow" data-env="{{ project.environment_id }}" data-find="{{ project.find }}"><input type="checkbox" class="proj" value="{{ project.id }}" data-name="{{ project.name }}"><span class="pname">{{ project.name }}</span>
+{%- if let Some(environment) = project.environment %}<span class="penv">{{ environment }}</span>{% endif -%}
+<span class="plogos">{% for provider in project.providers %}<span title="{{ provider.name }}">{{ provider.logo|safe }}</span>{% endfor %}</span></label>{% endfor -%}
+</div><span class="hint" id="none-here" hidden>No projects in these environments yet.</span><span class="hint" id="no-match" hidden>No project matches that.</span></div>
+<span class="warn" id="no-project" hidden>Pick at least one project, or choose Every project.</span>
+{%- if uses.is_empty() %}
+<span class="hint">No providers connected yet. Projects from providers you connect later are included.</span>
+{%- else %}
+<div class="uses" id="uses"><div class="uses-head">Accounts it will use</div>
+{%- for account in uses %}<div class="use" data-projects="{{ account.project_ids }}"><span class="use-logo">{{ account.logo|safe }}</span><b>{{ account.provider }}</b><span class="use-acct">{{ account.label }}</span><span class="use-n"></span></div>{% endfor -%}
+<div class="use-none" id="uses-none" hidden>None of these projects runs on a connected account yet.</div></div>
+{%- endif %}
+</div></div>
+<div class="step"><span class="num">3</span><div class="step-body"><label for="access"><b>What it can do</b></label><span class="hint">In those projects.</span><select name="access" id="access">
+{%- for option in levels %}<option value="{{ option.value }}"{% if option.selected %} selected{% endif %}>{{ option.label }}</option>{% endfor -%}
+</select></div></div>
+<div class="step"><span class="num">4</span><div class="step-body"><label for="ends"><b>Access ends</b></label><span class="hint">After that every request is refused until you change it.</span><select name="ends" id="ends">
+{%- for option in ends %}<option value="{{ option.value }}"{% if option.selected %} selected{% endif %}>{{ option.label }}</option>{% endfor -%}
+</select></div></div>
+<p class="step-note">Narrower access for some resources, such as view only on databases, is set afterwards in Hoista → Agents → Exceptions.</p>
+</div></div>
+<div class="choices">
+{%- if let Some(replace) = replace %}<label class="choice setup"><input type="checkbox" name="replace" value="on" checked><span><b>{{ replace.title }}</b><span class="hint">{{ replace.hint }}</span></span></label>{% endif -%}
+{%- if let Some(setup) = setup %}<label class="choice setup"><input type="checkbox" name="setup" value="on" checked><span><b>{{ setup.title }}</b><span class="hint">{{ setup.hint }}</span></span></label>{% endif -%}
+</div>
+<button class="go" name="decision" value="allow">Authorize</button>
+<p class="fine">You can change any of this later in Hoista → Agents, or with <code>hoist agents</code>.</p>
+</form>
+<button class="cancel" form="consent" name="decision" value="deny">Cancel</button>
+{% endblock %}
+{% block scripts %}
+<script>{% include "assets/consent.js" %}</script>
+{%- if follow %}
+{#- A tool on this computer is answered in the Hoista app: once it is, this page
+    shows the request has ended instead of a form that no longer works. #}
+<script>{% include "assets/follow.js" %}</script>
+{%- endif %}
+{% endblock %}

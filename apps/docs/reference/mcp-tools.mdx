@@ -1,0 +1,510 @@
+---
+title: "MCP tool catalog"
+description: "Tools available through the Hoista MCP server."
+---
+
+
+Hoista exposes **82 MCP tools** for projects, deploys, provider controls and operation history. Each call goes through the daemon, which checks the client grant and any required approval. Use `tools/list` to inspect the schemas and tools available to your connection.
+
+
+Expand a tool for its description, or [download the catalog](/assets/mcp-catalog.json).
+
+<AccordionGroup>
+
+<Accordion title="get_my_access">
+
+**Read-only hint.** Read what this connection may do: its scopes (read, deploy and change, create), the projects and environments it may touch, tools it may never use, and when its access ends. Call this before planning work, instead of finding out by being refused. active_project is the project of the folder this agent works in (named in its .hoista/project.json, its source folder, or a clone of its repository), or null: tools about one project use it when project_id is left out.
+
+</Accordion>
+
+<Accordion title="resolve_operation">
+
+**May change state.** Say whether an unclear change happened at the provider (an operation.unclear refusal names it), after reading the provider to see. Give what you read as evidence; it's kept with the change and shown to the person in Activity. Then an identical change can be made again. Before saying it didn't happen, read twice a few seconds apart: providers can be slow to list something new.
+
+</Accordion>
+
+<Accordion title="use_project">
+
+**Read-only hint.** Make a project the active project of the folder this agent works in, by writing its id to .hoista/project.json at the repository's root (kept out of git: ids are this computer's own). Later sessions in that folder find it without being told. Only for a coding tool on this computer.
+
+</Accordion>
+
+<Accordion title="list_environments">
+
+**Read-only hint.** List Hoista's environments: separate spaces for projects, such as default and production. Every project is in one. They are Hoista's own; a provider's environments (such as a preview environment) are separate. Only environments this connection may touch are listed.
+
+</Accordion>
+
+<Accordion title="move_project">
+
+**May change state.** Move a project into another Hoista environment, such as from default to production. Nothing changes at the provider. Fails when that environment already has a project of the same name.
+
+</Accordion>
+
+<Accordion title="list_projects">
+
+**Read-only hint.** List every project on every connected provider with its observed status, public URL, resources and last deploy, with cursor pagination. Watched projects (mode watching) run on their provider; Hoista reads them.
+
+</Accordion>
+
+<Accordion title="get_attention">
+
+**Read-only hint.** Read what needs the person: pending approvals and notices such as failed deploys, failing or idle resources and accounts to reconnect. Follow both cursors to read everything.
+
+</Accordion>
+
+<Accordion title="get_database_operations">
+
+**Read-only hint.** Read a page of database operations. Finished starts are counted only within this page, not as a daily or lifetime wake total.
+
+</Accordion>
+
+<Accordion title="refresh_resource_bindings">
+
+**May change state.** Refresh the bindings a provider reports into the local map without changing cloud configuration. Disappeared observed edges are retained as missing.
+
+</Accordion>
+
+<Accordion title="get_project">
+
+**Read-only hint.** Read a project's status, resources (with each resource's provider, status and URL), links, last deploy and usage stats.
+
+</Accordion>
+
+<Accordion title="list_provider_operations">
+
+**Read-only hint.** List everything the provider behind a resource (resource_id) or a connected account (account_id) can do through Hoista: its full API and, where Hoista has one, its command-line tool (operations named like `supabase db push`, run by Hoista with the token so you never need it or the CLI), grouped by area (deploys, environments, networking, storage and backups, observability, edge, templates, feature flags…). Each entry has its name, risk (read, change, or destroy, which needs the person's approval) and required arguments. Filter with area. Then call describe_provider_operation for an operation's full argument schema, and run_provider_operation to run it.
+
+</Accordion>
+
+<Accordion title="describe_provider_operation">
+
+**Read-only hint.** Read one provider operation's full argument schema. Arguments marked filled_in (project, environment, service, workspace) are filled from resource_id or account_id when you leave them out.
+
+</Accordion>
+
+<Accordion title="give_key">
+
+**May change state.** Give one service a key to another without anyone handling it, and set it straight into that service's variables: on Resend Hoista makes a key that can only send from the domain (RESEND_API_KEY); on Supabase it takes the project's public anon or publishable key (SUPABASE_ANON_KEY; pass variable, such as NEXT_PUBLIC_SUPABASE_ANON_KEY, for a browser app). The key is never returned or kept. Use this instead of asking the person to create or paste a key.
+
+</Accordion>
+
+<Accordion title="move_resources">
+
+**May change state.** Move resources into another project, from whichever project they are in now: for a resource that landed in the wrong project, such as one Hoista put in a project of its own after a provider operation created it. Nothing changes at the provider and the project keeps its mode. A project left empty with no deploys is removed.
+
+</Accordion>
+
+<Accordion title="run_provider_operation">
+
+**May change state.** Run one operation from list_provider_operations on a resource (resource_id) or account (account_id), with args as an object. When it creates something, pass project_id so it joins that project; without it, something made on an account becomes a project of its own. Reads return the provider's answer with secrets removed; changes are recorded in Activity; destroy operations return pending with an approval_id the first time: retry with it once the person allows it in Hoista. Prefer Hoista's dedicated tools (deploy_folder, set_secret, get_logs…) where they exist; use this for everything else. Never put a key's value in args: for variables an operation takes (a pod's env, say), pass env_file (a .env file's absolute path) and env_names, and Hoista puts the values in env_arg itself and keeps them out of the answer.
+
+</Accordion>
+
+<Accordion title="get_metrics">
+
+**Read-only hint.** Read a resource's numbers over a range (1h, 24h, 7d, 30d) as its provider reports them, for providers whose capabilities include metrics. Most providers answer with charts: each has an id, label, unit (count, milliseconds, percent, bytes, cores, seconds) and lines of &#123;at, value&#125; points, such as requests by status class, response time, CPU, memory or emails sent; note says what the provider couldn't answer. Railway answers requests and errors by status code, response time p50/p90/p95/p99, CPU and memory with their limits, network and disk, each series [&#123;ts, value&#125;], with null for what it doesn't report. Nothing is estimated.
+
+</Accordion>
+
+<Accordion title="get_bills">
+
+**Read-only hint.** Read what each connected provider has actually billed so far this billing period, one row per connected account: bill (the money billed, with the period) when the provider shares it, plan_usage where it counts usage but not money, and note saying why when there is neither (no charges yet, the token can't read billing, the provider didn't answer). Hoista never estimates cost, and per-project costs are not available.
+
+</Accordion>
+
+<Accordion title="get_provider_details">
+
+**Read-only hint.** Read what the provider reports for a resource right now (for providers that support it): its own deployment history with status, commit and time, its variable names (never values) and its domains. Nothing changes at the provider.
+
+</Accordion>
+
+<Accordion title="get_project_map">
+
+**Read-only hint.** Read resource nodes and dependency edges.
+
+</Accordion>
+
+<Accordion title="create_project">
+
+**May change state.** Create an empty project. With source (a folder or repository), it's for plan_deploy and deploy, which Hoista builds and sends to a provider it deploys to. Without source, it's a project whose pieces you add at any providers with add_to_project: code, databases, buckets, email domains and images, one call each. To have one provider build a repository as a project of its own, use create_project_at_provider. Only for a new project: when the folder already belongs to one (get_my_access, active_project) it's refused unless confirm_new is true with a reason, which you set only when the person said it's new. After making one, call use_project so later sessions find it.
+
+</Accordion>
+
+<Accordion title="create_project_at_provider">
+
+**May change state.** Create a new project at a provider, on a connected account: from a GitHub repository (repo) where its capabilities include new_app, as a new project of its own with one service deploying the repo and a public address; or from a folder on this computer where they include new_from_folder, deployed with the provider's own tool (Modal: the folder's Python file that makes a modal.App, deployed under the project's name): give folder for a new project, or project_id for an empty project you already linked to a folder with create_project. This is how a first deploy to Modal is made; its modal deploy operation only redeploys an app Hoista already watches. The provider builds it; Hoista watches it like any watched project. Returns the project and its resources. Then call get_provider_details for the newest deployment id and wait_for_deploy with it. Never adds anything to a project that already has resources: for that, use add_to_project.
+
+</Accordion>
+
+<Accordion title="list_domains">
+
+**Read-only hint.** Read a page of saved hostnames and their last DNS/certificate observations for a project.
+
+</Accordion>
+
+<Accordion title="check_domain">
+
+**May change state.** Refresh a managed hostname's DNS/certificate state. Requires apps:write; may trigger provider validation. Fly checks never recreate a removed hostname.
+
+</Accordion>
+
+<Accordion title="delete_domain">
+
+**May change state.** Request approval to detach a hostname and ALL its certificates (including custom Fly certificates), then retry with approval_id. Leaves DNS records and the project intact. An uncertain provider result requires inspection and a new approval, not replay.
+
+</Accordion>
+
+<Accordion title="add_domain">
+
+**May change state.** Add a custom hostname to a managed resource; requires apps:create. A missing DNS zone is created only when create_zone is explicitly true.
+
+</Accordion>
+
+<Accordion title="plan_deploy">
+
+**May change state.** Inspect a local folder and create a deployment plan. With project_id, the folder is the project's source folder or one inside it (one app of a monorepo), and the plan uses the project's existing database instead of making another; deploy it with the same project_id.
+
+</Accordion>
+
+<Accordion title="get_plan">
+
+**Read-only hint.** Read a saved plan and its revision, including immutable queued snapshots.
+
+</Accordion>
+
+<Accordion title="edit_plan">
+
+**May change state.** Validate and reprice a saved plan without deploying. Preserve its read revision; stale edits fail and must be reviewed against a fresh read. Queued snapshots cannot be edited.
+
+</Accordion>
+
+<Accordion title="deploy">
+
+**May change state.** Queue a saved deployment plan for a managed project.
+
+</Accordion>
+
+<Accordion title="cancel_deploy">
+
+**May change state.** Request cancellation at the next safe boundary; in-flight provider writes may finish first.
+
+</Accordion>
+
+<Accordion title="rollback">
+
+**May change state.** Restore a previously successful deployment by id.
+
+</Accordion>
+
+<Accordion title="list_repositories">
+
+**Read-only hint.** List the GitHub repositories a connected GitHub account (provider github, from get_my_access) can reach, newest pushed first: owner/name, default branch, private or not, last push. Use it to find where a project's code lives before pushing to it with git. Listing needs only the token's metadata access; link_repository also reads the newest commit, so it needs Contents: read on the repository.
+
+</Accordion>
+
+<Accordion title="link_repository">
+
+**May change state.** Link a project to one of the GitHub account's repositories, at the newest commit of branch (the repository's default when absent), so the person and agents know which code it runs. Push to that repository with git; providers that build from it deploy the push themselves.
+
+</Accordion>
+
+<Accordion title="link_folder">
+
+**May change state.** Link a project to the local folder its code is in, so the person and agents know which code it runs. Call it after making something at a provider from a folder (an image you built, a pod or function you created), since the provider doesn't say where its code came from.
+
+</Accordion>
+
+<Accordion title="get_log_history">
+
+**Read-only hint.** Read up to 100 retained log records for a resource in a fixed time range, as the resource's provider keeps them (for some providers, only the latest deployment's). Retention and sampling may omit events. Follow next_cursor with the same query.
+
+</Accordion>
+
+<Accordion title="get_resource">
+
+**Read-only hint.** Read a resource's recorded dependencies, consumers, domains, latest usage and latest recorded release. Does not refresh providers or prove that release is currently serving.
+
+</Accordion>
+
+<Accordion title="get_database">
+
+**Read-only hint.** Read database branches and compute state without waking or connecting to the database, on providers that report them. No credentials or inferred wake counts are returned. For any other provider's database (tables, backups, settings, queries), use list_provider_operations with its resource_id.
+
+</Accordion>
+
+<Accordion title="get_logs">
+
+**Read-only hint.** Capture up to 100 redacted live log records over five seconds from a resource whose provider has live logs; no historical backfill (use get_log_history).
+
+</Accordion>
+
+<Accordion title="get_deployment_request">
+
+**Read-only hint.** Inspect your committed deployment request by UUID without secret inputs or resubmission. A missing result is not proof an in-flight submission cannot still commit; a null deployment means accepted history was removed.
+
+</Accordion>
+
+<Accordion title="get_deploy">
+
+**Read-only hint.** Read deployment progress and release metadata.
+
+</Accordion>
+
+<Accordion title="wait_for_deploy">
+
+**Read-only hint.** Wait until a deploy finishes (live, failed or stopped), up to timeout_seconds (default 60, at most 120), checking every 5 seconds. Works for Hoista's deploys and for deploys at a watched provider (ids from get_provider_details). Returns finished true with the result, or finished false with the current status: then call it again. Use this to keep checking a deploy instead of shell loops or sleeps.
+
+</Accordion>
+
+<Accordion title="replace_environment">
+
+**May change state.** Queue a reviewed project deployment with new environment values for every runtime resource. Values stay in memory; restart requires resubmission. Managed bindings cannot be replaced.
+
+</Accordion>
+
+<Accordion title="delete_secret">
+
+**May change state.** Remove one hosted secret from a managed resource, or a variable of a watched resource whose provider allows it. Does not edit source or rebuild browser assets. Managed bindings and active deployments are rejected.
+
+</Accordion>
+
+<Accordion title="set_secret">
+
+**May change state.** Send a secret directly to its provider. Never returns its value. On a watched resource this sets the variable at the provider, which may redeploy to apply it.
+
+</Accordion>
+
+<Accordion title="set_secrets">
+
+**May change state.** Set many variables or secrets at once on any resource (resource_id): on a Worker or Fly app they become secrets, elsewhere service variables. On a watched resource they can instead be its provider project's shared variables (shared: true), optionally without redeploying (redeploy: false). For secrets pass env_file, the absolute path of a .env file (and names to pick some): Hoista reads the values itself, so they never pass through you or this conversation. Values go straight to the provider and are never returned. A value like $&#123;&#123;Postgres.DATABASE_URL&#125;&#125; references another service.
+
+</Accordion>
+
+<Accordion title="delete_shared_variable">
+
+**May change state.** Delete one of the provider project's shared variables, by name, for the watched resource's provider project and environment.
+
+</Accordion>
+
+<Accordion title="redeploy_resource">
+
+**May change state.** Watched projects: build and start a resource's current version again at its provider, as its Redeploy button does. Use after changing variables or when it crashed.
+
+</Accordion>
+
+<Accordion title="restart_resource">
+
+**May change state.** Watched projects: restart a resource's running deployment without rebuilding.
+
+</Accordion>
+
+<Accordion title="rollback_resource">
+
+**May change state.** Watched projects: serve an earlier deployment of a resource again. Take deployment_id from get_provider_details.
+
+</Accordion>
+
+<Accordion title="deploy_latest_commit">
+
+**May change state.** Watched projects: deploy the newest commit of the repository the resource is linked to at its provider. Push your changes first.
+
+</Accordion>
+
+<Accordion title="deploy_commit">
+
+**May change state.** Watched projects: deploy one commit (full hash) of the resource's linked repository.
+
+</Accordion>
+
+<Accordion title="deploy_folder">
+
+**May change state.** Watched projects: upload the project's linked folder (or a subfolder of it, such as backend) and deploy it, as the provider's own CLI does; .gitignore and the provider's own ignore file are respected. Use after fixing code locally. Then watch get_provider_details and get_logs until it's live.
+
+</Accordion>
+
+<Accordion title="stop_resource">
+
+**May change state.** Watched projects: stop a resource's running deployment. It stays stopped until the next deploy.
+
+</Accordion>
+
+<Accordion title="configure_resource">
+
+**May change state.** Watched projects: change how a resource builds and runs: start_command, build_command, root_directory, cron_schedule, healthcheck_path, replicas (1–20), region, restart_policy (on_failure, always, never). Only the fields given change; they apply on the next deploy.
+
+</Accordion>
+
+<Accordion title="connect_repo">
+
+**May change state.** Watched projects: make a resource deploy from a GitHub repository (owner/name, optional branch) from now on.
+
+</Accordion>
+
+<Accordion title="add_resource_domain">
+
+**May change state.** Watched projects: give a resource an address. With domain, adds your own domain (then point its DNS at the record list_domains shows); without, adds a free address from the provider. Optional port the service listens on.
+
+</Accordion>
+
+<Accordion title="rename_resource_domain">
+
+**May change state.** Watched projects: give the provider's own address a new name (to: the new address or just its first label). Custom domains can't be renamed: add the new one, then remove the old.
+
+</Accordion>
+
+<Accordion title="remove_resource_domain">
+
+**May change state.** Watched projects: remove one of a resource's addresses, as listed by get_provider_details. Needs the person's approval: the first call returns pending with an approval_id; retry with it once they allow it in Hoista.
+
+</Accordion>
+
+<Accordion title="update_resource_domain">
+
+**May change state.** Watched projects: change the port one of a resource's addresses sends traffic to.
+
+</Accordion>
+
+<Accordion title="retry_domain_certificate">
+
+**May change state.** Watched projects: ask the provider to issue a custom domain's TLS certificate again after it failed.
+
+</Accordion>
+
+<Accordion title="disconnect_source">
+
+**May change state.** Watched projects: stop a resource deploying from its repository or image.
+
+</Accordion>
+
+<Accordion title="add_volume">
+
+**May change state.** Watched projects: attach a persistent disk to a resource, mounted at an absolute path such as /data.
+
+</Accordion>
+
+<Accordion title="remove_volume">
+
+**May change state.** Watched projects: delete a resource's volume and all data on it (volume ids from get_provider_details). Needs the person's approval: retry with the approval_id once they allow it in Hoista.
+
+</Accordion>
+
+<Accordion title="add_tcp_proxy">
+
+**May change state.** Watched projects: open a public TCP endpoint to a port a resource listens on (for databases and non-HTTP projects). The endpoint shows in get_provider_details.
+
+</Accordion>
+
+<Accordion title="remove_tcp_proxy">
+
+**May change state.** Watched projects: close a public TCP endpoint (ids from get_provider_details). Needs the person's approval.
+
+</Accordion>
+
+<Accordion title="rename_private_host">
+
+**May change state.** Watched projects: rename a resource's private network address, which other services in the provider project reach it at.
+
+</Accordion>
+
+<Accordion title="remove_service">
+
+**May change state.** Watched projects: delete a resource at its provider for good, for providers whose capabilities include delete: a Railway or Render service, a Vercel or Supabase project, a Worker, Pages project, D1 database, empty R2 bucket or zone on Cloudflare, a Fly app, a Neon project or a Resend sending domain. Data in it is gone. Needs the person's approval: the first call returns pending with an approval_id; retry with it once they allow it in Hoista.
+
+</Accordion>
+
+<Accordion title="create_service">
+
+**May change state.** Watched projects: create a new service in the same project as the project's other services, empty or from a GitHub repo (owner/name, optional branch) or a Docker image. It joins the project.
+
+</Accordion>
+
+<Accordion title="add_database">
+
+**May change state.** Watched projects: add a database or any template next to the project's services: code postgres, mysql, redis or mongo (or another template code). Optional variables fill the template's required values. The new services join the project; connect them with set_secret using a reference such as $&#123;&#123;Postgres.DATABASE_URL&#125;&#125;.
+
+</Accordion>
+
+<Accordion title="add_to_project">
+
+**May change state.** Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.
+
+</Accordion>
+
+<Accordion title="create_bucket">
+
+**May change state.** Watched projects: create an object storage bucket in the project's provider project.
+
+</Accordion>
+
+<Accordion title="list_import_candidates">
+
+**Read-only hint.** List unassigned discovered resources, or pass ignored=true to inspect resources set aside locally. No provider activity is inferred.
+
+</Accordion>
+
+<Accordion title="set_resource_ignored">
+
+**May change state.** Set aside or restore one unassigned import candidate. Reversible local visibility only; never deletes, pauses or changes its provider resource.
+
+</Accordion>
+
+<Accordion title="resolve_resources">
+
+**Read-only hint.** Read candidate resources matching exact names, IDs, provider project stems or hostnames in a description. Always review account/ownership and choose explicit IDs before grouping.
+
+</Accordion>
+
+<Accordion title="link_resources">
+
+**May change state.** Connect explicit from_resource/to_resource/via endpoints, or resolve a description into resource candidates. To group reviewed candidates, repeat description with project_id, resource_ids and review_token. Ambiguity requires explicit selection; no cloud resources are changed.
+
+</Accordion>
+
+<Accordion title="suggest_imports">
+
+**Read-only hint.** Read review-only grouping proposals from shared resource names and exact public hostnames. Ambiguous alternatives require the user's choice; no resources are grouped by this read.
+
+</Accordion>
+
+<Accordion title="import_resources">
+
+**May change state.** Discover an account or group selected resources in watching mode.
+
+</Accordion>
+
+<Accordion title="get_usage">
+
+**Read-only hint.** Read daily measured usage per resource since a UTC date (requests, errors, compute, storage), as the provider reported it. For money, use get_bills: what each provider itself reports.
+
+</Accordion>
+
+<Accordion title="delete_project">
+
+**May change state.** Request approval to delete a managed project, then retry with its approved approval_id.
+
+</Accordion>
+
+<Accordion title="delete_resource">
+
+**May change state.** Request approval to delete a managed resource, then retry with its approved approval_id.
+
+</Accordion>
+
+<Accordion title="connect_account">
+
+**May change state.** Request a guided desktop connection. Provider credentials must be entered in Hoista, never in tool arguments.
+
+</Accordion>
+
+<Accordion title="get_approval">
+
+**Read-only hint.** Read this agent's approval decision. Expired and declined requests cannot execute.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Permissions and retries
+
+Available actions depend on the agent's access, the project's mode and the provider. Follow any returned approval request. When checking or retrying a call, keep its operation or deployment ID to avoid creating duplicate requests.

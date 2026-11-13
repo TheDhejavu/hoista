@@ -1,0 +1,315 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hint {
+  display: block;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--text-3);
+}
+
+p.hint {
+  margin: 0;
+}
+
+/* The three ways in: cards, the whole card is the button. */
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  border: none;
+  border-radius: 14px;
+  background: var(--tile);
+  box-shadow: var(--tile-bevel);
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--duration) var(--ease-out),
+    background var(--duration) var(--ease-out),
+    transform var(--duration) var(--ease-out);
+}
+
+.choice:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--tile) 100%, var(--text) 4%);
+}
+
+.choice:active:not(:disabled) {
+  transform: scale(0.995);
+}
+
+.choice:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.choice:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.choiceIcon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg-muted);
+  color: var(--text-2);
+}
+
+.choiceText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* Where it is in the flow: numbered, done ones ticked. */
+.progress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.progressItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-4);
+}
+
+.progressIcon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+}
+
+.doing {
+  color: var(--text);
+}
+
+.doing .progressIcon {
+  border-color: var(--text);
+}
+
+.done {
+  color: var(--text-2);
+}
+
+.done .progressIcon {
+  border-color: var(--good);
+  background: var(--good);
+  color: var(--bg-raised);
+}
+
+/* The setup steps for running it yourself. */
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 4px 14px;
+  list-style: none;
+}
+
+.guideStep {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.guideStep + .guideStep {
+  border-top: 1px solid var(--line);
+}
+
+.guideNumber {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-2);
+}
+
+.guideBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.guideTitle {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+/* The code to check on the remote's page. */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.doneCard {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid var(--good-line, var(--line));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--good) 6%, var(--bg-raised));
+  padding: 14px;
+  color: var(--text);
+}
+
+.doneIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--good);
+  color: var(--bg-raised);
+}
+
+/* Don't have one yet: quieter than the address, below a line. */
+.other {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.otherHead {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-2);
+}
+
+.other .choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.other .choice {
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  padding: 10px 12px;
+}
+
+.other .choiceIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+/* Finishing in the browser: one centred block that follows along. */
+.browser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-muted);
+  padding: 22px 20px 20px;
+  text-align: center;
+}
+
+.browser .hint {
+  max-width: 380px;
+}
+
+.browserIcon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--text-2);
+}
+
+/* A ring that turns while it waits. */
+.busy::after {
+  position: absolute;
+  inset: -3px;
+  border: 2px solid transparent;
+  border-top-color: var(--text-2);
+  border-radius: 50%;
+  content: '';
+  animation: browser-spin 0.9s linear infinite;
+}
+
+@keyframes browser-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .busy::after {
+    animation: none;
+  }
+}
+
+.small {
+  margin: 4px 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+
+/* After signing in: bring this Mac's projects over, or why not. */
+.offer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raised);
+  padding: 14px;
+}
+
+.offerList {
+  margin: 0;
+  padding-left: 18px;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-3);
+}

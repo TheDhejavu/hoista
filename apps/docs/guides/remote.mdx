@@ -1,0 +1,87 @@
+---
+title: "Run Hoista in your cloud"
+description: "Set up a remote, sign this computer in and move your projects to it."
+---
+
+import Remote from '/snippets/diagrams/remote.mdx';
+
+
+A remote is Hoista running in your own hosting account, with its own address and a volume for its data. It stays reachable when your computer is off. Your provider bills you for it directly.
+
+<Remote />
+
+## Set one up
+
+Hoista can create a remote in a Railway or Fly.io account you've connected in **Accounts**.
+
+<Note>Hoista doesn't publish a server image yet, so a remote on Railway or Fly.io has to build from a copy of Hoista's repository on GitHub. Until an image is published, use the CLI with `--repo OWNER/NAME`, as shown below. **Set one up for me** in Desktop needs the published image.</Note>
+
+1. Open **Settings → Instances → Add a remote**.
+2. Under **Don't have one yet?**, choose **Set one up for me**.
+3. Pick the account in **Run it in**, then confirm it's you.
+4. When it's ready, choose **Claim it** and make a passkey on its page.
+
+From the CLI:
+
+```bash
+hoist accounts
+hoist remote create railway --account ACCOUNT --repo OWNER/NAME
+hoist remote create fly --account ACCOUNT --repo OWNER/NAME
+```
+
+It builds the remote, adds it to your list of remotes, prints the claim code and opens its page so you can sign this computer in. `--repo` is the GitHub repository to build from, such as your fork of Hoista; add `--branch` to pick a branch. Once Hoista publishes a server image, `--repo` becomes optional: without it, the remote runs that image, pinned by its digest. If setup can't seal the `HOISTA_SEALED_KEY` variable, it prints the steps to do it yourself.
+
+To run a remote with Docker instead, choose **Run one yourself**, or run this inside a copy of Hoista's repository:
+
+```bash
+hoist remote create docker
+hoist remote create docker --url https://hoista.example.com
+```
+
+Without `--url` it answers on `http://localhost:8787`. `--folder` points at the repository copy if you're not in it. Passkeys need HTTPS, so put a reverse proxy in front of a server before you sign in. For a Mac mini, a home server or a VPS, see [Self-host Hoista](/guides/self-host).
+
+## Sign this computer in
+
+In **Settings → Instances → Add a remote**, enter the remote's **Address** and choose **Sign in**. Its page opens in your browser. The first time, enter the claim code and make a passkey. After that, sign in with your passkey and choose **Allow**.
+
+From the CLI:
+
+```bash
+hoist remote add office https://hoista.example.com
+hoist remote login office
+hoist remote
+```
+
+`hoist remote add` names the remote and signs in straight away; add `--no-login` to sign in later. `hoist remote login` opens the remote's page in your browser: sign in with your passkey and choose **Allow**. On a computer without a browser, add `--no-browser` and type the code it shows on the remote's page. `hoist remote` lists your remotes, marks the one in use and shows whether this computer is signed in.
+
+Add a second passkey on another device from the remote's page, so losing one device doesn't lock you out.
+
+## Switch between instances
+
+Choose **Switch** next to an instance in **Settings → Instances**, or use the menu at the bottom left. In the CLI, `hoist remote use` switches every command after it, and `--remote NAME` (or `HOISTA_REMOTE`) changes one command:
+
+```bash
+hoist remote use office
+hoist remote use this-computer
+hoist --remote office projects
+```
+
+`hoist remote rename` changes a remote's name in your list.
+
+## Push your projects to an empty remote
+
+After you sign in to a remote with no projects or accounts, Hoista offers to push this computer's projects and accounts to it. Choose **Not now** to skip. While the remote is empty, its **⋮** menu keeps the option. From the CLI, run `hoist remote push office`.
+
+The push is encrypted with a one-time key, and each project keeps its mode. Nothing on this computer is deleted. Agents on this computer are paused afterwards. Connect them to the remote's `/mcp` address instead; `hoist mcp config` prints it while the remote is in use. A push happens once, into an empty remote. Hoista never merges projects.
+
+## Remove a remote
+
+In the remote's **⋮** menu, choose **Remove from this Mac**, or run `hoist remote remove office`. This computer forgets the remote and its key, and the remote keeps running. To sign out but keep it in the list, run `hoist remote logout office`. To stop the key working, also remove this computer on the remote's devices page. To shut the remote down, delete it in your Railway or Fly.io account.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Remote runtime" icon="lock" href="/security/remote-runtime">How a remote keeps your tokens.</Card>
+<Card title="Self-host Hoista" icon="server" href="/guides/self-host">Run it on a Mac mini or a server.</Card>
+<Card title="Backups and recovery" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear changes.</Card>
+</CardGroup>

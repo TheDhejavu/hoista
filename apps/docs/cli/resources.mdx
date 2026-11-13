@@ -1,0 +1,207 @@
+---
+title: "Resources and databases"
+description: "hoist commands for resources and databases."
+---
+
+A resource is one thing at a provider: a Railway service, a Worker, a Neon database. Name it by id, or by name with `--project`.
+
+## `hoist resources [PROJECT]`
+
+Work with a project's resources: services, databases, buckets.
+
+```bash
+hoist resources my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. Default: the project linked to this folder. |
+
+## `hoist resources show [RESOURCE]`
+
+Show a resource: its provider, account, address and what it connects to.
+
+```bash
+hoist resources show api -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources restart [RESOURCE]`
+
+Restart what's running, without building again.
+
+```bash
+hoist resources restart api -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources redeploy [RESOURCE]`
+
+Build and start the current version again, at the provider.
+
+```bash
+hoist resources redeploy api -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources stop [RESOURCE]`
+
+Stop what's running at the provider.
+
+```bash
+hoist resources stop worker -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources pause [RESOURCE]`
+
+Pause a resource (scale to zero or suspend, as the provider does it).
+
+```bash
+hoist resources pause worker -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources resume [RESOURCE]`
+
+Start a paused resource again.
+
+```bash
+hoist resources resume worker -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources move <RESOURCES>...`
+
+Move resources to another project in Hoista. Nothing changes at the provider.
+
+```bash
+hoist resources move 6f1c... --to my-app
+hoist resources move 6f1c... --new my-app-db
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<RESOURCES>...` | Resource ids. |
+| `--to <PROJECT>` | The project to move them to. |
+| `--new <NAME>` | Make a new project for one resource, with this name. |
+
+## `hoist resources run [RESOURCE]`
+
+Run one of the provider's own operations on a resource, such as a backup or a scale change.
+
+```bash
+hoist resources run db -p my-app                # list what the provider offers
+hoist resources run db -p my-app -o create_backup
+hoist resources run api -p my-app -o scale --arg count=2
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+| `-o, --operation <NAME>` | The operation's name. Leave it out to list them. |
+| `--arg <NAME=VALUE>` | An argument, as NAME=VALUE. VALUE is read as JSON when it is valid JSON. |
+
+## `hoist resources remove [RESOURCE]`
+
+Stop watching a resource. It keeps running at its provider.
+
+```bash
+hoist resources remove old-cron -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist resources delete [RESOURCE]`
+
+Delete a resource at its provider, after saving a copy of its data.
+
+<Warning>This deletes at the provider, after saving a copy of its data. You type the resource's name to confirm.</Warning>
+
+```bash
+hoist resources delete old-cron -p my-app --dry-run
+hoist resources delete old-cron -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+| `--dry-run` | Show what would be deleted, and delete nothing. |
+| `--confirm <NAME>` | The name, typed to confirm, for scripts. |
+| `--fingerprint <HASH>` | Delete only if the --dry-run fingerprint still matches. |
+
+## `hoist db show [RESOURCE]`
+
+What the provider reports about a database: branches, computes, size.
+
+```bash
+hoist db show db -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist db export [RESOURCE]`
+
+Save a copy of a database to this computer.
+
+```bash
+hoist db export db -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+
+## `hoist db exports`
+
+List the database copies saved on this computer.
+
+```bash
+hoist db exports
+```
+
+## `hoist db operations [RESOURCE]`
+
+Recent operations the provider ran on a database.
+
+```bash
+hoist db operations db -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |

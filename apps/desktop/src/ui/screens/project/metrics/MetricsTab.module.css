@@ -1,0 +1,284 @@
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0 auto 0 0;
+  font-size: var(--text-lg);
+}
+
+.empty {
+  margin: 0;
+  color: var(--text-2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  min-width: 0;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 16px;
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cardLabel {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-2);
+}
+
+.cardValue {
+  margin-top: 4px;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.cardNote {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.codes {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.codes li {
+  display: contents;
+}
+
+.codes li span:last-child {
+  text-align: right;
+  color: var(--text);
+}
+
+/* Chart palette: categorical slots 1–3 (validated), status red for errors. */
+.chart {
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  position: relative;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme='light'])) .chart {
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+  }
+}
+
+:global(:root[data-theme='dark']) .chart {
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+}
+
+.yMax {
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+}
+
+.plot {
+  position: relative;
+  height: 140px;
+  cursor: crosshair;
+}
+
+.plot svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.grid line,
+.grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.axis {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.tone1 {
+  stroke: var(--series-1);
+  background: var(--series-1);
+}
+
+.tone2 {
+  stroke: var(--series-2);
+  background: var(--series-2);
+}
+
+.tone3 {
+  stroke: var(--series-3);
+  background: var(--series-3);
+}
+
+.tonebad {
+  stroke: var(--bad);
+  background: var(--bad);
+}
+
+.tonelimit {
+  stroke: var(--text-3);
+  stroke-dasharray: 4 4;
+  background: var(--text-3);
+}
+
+.crosshair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line-strong);
+  pointer-events: none;
+}
+
+.tip {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  min-width: 120px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--menu-material);
+  box-shadow: var(--edge), var(--edge-light), var(--menu-float);
+  backdrop-filter: var(--material-blur);
+  padding: 8px 10px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tipLeft {
+  transform: translateX(calc(-100% - 20px));
+}
+
+.tipTime {
+  margin-bottom: 4px;
+  color: var(--text-3);
+}
+
+.tipRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tipRow b {
+  color: var(--text);
+  font-weight: var(--weight-medium);
+}
+
+.swatch {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 2px;
+}
+
+.tipRow .swatch {
+  margin-right: 0;
+}
+
+.xAxis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+  color: var(--text-2);
+}
+
+.legend > span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.noData {
+  display: grid;
+  place-items: center;
+  height: 140px;
+  color: var(--text-3);
+}
+
+.codes .codesHead span {
+  color: var(--text-3);
+}
+
+.cardSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.chartSkeleton {
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+/* What the provider couldn't answer, above the charts. */
+.providerNote {
+  margin: 0 0 12px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}

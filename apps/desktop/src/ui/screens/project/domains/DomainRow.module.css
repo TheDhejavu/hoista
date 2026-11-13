@@ -1,0 +1,80 @@
+.menuWrap {
+  position: relative;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-4);
+}
+
+.more:hover,
+.more[aria-expanded='true'] {
+  background: var(--bg-muted);
+  color: var(--text);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  border-radius: var(--radius-lg);
+  background: var(--menu-material);
+  box-shadow: var(--edge), var(--edge-light), var(--menu-float);
+  backdrop-filter: var(--material-blur);
+  padding: 6px;
+}
+
+.menu button {
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  padding: 7px 9px;
+  font-size: var(--text-sm);
+  color: var(--text);
+  text-align: left;
+}
+
+.menu button:hover {
+  background: var(--bg-hover);
+}
+
+.menu .danger {
+  color: var(--bad);
+}
+
+/* A domain opened beside the list. */
+.rowButton {
+  cursor: pointer;
+}
+
+.rowButton:hover {
+  background: var(--bg-hover);
+}
+
+/* The open one: a soft fill, as list-and-detail screens mark the row whose
+   details are showing. No bar or ring against the frame's edge. */
+.rowOpen,
+.rowOpen:hover {
+  background: var(--bg-muted);
+}
+
+/* A ring only for the keyboard, inside the row so it never meets the frame. */
+.rowButton:focus {
+  outline: none;
+}
+
+.rowButton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}

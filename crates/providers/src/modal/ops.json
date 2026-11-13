@@ -1,0 +1,207 @@
+{
+ "source": "modal_proto/api.proto, from the modal Python package",
+ "service": "modal.client.ModalClient",
+ "operations": [
+  {
+   "name": "AppList",
+   "area": "Apps",
+   "risk": "read",
+   "description": "Every app in an environment, with its state and running containers",
+   "context": {
+    "environment_name": "environment"
+   }
+  },
+  {
+   "name": "AppGetLayout",
+   "area": "Apps",
+   "risk": "read",
+   "description": "The app's functions, classes and web endpoints",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppGetObjects",
+   "area": "Apps",
+   "risk": "read",
+   "description": "The objects an app defines",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppGetLifecycle",
+   "area": "Apps",
+   "risk": "read",
+   "description": "When the app was created, deployed and stopped",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppDeploymentHistory",
+   "area": "Deployments",
+   "risk": "read",
+   "description": "Every deployment of the app, newest first, with who deployed it",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppRollback",
+   "area": "Deployments",
+   "risk": "destroy",
+   "description": "Roll the app back to an earlier deployment",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppFetchLogs",
+   "area": "Logs",
+   "risk": "read",
+   "description": "The app's logs between two times",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppCountLogs",
+   "area": "Logs",
+   "risk": "read",
+   "description": "How many log lines the app wrote, by time bucket",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppGetTags",
+   "area": "Apps",
+   "risk": "read",
+   "description": "The app's tags",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppSetTags",
+   "area": "Apps",
+   "risk": "change",
+   "description": "Set the app's tags",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "AppStop",
+   "area": "Apps",
+   "risk": "destroy",
+   "description": "Stop the app and every container it runs",
+   "context": {
+    "app_id": "app"
+   }
+  },
+  {
+   "name": "FunctionGetCurrentStats",
+   "area": "Functions",
+   "risk": "read",
+   "description": "A function's queue right now: backlog and running inputs",
+   "context": {}
+  },
+  {
+   "name": "FunctionGetMetrics",
+   "area": "Functions",
+   "risk": "read",
+   "description": "A function's metrics between two times",
+   "context": {}
+  },
+  {
+   "name": "FunctionGetSchedulingParams",
+   "area": "Functions",
+   "risk": "read",
+   "description": "How a function scales: warm containers, buffers, scale-down",
+   "context": {}
+  },
+  {
+   "name": "FunctionUpdateSchedulingParams",
+   "area": "Functions",
+   "risk": "change",
+   "description": "Change how a function scales",
+   "context": {}
+  },
+  {
+   "name": "EnvironmentList",
+   "area": "Environments",
+   "risk": "read",
+   "description": "The workspace's environments, with limits and spend",
+   "context": {}
+  },
+  {
+   "name": "VolumeList",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "Every volume in an environment",
+   "context": {
+    "environment_name": "environment"
+   }
+  },
+  {
+   "name": "VolumeRename",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Rename a volume",
+   "context": {
+    "volume_id": "volume"
+   }
+  },
+  {
+   "name": "VolumeDelete",
+   "area": "Volumes",
+   "risk": "destroy",
+   "description": "Delete a volume and everything on it",
+   "context": {
+    "volume_id": "volume",
+    "environment_name": "environment"
+   }
+  },
+  {
+   "name": "SecretList",
+   "area": "Secrets",
+   "risk": "read",
+   "description": "The names of the secrets in an environment (never their values)",
+   "context": {
+    "environment_name": "environment"
+   }
+  },
+  {
+   "name": "WorkspaceNameLookup",
+   "area": "Workspace",
+   "risk": "read",
+   "description": "The workspace's name and your username",
+   "context": {}
+  },
+  {
+   "name": "WorkspaceBillingSummary",
+   "area": "Billing",
+   "risk": "read",
+   "description": "What the workspace has cost since a time",
+   "context": {}
+  },
+  {
+   "name": "EnvironmentBillingSummary",
+   "area": "Billing",
+   "risk": "read",
+   "description": "What one environment has cost since a time",
+   "context": {}
+  },
+  {
+   "name": "WorkspaceDashboardUrlGet",
+   "area": "Workspace",
+   "risk": "read",
+   "description": "The address of the workspace's dashboard",
+   "context": {
+    "environment_name": "environment"
+   }
+  }
+ ]
+}

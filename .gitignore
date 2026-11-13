@@ -1,11 +1,24 @@
 /target
 .DS_Store
-
-# Local notes and agent instructions stay out of the repository.
 /_local/
 AGENTS.md
+.claude/
 
 # Machine-specific configuration; commit templates only.
 .env
 .env.*
 !.env.example
+
+# Node
+node_modules/
+apps/desktop/dist/
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/
+*.tsbuildinfo
+
+# Mintlify local preview artifacts
+apps/docs/.mintlify/
+apps/docs/.mint/
+
+# Python
+__pycache__/

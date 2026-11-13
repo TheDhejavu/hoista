@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO links(id,from_resource,to_resource,data) VALUES(?,?,?,?) ON CONFLICT(id) DO NOTHING",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "d8730f67fb9a73edb7ae16213f51dd5c49bf109a5b1eee44686433c6c500f750"
+}

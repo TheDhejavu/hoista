@@ -1,0 +1,398 @@
+/*
+ * The menu bar panel, drawn like the system's own menu bar menus (Battery,
+ * Wi-Fi): on macOS the window is the system's menu glass and the page paints
+ * only a faint wash over it. Bold grey group titles, lines inset from the
+ * edges, rows that highlight on hover. Linux shows the same on a plain window.
+ *
+ * Secondary text is the main text colour at reduced strength rather than the
+ * app's light greys, which vanish on a blurred, tinted background.
+ */
+
+:global(html.menubar),
+:global(html.menubar body) {
+  background: transparent;
+}
+
+.panel {
+  --on-glass-2: color-mix(in srgb, var(--text) 72%, transparent);
+  --on-glass-3: color-mix(in srgb, var(--text) 56%, transparent);
+  --on-glass-hover: color-mix(in srgb, var(--text) 9%, transparent);
+  --on-glass-fill: color-mix(in srgb, var(--text) 6%, transparent);
+  --on-glass-line: color-mix(in srgb, var(--text) 14%, transparent);
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 12px 6px 6px;
+  background: color-mix(in srgb, var(--bg-raised) 22%, transparent);
+  color: var(--text);
+  font-size: var(--text-md);
+  line-height: 1.35;
+  user-select: none;
+  animation: appear var(--duration) var(--ease-sheet);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Header: the app tile, its name and where it runs, and the agents switch. */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 10px 12px;
+}
+
+.projectIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--tile);
+  box-shadow: var(--tile-bevel);
+}
+
+.heading {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--text-lg);
+}
+
+.where {
+  overflow: hidden;
+  color: var(--on-glass-2);
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Like a system toggle. */
+.switch {
+  position: relative;
+  flex: none;
+  width: 38px;
+  height: 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--on-glass-line);
+  transition: background var(--duration) var(--ease-out);
+}
+
+.switch::after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+  content: '';
+  transition: transform var(--duration) var(--ease-sheet);
+}
+
+.switch[aria-checked='true'] {
+  background: var(--info);
+}
+
+.switch[aria-checked='true']::after {
+  transform: translateX(16px);
+}
+
+.switch:disabled {
+  opacity: 0.6;
+}
+
+/* Groups, each under a line inset from the edges. */
+
+.section,
+.links,
+.footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+}
+
+.footer {
+  padding-bottom: 0;
+}
+
+.section::before,
+.links::before,
+.footer::before {
+  position: absolute;
+  top: 0;
+  right: 11px;
+  left: 11px;
+  height: 1px;
+  background: var(--on-glass-line);
+  content: '';
+}
+
+.sectionTitle {
+  margin: 4px 11px;
+  color: var(--on-glass-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.rows,
+.cards {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cards: something waiting for you, or a deploy under way. */
+
+.card {
+  display: flex;
+  gap: 10px;
+  margin: 2px 6px 6px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--on-glass-fill);
+  box-shadow: inset 0 0.5px 0 rgb(255 255 255 / 6%);
+  padding: 10px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+button.card {
+  cursor: default;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+button.card:hover {
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.cardText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-weight: var(--weight-medium);
+}
+
+.cardBody {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--on-glass-2);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.clock {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.actions,
+.projectActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+.quiet,
+.strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 0 11px;
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: default;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out);
+}
+
+.quiet {
+  background: var(--on-glass-hover);
+  color: var(--text);
+}
+
+.quiet:hover {
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+.strong {
+  background: var(--text);
+  color: var(--bg-raised);
+}
+
+.strong:hover {
+  background: color-mix(in srgb, var(--text) 86%, var(--bg-raised));
+}
+
+.quiet:active,
+.strong:active {
+  transform: scale(0.97);
+}
+
+.quiet:disabled {
+  opacity: 0.5;
+}
+
+.providerLogo {
+  display: inline-grid;
+  place-items: center;
+}
+
+.progress {
+  position: relative;
+  display: block;
+  height: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--on-glass-line);
+}
+
+.progress > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--info);
+  transition: width var(--duration-slow) var(--ease-out);
+}
+
+/* Rows: problems, projects and links. */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 26px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 4px 11px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.row:hover,
+.row:focus-visible {
+  background: var(--on-glass-hover);
+}
+
+.rowText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rowTitle,
+.rowBody,
+.rowValue {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rowBody {
+  color: var(--on-glass-2);
+  font-size: var(--text-xs);
+}
+
+.rowValue {
+  flex: none;
+  max-width: 55%;
+  color: var(--on-glass-3);
+  font-size: var(--text-xs);
+}
+
+.rowMuted {
+  color: var(--on-glass-3);
+}
+
+.chevron,
+.chevronOpen {
+  flex: none;
+  color: var(--on-glass-3);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+.projectDetail {
+  padding: 2px 11px 8px 28px;
+}
+
+.projectFacts {
+  margin: 0 0 8px;
+  color: var(--on-glass-2);
+  font-size: var(--text-xs);
+}
+
+/* Footer: the app's own menu items, with their shortcuts. */
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 26px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0 11px;
+  color: var(--text);
+  font: inherit;
+  cursor: default;
+}
+
+.menuItem:hover,
+.menuItem:focus-visible {
+  background: var(--on-glass-hover);
+}
+
+.keys {
+  color: var(--on-glass-3);
+  font-family: inherit;
+  font-size: var(--text-xs);
+}
+
+/* The panel takes focus when it opens; a ring around the first row isn't wanted. */
+.row:focus-visible,
+.menuItem:focus-visible,
+.switch:focus-visible {
+  outline: none;
+}

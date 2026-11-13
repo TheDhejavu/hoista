@@ -1,0 +1,89 @@
+---
+title: "Install Hoista"
+description: "Install the CLI, the daemon and Desktop."
+---
+
+Hoista has two core programs. `hoist` is the CLI and `hoistd` is the daemon. Desktop is an optional app that uses the same daemon. Pick your system:
+
+<CodeGroup>
+```bash macOS and Linux
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0
+```
+
+```powershell Windows
+.\install.ps1 -Version v0.1.0
+```
+
+```bash From source
+git clone https://github.com/TheDhejavu/hoista.git
+cd hoista
+cargo build --locked -p hoist -p hoistd
+export PATH="$PWD/target/debug:$PATH"
+```
+</CodeGroup>
+
+The version is required. Both scripts need [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) 3: they check the release's signature with it and stop if it's missing or the check fails.
+
+## macOS and Linux
+
+The script works on macOS (Apple Silicon or Intel) and Linux (x86_64). It installs `hoist` and `hoistd` into `~/.local/bin`, then runs `hoist service install` so Hoista starts at login. Add that folder to your `PATH` if it isn't there. It takes two more arguments, in this order:
+
+| Argument | Use |
+| --- | --- |
+| `[destination]` | Install into this folder instead of `~/.local/bin` |
+| `--start-at-login` or `--no-service` | Start Hoista at login (the default), or install the binaries only |
+
+To skip login startup, give the folder too:
+
+```bash
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0 "$HOME/.local/bin" --no-service
+```
+
+Without the login service, `hoist` still starts the daemon when a command needs it.
+
+## Windows
+
+On Windows (x86_64), run `scripts/install/install.ps1` from the repository. It installs `hoist.exe` and `hoistd.exe` into `%LOCALAPPDATA%\Hoista\bin`. Add `-Destination PATH` to choose another folder, and `-NoService` to skip login startup.
+
+There is no Desktop app for Windows; the CLI and daemon are all you need.
+
+## From source
+
+You need the Rust toolchain pinned in `rust-toolchain.toml`. Keep `hoist` and `hoistd` in the same directory: the CLI starts the daemon from there when it needs it. Put the binaries in their final directory before you run `hoist service install`. The login service records their path, so moving them later breaks it.
+
+To run Desktop from source, you also need Node.js 22 or later:
+
+```bash
+npm install
+npm run desktop
+```
+
+## Desktop app
+
+Download Desktop from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
+
+| System | Package |
+| --- | --- |
+| macOS | Apple Silicon and Intel |
+| Linux | AppImage and Debian package |
+
+Desktop uses the same daemon as the CLI, so install the CLI and daemon too.
+
+## Check it works
+
+```bash
+hoist --version
+hoist doctor
+```
+
+`hoist doctor` checks that everything is installed and working.
+
+To run Hoista in your own cloud account instead, see [your remote](/guides/remote).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Quickstart" icon="rocket" href="/getting-started/quickstart">Connect a provider and add your first project.</Card>
+<Card title="Keep the daemon running" icon="server" href="/guides/daemon">Start Hoista at login and check on it.</Card>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Run Hoista in your own cloud account.</Card>
+</CardGroup>

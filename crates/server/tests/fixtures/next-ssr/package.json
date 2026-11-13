@@ -1,0 +1,1 @@
+{"name":"hoista-next-ssr-fixture","version":"1.0.0","private":true,"type":"module","scripts":{"build":"next build --webpack"},"dependencies":{"next":"16.4.3","react":"19.3.1","react-dom":"19.3.1"},"devDependencies":{"@opennextjs/cloudflare":"1.20.15","wrangler":"4.156.1"}}

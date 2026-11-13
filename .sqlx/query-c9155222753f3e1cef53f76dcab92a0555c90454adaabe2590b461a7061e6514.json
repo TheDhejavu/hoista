@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO ignored_resources(resource_id,ignored_at) VALUES(?,?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "c9155222753f3e1cef53f76dcab92a0555c90454adaabe2590b461a7061e6514"
+}

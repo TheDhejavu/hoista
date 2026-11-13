@@ -1,0 +1,64 @@
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  border-radius: 16px;
+  background: var(--bg-soft);
+  padding: 12px 14px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+  color: var(--text-2);
+}
+
+.bad {
+  color: var(--bad);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+.good {
+  color: var(--good);
+}
+
+.text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+}
+
+.body {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+/* Buttons in the cards are a touch smaller than elsewhere. */
+.card a,
+.card button {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+}

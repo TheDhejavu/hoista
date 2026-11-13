@@ -1,0 +1,171 @@
+---
+title: "Agents"
+description: "hoist commands for agents."
+---
+
+Coding agents reach Hoista through MCP. Each one asks to connect, you allow it with an access level, and Hoista asks you before anything it can't undo.
+
+## `hoist agents`
+
+Coding agents connected to Hoista, and what they may do.
+
+```bash
+hoist agents
+```
+
+## `hoist agents requests`
+
+Coding tools asking to connect.
+
+```bash
+hoist agents requests
+```
+
+## `hoist agents allow [REQUEST]`
+
+Let a coding tool that asked connect.
+
+```bash
+hoist agents allow                        # pick the request, check its code
+hoist agents allow 0b4d... --access ask --projects my-app,my-web
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[REQUEST]` | Request id. In a terminal, pick it from a list instead. |
+| `--access <ACCESS>` | What it may do. One of: view, ask, full. |
+| `--projects <PROJECTS>` | Only these projects (names or ids, comma-separated). Default: every project. |
+
+## `hoist agents deny <REQUEST>`
+
+Turn down a coding tool that asked to connect.
+
+```bash
+hoist agents deny 0b4d...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<REQUEST>` | Request id. |
+
+## `hoist agents access [AGENT]`
+
+Change what a connected agent may do and touch.
+
+```bash
+hoist agents access claude-code --access view
+hoist agents access claude-code --access full
+hoist agents access claude-code --projects my-app --expires 2026-12-31T00:00:00Z
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[AGENT]` | Agent name or id. |
+| `--access <ACCESS>` | What it may do. One of: view, ask, full. |
+| `--projects <PROJECTS>` | Only these projects (names or ids, comma-separated). |
+| `--all-projects` | Every project. |
+| `--expires <WHEN>` | Its access ends at this time (RFC 3339), or "never". |
+
+## `hoist agents pause`
+
+Pause every agent's access. Undo with hoist agents resume.
+
+```bash
+hoist agents pause
+```
+
+## `hoist agents resume`
+
+Let agents in again after a pause.
+
+```bash
+hoist agents resume
+```
+
+## `hoist agents stop-all`
+
+Cut every agent off now and pause access. Projects keep running.
+
+<Note>Projects keep running. If a provider token may have leaked, rotate it too: `hoist accounts rotate ACCOUNT`.</Note>
+
+```bash
+hoist agents stop-all
+```
+
+## `hoist agents revoke [AGENT]`
+
+Disconnect one agent. Its token stops working now.
+
+```bash
+hoist agents revoke codex
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[AGENT]` | Agent name or id. |
+
+## `hoist agents rotate [AGENT]`
+
+Give a local agent a new token; the old one stops working. Also reconnects a disconnected one.
+
+```bash
+hoist agents rotate claude-code
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[AGENT]` | Agent name or id. |
+
+## `hoist mcp`
+
+Connect coding tools and web agents over MCP.
+
+```bash
+hoist mcp --name "Claude Code"     # what a coding tool runs
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--name <NAME>` | The name the agent shows up as in Hoista. |
+
+## `hoist mcp config`
+
+Print what to add to a coding tool's MCP settings.
+
+```bash
+hoist mcp config
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--name <NAME>` | The name the agent shows up as in Hoista. |
+
+## `hoist mcp http [STATE]`
+
+MCP over HTTP, for ChatGPT and other web agents: on or off, and its address.
+
+```bash
+hoist mcp http                                   # on or off, and the address to give ChatGPT
+cloudflared tunnel --url http://127.0.0.1:8788   # any tunnel or proxy to port 8788
+hoist mcp http off                               # stop serving web agents
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[STATE]` | Turn it on or off. Without it, shows whether it's on and its address. One of: on, off. |
+| `--forget` | Forget its public address, to use a different tunnel or proxy. Agents connected at the old one sign in again. |
+| `--url <URL>` | Set its public address yourself, for a tunnel or proxy that doesn't pass it on, such as `https://hoista.example.com`. |
+
+## `hoist skills install`
+
+Install Hoista's skills into Claude Code and Codex, or only one.
+
+```bash
+hoist skills install
+hoist skills install --claude
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--claude` | Only Claude Code. |
+| `--codex` | Only Codex. |

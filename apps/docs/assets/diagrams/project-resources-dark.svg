@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pr-d" viewBox="0 0 1280 600" width="1280" height="600" role="img" aria-labelledby="pr-d-t pr-d-d">
+<title id="pr-d-t">A project and its resources</title><desc id="pr-d-d">The Hoista project my-app holds three resources: a website on Vercel, an API on Railway and a database on Neon. Each keeps running at its provider.</desc>
+<style>#pr-d text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#ededed}#pr-d .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#pr-d .h2{fill:#a1a1aa}#pr-d .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#pr-d .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#7a7a82;letter-spacing:0.08em}#pr-d .eyebrow{font-size:12.5px;fill:#8b8b93}#pr-d .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#pr-d .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#pr-d .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#a1a1aa}#pr-d .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#d4d4d8}#pr-d .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#pr-d .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#ededed;letter-spacing:0.06em}#pr-d .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#pr-d .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#c8c8cc}#pr-d .sheet{fill:#0a0a0a;stroke:#262626}#pr-d .card{fill:#141414;stroke:#2a2a2a}#pr-d .hoistd{fill:#141414;stroke:#ededed;stroke-width:1.4}#pr-d .ring{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:8}#pr-d .tile{fill:#1c1c1c;stroke:#2e2e2e}#pr-d .chip{fill:#1c1c1c;stroke:#2e2e2e}#pr-d .pill{fill:#141414;stroke:#2e2e2e}#pr-d .zone{fill:#111111;stroke:#3a3a3a;stroke-dasharray:5 4}#pr-d .dot{fill:#3f3f46}#pr-d .badge{fill:#ededed}#pr-d .ink{fill:#0a0a0a}#pr-d .eye{fill:#ededed}#pr-d .ic{fill:none;stroke:#d4d4d8;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#pr-d .logo{fill:#a1a1aa}#pr-d .link{fill:none;stroke:#4f4f56;stroke-width:1.4;stroke-linejoin:round}#pr-d .dash{stroke-dasharray:5 4}#pr-d .head{fill:none;stroke:#7a7a82;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#pr-d .rule{stroke:#262626;stroke-dasharray:4 4}</style>
+<defs><g id="pr-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="pr-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="pr-d-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.36"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.45"/></filter><filter id="pr-d-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.55"/></filter></defs>
+<rect x="0.5" y="0.5" width="1279" height="599" rx="20" class="sheet"/>
+<path d="M348 342 L409 342" class="link"/>
+<path d="M409 212 L409 472" class="link"/>
+<path d="M409 212 L467 212" class="link" marker-end="url(#pr-d-open)"/>
+<path d="M810 212 L929 212" class="link" marker-end="url(#pr-d-open)"/>
+<path d="M409 342 L467 342" class="link" marker-end="url(#pr-d-open)"/>
+<path d="M810 342 L929 342" class="link" marker-end="url(#pr-d-open)"/>
+<path d="M409 472 L467 472" class="link" marker-end="url(#pr-d-open)"/>
+<path d="M810 472 L929 472" class="link" marker-end="url(#pr-d-open)"/>
+<rect x="48" y="290" width="300" height="106" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="68" y="310" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 318)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
+<text x="116" y="323" class="eyebrow">Hoista project</text>
+<text x="116" y="346" class="title">my-app</text>
+<text x="116" y="372" class="detail">watching · default</text>
+<rect x="470" y="160" width="340" height="106" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="490" y="180" width="32" height="32" rx="8" class="tile"/>
+<path class="logo" transform="translate(498 188) scale(0.6667)" d="M24 22.525H0l12-21.05 12 21.05z"/>
+<text x="538" y="193" class="eyebrow">Website</text>
+<text x="538" y="216" class="title">my-app-web</text>
+<text x="538" y="242" class="detail">Vercel project</text>
+<rect x="932" y="166" width="300" height="92" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="952" y="186" width="32" height="32" rx="8" class="tile"/>
+<path class="logo" transform="translate(960 194) scale(0.6667)" d="M24 22.525H0l12-21.05 12 21.05z"/>
+<text x="1000" y="208" class="title">Vercel</text>
+<text x="1000" y="234" class="detail">Sam’s projects</text>
+<rect x="470" y="290" width="340" height="106" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="490" y="310" width="32" height="32" rx="8" class="tile"/>
+<path class="logo" transform="translate(498 318) scale(0.6667)" d="M.113 10.27A13.026 13.026 0 000 11.48h18.23c-.064-.125-.15-.237-.235-.347-3.117-4.027-4.793-3.677-7.19-3.78-.8-.034-1.34-.048-4.524-.048-1.704 0-3.555.005-5.358.01-.234.63-.459 1.24-.567 1.737h9.342v1.216H.113v.002zm18.26 2.426H.009c.02.326.05.645.094.961h16.955c.754 0 1.179-.429 1.315-.96zm-17.318 4.28s2.81 6.902 10.93 7.024c4.855 0 9.027-2.883 10.92-7.024H1.056zM11.988 0C7.5 0 3.593 2.466 1.531 6.108l4.75-.005v-.002c3.71 0 3.849.016 4.573.047l.448.016c1.563.052 3.485.22 4.996 1.364.82.621 2.007 1.99 2.712 2.965.654.902.842 1.94.396 2.934-.408.914-1.289 1.458-2.353 1.458H.391s.099.42.249.886h22.748A12.026 12.026 0 0024 12.005C24 5.377 18.621 0 11.988 0z"/>
+<text x="538" y="323" class="eyebrow">API</text>
+<text x="538" y="346" class="title">my-app-api</text>
+<text x="538" y="372" class="detail">Railway service</text>
+<rect x="932" y="296" width="300" height="92" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="952" y="316" width="32" height="32" rx="8" class="tile"/>
+<path class="logo" transform="translate(960 324) scale(0.6667)" d="M.113 10.27A13.026 13.026 0 000 11.48h18.23c-.064-.125-.15-.237-.235-.347-3.117-4.027-4.793-3.677-7.19-3.78-.8-.034-1.34-.048-4.524-.048-1.704 0-3.555.005-5.358.01-.234.63-.459 1.24-.567 1.737h9.342v1.216H.113v.002zm18.26 2.426H.009c.02.326.05.645.094.961h16.955c.754 0 1.179-.429 1.315-.96zm-17.318 4.28s2.81 6.902 10.93 7.024c4.855 0 9.027-2.883 10.92-7.024H1.056zM11.988 0C7.5 0 3.593 2.466 1.531 6.108l4.75-.005v-.002c3.71 0 3.849.016 4.573.047l.448.016c1.563.052 3.485.22 4.996 1.364.82.621 2.007 1.99 2.712 2.965.654.902.842 1.94.396 2.934-.408.914-1.289 1.458-2.353 1.458H.391s.099.42.249.886h22.748A12.026 12.026 0 0024 12.005C24 5.377 18.621 0 11.988 0z"/>
+<text x="1000" y="338" class="title">Railway</text>
+<text x="1000" y="364" class="detail">Sam’s workspace</text>
+<rect x="470" y="420" width="340" height="106" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="490" y="440" width="32" height="32" rx="8" class="tile"/>
+<path class="logo" transform="translate(498 448) scale(0.6667)" d="M24 0V24l-9.365-8.045V24H0V0ZM2.942 21.087h8.751V9.563l9.365 8.204V2.919L2.942 2.914Z"/>
+<text x="538" y="453" class="eyebrow">Database</text>
+<text x="538" y="476" class="title">my-app-db</text>
+<text x="538" y="502" class="detail">Neon project</text>
+<rect x="932" y="426" width="300" height="92" rx="12" class="card" filter="url(#pr-d-lift)"/>
+<rect x="952" y="446" width="32" height="32" rx="8" class="tile"/>
+<path class="logo" transform="translate(960 454) scale(0.6667)" d="M24 0V24l-9.365-8.045V24H0V0ZM2.942 21.087h8.751V9.563l9.365 8.204V2.919L2.942 2.914Z"/>
+<text x="1000" y="468" class="title">Neon</text>
+<text x="1000" y="494" class="detail">Sam</text>
+<text x="48.0" y="70" class="headline">A</text>
+<rect x="77.2" y="38" width="113.0" height="44" rx="10" class="chip"/>
+<text x="88.2" y="70" class="headline">project</text>
+<text x="199.2" y="70" class="headline">and its resources</text>
+<rect x="1103.7" y="46.0" width="26" height="26" rx="7.0" class="badge"/><g transform="translate(1106.38 48.66) scale(0.2068)"><use href="#pr-d-mascot"/></g>
+<text x="1139.7" y="65" class="brand">hoista.dev</text>
+<text x="48" y="132" class="col">IN HOISTA</text>
+<text x="470" y="132" class="col">RESOURCES</text>
+<text x="932" y="132" class="col">WHERE EACH RUNS</text>
+<rect x="834.8" y="200" width="72.4" height="24" rx="7" class="pill"/><text x="871" y="216.2" class="pill-t" text-anchor="middle">runs at</text>
+<rect x="834.8" y="330" width="72.4" height="24" rx="7" class="pill"/><text x="871" y="346.2" class="pill-t" text-anchor="middle">runs at</text>
+<rect x="834.8" y="460" width="72.4" height="24" rx="7" class="pill"/><text x="871" y="476.2" class="pill-t" text-anchor="middle">runs at</text>
+<text x="48" y="566" class="note">Adding a resource to a project doesn’t move it or change it at the provider.</text>
+</svg>

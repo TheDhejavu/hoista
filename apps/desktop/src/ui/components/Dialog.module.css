@@ -1,0 +1,266 @@
+.dialog {
+  transition: max-width var(--duration) var(--ease-sheet);
+  width: calc(100% - 48px);
+  max-width: 560px;
+  overflow: hidden;
+  isolation: isolate;
+  border: none;
+  border-radius: 24px;
+  background: transparent;
+  padding: 22px 24px 0;
+  font-family: var(--font-system);
+  color: var(--text);
+  box-shadow: var(--edge), var(--float);
+}
+
+/* The glass sits on a layer behind the content. On the dialog itself, a
+   backdrop filter would make menus inside it place themselves relative to
+   the dialog instead of the window, so they'd open in the wrong spot. */
+.dialog::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--material);
+  box-shadow: var(--edge-light);
+  backdrop-filter: var(--material-blur);
+  content: '';
+  pointer-events: none;
+}
+
+.large {
+  max-width: 980px;
+  height: min(720px, calc(100vh - 80px));
+}
+
+.large .content {
+  height: 100%;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+}
+
+.dialog:focus {
+  outline: none;
+}
+
+.dialog::backdrop {
+  background: var(--scrim);
+  animation: fade var(--duration) var(--ease-out);
+}
+
+.dialog[open] {
+  animation: pop var(--duration-slow) var(--ease-sheet);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Back to the step this one was opened from, above the title. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 3px;
+  margin: -6px 0 -8px -8px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  padding: 4px 9px 4px 4px;
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+  cursor: default;
+  transition:
+    background var(--duration) var(--ease-out),
+    color var(--duration) var(--ease-out);
+}
+
+.back:hover {
+  background: var(--bg-muted);
+  color: var(--text);
+}
+
+.back:active {
+  transform: scale(0.98);
+}
+
+.back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Dialogs with no footer still need room at the bottom. */
+.content > :last-child:not(.footer) {
+  margin-bottom: 22px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.headingText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Nested inside the window's 24px corners. */
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--tile);
+  box-shadow: var(--tile-bevel);
+}
+
+.eyebrow {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--text-2);
+  cursor: default;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.close svg {
+  width: 14px;
+  height: 14px;
+}
+
+.close:hover {
+  background: color-mix(in srgb, var(--chip) 100%, var(--text) 6%);
+  color: var(--text);
+}
+
+/* A grey strip along the bottom, the full width of the dialog. */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px -24px 0;
+  border-top: 0.5px solid var(--hairline);
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+  padding: 14px 24px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.text p,
+.text ul {
+  margin: 0;
+}
+
+.text ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 18px;
+  color: var(--text-2);
+}
+
+.wide {
+  max-width: 760px;
+}
+
+/* Settings: a large window drawn entirely by its children. */
+.bare {
+  max-width: 1060px;
+  height: min(820px, calc(100vh - 60px));
+  padding: 0;
+}
+
+/* Drawn entirely by its children, at about the usual size. */
+.plain {
+  max-width: 600px;
+  padding: 0;
+}
+
+/* Moving between steps of one window: a navigation push or pop. The
+   footer strip stays put; its buttons fade in. */
+.fromRight > :not(.footer) {
+  animation: step-from-right 300ms var(--ease-sheet) both;
+}
+
+.fromLeft > :not(.footer) {
+  animation: step-from-left 300ms var(--ease-sheet) both;
+}
+
+.fromRight > .footer > *,
+.fromLeft > .footer > * {
+  animation: fade 240ms var(--ease-out) both;
+}
+
+@keyframes step-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+}
+
+@keyframes step-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fromRight > *,
+  .fromLeft > *,
+  .fromRight > .footer > *,
+  .fromLeft > .footer > * {
+    animation: none;
+  }
+}

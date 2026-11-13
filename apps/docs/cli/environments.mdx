@@ -1,0 +1,64 @@
+---
+title: "Environments"
+description: "hoist commands for environments."
+---
+
+A Hoista environment groups projects, such as production and staging. `hoist environments use` is saved, like kubectl's context, and every command after it works there. `-e NAME` overrides it for one command. Providers have environments of their own (Vercel's Preview, Railway's environments); those live inside a project.
+
+## `hoist environments`
+
+Hoista environments, such as production and staging.
+
+```bash
+hoist environments
+```
+
+## `hoist environments add [NAME]`
+
+Add an environment.
+
+```bash
+hoist environments add staging
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[NAME]` | Lowercase letters, digits and hyphens, such as staging. |
+
+## `hoist environments rename <ENVIRONMENT> <NAME>`
+
+Rename an environment.
+
+```bash
+hoist environments rename staging preview
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<ENVIRONMENT>` | Its name now. |
+| `<NAME>` | The new name. |
+
+## `hoist environments remove [ENVIRONMENT]`
+
+Remove an empty environment.
+
+```bash
+hoist environments remove preview
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[ENVIRONMENT]` | Environment name. |
+
+## `hoist environments use [ENVIRONMENT]`
+
+Use an environment for the commands that follow.
+
+```bash
+hoist environments use production
+hoist projects                     # now lists production
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[ENVIRONMENT]` | Environment name. |

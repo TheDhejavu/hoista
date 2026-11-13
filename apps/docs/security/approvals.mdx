@@ -1,0 +1,58 @@
+---
+title: "Agent sign-in and approvals"
+description: "How agents connect to Hoista and what you approve before an action runs."
+---
+
+Every agent signs in to Hoista with its own credential, and you choose what it can do. Risky actions wait for you to approve them and to confirm it's you.
+
+## How agents connect
+
+**Coding tools on this computer** run `hoist mcp` and talk to the daemon over a local socket. The first time, Hoista opens a page in your browser with a short code, and the agent shows the same code. Check they match, choose the agent's access and allow it. If the page doesn't open, the request waits in **Agents** in Desktop. The request ends after 10 minutes. You can also answer from the CLI:
+
+```bash
+hoist agents requests
+hoist agents allow REQUEST_ID --access view
+hoist agents deny REQUEST_ID
+```
+
+**Chat apps and cloud agents** connect to your Hoista URL with OAuth: the authorization code flow with S256 PKCE and an exact redirect URI. You sign in on Hoista's page, check the agent and its access, and allow it. On a remote, you sign in with your passkey. On your computer, through a tunnel to MCP over HTTP, you confirm with Touch ID or your password, on the computer itself. The request expires after 15 minutes.
+
+An agent picks its own name, and Hoista can't verify it. Check the code and address before you allow it.
+
+## What needs approval
+
+These actions need your approval:
+
+- Deleting a project, resource or volume
+- Removing a domain
+- Destructive provider operations, such as restoring over a database
+- Connecting a new provider account
+
+With **Ask for approval**, the agent asks you in its own client. With **Full access**, these run without asking, unless an exception you set is **Ask first**. **View only** agents can't request changes at all.
+
+## What allowing checks
+
+- **It's you.** Hoista asks for Touch ID or your password on macOS, Windows Hello on Windows or a polkit prompt on Linux. The daemon shows this prompt itself, so an agent or script can't answer it. On a remote, you need a passkey sign-in from the last 10 minutes.
+- **It's the same target.** For a deletion, you type the name. If what would be deleted changes before you allow it, Hoista refuses and the agent must ask again.
+- **It's still current.** An approval expires after 15 minutes. It covers one action, which the agent retries with the approval's ID.
+
+Allowing an action doesn't mean it succeeded. If Hoista doesn't hear back from the provider, see [When Hoista didn't hear back](/guides/backups#when-hoista-didnt-hear-back).
+
+## Remove an agent
+
+```bash
+hoist agents revoke AGENT_ID
+hoist agents stop-all
+```
+
+`revoke` removes one agent's access. `stop-all` cuts off every agent and pauses agent access. Neither revokes provider tokens or undoes changes a provider already accepted. See [Review and revoke agent access](/agents/permissions).
+
+The daemon enforces approvals, and the provider token can do anything its permissions allow. A narrow token is your strongest protection. See [Threat model and limits](/security/limits).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Threat model and limits" icon="triangle-exclamation" href="/security/limits">What Hoista can’t protect against.</Card>
+<Card title="Backups and recovery" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear changes.</Card>
+</CardGroup>

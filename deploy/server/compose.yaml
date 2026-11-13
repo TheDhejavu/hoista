@@ -1,0 +1,37 @@
+# Hoista in Docker: on this Mac, or on a server of yours.
+#
+#   ./deploy/server/start.sh            builds it, makes its key, starts it
+#   docker compose -f deploy/server/compose.yaml logs -f
+#   docker compose -f deploy/server/compose.yaml down    (stops it; keeps its data)
+#
+# Its address is HOISTA_PUBLIC_URL (default http://localhost:8787, for this
+# Mac). Its key, HOISTA_SEALED_KEY, is in .env beside this file, made once by
+# start.sh and never committed. Its data is in the hoista-data volume.
+# See docs/backend/self-host-docker.md.
+name: hoista
+
+services:
+  hoista:
+    build:
+      context: ../..
+      dockerfile: deploy/server/Dockerfile
+    image: hoista-server:local
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOISTA_PUBLIC_URL: ${HOISTA_PUBLIC_URL:-http://localhost:8787}
+      PORT: "8080"
+    # Only this machine reaches it; on a server, a reverse proxy in front
+    # gives it its HTTPS address.
+    ports:
+      - "127.0.0.1:8787:8080"
+    volumes:
+      - hoista-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  hoista-data:

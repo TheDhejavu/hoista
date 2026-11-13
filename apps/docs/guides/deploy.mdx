@@ -1,0 +1,82 @@
+---
+title: "Plan and deploy"
+description: "Review a deployment plan, deploy it, follow it and roll back."
+---
+
+A deployment starts with a plan built from the project's source. The plan lists the resources, provider accounts, regions and environment variables before Hoista changes anything. [Connect](/guides/accounts) the target account first.
+
+## From Desktop
+
+Desktop has no deploy form. Ask a [connected agent](/agents/connect) to deploy, for example "Deploy this project with Hoista", or use the CLI below. **Deploys** in the sidebar shows every deploy as it runs, and a project's **Deploys** tab shows that project's history.
+
+For a watched project, the provider still runs the build. Use **Deploy newest commit**, or a row's menu to redeploy, restart or roll back. Hoista asks the provider to do it.
+
+## Create and review a plan
+
+```bash
+hoist plan ./my-app --project my-app
+hoist plan show PLAN_ID
+```
+
+Check the detected framework, resource names, accounts, regions, required variables and any database migration step. To change where a resource goes:
+
+```bash
+hoist plan set PLAN_ID RESOURCE_NAME --account ACCOUNT
+hoist plan set PLAN_ID RESOURCE_NAME --region REGION
+```
+
+`--region -` clears the region. To change more, pipe edited JSON from `hoist plan show PLAN_ID --json` into `hoist plan edit PLAN_ID`.
+
+If the source changes, create a new plan. Set required values through [variables](/guides/environment).
+
+## Deploy
+
+Deploy a folder in one step:
+
+```bash
+hoist deploy ./my-app --project my-app -m "First deploy"
+```
+
+The CLI follows the deploy step by step until it is live or fails. `--detach` starts it and returns straight away. `-m` saves a note with the deploy.
+
+Or deploy a reviewed plan:
+
+```bash
+hoist deploy --project my-app --plan PLAN_ID --plan-revision REVISION --request-key REQUEST_UUID
+```
+
+Keep the same request key if you retry the same deployment. Hoista rejects the key if the content changed. `hoist deploys request REQUEST_UUID` finds the deploy a key started.
+
+## Follow, cancel and roll back
+
+```bash
+hoist status my-app
+hoist deploys my-app
+hoist deploys show DEPLOY_ID --log
+hoist logs my-app --follow
+hoist cancel DEPLOY_ID
+hoist rollback DEPLOY_ID
+```
+
+In a terminal, `hoist rollback` without a deploy ID lets you pick one from the project's deploys.
+
+<Frame caption="A finished deploy, with its checks and a button to roll back to v3.">
+  <img className="shot-light" src="/assets/screens/deploy-live-light.webp" alt="The deploy page for moodboard v4, live, with its checks and a Roll back to v3 button" />
+  <img className="shot-dark" src="/assets/screens/deploy-live-dark.webp" alt="The deploy page for moodboard v4, live, with its checks and a Roll back to v3 button" />
+</Frame>
+
+A successful build does not prove the app works. Check the running project as well.
+
+Cancelling asks the provider to stop, and the provider may already be past that point. Rolling back switches which version serves traffic. It does not undo database migrations.
+
+If a request times out, check what happened before you retry. See [operation outcomes](/guides/backups).
+
+[Providers](/providers/overview) lists the build types and actions each provider supports.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="A failed deployment" icon="triangle-exclamation" href="/examples/failed-deployment">Find where it failed and fix it.</Card>
+<Card title="Variables and domains" icon="sliders" href="/guides/environment">Set what the deploy needs.</Card>
+<Card title="Logs and metrics" icon="chart-line" href="/guides/logs">Check the running app afterwards.</Card>
+</CardGroup>

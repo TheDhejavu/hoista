@@ -1,0 +1,14 @@
+.text {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--text-2);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: default;
+}
+
+.text:hover {
+  color: var(--text);
+}

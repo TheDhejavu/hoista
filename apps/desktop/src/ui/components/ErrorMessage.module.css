@@ -1,0 +1,22 @@
+.error {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--bad) 28%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bad) 6%, var(--bg-raised));
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text);
+  text-align: left;
+}
+
+.icon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--bad);
+}

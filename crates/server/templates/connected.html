@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# After an agent was allowed: what it can reach, and where to go next. #}
+{% block content %}
+<div class="pair"><span class="tile">{% include "icons/terminal.svg" %}</span>{% call parts::to_hoista(true) %}{% endcall %}</div>
+<section class="card"><h1>{{ name }} is connected</h1>
+<p class="sub">{% if back.is_some() %}Continue to finish connecting {{ name }}.{% else %}Go back to {{ name }}. You can close this tab.{% endif %}</p>
+<div class="facts"><div class="fact"><span>Environments</span><b>{{ environments }}</b></div><div class="fact"><span>Projects</span><b>{{ projects }}</b></div><div class="fact"><span>What it can do</span><b>{{ level }}</b></div><div class="fact"><span>Access ends</span><b>{{ ends }}</b></div>
+{%- match set_up %}
+{%- when Some(true) %}<div class="fact"><span>Set up</span><b>Done. Restart {{ name }} to load it</b></div>
+{%- when Some(false) %}<div class="fact"><span>Set up</span><b>Couldn't change its settings</b></div>
+{%- when None %}
+{%- endmatch %}</div>
+{%- if let Some(back) = back %}
+<a class="go" href="{{ back }}">Continue to {{ name }}</a>
+{%- endif %}
+<p class="fine">Change any of this, or add exceptions for some resources, in Hoista → Agents, or with <code>hoist agents</code>.</p></section>
+{% endblock %}

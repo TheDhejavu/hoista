@@ -1,0 +1,21 @@
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+/* Reconnecting an account opens under its row, inside the group. */
+.replace {
+  padding: 0 20px 16px;
+}

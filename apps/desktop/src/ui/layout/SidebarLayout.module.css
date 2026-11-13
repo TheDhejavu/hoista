@@ -1,0 +1,32 @@
+.column {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.screen {
+  min-height: 100%;
+  animation: enter var(--duration-slow) var(--ease-out);
+}
+
+/* Drags the window from its top edge, over the content, so screens start
+   at the very top like the designs. The sidebar holds search and the
+   profile menu. */
+.dragStrip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 30;
+  height: 12px;
+  -webkit-app-region: drag;
+}

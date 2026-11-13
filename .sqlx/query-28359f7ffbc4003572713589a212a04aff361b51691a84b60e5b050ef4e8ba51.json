@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM oauth_pending WHERE json_extract(data,'$.expires_at') <= ?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "28359f7ffbc4003572713589a212a04aff361b51691a84b60e5b050ef4e8ba51"
+}

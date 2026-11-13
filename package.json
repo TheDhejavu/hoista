@@ -1,0 +1,19 @@
+{
+  "name": "hoista",
+  "private": true,
+  "description": "Hoista: deploy apps built with AI from your own machine.",
+  "license": "MIT",
+  "workspaces": [
+    "apps/desktop"
+  ],
+  "scripts": {
+    "desktop": "npm --workspace @hoista/desktop run dev",
+    "desktop:check": "npm --workspace @hoista/desktop run check",
+    "demo": "scripts/dev.sh --demo",
+    "docs:dev": "cd apps/docs && npm exec --yes --package=mint@4.2.1203 -- mint dev --port 3001 --no-open",
+    "docs:validate": "cd apps/docs && npm exec --yes --package=mint@4.2.1203 -- mint validate"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

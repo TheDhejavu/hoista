@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT version, cancel_requested, data FROM deploys WHERE status = 'queued' ORDER BY rowid LIMIT 32",
+  "describe": {
+    "columns": [
+      {
+        "name": "version",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "cancel_requested",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "data",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "5646eec3c44c83e899c33afccce9900c85b8810b7565b216909cae0a934f7002"
+}

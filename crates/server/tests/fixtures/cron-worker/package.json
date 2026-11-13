@@ -1,0 +1,12 @@
+{
+  "name": "hoista-cron-build-fixture",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.156.1"
+  }
+}

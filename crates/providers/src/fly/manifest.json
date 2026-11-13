@@ -1,0 +1,95 @@
+{
+ "id": "fly",
+ "name": "Fly.io",
+ "api": {
+  "kind": "rest",
+  "base": "/v1",
+  "operations": "api_ops.json"
+ },
+ "cli": {
+  "name": "fly",
+  "version": "0.4.119",
+  "downloads": [
+   {
+    "platform": "darwin-arm64",
+    "url": "https://github.com/superfly/flyctl/releases/download/v0.4.119/flyctl_0.4.119_macOS_arm64.tar.gz",
+    "integrity": "sha256-h/SnsxKjvFk6ASmfKGWa6n7ZDge3Kc4h3Op/EJnXS3g="
+   },
+   {
+    "platform": "darwin-x64",
+    "url": "https://github.com/superfly/flyctl/releases/download/v0.4.119/flyctl_0.4.119_macOS_x86_64.tar.gz",
+    "integrity": "sha256-tBxqpm/96cYZJpOmQ7tqQevzc45mYx8pwayLqy5EVFg="
+   },
+   {
+    "platform": "linux-arm64",
+    "url": "https://github.com/superfly/flyctl/releases/download/v0.4.119/flyctl_0.4.119_Linux_arm64.tar.gz",
+    "integrity": "sha256-1HvlrXbSV5g89GgVS5s0/oXcG7P2VX5hqqAtYyIYUP4="
+   },
+   {
+    "platform": "linux-x64",
+    "url": "https://github.com/superfly/flyctl/releases/download/v0.4.119/flyctl_0.4.119_Linux_x86_64.tar.gz",
+    "integrity": "sha256-u4+RaBTxK8z3lIibA3XdELB1tg+WVgf8Odieza1528w="
+   },
+   {
+    "platform": "windows-arm64",
+    "url": "https://github.com/superfly/flyctl/releases/download/v0.4.119/flyctl_0.4.119_Windows_arm64.zip",
+    "integrity": "sha256-RPZuGjplYgvl8j1RLGP0sAvrGc8FT/S1mjOGakNuH1s=",
+    "archive": "zip"
+   },
+   {
+    "platform": "windows-x64",
+    "url": "https://github.com/superfly/flyctl/releases/download/v0.4.119/flyctl_0.4.119_Windows_x86_64.zip",
+    "integrity": "sha256-p70cVA4iO1gZ+ed+CfzKe6vO85hgPjI6kCZYX7sqy/M=",
+    "archive": "zip"
+   }
+  ],
+  "inside": "flyctl",
+  "inside_windows": "flyctl.exe",
+  "token": "FLY_API_TOKEN",
+  "variables": {
+   "FLY_NO_UPDATE_CHECK": "1",
+   "FLY_SEND_METRICS": "0",
+   "DO_NOT_TRACK": "1"
+  },
+  "always": [],
+  "confirmed": [],
+  "targets": {
+   "app": "app"
+  },
+  "json_flag": "json",
+  "yes_flag": "yes",
+  "commands": "cli.json"
+ },
+ "actions": [
+  {
+   "label": "Status",
+   "on": null,
+   "run": "fly status",
+   "description": "The app's machines, where they run and how they're doing."
+  },
+  {
+   "label": "Machines",
+   "on": null,
+   "run": "machinesList",
+   "description": "Every machine in the app."
+  },
+  {
+   "label": "Recent logs",
+   "on": null,
+   "run": "fly logs",
+   "description": "The app's latest log lines."
+  },
+  {
+   "label": "Releases",
+   "on": null,
+   "run": "fly releases",
+   "description": "Each release of the app, newest first."
+  },
+  {
+   "label": "Volumes",
+   "on": null,
+   "run": "fly volumes list",
+   "description": "The app's volumes and their sizes."
+  }
+ ]
+}

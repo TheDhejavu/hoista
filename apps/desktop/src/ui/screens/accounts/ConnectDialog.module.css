@@ -1,0 +1,211 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.body p {
+  margin: 0;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.links a,
+.linkButton {
+  align-self: center;
+  font-size: var(--text-sm);
+  color: var(--accent-ink);
+}
+
+.waitingLine {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--accent-ink);
+}
+
+.alt {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.again {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: var(--text-sm);
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.again:disabled {
+  color: var(--text-4);
+  text-decoration: none;
+}
+
+/* The done state: what connecting found, with a Connected pill. */
+.connectedRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--text-2);
+}
+
+.connectedPill {
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--good) 14%, transparent);
+  padding: 3px 10px;
+  font-size: var(--text-sm);
+  color: var(--good);
+}
+
+/* "Connect Railway ▬▭ Step 1 of 2" above the title. */
+.steps {
+  display: inline-flex;
+  align-items: center;
+}
+
+.marks {
+  display: inline-flex;
+  gap: 3px;
+  margin: 0 8px;
+}
+
+.mark,
+.markOn {
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+
+.markOn {
+  background: var(--text);
+}
+
+.pickSummary {
+  margin-right: auto;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+/* A link-styled button: opens the provider's guide over this dialog. */
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Step 2 with nothing to pick: one centred message instead of an empty list. */
+.nothing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 28px 24px 20px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.nothing h3 {
+  margin: 6px 0 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.nothing p {
+  margin: 0;
+  max-width: 440px;
+}
+
+.nothingIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* A connected code account's repositories, every one, in a box that scrolls. */
+.repoFrame {
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+.repoTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-md);
+  text-align: left;
+}
+
+.repoTable th {
+  position: sticky;
+  top: 0;
+  padding: 9px 14px;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.repoTable td {
+  padding: 9px 14px;
+  border-top: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.repoTable tbody tr:first-child td {
+  border-top: none;
+}
+
+.repoTable td:not(:first-child) {
+  color: var(--text-2);
+}
+
+.repoLoading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-2);
+}
+
+.repoSpinner {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--line-strong);
+  border-top-color: var(--text-2);
+  border-radius: 50%;
+  animation: repoTurn 0.8s linear infinite;
+}
+
+@keyframes repoTurn {
+  to {
+    transform: rotate(360deg);
+  }
+}

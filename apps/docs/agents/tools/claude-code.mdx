@@ -1,0 +1,63 @@
+---
+title: "Claude Code"
+description: "Add Hoista to Claude Code with one command."
+---
+
+Claude Code starts Hoista's MCP server itself, over stdio, whenever it needs it. You need Hoista on this computer: run `hoist doctor` to check.
+
+## Add Hoista
+
+```bash
+claude mcp add --scope user hoista -- hoist mcp
+```
+
+`--scope user` makes Hoista available in every project, not just the folder you're in. Everything after `--` is the command Claude Code runs.
+
+If Claude Code can't find `hoist`, give its full path instead:
+
+```bash
+claude mcp add --scope user hoista -- "$(command -v hoist)" mcp
+```
+
+Check it's there with `claude mcp list`, or run `/mcp` inside Claude Code.
+
+## Approve it in Hoista
+
+When Claude Code starts Hoista, Hoista opens a page in your browser with a code. Check the code matches the one Claude Code shows, choose **What it may do** and allow it. If the page doesn't open, allow it in **Agents** in the desktop app, or from a terminal:
+
+```bash
+hoist agents requests
+hoist agents allow
+```
+
+Start with **View only** and widen it later in [Agent permissions](/agents/permissions).
+
+## Add Hoista's skills
+
+Hoista's skills teach Claude Code how to use it well: where to start, how to connect providers and import projects, and how to deploy, fix and manage them. Install them with:
+
+```bash
+hoist skills install
+```
+
+## Check it works
+
+Ask Claude Code: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+## Hoista on a remote
+
+Claude Code talks to Hoista on this computer. While a [remote](/guides/remote) is selected (`hoist remote use NAME`), `hoist mcp` won't start. To use the remote, add it to Claude Code as an HTTP MCP server at its own address: `hoist mcp config` prints the remote's `/mcp` URL. Claude Code then signs in with OAuth.
+
+## If it doesn't connect
+
+- **`hoista` shows "Failed to connect" in `/mcp`:** run `hoist doctor`. If `hoist` isn't found, add it again with its full path.
+- **No connection request in Hoista:** the request starts as soon as Claude Code starts a session with Hoista. Run `/mcp` to reconnect, then check `hoist agents requests`.
+- **To remove it:** `claude mcp remove hoista`, then revoke the agent in **Agents** or with `hoist agents revoke`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Prompts" icon="message" href="/agents/prompts">Prompts to start with.</Card>
+</CardGroup>

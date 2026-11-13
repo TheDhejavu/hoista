@@ -1,50 +1,204 @@
-# Hoista
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="apps/docs/assets/logo-dark.svg">
+    <img src="apps/docs/assets/logo-light.svg" alt="Hoista" height="64">
+  </picture>
+</p>
 
-Deploy apps built with AI, from your own machine. Hoista runs on your computer and deploys to your own Cloudflare, Fly.io, Vercel and Neon accounts. There is no Hoista account and no Hoista server: cloud tokens stay in your system keychain and every provider call is made from your machine.
+<p align="center"><strong>The open-source control plane for your infrastructure, built for AI agents.</strong></p>
 
-Any AI that speaks MCP (Claude, Cursor, Codex, ChatGPT and others) can deploy and manage your apps through Hoista. Hoista Desktop is the app for seeing what is live, what is failing and what it costs.
+<p align="center">
+  <a href="https://github.com/TheDhejavu/hoista/actions/workflows/rust.yml"><img src="https://github.com/TheDhejavu/hoista/actions/workflows/rust.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/TheDhejavu/hoista/releases"><img src="https://img.shields.io/github/v/release/TheDhejavu/hoista?include_prereleases" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
+</p>
 
-Hoista is early. The engine and the `hoist` command line are being built in the open; deploys, import, the MCP server and the desktop app are not available yet.
+<p align="center">
+  <a href="https://hoista.dev">Website</a> ·
+  <a href="https://docs.hoista.dev">Docs</a> ·
+  <a href="https://docs.hoista.dev/getting-started/quickstart">Quickstart</a> ·
+  <a href="https://docs.hoista.dev/cli/overview">CLI reference</a> ·
+  <a href="https://docs.hoista.dev/security/overview">Security</a>
+</p>
 
-## Project at a glance
+Most projects end up spread across providers: the frontend on Vercel, the API on Railway or Fly.io, Postgres on Neon, a Worker on Cloudflare, email through Resend. Each has its own dashboard, CLI, logs and bill, and each coding agent you use wants its own API token for each of them.
 
-```mermaid
-flowchart LR
-    AI[Your AI · Claude, Cursor, ChatGPT] -->|MCP| Engine[Hoista engine · your computer]
-    Desktop[Hoista Desktop] --> Engine
-    CLI[hoist CLI] --> Engine
-    Engine --> Keychain[(System keychain · cloud tokens)]
-    Engine -->|provider APIs| Clouds[Your accounts · Cloudflare, Fly.io, Vercel, Neon]
-```
+Hoista connects to those accounts (Cloudflare, Fly.io, Railway, Vercel, Neon, Supabase, Render, Resend, Runpod, Modal and GitHub) and gives you one view of everything running on them. From the desktop app, the `hoist` CLI or any MCP-capable agent you can deploy, read logs and metrics, set variables, add domains, roll back and see what each provider billed.
 
-| Folder | Purpose |
-| --- | --- |
-| `crates/engine/` | The engine: providers, deploys and the app map |
-| `bin/hoist/` | `hoist`, the command line |
-| `apps/web/` | The hoista.ai website, plain HTML, CSS and JavaScript |
-| `.github/` | Continuous integration |
+It's not a host. Your apps keep running on your providers, and nothing sits between them and your users. Hoista keeps your tokens in the system keychain and runs on your computer, or on a server of yours if you want it reachable while your laptop is closed.
 
-## Run locally
+## Install
 
-Requires Rust 1.97 (pinned in `rust-toolchain.toml`).
+The desktop app and the CLI are on [GitHub releases](https://github.com/TheDhejavu/hoista/releases). For the CLI on macOS or Linux:
 
 ```sh
-cargo run -p hoist -- providers
-cargo test --workspace
-python3 -m http.server 8080 --directory apps/web
+curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0
 ```
+
+The installer verifies the release signature with [cosign](https://docs.sigstore.dev/cosign/system_config/installation/), puts `hoist` and `hoistd` in `~/.local/bin`, and starts Hoista at login. Windows and other options: [Install](https://docs.hoista.dev/getting-started/install).
+
+## Quick start
+
+Connect a provider with a token, bring in what already runs there, then look around:
+
+```sh
+hoist accounts add railway
+hoist import
+hoist status my-app
+hoist logs my-app -f
+```
+
+From a project's folder, `hoist deploy` deploys it.
+
+Run a command without its arguments and it asks for them. In scripts, pass everything and add `--json`. All commands: [CLI reference](https://docs.hoista.dev/cli/overview).
+
+## With coding agents
+
+Hoista is an MCP server. Add it to Claude Code or Codex and install the skills:
+
+```sh
+claude mcp add --scope user hoista -- hoist mcp
+hoist skills install
+```
+
+For Codex, the first line is `codex mcp add hoista -- hoist mcp`.
+
+`hoist mcp config` prints the JSON for other tools. ChatGPT and other web agents connect over HTTP through a tunnel you run to `127.0.0.1:8788`, and sign in with OAuth.
+
+The agent gets tools, not tokens. When it first connects, it shows a code that you match in Hoista, and you choose what it may do: View only, Ask for approval or Full access, optionally limited to some environments and projects. Every call it makes is recorded.
+
+The [skills](skills/README.md) are what make an agent good at this. The `hoista` skill is the entry point: it tells the agent what Hoista is, to check its access before planning, which skill handles the request (setup, deploy, fix or manage), and the rules every call follows. Ask "deploy this" and the agent plans it, deploys, waits for the build, checks the logs and gives you the URL.
+
+## Security
+
+- Provider tokens live in the system keychain (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux), or in 1Password by reference. Hoista checks each token with its provider before saving it. `hoist accounts rotate` replaces one.
+- Agents never see provider tokens. Each gets its own credential, at the access you chose.
+- With Ask for approval, anything that can't be undone (deleting, removing a domain, connecting an account) waits for you to confirm with Touch ID or your password. Deleting also needs the name typed, and saves a copy of each database first.
+- Secret values only go one way: into the provider. Hoista never prints one back, and strips them from what agents read.
+- Nothing on your computer is opened to the network. The engine listens on a local socket, and on `127.0.0.1:8788` for MCP over HTTP (`hoist mcp http off` turns that off). A remote Hoista is owned with a passkey, and each computer signed in to it gets its own key.
+
+Details: [Security overview](https://docs.hoista.dev/security/overview), [Threat model and limits](https://docs.hoista.dev/security/limits).
+
+## What it does
+
+- [Import](https://docs.hoista.dev/guides/import-apps) what already runs on your providers, grouped into projects. Watch a project as it is, or let Hoista manage it.
+- [Deploy](https://docs.hoista.dev/guides/deploy) a folder: Hoista plans where each part runs, shows you the plan, and follows the deploy until it's live. Roll back to any earlier deploy.
+- [Logs](https://docs.hoista.dev/guides/logs), metrics and daily usage, as each provider reports them.
+- [Variables and domains](https://docs.hoista.dev/guides/environment): set values hidden or from a `.env` file, add custom domains, check their DNS.
+- [Environments](https://docs.hoista.dev/guides/environments) such as production and staging, each with its own projects and agent rules.
+- [Billing](https://docs.hoista.dev/guides/billing): what each provider has billed this period, and plan limits. Hoista never estimates cost.
+- [Agents](https://docs.hoista.dev/agents/connect) over MCP, with [per-agent access](https://docs.hoista.dev/agents/permissions) and a record of every call.
+- [Remotes](https://docs.hoista.dev/guides/remote): run Hoista on Railway, Fly.io or Docker and move your projects there in one step.
+- [Backups](https://docs.hoista.dev/guides/backups) of Hoista's own state, an encrypted export for moving to another computer, and [webhooks](https://docs.hoista.dev/guides/webhooks).
+
+## How it works
+
+```
+┌─────────────┐    ┌───────────┐    ┌─────────────────────┐
+│ Desktop app │    │ hoist CLI │    │ Coding agents (MCP) │
+└──────┬──────┘    └─────┬─────┘    └──────────┬──────────┘
+       │ local socket    │ local socket        │ hoist mcp (stdio), or
+       │                 │                     │ 127.0.0.1:8788 (HTTP)
+       └─────────────────┼─────────────────────┘
+                         ▼
+          ┌─────────────────────────────┐
+          │      hoistd, the engine     │
+          │                             │
+          │  access checks · approvals  │
+          │  plans · deploys · journal  │
+          └──────────────┬──────────────┘
+                         │
+        ┌────────────────┼──────────────────────┐
+        ▼                ▼                      ▼
+┌──────────────┐ ┌───────────────┐ ┌────────────────────────┐
+│ OS keychain  │ │     SQLite    │ │ provider APIs and CLIs │
+│ your tokens  │ │  in ~/.hoista │ │ Cloudflare · Fly.io ·  │
+└──────────────┘ └───────────────┘ │  Railway · Vercel · …  │
+                                   └────────────────────────┘
+```
+
+`hoistd` does the work; the app, the CLI and agents are clients of it. It talks to each provider through its API, or through the provider's own CLI where that's the supported path (wrangler, flyctl, the Railway CLI). Every change is written to a journal before it's sent, so retrying after a crash or a dropped connection never applies it twice. `hoist` starts the engine when a command needs it.
+
+## Providers
+
+| Provider   | What Hoista works with                                   |
+| ---------- | -------------------------------------------------------- |
+| Cloudflare | Workers, Pages, D1, KV, R2 and DNS                       |
+| Fly.io     | Apps and Machines                                        |
+| Railway    | Projects, services and databases                         |
+| Vercel     | Projects, deployments and domains                        |
+| Neon       | Serverless Postgres                                      |
+| Supabase   | Postgres, auth and storage                               |
+| Render     | Web services, workers, cron jobs, Postgres and Key Value |
+| Resend     | Email sending domains                                    |
+| Runpod     | GPU and CPU pods, Serverless endpoints and volumes       |
+| Modal      | Serverless GPU apps and volumes                          |
+| GitHub     | The repositories projects deploy from                    |
+
+Per-provider detail: [Providers](https://docs.hoista.dev/providers/overview).
+
+## Building from source
+
+You need Rust 1.97 (pinned in `rust-toolchain.toml`), and Node.js 22 for the desktop app. On Linux the desktop app also needs the system webview's libraries: `libwebkit2gtk-4.1-dev`, `libayatana-appindicator3-dev` and `librsvg2-dev` on Debian and Ubuntu.
+
+```sh
+git clone https://github.com/TheDhejavu/hoista.git && cd hoista
+cargo build --locked -p hoist -p hoistd
+./target/debug/hoist doctor
+npm install
+scripts/dev.sh
+```
+
+`scripts/dev.sh` is the one command for working on Hoista. It rebuilds `hoist` and `hoistd`, installs npm packages when the lockfile changed, starts the engine on the new build (or restarts a running one onto it), serves the webpage at http://localhost:3000 and the docs at http://localhost:3001, and opens the desktop app. Ctrl-C stops the app, docs and webpage; the engine keeps running.
+
+- `scripts/dev.sh --demo` (or `npm run demo`) opens the app on the demo engine: Hoista's real engine on Sam Rivera's example projects, in `~/.hoista-demo`, with providers answered locally so nothing reaches the internet. Add `--fresh` to start over from the seed.
+- `HOISTA_SOCKET=/some/dir/hoistd.sock scripts/dev.sh` runs everything against a separate state folder, so you don't touch `~/.hoista`.
+
+### Crates
+
+The workspace is split the way the engine is layered. Each crate depends only on the ones above it, so `hoista-domain` and `hoista-app` never use a database, an HTTP framework or a provider's API directly.
+
+| Crate                                  | What it is                                                                                                                                            |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`hoista-domain`](crates/domain)       | Core types and rules: projects, resources, deploys, access. No I/O.                                                                                   |
+| [`hoista-system`](crates/system)       | The operating system: running programs, finding them, Hoista's folders, reading files safely.                                                         |
+| [`hoista-app`](crates/app)             | The use cases, written against traits in its `ports` module. `Engine` and the services it hands out (`engine.deploys()`, `engine.accounts()`, …).     |
+| [`hoista-providers`](crates/providers) | One adapter per provider, implementing the provider port.                                                                                             |
+| [`hoista-store`](crates/store)         | The other ports' implementations: SQLite through sqlx, the keychain and credential keeper, backups, sandboxed builds.                                 |
+| [`hoista-server`](crates/server)       | HTTP API, MCP, the browser pages (askama templates in `templates/`), the client the CLI uses, and `wiring.rs`, which plugs the store into the engine. |
+| [`hoist`](bin/hoist)                   | The CLI binary.                                                                                                                                       |
+| [`hoistd`](bin/hoistd)                 | The engine daemon binary.                                                                                                                             |
+| [`hoista-demo`](bin/hoista-demo)       | The engine on seeded example data, with providers answered locally, for `npm run demo`.                                                               |
+
+Swapping SQLite for another store, or the keychain for another vault, means a new implementation of a port and one line in `wiring.rs`. `crates/server/tests/architecture.rs` keeps the layering honest.
+
+### Everything else
+
+- [`apps/desktop`](apps/desktop): the desktop app, on [Tauri](https://tauri.app): React screens in the system webview, with a Rust side for the windows, the menu bar icon and remotes.
+- [`apps/docs`](apps/docs): the docs site (Mintlify), at docs.hoista.dev.
+- [`apps/webpage`](apps/webpage): hoista.dev.
+- [`skills`](skills): skills for coding agents.
+- [`deploy/server`](deploy/server): Hoista as a remote, in Docker.
+- [`docs/backend`](docs/backend): notes for people working on the engine.
 
 ## Checks
 
-CI runs the same commands:
+CI runs:
 
 ```sh
 cargo fmt --all -- --check
 cargo clippy --workspace --all-targets --locked -- -D warnings
 cargo test --workspace --locked
-RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps --locked
+npm run desktop:check
+npm run docs:validate
 ```
 
-## Licence
+## Contributing
+
+Issues and pull requests are welcome. Keep changes small, add tests for what you change, and run the checks above. Adding a provider starts at [docs/backend/adding-a-provider.md](docs/backend/adding-a-provider.md).
+
+Report security problems privately through [GitHub security advisories](https://github.com/TheDhejavu/hoista/security/advisories/new), not in public issues.
+
+## License
 
 MIT. See [LICENSE](LICENSE).

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM ignored_resources WHERE resource_id=?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "d2b2505843a288b13236f5d48a7c01263753448113c14e99a79a806590a6b470"
+}

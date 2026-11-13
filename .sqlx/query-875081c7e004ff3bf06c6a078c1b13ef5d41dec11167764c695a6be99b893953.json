@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT reference, commitment AS \"commitment!: String\" FROM environment_admission_keys WHERE active = 1",
+  "describe": {
+    "columns": [
+      {
+        "name": "reference",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "commitment!: String",
+        "ordinal": 1,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      true
+    ]
+  },
+  "hash": "875081c7e004ff3bf06c6a078c1b13ef5d41dec11167764c695a6be99b893953"
+}

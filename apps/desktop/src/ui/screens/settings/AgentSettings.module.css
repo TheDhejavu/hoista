@@ -1,0 +1,27 @@
+/* A status under a row's label: a dot and a few words. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* An address to copy with its ⋮ menu beside it. */
+.controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The address takes the room there is, on its own line when long; ⋮ ends the row. */
+.addressControls {
+  display: flex;
+  flex: 1 1 420px;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+}

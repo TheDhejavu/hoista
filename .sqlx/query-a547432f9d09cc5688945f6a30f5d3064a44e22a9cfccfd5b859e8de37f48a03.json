@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT data FROM approvals WHERE id = ? AND agent_id = ? AND decision = 'allowed' AND expires_at > ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a547432f9d09cc5688945f6a30f5d3064a44e22a9cfccfd5b859e8de37f48a03"
+}

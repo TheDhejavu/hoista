@@ -1,0 +1,38 @@
+{
+  "id": "resend",
+  "name": "Resend",
+  "api": {
+    "kind": "rest",
+    "base": "",
+    "operations": "api_ops.json"
+  },
+  "actions": [
+    {
+      "label": "Domain details",
+      "on": "email",
+      "run": "domainsGet",
+      "description": "The domain's DNS records and whether each is verified."
+    },
+    {
+      "label": "Check DNS again",
+      "on": "email",
+      "run": "domainsVerify",
+      "description": "Asks Resend to check the domain's DNS records now."
+    },
+    {
+      "label": "Recent emails",
+      "on": "email",
+      "run": "emailsList",
+      "description": "The team's latest sent emails and what happened to each.",
+      "args": {
+        "limit": 20
+      }
+    },
+    {
+      "label": "Usage",
+      "on": "email",
+      "run": "usageGet",
+      "description": "How much of the plan's email, contacts and domains the team has used."
+    }
+  ]
+}

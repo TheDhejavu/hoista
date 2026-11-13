@@ -1,0 +1,55 @@
+---
+title: "Variables and domains"
+description: "Set environment variables and secrets, and add custom domains."
+---
+
+Set a project's environment variables and secrets, and add custom domains. Values and records go straight to the provider.
+
+## Environment variables
+
+Open a project's **Variables** tab. It lists each variable, which resource uses it, and whether it is a secret, a plain setting, a value Hoista links, or a name the code reads that has no value yet. Use **Add a variable**, or **Edit** on a row. For a watched project, **Paste many** adds several at once.
+
+<Frame caption="The Variables tab: each variable, the resource that uses it, and its kind. Secret values are never shown again.">
+  <img className="shot-light" src="/assets/screens/variables-light.webp" alt="The moodboard Variables tab, listing variables with their value, the resource using them and their kind" />
+  <img className="shot-dark" src="/assets/screens/variables-dark.webp" alt="The moodboard Variables tab, listing variables with their value, the resource using them and their kind" />
+</Frame>
+
+Values go straight to the provider. Hoista never shows a secret value again, to you or to agents.
+
+```bash
+hoist env list my-app
+hoist env set my-app VARIABLE_NAME
+hoist env set my-app --file .env
+hoist env remove my-app VARIABLE_NAME
+```
+
+`hoist env set` asks for each value with a hidden prompt. For scripts, pipe one value in with `--value-stdin`, or read `NAME=value` lines from a file with `--file`. Never pass a secret as a command-line argument. When the project has more than one resource, pick one with `-r RESOURCE`.
+
+On a managed project, the new values go out in a new deploy. On a watched project, Hoista sets them at the provider, which redeploys; add `--no-redeploy` to skip that.
+
+Removing a variable changes it at the provider, and the running app may stop working. Check which resource uses it first.
+
+Secrets do not go through an agent chat. When a deploy fails because a secret is missing, you paste it on the deploy's page in Desktop, and then your agent deploys again.
+
+## Domains
+
+Open the **Domains** tab and use **Add domain**. Pick the resource and enter the hostname. Hoista shows the DNS records to create, then tracks DNS and certificate status.
+
+```bash
+hoist domains my-app
+hoist domains add app.example.com -p my-app
+hoist domains check app.example.com -p my-app
+hoist domains remove app.example.com -p my-app
+```
+
+When the project has more than one resource, pick one with `-r RESOURCE`. Hoista takes the zone from the hostname's last two labels; pass `--zone` if it differs, and add `--create-zone` to create the DNS zone as well. Adding a domain does not make it ready. Wait until DNS and the certificate check pass before you send production traffic to it.
+
+For a watched project, you can add a domain only where the provider supports it through Hoista. Otherwise, change domains at the provider.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Plan and deploy" icon="cloud-arrow-up" href="/guides/deploy">Deploy with the new values.</Card>
+<Card title="Environments" icon="layer-group" href="/guides/environments">Separate spaces for projects.</Card>
+<Card title="Credential storage" icon="key" href="/security/credentials">How Hoista keeps secrets.</Card>
+</CardGroup>

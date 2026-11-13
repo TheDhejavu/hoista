@@ -1,0 +1,33 @@
+.bar {
+  position: relative;
+  z-index: 31;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--info) 8%, var(--bg));
+  color: var(--text);
+  font-size: var(--text-sm);
+  -webkit-app-region: no-drag;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.provider {
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+
+/* The remote isn't answering: a warning, with the way back to this Mac. */
+.down {
+  background: color-mix(in srgb, var(--warn) 12%, var(--bg));
+}
+
+.alert {
+  flex: none;
+  color: var(--warn);
+}

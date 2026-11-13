@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO resources(id,project_id,account_id,provider_ref,data) VALUES(?,?,?,?,?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "9241c4850114bd6186bf9ca01af33cb718cca9deca6919d1c3e6ee3e3c477cec"
+}

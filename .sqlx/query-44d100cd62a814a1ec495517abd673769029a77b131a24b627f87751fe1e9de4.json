@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO deploys (id, project_id, version, status, data) SELECT ?, ?, coalesce(max(version), 0) + 1, 'queued', ? FROM deploys WHERE project_id = ? RETURNING version, cancel_requested",
+  "describe": {
+    "columns": [
+      {
+        "name": "version",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "cancel_requested",
+        "ordinal": 1,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "44d100cd62a814a1ec495517abd673769029a77b131a24b627f87751fe1e9de4"
+}

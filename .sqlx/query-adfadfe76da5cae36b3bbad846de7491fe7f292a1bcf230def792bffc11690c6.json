@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE approvals SET decision = 'consumed' WHERE id = ? AND decision = 'allowed'",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "adfadfe76da5cae36b3bbad846de7491fe7f292a1bcf230def792bffc11690c6"
+}

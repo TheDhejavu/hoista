@@ -1,0 +1,245 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+/* The four numbers at the top. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Two by two when four won't fit, never three and one. */
+@media (max-width: 1060px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.card {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 16px;
+}
+
+.cardLabel {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.cardValue {
+  margin-top: 4px;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.small {
+  margin-top: 6px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.track {
+  width: 100%;
+  height: 6px;
+  margin-top: 12px;
+  border-radius: 3px;
+  background: var(--pill);
+  overflow: hidden;
+}
+
+.fill {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--text);
+}
+
+.fillWarn {
+  background: var(--warn);
+}
+
+.fillBad {
+  background: var(--bad);
+}
+
+.bad {
+  color: var(--bad);
+}
+
+.muted {
+  color: var(--text-3);
+}
+
+/* Tables, as on Accounts. */
+.tableFrame {
+  overflow-x: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.table th {
+  height: 36px;
+  background: var(--shot-side);
+  padding: 0 16px;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  text-align: left;
+}
+
+.table td {
+  height: 64px;
+  border-top: 1px solid var(--line);
+  padding: 0 16px;
+  vertical-align: middle;
+}
+
+.table tbody tr:first-child td {
+  border-top: 0;
+}
+
+.table thead + tbody tr:first-child td {
+  border-top: 1px solid var(--line);
+}
+
+.table .amountHead,
+.amount {
+  text-align: right;
+}
+
+.amount {
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.limitCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+.limitCell .track {
+  flex: 1;
+  max-width: 160px;
+  margin-top: 0;
+}
+
+.accountCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accountName {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.identity {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actionCell {
+  width: 1%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.noteAccount {
+  width: 240px;
+}
+
+.note {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+/* Plan usage: one card per account, a meter per line. */
+.usageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+
+.usageHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.usageLines {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.usageTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--text-sm);
+}
+
+.usageLine .track {
+  margin-top: 8px;
+}
+
+.footnote {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+/* While the bills load: the same layout, with placeholders for the numbers. */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cardValueSkeleton {
+  margin: 10px 0 12px;
+}

@@ -1,0 +1,80 @@
+---
+title: "Configuration"
+description: "The state folder, settings, tool paths and environment variables Hoista reads."
+---
+
+Where Hoista keeps its files, the settings you can change, and the environment variables it reads.
+
+## State folder
+
+Hoista keeps its state in `~/.hoista`. Pass `--state-dir PATH` to `hoist` or `hoistd` to use another folder. Each folder is a separate Hoista, with its own projects, accounts and agents. If you use one for a coding tool, `hoist mcp config` puts it in the configuration for you.
+
+| File | What it holds |
+| --- | --- |
+| `hoista.db` | Projects, resources, agents and activity (SQLite) |
+| `hoistd.sock` | The local socket the desktop app and `hoist` use to reach the engine ([HTTP API](/reference/api)) |
+| `hoistd.lock` | Stops two engines opening the same state. Never delete it to unlock a running daemon. |
+| `logs/` | Daemon logs, one file a day, last 14 kept |
+| `tool-paths.json` | Folders saved by `hoist tools configure` |
+| `remotes.json` | Your [remotes](/guides/remote): names and addresses. Desktop and the CLI share it. |
+| `cli.json` | The remote and environment the CLI uses, from `hoist remote use` and `hoist environments use` |
+| `database-exports/` | Database exports. They contain your application data. |
+
+Provider tokens aren't in this folder. They are in the OS credential store, such as the macOS Keychain. See [Credentials](/security/credentials).
+
+## Settings
+
+Change these in Desktop **Settings** or with `hoist settings set KEY VALUE`. `hoist settings` lists them and `hoist settings get KEY` prints one.
+
+| Setting | Default | Values | In Desktop |
+| --- | --- | --- | --- |
+| `agents_enabled` | `true` | `true`, `false` | **Settings → Agents**, Agent connection |
+| `default_access` | `ask` | `view`, `ask`, `full` | **Settings → Agents**, What a new chat app can do |
+| `mcp_http` | `true` | `true`, `false` | **Settings → Agents**, MCP over HTTP. Serves MCP for web agents on `127.0.0.1:8788`; see [From your computer](/agents/tools/chatgpt#from-your-computer). |
+| `network_page` | `false` | `true`, `false` | **Settings → Agents**, Open on this network |
+| `agent_expiry_days` | `30` | 1 to 365 | **Settings → Agents**, Disconnect agents not used for |
+| `unisolated_builds` | `false` | `true`, `false` | **Settings → Safety**, Build without isolation |
+| `history_days` | `365` | `30`, `90`, `365`, `1095` | **Settings → General** |
+| `backup_every_hours` | `24` | `0` (never), `6`, `24`, `168` | **Settings → General** |
+| `backup_keep` | `14` | 1 to 100 | **Settings → General** |
+| `idle_days` | `21` | 1 to 365 | |
+| `check_updates` | `false` | `true`, `false` | **Settings → Updates** |
+| `crash_reports` | `false` | `true`, `false` | |
+
+Turning on `network_page` or `unisolated_builds` asks you to confirm it's you first.
+
+## Tool paths
+
+```bash
+hoist tools
+hoist tools configure
+```
+
+`hoist tools` shows where Hoista finds `node`, `npm`, `pnpm`, `yarn`, `bun`, `git`, `flyctl`, `pg_dump` and `pg_restore`. A daemon started at login may not see your terminal's `PATH`. Run `hoist tools configure` from a terminal where the tools work to save that terminal's folders. `hoist service install` does the same. Hoista downloads its own pinned copy of each provider's command-line tool when it needs one.
+
+## Environment variables
+
+| Variable | Where | What it does |
+| --- | --- | --- |
+| `HOISTA_PUBLIC_URL` | Remote | The remote's HTTPS address, such as `https://your-host`, with no path. Setting it makes `hoistd` run as a remote. |
+| `HOISTA_SEALED_KEY` | Remote | The key that seals provider tokens on the remote. Make one with `hoistd --new-sealed-key` and keep it as a secret at your provider. |
+| `PORT` | Remote | The port the remote listens on. Default `8080`. |
+| `HOISTA_CLAIM_CODE` | Remote | The one-time claim code. Hoista sets it when it creates the remote; otherwise the remote prints a new one at start. |
+| `HOISTA_TOKEN_STORE` | Remote | Where tokens are kept. Only `built-in` works today. |
+| `HOISTA_KEY_SOURCE` | Remote | Where the sealing key comes from. Only `host-secret` works today. |
+| `HOISTA_NO_BROWSER` | Any | When set, `hoist` doesn't open pages in your browser. |
+| `HOISTA_REMOTE` | CLI | The remote to use, like `--remote NAME` |
+| `HOISTA_ENVIRONMENT` | CLI | The environment to use, like `--environment NAME` |
+| `HOISTA_SOCKET` | Desktop | The engine socket the desktop app connects to, for an engine started with its own `--state-dir`. Default `~/.hoista/hoistd.sock`. |
+| `CI` | CLI | When set, `hoist` never asks questions, like `--no-input` |
+| `NO_COLOR` | CLI | When set, `hoist` prints without color |
+
+Losing `HOISTA_SEALED_KEY` means the remote can't open its saved tokens, and you connect your providers again. See [Remote](/guides/remote) and [Remote runtime](/security/remote-runtime).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="CLI reference" icon="terminal" href="/cli/overview">Every hoist command.</Card>
+<Card title="Keep the daemon running" icon="server" href="/guides/daemon">Start Hoista at login.</Card>
+<Card title="Credential storage" icon="key" href="/security/credentials">Where tokens are kept.</Card>
+</CardGroup>

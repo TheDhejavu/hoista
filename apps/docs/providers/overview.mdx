@@ -1,0 +1,92 @@
+---
+title: "Overview"
+description: "The providers Hoista works with and what each one supports."
+---
+
+Hoista works with the accounts you already have at these providers. Each page covers how to connect the provider and what Hoista can do there.
+
+## Hosting providers
+
+<CardGroup cols={3}>
+  <Card title="Cloudflare" icon="/logos/cloudflare.svg" href="/providers/cloudflare">Workers, Pages, D1, KV, R2 and DNS zones</Card>
+  <Card title="Vercel" icon="/logos/vercel.svg" href="/providers/vercel">Frontends and serverless functions</Card>
+  <Card title="Railway" icon="/logos/railway.svg" href="/providers/railway">Services, workers and databases in Railway projects</Card>
+  <Card title="Fly.io" icon="/logos/fly.svg" href="/providers/fly">Apps on Machines that sleep when idle</Card>
+  <Card title="Render" icon="/logos/render.svg" href="/providers/render">Web services, workers, cron jobs, Postgres and Key Value</Card>
+</CardGroup>
+
+## Database providers
+
+<CardGroup cols={3}>
+  <Card title="Neon" icon="/logos/neon.svg" href="/providers/neon">Serverless Postgres</Card>
+  <Card title="Supabase" icon="/logos/supabase.svg" href="/providers/supabase">Postgres with auth, storage and Edge Functions</Card>
+</CardGroup>
+
+## GPU providers
+
+<CardGroup cols={3}>
+  <Card title="Runpod" icon="/logos/runpod.svg" href="/providers/runpod">Pods, Serverless endpoints and network volumes</Card>
+  <Card title="Modal" icon="/logos/modal.svg" href="/providers/modal">Serverless GPU apps and their volumes</Card>
+</CardGroup>
+
+## Email providers
+
+<CardGroup cols={3}>
+  <Card title="Resend" icon="/logos/resend.svg" href="/providers/resend">Sending domains for your apps' email</Card>
+</CardGroup>
+
+## Git providers
+
+<CardGroup cols={3}>
+  <Card title="GitHub" icon="/logos/github.svg" href="/providers/github">The repositories your projects are built from</Card>
+</CardGroup>
+
+## Compare
+
+What Hoista does with each provider:
+
+| Provider | What Hoista finds | Create and deploy | Logs | Metrics | Variables | Billing |
+| --- | --- | --- | --- | --- | --- | --- |
+| [Cloudflare](/providers/cloudflare) | Workers, Pages projects, D1 databases, KV namespaces, R2 buckets, zones | Workers from a folder, rollback, D1 databases, R2 buckets | Yes | Yes | Variables and secrets | Bill |
+| [Vercel](/providers/vercel) | Projects | Projects from a repository | Yes | Yes | Yes | Bill |
+| [Railway](/providers/railway) | Services and databases | Services from a folder, repository or image, redeploy and rollback, databases, buckets | Yes | Yes | Yes | Bill |
+| [Fly.io](/providers/fly) | Apps and their Machines | Apps from a folder or image, rollback, pause and resume | Yes | Yes | Variables and secrets | No |
+| [Render](/providers/render) | Web services, background workers, cron jobs, Postgres databases and Key Value stores | Web services and Postgres databases | No | Yes | Yes | No |
+| [Neon](/providers/neon) | Projects (Postgres) | Postgres databases | No | Paid plans | No | Plan usage |
+| [Supabase](/providers/supabase) | Projects, with their Postgres database, Edge Functions and Storage buckets | New projects | Yes | Yes | Yes | No |
+| [Runpod](/providers/runpod) | Pods, Serverless endpoints, network volumes | Pods and endpoints from a folder or image | Yes | Yes | No | Bill |
+| [Modal](/providers/modal) | Apps and volumes in every environment | Apps from a folder | Yes | Yes | No | Bill |
+| [Resend](/providers/resend) | Sending domains | Sending domains | Yes | Yes | No | Plan usage |
+| [GitHub](/providers/github) | Repositories | Nothing runs on GitHub | No | No | No | No |
+
+With every provider except GitHub you can also:
+
+- Open the tab named after the provider (such as **Railway**) to read a resource's settings and run the provider's own operations. A project on several providers shows one **Providers** tab instead.
+- Delete a resource at the provider after you confirm it by name.
+
+Some features work with only a few providers:
+
+- Custom domains through `hoist domains`: Cloudflare and Fly.io.
+- Daily usage through `hoist usage`: Cloudflare and Railway.
+- Running your [remote](/guides/remote): Railway and Fly.io.
+- Signing in through the browser instead of pasting a token: Railway, and Cloudflare and Vercel when your build of Hoista includes their sign-in app.
+
+**Bill** is the amount the provider has billed so far this period. **Plan usage** is how much of the plan you have used, for providers that share usage but no money figure. Hoista never estimates cost. See [Billing](/guides/billing).
+
+## Check your installed version
+
+```bash
+hoist providers
+```
+
+This lists each provider your version supports and the name to use with `hoist accounts add`. What you can do there also depends on the token's permissions and your plan with that provider.
+
+Agents can call `get_my_access` to see what their connection may do, then `list_provider_operations` and `describe_provider_operation` for a provider's own operations. See [MCP](/reference/mcp).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+<Card title="Billing" icon="receipt" href="/guides/billing">What each provider has billed.</Card>
+</CardGroup>

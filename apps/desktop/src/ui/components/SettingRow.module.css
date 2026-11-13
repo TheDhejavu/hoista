@@ -1,0 +1,138 @@
+.card {
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+.danger {
+  border-color: color-mix(in srgb, var(--bad) 35%, transparent);
+}
+
+.danger .foot {
+  background: var(--bad-tint);
+}
+
+.head {
+  padding: 18px 20px 4px;
+}
+
+/* A card with an icon: the tile beside the title and its line, a little apart from the rows. */
+.withIcon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+}
+
+.headText {
+  min-width: 0;
+}
+
+.groupIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--bg-muted);
+  color: var(--text);
+}
+
+.withIcon .description {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+.description {
+  margin: 4px 0 0;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+  padding: 14px 20px;
+}
+
+.head + .row {
+  border-top: none;
+}
+
+.text {
+  display: flex;
+  flex: 1 1 240px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hint {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  background: var(--shot-side);
+  padding: 12px 20px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.head + .foot {
+  margin-top: 14px;
+}
+
+.foot > button:last-child,
+.foot > a:last-child {
+  margin-left: auto;
+}
+
+/* A value you can only read: plain text, so it never looks like a button. */
+.fixed {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-md);
+  color: var(--text-2);
+  text-align: right;
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-right: -8px;
+}
+
+/* Placeholder cards fade in, so a quick answer never flashes them. */
+.skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fade var(--duration) var(--ease-out) 300ms both;
+}
+
+.skeletons .headText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+}

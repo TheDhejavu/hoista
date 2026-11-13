@@ -1,0 +1,18 @@
+.problemText {
+  margin: 0 0 12px;
+  font-size: var(--text-md);
+  color: var(--bad-ink);
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* The new-token form, inside the token's card under its rows. */
+.replaceInside {
+  border-top: 1px solid var(--line);
+  padding: 16px 20px 18px;
+}

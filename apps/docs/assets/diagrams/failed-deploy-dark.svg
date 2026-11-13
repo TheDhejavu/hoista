@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fd-d" viewBox="0 0 1280 512" width="1280" height="512" role="img" aria-labelledby="fd-d-t fd-d-d">
+<title id="fd-d-t">A failed deploy</title><desc id="fd-d-d">Start from the failed deploy and read its steps, logs and operations. If the provider’s answer is unclear, check the provider and settle the operation before retrying. If it is known, review the smallest fix, deploy it, and check the running app.</desc>
+<style>#fd-d text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#ededed}#fd-d .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#fd-d .h2{fill:#a1a1aa}#fd-d .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#fd-d .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#7a7a82;letter-spacing:0.08em}#fd-d .eyebrow{font-size:12.5px;fill:#8b8b93}#fd-d .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#fd-d .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#fd-d .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#a1a1aa}#fd-d .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#d4d4d8}#fd-d .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#fd-d .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#ededed;letter-spacing:0.06em}#fd-d .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8b8b93}#fd-d .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#c8c8cc}#fd-d .sheet{fill:#0a0a0a;stroke:#262626}#fd-d .card{fill:#141414;stroke:#2a2a2a}#fd-d .hoistd{fill:#141414;stroke:#ededed;stroke-width:1.4}#fd-d .ring{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:8}#fd-d .tile{fill:#1c1c1c;stroke:#2e2e2e}#fd-d .chip{fill:#1c1c1c;stroke:#2e2e2e}#fd-d .pill{fill:#141414;stroke:#2e2e2e}#fd-d .zone{fill:#111111;stroke:#3a3a3a;stroke-dasharray:5 4}#fd-d .dot{fill:#3f3f46}#fd-d .badge{fill:#ededed}#fd-d .ink{fill:#0a0a0a}#fd-d .eye{fill:#ededed}#fd-d .ic{fill:none;stroke:#d4d4d8;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#fd-d .logo{fill:#a1a1aa}#fd-d .link{fill:none;stroke:#4f4f56;stroke-width:1.4;stroke-linejoin:round}#fd-d .dash{stroke-dasharray:5 4}#fd-d .head{fill:none;stroke:#7a7a82;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#fd-d .rule{stroke:#262626;stroke-dasharray:4 4}</style>
+<defs><g id="fd-d-mascot"><g fill="#0a0a0a"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#ededed"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="fd-d-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="fd-d-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.36"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.45"/></filter><filter id="fd-d-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.55"/></filter></defs>
+<rect x="0.5" y="0.5" width="1279" height="511" rx="20" class="sheet"/>
+<path d="M348 190 L487 190" class="link" marker-end="url(#fd-d-open)"/>
+<path d="M790 190 L929 190" class="link" marker-end="url(#fd-d-open)"/>
+<path d="M1132 259 L1132 333" class="link" marker-end="url(#fd-d-open)"/>
+<path d="M1032 259 L1032 297 L640 297 L640 333" class="link" marker-end="url(#fd-d-open)"/>
+<path d="M490 390 L351 390" class="link" marker-end="url(#fd-d-open)"/>
+<rect x="48" y="136" width="300" height="123" rx="12" class="card" filter="url(#fd-d-lift)"/>
+<rect x="68" y="156" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 164)"><path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8"/></g>
+<text x="116" y="169" class="eyebrow">waitlist-v2 · v7</text>
+<text x="116" y="192" class="title">Deploy failed</text>
+<text x="116" y="218" class="detail">what went wrong</text>
+<rect x="490" y="136" width="300" height="123" rx="12" class="card" filter="url(#fd-d-lift)"/>
+<rect x="510" y="156" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(518 164)"><path d="M6 4.5h7.5M6 8h7.5M6 11.5h7.5"/><circle cx="3" cy="4.5" r=".4"/><circle cx="3" cy="8" r=".4"/><circle cx="3" cy="11.5" r=".4"/></g>
+<text x="558" y="169" class="eyebrow">Desktop or hoist</text>
+<text x="558" y="192" class="title">Its page and logs</text>
+<text x="558" y="218" class="detail">steps · build output</text>
+<text x="558" y="237" class="detail">error logs · operations</text>
+<rect x="932" y="136" width="300" height="123" rx="12" class="card" filter="url(#fd-d-lift)"/>
+<rect x="952" y="156" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(960 164)"><path d="M5.8 6.1a2.3 2.3 0 1 1 3.3 2.1c-.7.4-1.1.8-1.1 1.6v.4"/><circle cx="8" cy="12.6" r=".45"/></g>
+<text x="1000" y="169" class="eyebrow">Before you retry</text>
+<text x="1000" y="192" class="title">Any answer?</text>
+<text x="1000" y="218" class="detail">did the provider</text>
+<text x="1000" y="237" class="detail">reply to Hoista?</text>
+<rect x="932" y="336" width="300" height="123" rx="12" class="card" filter="url(#fd-d-lift)"/>
+<rect x="952" y="356" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(960 364)"><path d="M8 3.2v6.4"/><circle cx="8" cy="12.6" r=".45"/></g>
+<text x="1000" y="369" class="eyebrow">No answer</text>
+<text x="1000" y="392" class="title">Ask the provider</text>
+<text x="1000" y="418" class="detail">check its release,</text>
+<text x="1000" y="437" class="detail">then settle it</text>
+<rect x="490" y="336" width="300" height="123" rx="12" class="card" filter="url(#fd-d-lift)"/>
+<rect x="510" y="356" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(518 364)"><path d="M3.2 8.6 6.6 12 12.8 4.6"/></g>
+<text x="558" y="369" class="eyebrow">It answered</text>
+<text x="558" y="392" class="title">Fix it</text>
+<text x="558" y="418" class="detail">you review the</text>
+<text x="558" y="437" class="detail">smallest fix</text>
+<rect x="48" y="336" width="300" height="123" rx="12" class="card" filter="url(#fd-d-lift)"/>
+<rect x="68" y="356" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 364)"><rect x="2" y="2.5" width="12" height="8.5" rx="1.5"/><path d="M5.8 13.8h4.4M8 11v2.8"/></g>
+<text x="116" y="369" class="eyebrow">After the deploy</text>
+<text x="116" y="392" class="title">Check the app</text>
+<text x="116" y="418" class="detail">sign-in, data and</text>
+<text x="116" y="437" class="detail">what users do</text>
+<text x="48.0" y="70" class="headline">A</text>
+<rect x="77.2" y="38" width="92.5" height="44" rx="10" class="chip"/>
+<text x="88.2" y="70" class="headline">failed</text>
+<text x="178.7" y="70" class="headline">deploy</text>
+<rect x="1103.7" y="46.0" width="26" height="26" rx="7.0" class="badge"/><g transform="translate(1106.38 48.66) scale(0.2068)"><use href="#fd-d-mascot"/></g>
+<text x="1139.7" y="65" class="brand">hoista.dev</text>
+<rect x="393.6" y="178" width="50.8" height="24" rx="7" class="pill"/><text x="419" y="194.2" class="pill-t" text-anchor="middle">read</text>
+<rect x="1113.8" y="285" width="36.4" height="24" rx="7" class="pill"/><text x="1132" y="301.2" class="pill-t" text-anchor="middle">no</text>
+<rect x="814.2" y="285" width="43.6" height="24" rx="7" class="pill"/><text x="836" y="301.2" class="pill-t" text-anchor="middle">yes</text>
+<rect x="386.4" y="378" width="65.2" height="24" rx="7" class="pill"/><text x="419" y="394.2" class="pill-t" text-anchor="middle">deploy</text>
+</svg>

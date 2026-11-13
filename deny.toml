@@ -1,0 +1,27 @@
+[graph]
+all-features = false
+
+[advisories]
+version = 2
+
+[licenses]
+version = 2
+allow = ["MIT", "Apache-2.0", "BSD-3-Clause", "Unicode-3.0", "Zlib", "MPL-2.0"]
+
+# Narrow exceptions for native IPC and the rustls certificate stack.
+exceptions = [
+  { name = "doctest-file", allow = ["0BSD"] },
+  { name = "recvmsg", allow = ["0BSD"] },
+  { name = "ring", allow = ["ISC"] },
+  { name = "rustls-webpki", allow = ["ISC"] },
+  { name = "untrusted", allow = ["ISC"] },
+  { name = "webpki-roots", allow = ["CDLA-Permissive-2.0"] },
+]
+
+[bans]
+multiple-versions = "allow"
+wildcards = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

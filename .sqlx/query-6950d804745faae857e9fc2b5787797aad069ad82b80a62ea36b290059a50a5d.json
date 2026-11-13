@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT project_id, status, cancel_requested FROM deploys WHERE id = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "project_id",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "status",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "cancel_requested",
+        "ordinal": 2,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "6950d804745faae857e9fc2b5787797aad069ad82b80a62ea36b290059a50a5d"
+}

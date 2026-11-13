@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE environment_admission_keys SET commitment = ?, active = 1 WHERE reference = ? AND active = 0 AND retired = 0",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "a483f8724bb5c7e52023a3993006b4b359e568ba239a126b54f5942a7be3caca"
+}

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO map_layouts(project_id,revision,data) VALUES(?,?,?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "8cb270de87c07f88a51b86f6b5aabbe4b61e6ac8aa7afd541841715918677cfc"
+}

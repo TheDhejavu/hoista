@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO environment_admission_keys (reference) VALUES (?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "039d7f5ce330446c0544eb8c8b3357ae22168c4bed1c53ade1daf8cfc3b4b277"
+}

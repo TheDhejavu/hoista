@@ -1,0 +1,213 @@
+.shot {
+  --shot-tint: var(--tint);
+
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--tint);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .shot {
+    --shot-tint: var(--tint-dark);
+
+    background: var(--tint-dark);
+  }
+}
+
+:root[data-theme='dark'] .shot {
+  --shot-tint: var(--tint-dark);
+
+  background: var(--tint-dark);
+}
+
+.page,
+.terminal {
+  position: absolute;
+  inset: 14px 14px 0;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.page {
+  background: var(--shot-page);
+}
+
+/* Terminals are dark in both themes. */
+.terminal {
+  background: #151515;
+  padding: 14px 16px;
+  font: 500 10px/1.9 var(--font-mono);
+  color: #a3e635;
+  white-space: nowrap;
+}
+
+/* Lines end tidily when the preview is small, never cut mid-letter. */
+.terminal > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prompt {
+  margin-bottom: 4px;
+  color: #777777;
+}
+
+/* A blank terminal line, for projects whose real output isn't shown here. */
+.termLine {
+  display: block;
+  height: 6px;
+  margin: 9px 0;
+  border-radius: 3px;
+  background: #2a2a2a;
+}
+
+.ln {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--shot-line);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  border-bottom: 1px solid var(--shot-edge);
+  padding: 0 10px;
+}
+
+.logo {
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 12px;
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 18px;
+}
+
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.cta {
+  height: 20px;
+  border-radius: 999px;
+}
+
+.hero {
+  width: 80%;
+  height: 40px;
+  margin: 16px auto 0;
+  border-radius: 8px;
+  background: var(--shot-tint);
+}
+
+.status {
+  padding: 16px;
+}
+
+.statusHead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.statusRow {
+  margin-bottom: 10px;
+}
+
+.bars {
+  display: flex;
+  gap: 2px;
+}
+
+.barGood,
+.barWarn {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: #22c55e;
+}
+
+.barWarn {
+  background: #f59e0b;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+}
+
+.bubble {
+  height: 22px;
+  border-radius: 12px;
+}
+
+.blog {
+  padding: 18px 22px;
+}
+
+.saas {
+  display: flex;
+  height: 100%;
+}
+
+.saasSide {
+  width: 26%;
+  background: var(--shot-side);
+  padding: 12px 8px;
+}
+
+.saasMain {
+  flex: 1;
+  padding: 12px;
+}
+
+.saasCards {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.saasCards span {
+  flex: 1;
+  height: 34px;
+  border-radius: 6px;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}

@@ -1,0 +1,60 @@
+---
+title: "Investigate a failed deployment"
+description: "Find where a deployment failed, fix it and check the result."
+---
+
+import FailedDeploy from '/snippets/diagrams/failed-deploy.mdx';
+
+A deployment can fail during the build, at the provider, or after the new version starts. Use these steps to find where it failed before you change anything in production.
+
+<FailedDeploy />
+
+<Steps>
+<Step title="Open the failed deploy">
+In Desktop, open the deploy from **Deploys**. The page shows the steps it got through, why it stopped under **What went wrong**, and the build output. If the cause is a missing secret, paste it there and deploy again. For a Hoista deploy, the live site is unchanged.
+
+<Frame caption="A deploy that stopped at Secrets. It names the missing secret and has a box to paste it.">
+  <img className="shot-light" src="/assets/screens/deploy-failed-light.webp" alt="The waitlist-v2 deploy page, failed at the Secrets step, asking for RESEND_API_KEY" />
+  <img className="shot-dark" src="/assets/screens/deploy-failed-dark.webp" alt="The waitlist-v2 deploy page, failed at the Secrets step, asking for RESEND_API_KEY" />
+</Frame>
+
+```bash
+hoist status my-app
+hoist deploys my-app
+hoist deploys show DEPLOY_ID --log
+hoist logs my-app -r RESOURCE --level error
+hoist operations
+```
+
+If a provider does not provide logs, empty output does not mean success. Check the provider directly.
+</Step>
+<Step title="Ask an agent to investigate">
+```text
+Use Hoista to inspect my-app's failed deployment. Read the deployment
+record and the error logs. Separate what you observed from what you
+guess. Propose the smallest fix, explain its effect on production,
+and wait for my review before changing anything. Never ask me for a
+token or secret in chat.
+```
+</Step>
+<Step title="Check an unclear outcome">
+If Hoista did not get a response, the provider may still have accepted the request. Check the provider's release state and [settle the operation](/guides/backups) before you retry.
+</Step>
+<Step title="Verify the fix">
+Check the new deployment's result and the running app. A successful build does not prove that sign-in, database access or your main user flows work.
+
+If you need to roll back, check what that provider can restore, then run `hoist rollback DEPLOY_ID` or roll back from the project's **Deploys** tab. Rolling back does not reverse database migrations.
+</Step>
+</Steps>
+
+## Keep evidence safe
+
+Note the deploy and operation IDs when you ask for help. Read a diagnostics report from `hoist diagnostics` before you share it. Do not publish raw logs that contain personal data or credentials.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Plan and deploy" icon="cloud-arrow-up" href="/guides/deploy">Deploy again once it is fixed.</Card>
+<Card title="Logs and metrics" icon="chart-line" href="/guides/logs">Read the error logs.</Card>
+<Card title="Backups and outcomes" icon="life-ring" href="/guides/backups">Settle an operation with no answer.</Card>
+</CardGroup>

@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT usage.data FROM usage JOIN resources ON resources.id = usage.resource_id WHERE resources.project_id = ? AND day >= ? ORDER BY day, usage.resource_id LIMIT 10001",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "c609db7470bd36d5e5a1a8dc3ff5eac259a866d25896386b865581107bb45f2c"
+}

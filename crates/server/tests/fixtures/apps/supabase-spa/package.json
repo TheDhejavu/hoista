@@ -1,0 +1,1 @@
+{"private":true,"type":"module","scripts":{"build":"vite build"},"dependencies":{"@supabase/supabase-js":"2.76.1"},"devDependencies":{"vite":"8.3.5"}}

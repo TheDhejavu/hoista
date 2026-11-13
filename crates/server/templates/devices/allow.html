@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# For `hoist remote login --no-browser`: allow a computer by the code on its screen. #}
+{% block content %}
+{% call parts::hoista() %}{% endcall %}
+<a class="back" href="/">{% include "icons/back.svg" %}Your Hoista</a>
+<div class="card" style="margin-top:10px"><h1>Allow a computer</h1><p class="sub">For <code>hoist remote login --no-browser</code> on a computer without a browser. Allow it only if this code matches the one on that computer's screen.</p>
+<form method="post" action="/owner/devices/allow"><div class="field"><label for="code">Code on that computer</label><input id="code" name="code" autocomplete="off" placeholder="ABCD-EFGH-JKLM"></div>
+<button class="go">Allow this computer</button></form></div>
+{% endblock %}
+{% block scripts %}
+<script>{% include "assets/prefill.js" %}</script>
+{% endblock %}

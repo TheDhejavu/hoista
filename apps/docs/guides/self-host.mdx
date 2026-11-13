@@ -1,0 +1,233 @@
+---
+title: "Self-host Hoista"
+description: "Run Hoista on a Mac mini, a home server or a VPS of yours, and connect to it from anywhere."
+---
+
+Hoista on your laptop stops when the laptop sleeps. To keep it reachable all the time, for chat apps like ChatGPT and for cloud agents, run a copy on a machine that stays on: a Mac mini at home, a small Linux box or a VPS. That copy is a [remote](/guides/remote), and you connect to it from the desktop app or `hoist` the same way as one Hoista sets up at Railway or Fly.io.
+
+You need three things:
+
+- **A machine that stays on.** Hoista needs little: a Mac mini, a Raspberry Pi-class Linux box with 2 GB of memory, or the smallest VPS works. The first Docker build needs about 6 GB of memory; after that it runs in much less. If ChatGPT only needs to reach Hoista while your laptop is awake, you don't need a second copy: point a tunnel at the Hoista already on your laptop, as in [From your computer](/agents/tools/chatgpt#from-your-computer).
+- **An HTTPS address.** Passkeys, which you sign in with, only work over HTTPS (or `http://localhost` on the same machine). A domain of yours with Cloudflare Tunnel, a Tailscale Funnel address, or a reverse proxy on a VPS all work.
+- **Docker**, the supported way to run it. [Without Docker](#without-docker-linux) is at the end, for Linux.
+
+## On a Mac mini
+
+### 1. Keep it awake
+
+In **System Settings → Energy** (or **Energy Saver**), turn on **Prevent automatic sleeping when the display is off** and **Start up automatically after a power failure**.
+
+Docker apps on a Mac start when you log in, so after a restart the Mac needs to reach your desktop. Turn on automatic login in **System Settings → Users & Groups**. If FileVault is on, macOS asks for your password once at startup before it can log in.
+
+### 2. Start Hoista
+
+Install [OrbStack](https://orbstack.dev) or Docker Desktop and set it to open at login. Then, in Terminal:
+
+```bash
+git clone https://github.com/TheDhejavu/hoista.git && cd hoista
+HOISTA_PUBLIC_URL=https://hoista.example.com ./deploy/server/start.sh
+```
+
+Use the HTTPS address you'll set up in the next step. The script builds Hoista, makes its key the first time, starts it on `127.0.0.1:8787` (this Mac only) and prints a **claim code**. Keep the code for signing in. The first build takes a while; later starts are quick.
+
+It restarts by itself after a reboot, as long as Docker is running.
+
+### 3. Give it an HTTPS address
+
+A Mac at home usually has no public address, so use a tunnel. Pick one.
+
+<Tabs>
+  <Tab title="Cloudflare Tunnel">
+Needs a domain on Cloudflare. Anyone can reach the address, so chat apps and cloud agents work.
+
+```bash
+brew install cloudflared
+cloudflared tunnel login
+cloudflared tunnel create hoista
+cloudflared tunnel route dns hoista hoista.example.com
+```
+
+Then create `~/.cloudflared/config.yml`, using the tunnel ID that `create` printed:
+
+```yaml
+tunnel: <TUNNEL-ID>
+credentials-file: /Users/<you>/.cloudflared/<TUNNEL-ID>.json
+ingress:
+  - hostname: hoista.example.com
+    service: http://localhost:8787
+  - service: http_status:404
+```
+
+Run it as a service so it starts with the Mac: `sudo cloudflared service install`.
+  </Tab>
+  <Tab title="Tailscale Funnel">
+No domain needed: you get an address like `https://mac-mini.your-tailnet.ts.net`. Install Tailscale on the Mac, then:
+
+```bash
+tailscale funnel --bg 8787
+```
+
+Funnel makes the address public, so chat apps can reach it. Use the `ts.net` address it prints as `HOISTA_PUBLIC_URL` in step 2.
+
+If only your own devices need it, `tailscale serve --bg 8787` keeps it inside your tailnet instead. Chat apps and cloud agents then can't reach it.
+  </Tab>
+</Tabs>
+
+Use an address that stays the same, such as a named Cloudflare Tunnel or your Tailscale Funnel address, not a quick tunnel that changes each time: your passkey only works at the address it was made for.
+
+Whatever you use must pass the original host name through to Hoista, which only answers at its own address. If you see **Use this Hoista's own address**, the tunnel or proxy changed the host name, or you started Hoista with a different `HOISTA_PUBLIC_URL`.
+
+### 4. Connect to it
+
+In the desktop app on your laptop, open **Settings → Instances → Add a remote**, enter the address and choose **Sign in**. Its page opens in your browser. The first time, enter the claim code and make a passkey; that makes it yours. Then choose **Allow**.
+
+From the command line:
+
+```bash
+hoist remote add home https://hoista.example.com
+```
+
+To see where things stand, from any computer:
+
+```bash
+hoist remote check https://hoista.example.com
+```
+
+It says whether Hoista answers at that address, whether it has an owner yet, and the address to give agents. If your tunnel or proxy changes the host name, or Hoista was started with a different `HOISTA_PUBLIC_URL`, it says which address Hoista expects. When Hoista starts, its log shows the same: its address, where agents connect, and how to claim it.
+
+Your laptop's projects don't move by themselves. To copy them over, see [Push your projects to an empty remote](/guides/remote#push-your-projects-to-an-empty-remote).
+
+## On a VPS or Linux server
+
+Install Docker Engine with the Compose plugin, then over SSH:
+
+```bash
+git clone https://github.com/TheDhejavu/hoista.git && cd hoista
+HOISTA_PUBLIC_URL=https://hoista.example.com ./deploy/server/start.sh
+```
+
+Point a DNS record for the address at the server, and put HTTPS in front of port 8787. With [Caddy](https://caddyserver.com), which gets the certificate itself, the whole config is:
+
+```
+hoista.example.com {
+  reverse_proxy 127.0.0.1:8787
+}
+```
+
+Then connect to it as in [step 4](#4-connect-to-it). A box at home with no public address can use Cloudflare Tunnel or Tailscale Funnel as on a Mac mini.
+
+## Without Docker (Linux)
+
+On a Linux server you can run `hoistd` as a systemd service instead. This doesn't work on a Mac: there, use Docker.
+
+In this mode Hoista splits itself in two so your provider tokens sit in a separate process: it starts as root, runs the credential keeper as the user `hoista-keeper` (the only one that can read the tokens) and the rest of Hoista as `hoista`. So it needs both users, and it must start as root.
+
+**1.** Install the binaries for all users, without the per-user login service the installer adds on a laptop. The installer needs [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) to check the release signature, and supports x86_64 Linux:
+
+```bash
+curl -fsSL https://hoista.dev/install.sh \
+  | sudo sh -s -- v0.1.0 /usr/local/bin --no-service
+```
+
+**2.** Create the two users and its key. Hoista creates its data folder, `/var/lib/hoista`, the first time it starts.
+
+```bash
+sudo useradd --system --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin hoista
+sudo useradd --system --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin hoista-keeper
+sudo install -d -m 700 /etc/hoista
+echo "HOISTA_SEALED_KEY=$(hoistd --new-sealed-key)" | sudo tee /etc/hoista/env >/dev/null
+sudo chmod 600 /etc/hoista/env
+```
+
+**3.** Create `/etc/systemd/system/hoista.service`. There's no `User=` line: it starts as root and drops to the two users itself.
+
+```ini
+[Unit]
+Description=Hoista
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/hoista/env
+Environment=HOISTA_PUBLIC_URL=https://hoista.example.com
+Environment=PORT=8787
+ExecStart=/usr/local/bin/hoistd --state-dir /var/lib/hoista
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**4.** Start it and get the claim code:
+
+```bash
+sudo systemctl enable --now hoista
+journalctl -u hoista | grep 'claim code'
+```
+
+**5.** Put HTTPS in front of port 8787 as above (Caddy, or a tunnel), then [connect to it](#4-connect-to-it).
+
+Run this way, Hoista listens on port 8787 on every network interface, unlike the Docker setup, which only listens on the machine itself. Block the port from outside, for example `sudo ufw deny 8787`, so only your proxy on the same machine reaches it.
+
+## Looking after it
+
+Once it's set up there's nothing to do day to day: you use it from the app, `hoist` or your agents. You only come back to the server to update Hoista, check on it, or look at its log.
+
+<Tabs>
+<Tab title="Docker">
+Run these from the repository folder. On Linux, use `sudo` unless your user is in the `docker` group.
+
+| To | Run |
+| --- | --- |
+| Update to the latest code | `git pull && ./deploy/server/start.sh` |
+| Check it's running | `docker compose -f deploy/server/compose.yaml ps` |
+| Restart it | `docker compose -f deploy/server/compose.yaml restart` |
+| Stop it | `docker compose -f deploy/server/compose.yaml down` |
+| See startup messages and the claim code | `docker compose -f deploy/server/compose.yaml logs` |
+| Follow Hoista's own log | `docker compose -f deploy/server/compose.yaml exec hoista sh -c 'tail -f /data/logs/hoistd*.jsonl'` |
+
+`start.sh` builds from the copy of the repository you're in, so updating means pulling the new code; it rebuilds and restarts Hoista and keeps its data. Stopping keeps its data too, in the `hoista-data` Docker volume. Adding `-v` to `down` deletes that volume for good.
+</Tab>
+<Tab title="systemd">
+| To | Run |
+| --- | --- |
+| Update to a new release | the install command in step 1 with the new version, then `sudo systemctl restart hoista` |
+| Check it's running | `systemctl status hoista` |
+| Restart it | `sudo systemctl restart hoista` |
+| Stop it | `sudo systemctl stop hoista` |
+| See startup messages and the claim code | `journalctl -u hoista` |
+| Follow Hoista's own log | `sudo sh -c 'tail -f /var/lib/hoista/logs/hoistd*.jsonl'` |
+
+Its data is in `/var/lib/hoista`. Stopping or updating doesn't touch it.
+</Tab>
+</Tabs>
+
+The service log (`docker compose logs` or `journalctl`) only has startup messages and the claim code. What Hoista does, request by request, goes to its own log: one JSON-lines file per day in the `logs` folder of its data, the last 14 kept.
+
+From a computer signed in to it, `hoist doctor --remote NAME` runs Hoista's checks on the remote. If the remote doesn't answer, or this computer's key was removed, that shows up there first.
+
+## Backups and the key
+
+Two things to keep somewhere other than the server:
+
+- **The key.** `HOISTA_SEALED_KEY` seals the provider tokens your Hoista holds. With Docker it's in `deploy/server/.env`; with systemd, in `/etc/hoista/env`. Both are readable only by their owner and never committed. Copy it into your password manager: restoring Hoista's data without the key means connecting your provider accounts again.
+- **Its backups.** A remote's [backups](/guides/backups) are saved in its own data, in the `backups` folder (`/data/backups` in the Docker volume, `/var/lib/hoista/backups` with systemd). That's the same disk, so copy them off the machine now and then.
+
+Add a second passkey on your Hoista's page (**Add a passkey**, on another device) so losing one device doesn't lock you out.
+
+## If something goes wrong
+
+- **The build stops with a killed process:** Docker ran out of memory. Give it about 6 GB for the first build and run `start.sh` again.
+- **Use this Hoista's own address:** open it at exactly its `HOISTA_PUBLIC_URL`, and check your tunnel or proxy keeps the host name.
+- **Lost the claim code:** it stays in the service log until someone claims it. Restarting prints a new one.
+- **Too many wrong codes:** after 10 wrong claim codes it stops accepting them. Restart it for a new code.
+- **systemd: Couldn't start the credential keeper:** the `hoista` and `hoista-keeper` users are missing, or `hoistd` isn't somewhere they can read, such as `/usr/local/bin`.
+- **It's unreachable after a power cut:** on a Mac, check it logged in and Docker started; with systemd, check `systemctl is-enabled hoista`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Remote runtime" icon="lock" href="/security/remote-runtime">How a remote keeps your tokens.</Card>
+<Card title="Backups and recovery" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear changes.</Card>
+</CardGroup>

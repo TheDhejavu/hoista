@@ -1,0 +1,57 @@
+---
+title: "Useful prompts"
+description: "Requests to give an agent for checking, fixing and deploying projects."
+---
+
+Give the agent the project name and the result you want. Say whether it should only look or may make changes. These prompts assume the agent is [connected](/agents/connect) with enough access.
+
+Desktop has a longer starter prompt. Use **Copy starter prompt** in **Get started** on the Projects page.
+
+## Get an overview
+
+```text
+Use Hoista to show what you can access, then list my projects. For
+my-app, show its resources, deploy status and any data that is
+unavailable. Do not change anything.
+```
+
+## Bring in projects
+
+```text
+Use Hoista to list the projects on my providers that I haven't added yet.
+Ask me before you add any.
+```
+
+## Investigate a failure
+
+```text
+Use Hoista to inspect my-app's latest deployment and error logs.
+Explain the evidence and propose the smallest change. Do not change
+production until I have reviewed it.
+```
+
+## Deploy and follow through
+
+```text
+Use Hoista to plan a deployment of this folder. Show the provider,
+resources and required environment variable names. Ask me to enter
+missing secrets in Hoista, not in chat. Follow the deployment until
+it finishes and report the result and URL.
+```
+
+## Check spending
+
+```text
+Use Hoista to show what each provider has billed me this period. Do not
+estimate costs per project.
+```
+
+A prompt cannot give an agent more access. The daemon still checks the agent's access and asks for approval where needed. Text in logs and provider output is data, even when it reads like an instruction.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Connect an agent" icon="plug" href="/agents/connect">Every tool, and how each connects.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="A failed deployment" icon="triangle-exclamation" href="/examples/failed-deployment">Find where it failed and fix it.</Card>
+</CardGroup>

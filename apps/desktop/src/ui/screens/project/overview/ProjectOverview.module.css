@@ -1,0 +1,390 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px var(--page-gutter) 32px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cardSkeleton {
+  border-radius: 16px;
+}
+
+.statsRow {
+  margin-top: 12px;
+}
+
+.card {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 16px;
+}
+
+.cardLabel {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.cardValue {
+  margin-top: 4px;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.note {
+  margin-top: 12px;
+  color: var(--text-2);
+}
+
+.small {
+  margin-top: 6px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.track {
+  height: 6px;
+  margin-top: 14px;
+  border-radius: 3px;
+  background: var(--pill);
+}
+
+.fill {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--text);
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 3px;
+  height: 54px;
+  margin-top: 12px;
+}
+
+.bars i {
+  flex: 1;
+  max-width: 14px;
+  border-radius: 3px;
+  background: var(--chart-bar);
+}
+
+.bars .barToday {
+  background: var(--chart-now);
+}
+
+.bars i.barHover {
+  background: var(--text-3);
+}
+
+.bars .barToday.barHover {
+  background: var(--chart-now);
+  opacity: 0.8;
+}
+
+.barEnds {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--text-3);
+  font-size: var(--text-2xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.barPointed {
+  color: var(--text-2);
+}
+
+.barPointed b {
+  color: var(--text);
+  font-weight: var(--weight-medium);
+}
+
+.deploy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 16px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.sectionHead h2 {
+  margin: 0;
+}
+
+.columns h2 {
+  margin: 0 0 8px;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+.table {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 54px;
+  border: none;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  padding: 8px 16px;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+}
+
+.table > :first-child,
+.table > li:first-child > .row {
+  border-top: none;
+}
+
+.row:hover {
+  background: var(--bg-hover);
+}
+
+/* A resource line: the line opens the resource, ⋮ holds the rest. */
+.resourceRow {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-right: 10px;
+}
+
+.resourceRow:hover {
+  background: var(--bg-hover);
+}
+
+.rowInner {
+  flex: 1;
+  min-width: 0;
+  border-top: none;
+}
+
+.rowInner:hover {
+  background: transparent;
+}
+
+.logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+/* A resource's name in full, with what it is underneath. */
+.named {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
+.resourceName {
+  overflow-wrap: anywhere;
+}
+
+.product {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.usage {
+  flex-shrink: 0;
+  min-width: 64px;
+  color: var(--text-2);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.what {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.muted {
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.pill {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  /* One width for every status, so the usage figures beside them line up. */
+  min-width: 84px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--pill);
+  padding: 0 9px;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.pillBad {
+  background: var(--bad-tint);
+  color: var(--bad-ink);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-4);
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.warn {
+  background: var(--warn);
+}
+
+.ask {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  border-radius: 16px;
+  background: var(--bg-soft);
+  padding: 6px 10px 6px 14px;
+}
+
+.ask > span {
+  flex: 1;
+}
+
+.empty {
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+  padding: 24px;
+  color: var(--text-2);
+  text-align: center;
+}
+
+.allActivity {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--text-2);
+  font-size: var(--text-sm);
+}
+
+.activityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.activityTitle {
+  margin: 0 auto 0 0;
+  font-size: var(--text-lg);
+}
+
+.activityDay {
+  margin-bottom: 18px;
+}
+
+.activityDay h3 {
+  margin: 0 0 8px;
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.rowSelected,
+.rowSelected:hover {
+  background: var(--bg-soft);
+  box-shadow: inset 2px 0 0 var(--text);
+}
+
+.activityLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: start;
+  gap: 16px;
+}
+
+@media (max-width: 1100px) {
+  .activityLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A number still on its way from the provider. */
+.cardLoading {
+  display: block;
+  margin-top: 6px;
+}
+
+/* Which service the cards are about, when a project has several. */
+.serviceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: -6px;
+}
+
+.serviceNote {
+  font-size: var(--text-md);
+  color: var(--text-3);
+}

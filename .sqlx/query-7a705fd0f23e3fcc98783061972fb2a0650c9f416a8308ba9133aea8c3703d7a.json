@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT data FROM usage WHERE resource_id = ? ORDER BY day DESC LIMIT 1",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "7a705fd0f23e3fcc98783061972fb2a0650c9f416a8308ba9133aea8c3703d7a"
+}

@@ -1,0 +1,18 @@
+/* Profile fields sit on the right of their row, saved when you leave them. */
+.input {
+  box-sizing: border-box;
+  width: 260px;
+  height: 38px;
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  padding: 0 13px;
+  font-size: var(--text-md);
+  color: var(--text);
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}

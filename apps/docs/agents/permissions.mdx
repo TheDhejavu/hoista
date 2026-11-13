@@ -1,0 +1,67 @@
+---
+title: "Agent permissions"
+description: "Choose what each agent can do, and pause or revoke its access."
+---
+
+Each agent has its own access. You can change or revoke it without touching your provider accounts or other agents. The provider token's own permissions are a separate limit on what Hoista itself can do.
+
+## Access levels
+
+Open **Agents**. Set each agent's level in its **What it can do** dropdown.
+
+<Frame caption="Agents, with each agent’s access level in its own dropdown and what agents did below.">
+  <img className="shot-light" src="/assets/screens/agents-light.webp" alt="The Agents screen listing connected agents with their access level and the projects they can reach" />
+  <img className="shot-dark" src="/assets/screens/agents-dark.webp" alt="The Agents screen listing connected agents with their access level and the projects they can reach" />
+</Frame>
+
+| Level | What the agent can do |
+| --- | --- |
+| **View only** | See your projects, logs, deploys and bills. It can't change anything. |
+| **Ask for approval** | Make changes. It asks you first, in the agent itself, before deleting, removing or connecting an account. |
+| **Full access** | Change anything, including deleting, without asking. |
+
+## Narrow the access
+
+Open an agent's access to set the full limits. They apply top to bottom, and each step can only narrow the one above it.
+
+1. **Environments** it can reach. Projects in other [environments](/guides/environments) are hidden from it.
+2. **Projects** it can see and change: all of them, or only the ones you pick.
+3. **What it can do** in those projects.
+4. **Exceptions**: narrower access for some resources. The strictest one that applies wins.
+5. **Access ends**: no end date, or after 1, 7, 30 or 90 days.
+
+## From the CLI
+
+```bash
+hoist agents
+hoist agents access AGENT --access view
+hoist agents access AGENT --access ask --projects my-app --expires 2026-12-31T00:00:00Z
+hoist agents rotate AGENT
+hoist agents revoke AGENT
+```
+
+`AGENT` is the agent's name or ID. `--access` takes `view` (View only), `ask` (Ask for approval) or `full` (Full access). Use `--projects` for some projects or `--all-projects` for every one, and `--expires never` to remove an end date. `hoist agents rotate` gives a local agent a new token, and the old one stops working. Revoking removes the agent's access to Hoista. Neither changes any provider token.
+
+## Pause or cut off every agent
+
+```bash
+hoist agents pause
+hoist agents resume
+hoist agents stop-all
+```
+
+Pausing blocks every agent and new connection requests until you resume. Resuming does not bring back a revoked agent. `hoist agents stop-all` revokes every agent, pauses agent use and drops waiting requests, so each agent must be approved again. In Desktop, the same cutoff is in **Settings → Safety**.
+
+Your projects keep running. These controls do not revoke provider tokens, and they cannot cancel an action the provider has already accepted.
+
+## Approving sensitive actions
+
+When an agent asks for something sensitive, read the action, the target and what will happen before you approve. A message in chat saying "approved" is not an approval. The agent should wait and retry the same request after you approve it. See [approvals](/security/approvals).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Connect an agent" icon="plug" href="/agents/connect">Every tool, and how each connects.</Card>
+<Card title="Threat model and limits" icon="triangle-exclamation" href="/security/limits">What Hoista can’t protect against.</Card>
+</CardGroup>

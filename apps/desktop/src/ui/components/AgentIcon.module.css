@@ -1,0 +1,60 @@
+.tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+.small {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+}
+
+.logo {
+  width: 60%;
+  height: 60%;
+}
+
+.initials {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+}
+
+.dot {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+}
+
+.hoista {
+  border-color: transparent;
+  background: var(--brand-tile);
+  /* The mascot in the page colour on the tile: white on black, black on white. */
+  --mascot-ink: var(--bg-raised);
+}
+
+.person {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--text);
+  font-weight: var(--weight-medium);
+  color: var(--bg);
+}

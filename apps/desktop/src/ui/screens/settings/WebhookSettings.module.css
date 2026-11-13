@@ -1,0 +1,6 @@
+/* Shown in the row while Hoista makes a webhook's new signing secret. */
+.busy {
+  font-size: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+}

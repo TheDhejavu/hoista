@@ -1,0 +1,109 @@
+.panelHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panelHead h2 {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-md);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panelHead > span {
+  margin-left: auto;
+}
+
+.panelLabel {
+  margin: 16px 0 8px;
+  color: var(--text-3);
+  font-size: var(--text-xs);
+}
+
+.facts {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.facts dt {
+  color: var(--text-3);
+}
+
+.facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.tick {
+  color: var(--good);
+  text-align: right;
+}
+
+.cross {
+  color: var(--bad);
+  text-align: right;
+}
+
+.isNow {
+  display: block;
+  color: var(--bad-ink);
+  font-size: var(--text-2xs);
+}
+
+.small {
+  margin: 6px 0 0;
+  color: var(--text-3);
+  font-size: var(--text-xs);
+}
+
+.panelActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guide {
+  margin: 14px 0 0;
+  border-radius: 12px;
+  background: var(--bg-soft);
+  padding: 12px;
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.guide b {
+  color: var(--text);
+}
+
+.renameField {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 6px 0 10px;
+  font-size: var(--text-sm);
+}
+
+.renameInput {
+  flex: 1;
+  min-width: 0;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-family: var(--font-mono);
+}

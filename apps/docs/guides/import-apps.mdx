@@ -1,0 +1,80 @@
+---
+title: "Bring in an existing project"
+description: "Add projects that already run on your providers, without moving or redeploying them."
+---
+
+import ImportFlow from '/snippets/diagrams/import-flow.mdx';
+
+Importing adds resources that already run on your providers to a Hoista project. They keep their deployments, data and accounts. The project starts in **watching** mode, and nothing changes at the provider.
+
+<ImportFlow />
+
+## Import from Desktop
+
+1. [Connect](/guides/accounts) every account that holds part of the project, for example a Railway account for the backend and a Neon account for the database.
+2. On **Projects**, find **Found on your providers** and select **Review and add**.
+3. Each provider project goes into a Hoista project of the same name. Change where it goes, untick what to leave out, or drag a resource to another project.
+4. Import, then open the project and check its **Map**.
+
+<Frame caption="Importing from Cloudflare. Each provider project becomes a Hoista project of the same name.">
+  <img className="shot-light" src="/assets/screens/import-review-light.webp" alt="The Import from Cloudflare dialog, listing two Workers with a checkbox and an Import into choice each" />
+  <img className="shot-dark" src="/assets/screens/import-review-dark.webp" alt="The Import from Cloudflare dialog, listing two Workers with a checkbox and an Import into choice each" />
+</Frame>
+
+If Hoista finds two projects that look like one app, it offers **Combine into** that project. Check the accounts first. Similar names do not prove that resources belong together.
+
+## Import from the CLI
+
+```bash
+hoist accounts add railway
+hoist accounts add neon
+hoist import --list
+hoist import RAILWAY_RESOURCE_ID NEON_RESOURCE_ID --new my-app
+hoist status my-app
+hoist map my-app
+```
+
+In a terminal, plain `hoist import` lets you pick from a list instead. To add another resource later, run `hoist import RESOURCE_ID --project my-app`. A resource can belong to only one project.
+
+To set aside resources you don't want, run `hoist import hide RESOURCE_ID`. List them with `hoist import --list --hidden` and bring one back with `hoist import unhide RESOURCE_ID`. Hiding only changes Hoista's list. It does not pause, delete or stop billing for anything.
+
+## Fix the grouping
+
+On a resource's page, use **Move to another project** or **Remove from project**. A removed resource goes back to **Found on your providers**. To drop a whole watched project from Hoista, use **Stop watching** in its **Settings**. None of these change anything at the provider.
+
+```bash
+hoist resources move RESOURCE_ID --to other-app
+hoist resources remove RESOURCE -p my-app
+hoist projects merge old-app --into my-app
+hoist projects remove my-app
+```
+
+## Manage the project with Hoista
+
+Link the folder or GitHub repository the project builds from. In Desktop, open **Settings** and use **Source**. Then switch the mode from the CLI:
+
+```bash
+hoist link my-app --folder ./my-app
+hoist projects manage my-app
+```
+
+To link a repository instead, run `hoist link my-app --repo OWNER/NAME`, with `--branch` if it isn't the default branch. `hoist projects watch my-app` switches back to watching.
+
+Linking a source does not switch the mode by itself. Keep your existing database and its data unless you have planned a migration.
+
+## Ask an agent for an overview
+
+```text
+Use Hoista to inspect my-app. Show its resources, providers and status.
+Say which information is unavailable. Do not change anything.
+```
+
+The agent needs a [Hoista connection](/agents/connect).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Plan and deploy" icon="cloud-arrow-up" href="/guides/deploy">Deploy once the project is managed.</Card>
+<Card title="How Hoista works" icon="sitemap" href="/getting-started/concepts">Projects, resources, watching and managed.</Card>
+</CardGroup>

@@ -1,0 +1,46 @@
+---
+title: "Gemini"
+description: "Connect the Gemini app to your Hoista as a custom app."
+---
+
+Gemini runs in the cloud, so it needs Hoista at an HTTPS address it can reach. Either:
+
+- **Hoista on your computer, through a tunnel or proxy** pointed at port 8788. See [From your computer](/agents/tools/chatgpt#from-your-computer) on the ChatGPT page; the steps are the same.
+- **Hoista on a server:** a [remote](/guides/remote) or a [self-hosted Hoista](/guides/self-host). **Agents → Connect an agent** in the desktop app shows its address.
+
+Your Hoista URL is that address followed by `/mcp`, for example `https://hoista.example.com/mcp`.
+
+Custom apps in Gemini are limited for now: you need to be 18 or over and in the US, signed in with a personal Google account (not work or school), with Keep Activity on and Gemini in English. Setup is on the web; the app then works in the Gemini mobile app too.
+
+## Add Hoista
+
+1. At [gemini.google.com](https://gemini.google.com), open **Settings → Connected Apps**. If it isn't listed, open **Personal Intelligence** first.
+2. Under **Custom apps**, choose **Add a custom app**.
+3. Paste your Hoista URL and choose **Next**.
+
+## Approve it
+
+When Gemini connects, Hoista asks you to allow it. On a server, its sign-in page opens: sign in with your passkey. On your computer, a page opens there instead, and Hoista asks for Touch ID or your password. Choose what Gemini may do and which projects it can reach, then choose **Authorize**.
+
+Gemini connects over HTTP, where Hoista can't ask you questions in the chat, so Hoista offers it only **View only** or **Full access**. **Ask for approval** needs the tool to ask you. Start with **View only**, and widen it later in [Agent permissions](/agents/permissions).
+
+## Check it works
+
+Ask Gemini: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+## Gemini CLI
+
+The Gemini CLI on your computer is a coding tool: it starts `hoist mcp` itself and doesn't need a remote. Add Hoista with the settings `hoist mcp config --name "Gemini CLI"` prints, in the `mcpServers` object of `~/.gemini/settings.json`.
+
+## If it doesn't connect
+
+- **No Connected Apps or custom apps:** your account doesn't meet the requirements above yet.
+- **Gemini can't reach the URL:** open it in a browser; you should see your Hoista's sign-in page.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="ChatGPT" icon="message" href="/agents/tools/chatgpt">Includes reaching Hoista through a tunnel.</Card>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+</CardGroup>

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO transfer_restores(id,status,data) VALUES(?,'staging',?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "80eb79e1076b72afbc46548e1a51fbf62325b85b18471a7945c0fcf904d52249"
+}

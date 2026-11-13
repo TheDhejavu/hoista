@@ -1,0 +1,47 @@
+---
+title: "Security overview"
+description: "Where your tokens live, what agents can reach and what you approve."
+---
+
+import SecurityBoundaries from '/snippets/diagrams/security-boundaries.mdx';
+
+Hoista holds the API tokens for your hosting accounts so your agents don't need them. Agents get their own Hoista access, which you can limit and revoke at any time without touching your provider accounts.
+
+<SecurityBoundaries />
+
+## Where tokens live
+
+On your computer, provider tokens are kept in the OS credential store: macOS Keychain, Windows Credential Manager or Linux Secret Service. They aren't stored in the `~/.hoista` folder. On a [remote](/guides/remote), they're kept in a sealed file that only a separate process, the credential keeper, can open. You can also keep a token in 1Password and give Hoista a reference to it. See [Credentials](/security/credentials).
+
+## What agents can and can't do
+
+- Agents connect through Hoista's MCP server with their own credential. They never receive your provider tokens.
+- Each agent has an access level: **View only**, **Ask for approval** or **Full access**. You can narrow it further by environment, project and resource.
+- When an agent sets a secret, the value goes straight to the provider and is never echoed back. Provider answers an agent reads have secret values removed.
+- A deploy stops if Hoista finds a known key or one of your saved secrets in the code changes or build output.
+- Local builds run in an OS sandbox, away from your home folder and the keychain. See [Build isolation](/security/builds).
+
+## Approvals
+
+With **Ask for approval**, the agent asks you in its own client before it deletes something, removes a domain or connects an account. To allow it, you confirm it's you with Touch ID, your password, Windows Hello or a passkey. Deletions also need you to type the name. See [Approvals](/security/approvals).
+
+## On a remote
+
+You own a remote with a passkey. Each computer you sign in gets its own key, which you can remove from the remote's page. See [Remote runtime](/security/remote-runtime).
+
+## What you should do
+
+1. Give Hoista provider tokens limited to the projects and permissions it needs.
+2. Start new agents at **View only** and raise access when you need it.
+3. Keep a second passkey for your remote on another device.
+4. Keep [backups](/guides/backups) off the computer they came from.
+
+Read [Threat model and limits](/security/limits) for what Hoista can't protect against, and the [incident checklist](/security/incident-response) if something looks wrong.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Credential storage" icon="key" href="/security/credentials">Where tokens are kept.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Threat model and limits" icon="triangle-exclamation" href="/security/limits">What Hoista can’t protect against.</Card>
+</CardGroup>

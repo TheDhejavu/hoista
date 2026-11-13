@@ -1,0 +1,71 @@
+{
+  "id": "neon",
+  "name": "Neon",
+  "api": {
+    "kind": "rest",
+    "base": "",
+    "operations": "api_ops.json"
+  },
+  "cli": {
+    "name": "neon",
+    "version": "8.23.1",
+    "npm": {
+      "package": "neonctl",
+      "version": "8.23.1",
+      "bin": "bin/cli.js",
+      "node": 20,
+      "lockfile": "package-lock.json"
+    },
+    "token": "NEON_API_KEY",
+    "variables": {
+      "DO_NOT_TRACK": "1",
+      "NO_UPDATE_NOTIFIER": "1"
+    },
+    "always": [
+      "--output=json",
+      "--no-analytics",
+      "--no-color"
+    ],
+    "confirmed": [],
+    "targets": {
+      "project-id": "project",
+      "org-id": "org"
+    },
+    "json_flag": null,
+    "yes_flag": null,
+    "commands": "cli.json",
+    "target_variables": {}
+  },
+  "actions": [
+    {
+      "label": "Branches",
+      "on": "database",
+      "run": "listProjectBranches",
+      "description": "The project's branches, the default one first."
+    },
+    {
+      "label": "Computes",
+      "on": "database",
+      "run": "listProjectEndpoints",
+      "description": "The project's computes and whether each is awake."
+    },
+    {
+      "label": "Project details",
+      "on": "database",
+      "run": "getProject",
+      "description": "The project's region, Postgres version and settings."
+    },
+    {
+      "label": "Recent operations",
+      "on": "database",
+      "run": "listProjectOperations",
+      "description": "What Neon did on the project lately: branches, restarts, restores."
+    },
+    {
+      "label": "Snapshots",
+      "on": "database",
+      "run": "listSnapshots",
+      "description": "The project's saved snapshots."
+    }
+  ]
+}

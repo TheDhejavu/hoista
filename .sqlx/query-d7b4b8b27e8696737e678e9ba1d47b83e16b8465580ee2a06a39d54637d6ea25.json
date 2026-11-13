@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT reference, commitment, active FROM environment_admission_keys WHERE retired = 0 ORDER BY reference LIMIT 18",
+  "describe": {
+    "columns": [
+      {
+        "name": "reference",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "commitment",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "active",
+        "ordinal": 2,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "d7b4b8b27e8696737e678e9ba1d47b83e16b8465580ee2a06a39d54637d6ea25"
+}

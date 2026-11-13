@@ -1,0 +1,7 @@
+{% extends "owner_base.html" %}
+{% import "parts.html" as parts %}
+{% block content %}
+{% call parts::hoista() %}{% endcall %}
+<div class="card"><h1>Sign in to Hoista</h1><p class="sub">{% if for_app %}Sign in to allow the Hoista app on your computer.{% else %}Use your passkey: fingerprint, face or device PIN.{% endif %}</p>
+<button class="go" id="signin">Sign in with a passkey</button><p class="note" id="said" role="status"></p></div>
+{% endblock %}

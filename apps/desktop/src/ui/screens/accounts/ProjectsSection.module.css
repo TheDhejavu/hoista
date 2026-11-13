@@ -1,0 +1,13 @@
+/* Under the projects picker: what saving would do, and Save. */
+.saveBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.saveBar button {
+  margin-left: auto;
+}

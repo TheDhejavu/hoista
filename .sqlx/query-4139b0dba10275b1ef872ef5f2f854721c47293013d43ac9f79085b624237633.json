@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO deployment_admissions (actor, request_key, fingerprint, deploy_id, project_id) VALUES (?, ?, ?, ?, ?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "4139b0dba10275b1ef872ef5f2f854721c47293013d43ac9f79085b624237633"
+}

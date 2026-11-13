@@ -1,0 +1,30 @@
+---
+title: "HTTP API"
+description: "The API the desktop app and hoist use, and what to use instead to script Hoista."
+---
+
+The desktop app and `hoist` talk to Hoista's engine over an HTTP API: on this computer through a socket in the state folder that only your user can open, and on a [remote](/guides/remote) at `https://<your-remote>/api`.
+
+It's built for those two, not as a public interface. Routes and their answers can change from one version to the next without notice, so don't build on it.
+
+To work with Hoista from your own tools:
+
+| To | Use |
+| --- | --- |
+| Script it, or run it in CI | `hoist` with `--json`. See [In scripts and CI](/cli/overview#in-scripts-and-ci). |
+| Let an AI agent manage your projects | The [MCP server](/reference/mcp), with the access you give each agent |
+| Get told when something happens | [Webhooks](/guides/webhooks) |
+
+## From ChatGPT or another computer
+
+For ChatGPT and other web agents, Hoista on your computer serves MCP over HTTP on `127.0.0.1:8788`. Point a tunnel or proxy at it; see [From your computer](/agents/tools/chatgpt#from-your-computer). Only sign-in and `/mcp` are served there, not this API.
+
+To reach Hoista from another computer, run it in server mode behind HTTPS, on a server or a Mac mini. In server mode every route needs a sign-in: the desktop app and `hoist` use a key each computer gets when you approve it with your passkey, and agents like ChatGPT use `/mcp` with access you approve the same way. See [Self-host Hoista](/guides/self-host).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="CLI reference" icon="terminal" href="/cli/overview">Every hoist command.</Card>
+<Card title="MCP server" icon="plug" href="/reference/mcp">Connections and the tools to start with.</Card>
+<Card title="Webhooks" icon="bell" href="/guides/webhooks">Send events to a background agent.</Card>
+</CardGroup>

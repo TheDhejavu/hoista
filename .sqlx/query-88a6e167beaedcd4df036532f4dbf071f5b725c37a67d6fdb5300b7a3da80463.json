@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO events (at, actor, kind, summary) VALUES (?, 'person', 'profile.updated', 'Updated local profile.')",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "88a6e167beaedcd4df036532f4dbf071f5b725c37a67d6fdb5300b7a3da80463"
+}

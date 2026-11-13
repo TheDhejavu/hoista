@@ -1,0 +1,149 @@
+---
+title: "Deploying"
+description: "hoist commands for deploying."
+---
+
+A deploy is planned first: Hoista reads the folder, picks where each part runs, and saves that as a plan. `hoist deploy` plans and deploys in one step; `hoist plan` lets you look and change it first. Every deploy carries a request key, so retrying with the same key never deploys twice.
+
+## `hoist deploy [FOLDER]`
+
+Deploy a folder.
+
+```bash
+hoist deploy                       # this folder
+hoist deploy ./web -p my-web -m "Fix checkout"
+hoist deploy --detach --json      # return at once, for scripts
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[FOLDER]` | The folder to deploy. Default: this folder. |
+| `-p, --project <NAME>` | The project to deploy to. Default: the one linked to the folder, or a new one named after it. |
+| `-m, --message <TEXT>` | A note saved with the deploy, like a commit message. |
+| `--detach` | Start the deploy and return without waiting for it to finish. |
+| `--plan <PLAN>` | Deploy a plan you reviewed with hoist plan, instead of planning again. |
+| `--plan-revision <N>` | With --plan: deploy only if the plan is still this revision. |
+| `--request-key <UUID>` | A UUID that makes retrying safe: the same key never deploys twice. |
+
+## `hoist plan [FOLDER]`
+
+See what a deploy would do, and change it before deploying.
+
+```bash
+hoist plan
+hoist plan ./web -p my-web
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[FOLDER]` | The folder to plan. Default: this folder. |
+| `-p, --project <NAME>` | The project name the plan is for. Default: the folder's name. |
+
+## `hoist plan show <PLAN>`
+
+Show a saved plan.
+
+```bash
+hoist plan show 2c7e...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<PLAN>` | Plan id. |
+
+## `hoist plan set <PLAN> <RESOURCE>`
+
+Change which account or region a planned resource uses.
+
+```bash
+hoist plan set 2c7e... api --account work-railway
+hoist plan set 2c7e... api --region ams
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<PLAN>` | Plan id. |
+| `<RESOURCE>` | The resource's name in the plan. |
+| `--account <ACCOUNT>` | Account name or id to use. |
+| `--region <REGION>` | Region to use; "-" clears it. |
+
+## `hoist plan edit <PLAN>`
+
+Replace a plan with JSON from stdin (the shape hoist plan show --json prints).
+
+```bash
+hoist plan show 2c7e... --json > plan.json
+# change plan.json
+hoist plan edit 2c7e... < plan.json
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<PLAN>` | Plan id. |
+
+## `hoist deploys [PROJECT]`
+
+List and inspect deploys.
+
+```bash
+hoist deploys
+hoist deploys my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. Default: recent deploys of every project. |
+
+## `hoist deploys show <DEPLOY>`
+
+Show one deploy: its steps, and with --log its build log.
+
+```bash
+hoist deploys show 41aa... --log
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<DEPLOY>` | Deploy id. |
+| `--log` | Also print the build log the provider kept. |
+
+## `hoist deploys request <KEY>`
+
+Look up a deploy by the request key it was started with.
+
+```bash
+hoist deploys request 550e8400-e29b-41d4-a716-446655440000
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<KEY>` | The request key (UUID). |
+| `--actor <ID>` | Who started it: an agent's id, when it wasn't you. |
+
+## `hoist rollback [DEPLOY]`
+
+Put an earlier deploy back.
+
+```bash
+hoist rollback -p my-app         # pick from its deploys
+hoist rollback 41aa...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[DEPLOY]` | The deploy to put back. In a terminal, pick it from the project's deploys. |
+| `-p, --project <PROJECT>` | The project, when picking the deploy from a list. |
+| `-m, --message <TEXT>` | A note saved with the rollback. |
+| `--request-key <UUID>` | A UUID that makes retrying safe. |
+
+## `hoist cancel <DEPLOY>`
+
+Stop a deploy that's running.
+
+```bash
+hoist cancel 41aa...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<DEPLOY>` | Deploy id. |

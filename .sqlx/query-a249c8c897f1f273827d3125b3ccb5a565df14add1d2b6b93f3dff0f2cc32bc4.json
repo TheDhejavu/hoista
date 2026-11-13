@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT agents.id FROM agents JOIN oauth_pending ON json_extract(oauth_pending.data,'$.agent_id') = agents.id LEFT JOIN oauth_grants ON oauth_grants.agent_id = agents.id WHERE oauth_grants.agent_id IS NULL AND json_extract(oauth_pending.data,'$.expires_at') <= ? LIMIT 100",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a249c8c897f1f273827d3125b3ccb5a565df14add1d2b6b93f3dff0f2cc32bc4"
+}

@@ -1,0 +1,52 @@
+.dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.small {
+  width: 6px;
+  height: 6px;
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.warn {
+  background: var(--warn);
+}
+
+.neutral {
+  background: var(--text-3);
+}
+
+/* An outlined dot reads as "asleep" rather than "off". */
+.hollow {
+  border: 1.5px solid var(--text-3);
+}
+
+.off {
+  background: var(--text-4);
+}
+
+.pulse {
+  animation: pulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  30% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--good) 45%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--good) 0%, transparent);
+  }
+}

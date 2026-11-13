@@ -1,0 +1,73 @@
+---
+title: "Overview"
+description: "The hoist command line: install it, global flags, scripts and completion."
+---
+
+`hoist` is Hoista's command line. Everything the desktop app does, it does too, on this computer's Hoista or on a [remote](/guides/remote). Run a command without its arguments in a terminal and it asks for what's missing; in a script, pass everything and add `--json`.
+
+```bash
+hoist accounts add railway       # connect a provider account
+hoist import                     # bring in what already runs there
+hoist deploy                     # deploy the folder you're in
+hoist logs my-app -f             # follow its logs
+```
+
+## Install the CLI
+
+The installer puts `hoist` and `hoistd` side by side. See [Install](/getting-started/install), then check it:
+
+```bash
+hoist --version
+hoist doctor
+```
+
+## Global flags
+
+These work with every command, before or after it.
+
+| Flag | What it does |
+| --- | --- |
+| `--json` | Print JSON instead of tables and messages. A list prints as a JSON array. |
+| `-y`, `--yes` | Answer yes to every confirmation. Deleting still needs `--confirm NAME`. |
+| `--no-input` | Never ask; stop with the flag to pass instead. On by itself when `CI` is set or there's no terminal. |
+| `--remote NAME` | Use this remote for one command. Also `HOISTA_REMOTE`. `this-computer` means this computer. |
+| `-e`, `--environment NAME` | Use this environment for one command. Also `HOISTA_ENVIRONMENT`. |
+| `--state-dir PATH` | Use another state folder instead of `~/.hoista`. Each has its own projects, accounts and agents. |
+
+## In scripts and CI
+
+- Pass every argument. A missing one is an error that names the flag, never a prompt.
+- Add `--json` and read stdout. Progress and confirmations go to stderr.
+- Pipe secrets: `--token-stdin`, `--value-stdin`, `--passphrase-stdin` or `--file .env`. Never put a token or value in an argument.
+- Exit codes: `0` worked, `1` failed, `2` the command was called wrong or needs input it didn't get.
+- `NO_COLOR=1` turns colour off; it's off already when output isn't a terminal.
+
+```bash
+export HOISTA_REMOTE=office HOISTA_ENVIRONMENT=production
+op read op://Work/stripe/key | hoist env set my-app STRIPE_KEY --value-stdin
+hoist deploy ./web -p my-web --json | jq -r .id
+```
+
+## Shell completion
+
+```bash
+hoist completion zsh > "${fpath[1]}/_hoist"                              # zsh
+hoist completion bash > ~/.local/share/bash-completion/completions/hoist  # bash
+hoist completion fish > ~/.config/fish/completions/hoist.fish             # fish
+```
+
+## Commands
+
+<CardGroup cols={2}>
+<Card title="Projects" icon="folder" href="/cli/projects">List, import, link, rename and delete projects.</Card>
+<Card title="Resources and databases" icon="server" href="/cli/resources">Restart, pause, move and delete services and databases.</Card>
+<Card title="Deploying" icon="rocket" href="/cli/deploying">Plan a deploy, follow it, roll back or cancel.</Card>
+<Card title="Variables and domains" icon="key" href="/cli/variables">Environment variables and custom domains.</Card>
+<Card title="Watching" icon="chart-line" href="/cli/watching">Logs, metrics, activity, billing and usage.</Card>
+<Card title="Accounts and providers" icon="plug" href="/cli/accounts">Connect provider accounts, check and rotate tokens.</Card>
+<Card title="Environments" icon="layer-group" href="/cli/environments">Production, staging and the one in use.</Card>
+<Card title="Remotes" icon="globe" href="/cli/remotes">Run Hoista on a server and switch between them.</Card>
+<Card title="Agents" icon="robot" href="/cli/agents">Let coding agents in and choose what they may do.</Card>
+<Card title="Safety and upkeep" icon="shield" href="/cli/upkeep">Backups, operations, webhooks and settings.</Card>
+<Card title="This computer" icon="laptop" href="/cli/this-computer">Start the engine, run checks, install the service.</Card>
+</CardGroup>

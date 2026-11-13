@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT fingerprint, deploy_id, project_id FROM deployment_admissions WHERE actor = ? AND request_key = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "fingerprint",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "deploy_id",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "project_id",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "4a783f7f4ff39ca6755d91966813181bf152e78ca689c7fb6ba7893b5efc4400"
+}

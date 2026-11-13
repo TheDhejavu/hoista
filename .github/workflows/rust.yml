@@ -2,23 +2,86 @@ name: Rust
 on:
   push:
     branches: [main]
-    paths: ['bin/**', 'crates/**', 'Cargo.*', 'rust-toolchain.toml', 'clippy.toml', '.github/workflows/rust.yml']
+    paths: ['bin/**', 'crates/**', 'Cargo.*', '.sqlx/**', 'docs/backend/**', 'scripts/**', 'deny.toml', 'rust-toolchain.toml', 'clippy.toml', '.github/workflows/rust.yml', '.github/workflows/live.yml']
   pull_request:
-    paths: ['bin/**', 'crates/**', 'Cargo.*', 'rust-toolchain.toml', 'clippy.toml', '.github/workflows/rust.yml']
+    paths: ['bin/**', 'crates/**', 'Cargo.*', '.sqlx/**', 'docs/backend/**', 'scripts/**', 'deny.toml', 'rust-toolchain.toml', 'clippy.toml', '.github/workflows/rust.yml', '.github/workflows/live.yml']
 permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      SQLX_OFFLINE: 'true'
     steps:
       - uses: actions/checkout@v4
+      - name: Linux keychain build dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config
       - name: Install pinned compiler
         run: rustup toolchain install 1.97.0 --profile minimal --component rustfmt --component clippy
       - run: cargo fmt --all -- --check
-      - run: cargo check --workspace --all-targets --locked
-      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo check --workspace --all-targets --all-features --locked
+      - run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
       - run: cargo test --workspace --locked
+      - name: Compile live harness and run guards without provider calls
+        if: runner.os == 'Linux'
+        run: cargo test -p hoista-server --features live --test live --locked
+      - name: Validate Windows scheduled-task configuration without registering it
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $taskFixtureDirectory = Join-Path $env:RUNNER_TEMP ([Guid]::NewGuid().ToString())
+          New-Item -ItemType Directory -Path $taskFixtureDirectory | Out-Null
+          try {
+            $env:HOISTA_SERVICE_FIXTURE_DIR = $taskFixtureDirectory
+            cargo test -p hoist --locked export_windows_service_fixture -- --ignored
+            if ($LASTEXITCODE -ne 0) { throw 'Task fixture generation failed' }
+            & ./scripts/tests/windows_service.ps1 -FixtureDirectory $taskFixtureDirectory
+          } finally {
+            Remove-Item Env:HOISTA_SERVICE_FIXTURE_DIR -ErrorAction SilentlyContinue
+            Remove-Item -LiteralPath $taskFixtureDirectory -Recurse -Force
+          }
+      - name: Build native daemon and CLI
+        if: runner.os != 'Windows'
+        run: cargo build --workspace --locked
+      - name: Offline installer and startup-option fixtures
+        if: runner.os != 'Windows'
+        run: python3 scripts/tests/installer.py
+      - name: Native local IPC and shutdown acceptance
+        if: runner.os != 'Windows'
+        run: python3 scripts/tests/local_daemon.py
       - run: cargo test --workspace --doc --locked
       - run: cargo doc --workspace --no-deps --locked
         env:
           RUSTDOCFLAGS: -D warnings
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned compiler
+        run: rustup toolchain install 1.97.0 --profile minimal
+      - name: Install dependency checker
+        run: cargo install cargo-deny --version 0.20.2 --locked
+      - run: cargo deny check
+
+  worker-build:
+    runs-on: ubuntu-latest
+    env:
+      SQLX_OFFLINE: 'true'
+      CARGO_INCREMENTAL: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: 'crates/server/tests/fixtures/**/package-lock.json'
+      - name: Linux keychain build dependencies
+        run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config
+      - name: Install pinned compiler
+        run: rustup toolchain install 1.97.0 --profile minimal
+      - name: Real locked Worker and SSR builds (no account)
+        run: cargo test -p hoista-server --test worker_build --locked -- --ignored --test-threads=1

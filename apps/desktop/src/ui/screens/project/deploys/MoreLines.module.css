@@ -1,0 +1,10 @@
+.more {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line, var(--border));
+  background: var(--bg);
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  white-space: nowrap;
+}

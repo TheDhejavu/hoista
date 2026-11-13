@@ -1,0 +1,56 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT id, at, actor, project_id, subject_id, kind, summary FROM events WHERE id < ? AND (? IS NULL OR actor = ?) AND (? IS NULL OR project_id = ?) AND (? IS NULL OR kind = ?) ORDER BY id DESC LIMIT 50",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "at",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "actor",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "project_id",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "subject_id",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "kind",
+        "ordinal": 5,
+        "type_info": "Text"
+      },
+      {
+        "name": "summary",
+        "ordinal": 6,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 7
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "0ada9ae761e3b45a3062a999b3af18a44f8d29f68560af9917e833b6a0886ef5"
+}

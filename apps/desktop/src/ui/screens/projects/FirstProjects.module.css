@@ -1,0 +1,129 @@
+.screen {
+  display: flex;
+  gap: 28px;
+  padding: 28px var(--page-gutter);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  background: #111111;
+  padding: 12px 14px;
+  color: #ffffff;
+}
+
+.logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111111;
+  /* Logos drawn in the text colour stay dark on the light tile, in both themes. */
+  --text: #111111;
+}
+
+.text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.text strong {
+  font-weight: var(--weight-medium);
+}
+
+.text span {
+  font-size: var(--text-sm);
+  color: #bdbdbd;
+}
+
+.another {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 34px;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 0 16px;
+  font-size: var(--text-md);
+  color: #111111;
+  text-decoration: none;
+}
+
+.another:hover {
+  background: #e9e9e9;
+}
+
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.count {
+  font-size: var(--text-xl);
+  letter-spacing: 0;
+  color: var(--text-3);
+}
+
+/* Dark mode flips the banner to white, as the board shows. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .banner {
+    background: #ffffff;
+    color: #111111;
+  }
+
+  :root:not([data-theme='light']) .logo {
+    background: #f0f0f0;
+  }
+
+  :root:not([data-theme='light']) .text span {
+    color: #6b6b6b;
+  }
+
+  :root:not([data-theme='light']) .another {
+    background: #111111;
+    color: #ffffff;
+  }
+}
+
+:root[data-theme='dark'] .banner {
+  background: #ffffff;
+  color: #111111;
+}
+
+:root[data-theme='dark'] .logo {
+  background: #f0f0f0;
+}
+
+:root[data-theme='dark'] .text span {
+  color: #6b6b6b;
+}
+
+:root[data-theme='dark'] .another {
+  background: #111111;
+  color: #ffffff;
+}
+
+/* What else is on the connected providers, under the added projects. */
+.found {
+  margin-top: 36px;
+}

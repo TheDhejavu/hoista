@@ -1,0 +1,126 @@
+/* The title and its description on the left, the card's action on the right. */
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px 14px;
+}
+
+.headText {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+.description {
+  margin: 4px 0 0;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 20px 16px;
+  padding: 0;
+  list-style: none;
+}
+
+ul.list {
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.row {
+  display: grid;
+  /* Status flush right; with remotes, a ⋮ column after it on every row,
+     empty on This Mac's, so the statuses line up. */
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 8px 8px 12px;
+}
+
+.row + .row {
+  border-top: 1px solid var(--line);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--bg-muted);
+  color: var(--text-2);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--text-sm);
+}
+
+.sub {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-3);
+}
+
+.withMenus .row {
+  grid-template-columns: 32px minmax(0, 1fr) auto 32px;
+}
+
+.withMenus .row:first-child::after {
+  content: '';
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.status,
+.showing {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: var(--text-xs);
+  line-height: 18px;
+}
+
+.status {
+  background: var(--bg-muted);
+  color: var(--text-2);
+}
+
+.showing {
+  background: color-mix(in srgb, var(--good) 14%, var(--bg-raised));
+  color: color-mix(in srgb, var(--good) 80%, var(--text));
+}
+
+.emptyRow {
+  border-top: 1px solid var(--line);
+  padding: 14px 14px 14px 12px;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--text-3);
+}

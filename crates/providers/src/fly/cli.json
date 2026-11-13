@@ -1,0 +1,3680 @@
+{
+ "cli": "fly",
+ "version": "0.4.119",
+ "source": "fly 0.4.119 --help",
+ "commands": [
+  {
+   "name": "fly apps releases",
+   "words": [
+    "apps",
+    "releases"
+   ],
+   "area": "Apps",
+   "risk": "read",
+   "description": "List all the releases of the application onto the Fly platform, including type, when, success/fail and which user triggered the release.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "image",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Display the Docker image reference of the release",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly status",
+   "words": [
+    "status"
+   ],
+   "area": "Apps",
+   "risk": "read",
+   "description": "Show the application's current status including application details, tasks, most recent deployment details and in which regions it is currently allocated.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show completed instances",
+     "path": false
+    },
+    {
+     "name": "deployment",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Always show deployment status",
+     "path": false
+    },
+    {
+     "name": "rate",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Refresh Rate for --watch (default 5)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly config env",
+   "words": [
+    "config",
+    "env"
+   ],
+   "area": "Config",
+   "risk": "read",
+   "description": "Display an app's runtime environment variables.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly config save",
+   "words": [
+    "config",
+    "save"
+   ],
+   "area": "Config",
+   "risk": "change",
+   "description": "Save an application's configuration locally.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "yaml",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Output the configuration in YAML format",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly config show",
+   "words": [
+    "config",
+    "show"
+   ],
+   "area": "Config",
+   "risk": "read",
+   "description": "Show an application's configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Parse and show local fly.toml file instead of fetching from the Fly service",
+     "path": false
+    },
+    {
+     "name": "toml",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show configuration in TOML format",
+     "path": false
+    },
+    {
+     "name": "yaml",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show configuration in YAML format",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly config validate",
+   "words": [
+    "config",
+    "validate"
+   ],
+   "area": "Config",
+   "risk": "read",
+   "description": "Validates an application's config file against the Fly platform to ensure it is correct and meaningful to the platform.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "strict",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable strict validation to check for unrecognized sections and keys",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly mpg attach",
+   "words": [
+    "mpg",
+    "attach"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Attach a managed Postgres cluster to an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "cluster_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<CLUSTER ID>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The database to connect to",
+     "path": false
+    },
+    {
+     "name": "username",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The username to connect as",
+     "path": false
+    },
+    {
+     "name": "variable-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The name of the environment variable that will be added to the attached app (default \"DATABASE_URL\")",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly mpg detach",
+   "words": [
+    "mpg",
+    "detach"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Detach a managed Postgres cluster from an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "cluster_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<CLUSTER ID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly postgres attach",
+   "words": [
+    "postgres",
+    "attach"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Attach a postgres cluster to an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgres_app",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<POSTGRES APP>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The designated database name for this consuming app.",
+     "path": false
+    },
+    {
+     "name": "database-user",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The database user to create. By default, we will use the name of the consuming app.",
+     "path": false
+    },
+    {
+     "name": "superuser",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Grants attached user superuser privileges (default true)",
+     "path": false
+    },
+    {
+     "name": "variable-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The environment variable name that will be added to the consuming app.  (default \"DATABASE_URL\")",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres backup config show",
+   "words": [
+    "postgres",
+    "backup",
+    "config",
+    "show"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "Show backup configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly postgres backup config update",
+   "words": [
+    "postgres",
+    "backup",
+    "config",
+    "update"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Update backup configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "archive-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Archive timeout",
+     "path": false
+    },
+    {
+     "name": "full-backup-frequency",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Full backup frequency",
+     "path": false
+    },
+    {
+     "name": "minimum-redundancy",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Minimum redundancy",
+     "path": false
+    },
+    {
+     "name": "recovery-window",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Recovery window",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres backup create",
+   "words": [
+    "postgres",
+    "backup",
+    "create"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Create a backup.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "immediate-checkpoint",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Forces Postgres to perform an immediate checkpoint",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Backup name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres backup enable",
+   "words": [
+    "postgres",
+    "backup",
+    "enable"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Enable backups on a Postgres cluster, creating a Tigris bucket for storage.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly postgres backup list",
+   "words": [
+    "postgres",
+    "backup",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List backups.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly postgres backup restore",
+   "words": [
+    "postgres",
+    "backup",
+    "restore"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Performs a WAL-based restore into a new Postgres cluster.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "destination_app_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<destination-app-name>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "image-ref",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Specify a non-default base image for the restored Postgres app",
+     "path": false
+    },
+    {
+     "name": "restore-target-inclusive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Set to true to stop recovery after the specified time, or false to stop before it (default true)",
+     "path": false
+    },
+    {
+     "name": "restore-target-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "ID or alias of backup to restore.",
+     "path": false
+    },
+    {
+     "name": "restore-target-time",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "RFC3339-formatted timestamp up to which recovery will proceed. Example: 2021-07-16T12:34:56Z",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres config show",
+   "words": [
+    "postgres",
+    "config",
+    "show"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "Show Postgres configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly postgres config update",
+   "words": [
+    "postgres",
+    "config",
+    "update"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Update Postgres configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skips pg-setting value verification.",
+     "path": false
+    },
+    {
+     "name": "log-min-duration-statement",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the minimum execution time above which all statements will be logged. (ms)",
+     "path": false
+    },
+    {
+     "name": "log-statement",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the type of statements logged. (none, ddl, mod, all)",
+     "path": false
+    },
+    {
+     "name": "maintenance-work-mem",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the maximum amount of memory used for maintenance operations like ALTER TABLE, CREATE INDEX, and VACUUM",
+     "path": false
+    },
+    {
+     "name": "max-connections",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the maximum number of concurrent connections.",
+     "path": false
+    },
+    {
+     "name": "max-replication-slots",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Specifies the maximum number of replication slots. This should typically match max_wal_senders.",
+     "path": false
+    },
+    {
+     "name": "max-wal-senders",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of concurrent connections from standby servers or streaming backup clients. (0 disables replication)",
+     "path": false
+    },
+    {
+     "name": "shared-buffers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the amount of memory the database server uses for shared memory buffers",
+     "path": false
+    },
+    {
+     "name": "shared-preload-libraries",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the shared libraries to preload. (comma separated string)",
+     "path": false
+    },
+    {
+     "name": "wal-level",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the level of information written to the WAL. (minimal, replica, logical).",
+     "path": false
+    },
+    {
+     "name": "work-mem",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sets the maximum amount of memory each Postgres query can use",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres db list",
+   "words": [
+    "postgres",
+    "db",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List databases.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly postgres detach",
+   "words": [
+    "postgres",
+    "detach"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Detach a postgres cluster from an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgres_app",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<POSTGRES APP>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly postgres events list",
+   "words": [
+    "postgres",
+    "events",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "Outputs a formatted list of cluster events.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Outputs all entries",
+     "path": false
+    },
+    {
+     "name": "compact",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Omit the 'Details' column",
+     "path": false
+    },
+    {
+     "name": "event",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Event type in a postgres cluster",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the maximum number of entries to output (default: 20)",
+     "path": false
+    },
+    {
+     "name": "node-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Restrict entries to node with this ID",
+     "path": false
+    },
+    {
+     "name": "node-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Restrict entries to node with this name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres failover",
+   "words": [
+    "postgres",
+    "failover"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Failover to a new primary.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "allow-secondary-region",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Allow failover to a machine in a secondary region. This is useful when the primary region is unavailable, but the secondary region is still healthy. This is only available for flex machines.",
+     "path": false
+    },
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Force a failover even if we can't connect to the active leader",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres restart",
+   "words": [
+    "postgres",
+    "restart"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Restarts each member of the Postgres cluster one by one.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Force a restart even we don't have an active leader",
+     "path": false
+    },
+    {
+     "name": "skip-health-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Runs rolling restart process without waiting for health checks.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly postgres users list",
+   "words": [
+    "postgres",
+    "users",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List users.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly image show",
+   "words": [
+    "image",
+    "show"
+   ],
+   "area": "Deploys",
+   "risk": "read",
+   "description": "Show image details.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly image update",
+   "words": [
+    "image",
+    "update"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Update the app's image to the latest available version.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target a specific image",
+     "path": false
+    },
+    {
+     "name": "skip-health-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skip waiting for health checks between VM updates.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly releases",
+   "words": [
+    "releases"
+   ],
+   "area": "Deploys",
+   "risk": "read",
+   "description": "List all the releases of the application onto the Fly platform, including type, when, success/fail and which user triggered the release.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "image",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Display the Docker image reference of the release",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine clone",
+   "words": [
+    "machine",
+    "clone"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Clone a Fly Machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "machine_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[machine_id]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "attach-volume",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Existing volume to attach to the new Machine in the form of <volume_id>[:/path/inside/machine]",
+     "path": false
+    },
+    {
+     "name": "clear-auto-destroy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Disable auto destroy setting on the new Machine",
+     "path": false
+    },
+    {
+     "name": "clear-cmd",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Set empty CMD on the new Machine so it uses default CMD for the image",
+     "path": false
+    },
+    {
+     "name": "from-snapshot",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Clone attached volumes and restore from snapshot, use 'last' for most recent snapshot. The default is an empty volume.",
+     "path": false
+    },
+    {
+     "name": "host-dedication-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The dedication id of the reserved hosts for your organization (if any)",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional name for the new Machine",
+     "path": false
+    },
+    {
+     "name": "override-cmd",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set CMD on the new Machine to this value",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    },
+    {
+     "name": "standby-for",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Comma separated list of Machine IDs to watch for. You can use '--standby-for=source' to create a standby for the cloned Machine.",
+     "path": false
+    },
+    {
+     "name": "vm-cpu-kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The kind of CPU to use ('shared' or 'performance') (also --vm-cpukind)",
+     "path": false
+    },
+    {
+     "name": "vm-cpus",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Number of CPUs (also --cpus)",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Memory (in megabytes) to attribute to the VM (also --memory)",
+     "path": false
+    },
+    {
+     "name": "vm-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The VM size to set machines to. See \"fly platform vm-sizes\" for valid values",
+     "path": false
+    },
+    {
+     "name": "volume-requires-unique-zone",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Require volume to be placed in separate hardware zone from existing volumes. Default true. (default true)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine cordon",
+   "words": [
+    "machine",
+    "cordon"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Deactivate all services on a machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "<id>...",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly machine create",
+   "words": [
+    "machine",
+    "create"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Create, but don't start, a machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "image",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<image>",
+     "path": false
+    },
+    {
+     "name": "command",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[command]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "autostart",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Automatically start a stopped Machine when a network request is received (default true)",
+     "path": false
+    },
+    {
+     "name": "autostop",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Automatically stop a Machine when there are no network requests for it. Options include 'off', 'stop', and 'suspend'. (default \"off\")",
+     "path": false
+    },
+    {
+     "name": "build-context-warn-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Warn when the Docker build context is larger than this. Accepts a plain number (in MB) or a human-readable size (e.g. 512mb, 1gb). Set to 0 to disable. Also set with FLY_BUILD_CONTEXT_WARN_SIZE.",
+     "path": false
+    },
+    {
+     "name": "build-depot",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Build your image with depot.dev",
+     "path": false
+    },
+    {
+     "name": "build-nixpacks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Build your image with nixpacks",
+     "path": false
+    },
+    {
+     "name": "cachedrive-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Cache drive size in MB. Accepts a plain number (in MB) or a human-readable size (e.g. 512mb, 10gb). Set to 0 to disable.",
+     "path": false
+    },
+    {
+     "name": "entrypoint",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The command to override the Docker ENTRYPOINT.",
+     "path": false
+    },
+    {
+     "name": "file-literal",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Set of literals to write to the Machine, in the form of /path/inside/machine=VALUE pairs, where VALUE is the base64-encoded raw content. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "file-local",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Set of files to write to the Machine, in the form of /path/inside/machine=<local/path> pairs. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "host-dedication-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The dedication id of the reserved hosts for your organization (if any)",
+     "path": false
+    },
+    {
+     "name": "id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Machine ID, if previously known",
+     "path": false
+    },
+    {
+     "name": "kernel-arg",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "A list of kernel arguments to provide to the init. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "machine-config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Read Machine config from a JSON file or string (use --config for app configuration)",
+     "path": false
+    },
+    {
+     "name": "metadata",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Metadata in the form of NAME=VALUE pairs. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Machine name. Will be generated if omitted.",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "The external ports and handlers for services, in the format: port[:machinePort][/protocol[:handler[:handler...]]]) For example: --port 80/tcp --port 443:80/tcp:http:tls --port 5432/tcp:pg_tls To remove a port mapping use '-' as handler. For example: --port 80/tcp:-",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    },
+    {
+     "name": "restart",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the restart policy for a Machine. Options include 'no', 'always', and 'on-failure'. Default is 'on-failure' for Machines created by 'fly deploy' and Machines with a schedule. Default is 'always' for Machines created by 'fly m run'.",
+     "path": false
+    },
+    {
+     "name": "rm",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Automatically remove the Machine when it exits. Sets the restart-policy to 'never' if not otherwise specified.",
+     "path": false
+    },
+    {
+     "name": "rootfs-persist",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Whether to persist the root filesystem across restarts. Options include 'never', 'always', and 'restart'.",
+     "path": false
+    },
+    {
+     "name": "rootfs-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Root filesystem size in GB. Accepts a plain number (in GB) or a human-readable size (e.g. 2gb, 5gb). Uses an overlayfs to allow the root filesystem to exceed its default size. Set to 0 to unset.",
+     "path": false
+    },
+    {
+     "name": "schedule",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Schedule a Machine run at hourly, daily, weekly and monthly intervals",
+     "path": false
+    },
+    {
+     "name": "skip-dns-registration",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Do not register the machine's 6PN IP with the internal DNS system",
+     "path": false
+    },
+    {
+     "name": "standby-for",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "For Machines without services, a comma separated list of Machine IDs to act as standby for.",
+     "path": false
+    },
+    {
+     "name": "swap-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Swap size in MB. Accepts a plain number (in MB) or a human-readable size (e.g. 512mb, 1gb).",
+     "path": false
+    },
+    {
+     "name": "use-zstd",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable zstd compression for the image",
+     "path": false
+    },
+    {
+     "name": "vm-cpu-kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The kind of CPU to use ('shared' or 'performance') (also --vm-cpukind)",
+     "path": false
+    },
+    {
+     "name": "vm-cpus",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Number of CPUs (also --cpus)",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Memory (in megabytes) to attribute to the VM (also --memory)",
+     "path": false
+    },
+    {
+     "name": "vm-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The VM size to set machines to. See \"fly platform vm-sizes\" for valid values",
+     "path": false
+    },
+    {
+     "name": "volume",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Volume to mount, in the form of <volume_id_or_name>:/path/inside/machine[:<options>]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine destroy",
+   "words": [
+    "machine",
+    "destroy"
+   ],
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Destroy one or more Fly machines.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "ID",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "force kill machine regardless of current state",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "remove all machines with the specified image hash",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine kill",
+   "words": [
+    "machine",
+    "kill"
+   ],
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Kill (SIGKILL) a Fly machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[id]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly machine leases clear",
+   "words": [
+    "machine",
+    "leases",
+    "clear"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Clear machine leases.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "machine_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[machine-id]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly machine leases view",
+   "words": [
+    "machine",
+    "leases",
+    "view"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "View machine leases.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "machine_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[machine-id]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly machine list",
+   "words": [
+    "machine",
+    "list"
+   ],
+   "area": "Machines",
+   "risk": "read",
+   "description": "List Fly machines.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "quiet",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Only list machine ids",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine restart",
+   "words": [
+    "machine",
+    "restart"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Restart one or more Fly machines.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "<id>...",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Force stop the machine(s)",
+     "path": false
+    },
+    {
+     "name": "signal",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Signal to stop the machine with (default: SIGINT)",
+     "path": false
+    },
+    {
+     "name": "skip-health-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Restarts app without waiting for health checks.",
+     "path": false
+    },
+    {
+     "name": "time",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Seconds to wait before killing the machine",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine start",
+   "words": [
+    "machine",
+    "start"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Start one or more Fly machines.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "<id>...",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly machine status",
+   "words": [
+    "machine",
+    "status"
+   ],
+   "area": "Machines",
+   "risk": "read",
+   "description": "Show current status of a running machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[id]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "display-config",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Display the machine config as JSON",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine stop",
+   "words": [
+    "machine",
+    "stop"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Stop one or more Fly machines.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "<id>...",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "signal",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Signal to stop the machine with (default: SIGINT)",
+     "path": false
+    },
+    {
+     "name": "timeout",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Seconds to wait before sending SIGKILL to the machine",
+     "path": false
+    },
+    {
+     "name": "wait-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Time duration to wait for individual machines to transition states and become stopped.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine suspend",
+   "words": [
+    "machine",
+    "suspend"
+   ],
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Suspend one or more Fly machines.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "<id>...",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "wait-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Duration to wait for individual Machines to be suspended.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine uncordon",
+   "words": [
+    "machine",
+    "uncordon"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Reactivate all services on a machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "<id>...",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly machine update",
+   "words": [
+    "machine",
+    "update"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Update a machine.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "machine_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[machine_id]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "autostart",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Automatically start a stopped Machine when a network request is received (default true)",
+     "path": false
+    },
+    {
+     "name": "autostop",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Automatically stop a Machine when there are no network requests for it. Options include 'off', 'stop', and 'suspend'. (default \"off\")",
+     "path": false
+    },
+    {
+     "name": "build-context-warn-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Warn when the Docker build context is larger than this. Accepts a plain number (in MB) or a human-readable size (e.g. 512mb, 1gb). Set to 0 to disable. Also set with FLY_BUILD_CONTEXT_WARN_SIZE.",
+     "path": false
+    },
+    {
+     "name": "build-depot",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Build your image with depot.dev",
+     "path": false
+    },
+    {
+     "name": "build-nixpacks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Build your image with nixpacks",
+     "path": false
+    },
+    {
+     "name": "cachedrive-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Cache drive size in MB. Accepts a plain number (in MB) or a human-readable size (e.g. 512mb, 10gb). Set to 0 to disable.",
+     "path": false
+    },
+    {
+     "name": "command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Command to run",
+     "path": false
+    },
+    {
+     "name": "container",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Container to update with the new image, files, etc; defaults to \"app\" or the first container in the config.",
+     "path": false
+    },
+    {
+     "name": "entrypoint",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The command to override the Docker ENTRYPOINT.",
+     "path": false
+    },
+    {
+     "name": "file-literal",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Set of literals to write to the Machine, in the form of /path/inside/machine=VALUE pairs, where VALUE is the base64-encoded raw content. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "file-local",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Set of files to write to the Machine, in the form of /path/inside/machine=<local/path> pairs. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "host-dedication-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The dedication id of the reserved hosts for your organization (if any)",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The Docker image to deploy",
+     "path": false
+    },
+    {
+     "name": "kernel-arg",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "A list of kernel arguments to provide to the init. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "machine-config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Read Machine config from a JSON file or string (use --config for app configuration)",
+     "path": false
+    },
+    {
+     "name": "metadata",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Metadata in the form of NAME=VALUE pairs. Can be specified multiple times.",
+     "path": false
+    },
+    {
+     "name": "mount-point",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "New volume mount point",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "The external ports and handlers for services, in the format: port[:machinePort][/protocol[:handler[:handler...]]]) For example: --port 80/tcp --port 443:80/tcp:http:tls --port 5432/tcp:pg_tls To remove a port mapping use '-' as handler. For example: --port 80/tcp:-",
+     "path": false
+    },
+    {
+     "name": "restart",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the restart policy for a Machine. Options include 'no', 'always', and 'on-failure'. Default is 'on-failure' for Machines created by 'fly deploy' and Machines with a schedule. Default is 'always' for Machines created by 'fly m run'.",
+     "path": false
+    },
+    {
+     "name": "rootfs-persist",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Whether to persist the root filesystem across restarts. Options include 'never', 'always', and 'restart'.",
+     "path": false
+    },
+    {
+     "name": "rootfs-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Root filesystem size in GB. Accepts a plain number (in GB) or a human-readable size (e.g. 2gb, 5gb). Uses an overlayfs to allow the root filesystem to exceed its default size. Set to 0 to unset.",
+     "path": false
+    },
+    {
+     "name": "schedule",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Schedule a Machine run at hourly, daily, weekly and monthly intervals",
+     "path": false
+    },
+    {
+     "name": "skip-dns-registration",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Do not register the machine's 6PN IP with the internal DNS system",
+     "path": false
+    },
+    {
+     "name": "skip-health-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Updates machine without waiting for health checks.",
+     "path": false
+    },
+    {
+     "name": "skip-start",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Updates machine without starting it.",
+     "path": false
+    },
+    {
+     "name": "standby-for",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "For Machines without services, a comma separated list of Machine IDs to act as standby for.",
+     "path": false
+    },
+    {
+     "name": "swap-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Swap size in MB. Accepts a plain number (in MB) or a human-readable size (e.g. 512mb, 1gb).",
+     "path": false
+    },
+    {
+     "name": "vm-cpu-kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The kind of CPU to use ('shared' or 'performance') (also --vm-cpukind)",
+     "path": false
+    },
+    {
+     "name": "vm-cpus",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Number of CPUs (also --cpus)",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Memory (in megabytes) to attribute to the VM (also --memory)",
+     "path": false
+    },
+    {
+     "name": "vm-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The VM size to set machines to. See \"fly platform vm-sizes\" for valid values",
+     "path": false
+    },
+    {
+     "name": "wait-timeout",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Seconds to wait for individual machines to transition states and become healthy. (default 300) (default 300)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly machine wait",
+   "words": [
+    "machine",
+    "wait"
+   ],
+   "area": "Machines",
+   "risk": "change",
+   "description": "Wait for a machine to reach a state.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[id]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "state",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Machine state to wait for (default \"settled\")",
+     "path": false
+    },
+    {
+     "name": "wait-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Time duration to wait for the machine to reach the requested state. (default 5m0s)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly checks list",
+   "words": [
+    "checks",
+    "list"
+   ],
+   "area": "Monitoring",
+   "risk": "read",
+   "description": "List health checks.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "check-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter checks by name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly logs",
+   "words": [
+    "logs"
+   ],
+   "area": "Monitoring",
+   "risk": "read",
+   "description": "View application logs as generated by the application running on the Fly platform.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [
+    "--no-tail"
+   ],
+   "args": [],
+   "flags": [
+    {
+     "name": "machine",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by machine ID",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    },
+    {
+     "name": "select",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Select a machine from a list",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly certs add",
+   "words": [
+    "certs",
+    "add"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Add a certificate for an application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "hostname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<hostname>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly certs check",
+   "words": [
+    "certs",
+    "check"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Shows detailed certificate information and checks the DNS configuration for the specified hostname.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "hostname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<hostname>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly certs list",
+   "words": [
+    "certs",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List the certificates associated with a deployed application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly certs remove",
+   "words": [
+    "certs",
+    "remove"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Removes a certificate from an application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "hostname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<hostname>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "acme",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Stop ACME certificate issuance, keeping custom certificates",
+     "path": false
+    },
+    {
+     "name": "custom",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove only the custom certificate, keeping ACME certificates",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly ips allocate",
+   "words": [
+    "ips",
+    "allocate"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Allocate recommended IP addresses for the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly ips allocate-v4",
+   "words": [
+    "ips",
+    "allocate-v4"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Allocates an IPv4 address to the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    },
+    {
+     "name": "shared",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Allocates a shared IPv4",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly ips allocate-v6",
+   "words": [
+    "ips",
+    "allocate-v6"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Allocates an IPv6 address to the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "network",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target network name for a Flycast private IPv6 address",
+     "path": false
+    },
+    {
+     "name": "private",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Allocate a private IPv6 address",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly ips list",
+   "words": [
+    "ips",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Lists the IP addresses allocated to the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly ips private",
+   "words": [
+    "ips",
+    "private"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List instances private IP addresses, accessible from within the Fly network.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly ips release",
+   "words": [
+    "ips",
+    "release"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Releases one or more ingress IP addresses from the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "address",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "ADDRESS",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly ips release-egress",
+   "words": [
+    "ips",
+    "release-egress"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Releases one or more egress IP addresses from the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "address",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "ADDRESS",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly services list",
+   "words": [
+    "services",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List the services that are associated with an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly scale count",
+   "words": [
+    "scale",
+    "count"
+   ],
+   "area": "Scaling",
+   "risk": "destroy",
+   "description": "Change an app's VM count to the given value.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "count",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[count]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "from-snapshot",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "New volumes are restored from snapshot, use 'last' for most recent snapshot. The default is an empty volume",
+     "path": false
+    },
+    {
+     "name": "host-dedication-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The dedication id of the reserved hosts for your organization (if any)",
+     "path": false
+    },
+    {
+     "name": "max-per-region",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Max number of VMs per region (default -1)",
+     "path": false
+    },
+    {
+     "name": "process-group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The process group to scale",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of regions to act on. Defaults to all regions where there is at least one machine running for the app",
+     "path": false
+    },
+    {
+     "name": "vm-cpu-kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The kind of CPU to use ('shared' or 'performance') (also --vm-cpukind)",
+     "path": false
+    },
+    {
+     "name": "vm-cpus",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Number of CPUs (also --cpus)",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Memory (in megabytes) to attribute to the VM (also --memory)",
+     "path": false
+    },
+    {
+     "name": "vm-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The VM size to set machines to. See \"fly platform vm-sizes\" for valid values",
+     "path": false
+    },
+    {
+     "name": "with-new-volumes",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "New machines each get a new volumes even if there are unattached volumes available",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly scale memory",
+   "words": [
+    "scale",
+    "memory"
+   ],
+   "area": "Scaling",
+   "risk": "change",
+   "description": "Set VM memory to a number of megabytes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "memorymb",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[memoryMB]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "process-group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The process group to apply the VM size to",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly scale show",
+   "words": [
+    "scale",
+    "show"
+   ],
+   "area": "Scaling",
+   "risk": "read",
+   "description": "Show current VM size and counts.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly scale vm",
+   "words": [
+    "scale",
+    "vm"
+   ],
+   "area": "Scaling",
+   "risk": "change",
+   "description": "Change an application's VM size to one of the named VM sizes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "size",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[size]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "process-group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The process group to apply the VM size to",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Memory in MB for the VM",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly secrets deploy",
+   "words": [
+    "secrets",
+    "deploy"
+   ],
+   "area": "Secrets",
+   "risk": "change",
+   "description": "Deploy staged secrets for an application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "dns-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Perform DNS checks during deployment (default true)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly secrets list",
+   "words": [
+    "secrets",
+    "list"
+   ],
+   "area": "Secrets",
+   "risk": "read",
+   "description": "List the secrets available to the application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "fly secrets sync",
+   "words": [
+    "secrets",
+    "sync"
+   ],
+   "area": "Secrets",
+   "risk": "change",
+   "description": "Sync flyctl with the latest versions of app secrets, even if they were set elsewhere.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "dns-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Perform DNS checks during deployment (default true)",
+     "path": false
+    },
+    {
+     "name": "stage",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Set secrets but skip deployment for machine apps",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly secrets unset",
+   "words": [
+    "secrets",
+    "unset"
+   ],
+   "area": "Secrets",
+   "risk": "destroy",
+   "description": "Unset one or more encrypted secrets for an application.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "NAME",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "dns-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Perform DNS checks during deployment (default true)",
+     "path": false
+    },
+    {
+     "name": "stage",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Set secrets but skip deployment for machine apps",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly storage create",
+   "words": [
+    "storage",
+    "create"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Provision a Tigris object storage bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The name of your bucket",
+     "path": false
+    },
+    {
+     "name": "public",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Objects in the bucket should be publicly accessible",
+     "path": false
+    },
+    {
+     "name": "shadow-endpoint",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shadow bucket endpoint",
+     "path": false
+    },
+    {
+     "name": "shadow-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shadow bucket name",
+     "path": false
+    },
+    {
+     "name": "shadow-region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shadow bucket region",
+     "path": false
+    },
+    {
+     "name": "shadow-write-through",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Write objects through to the shadow bucket",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly storage destroy",
+   "words": [
+    "storage",
+    "destroy"
+   ],
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Permanently destroy a Tigris object storage bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "storage_bucket_name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[storage-bucket-name]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly storage status",
+   "words": [
+    "storage",
+    "status"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "Show details about a Tigris storage bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[name]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly storage update",
+   "words": [
+    "storage",
+    "update"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Update an existing Tigris object storage bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "bucket_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<bucket_name>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "clear-custom-domain",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove a custom domain from a bucket",
+     "path": false
+    },
+    {
+     "name": "clear-shadow",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove an existing shadow bucket",
+     "path": false
+    },
+    {
+     "name": "custom-domain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "A custom domain name pointing at your bucket",
+     "path": false
+    },
+    {
+     "name": "private",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Set a public bucket to be private",
+     "path": false
+    },
+    {
+     "name": "public",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Objects in the bucket should be publicly accessible",
+     "path": false
+    },
+    {
+     "name": "shadow-endpoint",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shadow bucket endpoint",
+     "path": false
+    },
+    {
+     "name": "shadow-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shadow bucket name",
+     "path": false
+    },
+    {
+     "name": "shadow-region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shadow bucket region",
+     "path": false
+    },
+    {
+     "name": "shadow-write-through",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Write objects through to the shadow bucket",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly volumes create",
+   "words": [
+    "volumes",
+    "create"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Create a new volume for an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume name>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "count",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "The number of volumes to create (default 1)",
+     "path": false
+    },
+    {
+     "name": "host-dedication-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The dedication id of the reserved hosts for your organization (if any)",
+     "path": false
+    },
+    {
+     "name": "no-encryption",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Do not encrypt the volume contents. Volume contents are encrypted by default.",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region (see 'flyctl platform regions')",
+     "path": false
+    },
+    {
+     "name": "require-unique-zone",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Place the volume in a separate hardware zone from existing volumes to help ensure availability (default true)",
+     "path": false
+    },
+    {
+     "name": "scheduled-snapshots",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable scheduled automatic snapshots (default true)",
+     "path": false
+    },
+    {
+     "name": "size",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "The size of volume in gigabytes (default 1)",
+     "path": false
+    },
+    {
+     "name": "snapshot-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Create the volume from the specified snapshot",
+     "path": false
+    },
+    {
+     "name": "snapshot-retention",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Snapshot retention in days (default 5)",
+     "path": false
+    },
+    {
+     "name": "unique-zone-app-wide",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Checks all volumes in app for unique zone handling, instead of only volumes with the same name (which is the default)",
+     "path": false
+    },
+    {
+     "name": "vm-cpu-kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The kind of CPU to use ('shared' or 'performance') (also --vm-cpukind)",
+     "path": false
+    },
+    {
+     "name": "vm-cpus",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Number of CPUs (also --cpus)",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Memory (in megabytes) to attribute to the VM (also --memory)",
+     "path": false
+    },
+    {
+     "name": "vm-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The VM size to set machines to. See \"fly platform vm-sizes\" for valid values",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly volumes destroy",
+   "words": [
+    "volumes",
+    "destroy"
+   ],
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Destroy one or more volumes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly volumes extend",
+   "words": [
+    "volumes",
+    "extend"
+   ],
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Extend a volume to the specified size.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target volume size in gigabytes",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly volumes fork",
+   "words": [
+    "volumes",
+    "fork"
+   ],
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Fork the specified volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "host-dedication-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The dedication id of the reserved hosts for your organization (if any)",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The name of the new volume",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target region. By default, the new volume will be created in the source volume's region.",
+     "path": false
+    },
+    {
+     "name": "require-unique-zone",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Place the volume in a separate hardware zone from existing volumes. This is the default. (default true)",
+     "path": false
+    },
+    {
+     "name": "unique-zone-app-wide",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Checks all volumes in app for unique zone handling, instead of only volumes with the same name (which is the default)",
+     "path": false
+    },
+    {
+     "name": "vm-cpu-kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The kind of CPU to use ('shared' or 'performance') (also --vm-cpukind)",
+     "path": false
+    },
+    {
+     "name": "vm-cpus",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Number of CPUs (also --cpus)",
+     "path": false
+    },
+    {
+     "name": "vm-memory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Memory (in megabytes) to attribute to the VM (also --memory)",
+     "path": false
+    },
+    {
+     "name": "vm-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The VM size to set machines to. See \"fly platform vm-sizes\" for valid values",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly volumes list",
+   "words": [
+    "volumes",
+    "list"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "List the volumes associated with an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show all volumes including those in destroyed states",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "fly volumes show",
+   "words": [
+    "volumes",
+    "show"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "Show the details of the specified volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly volumes snapshots create",
+   "words": [
+    "volumes",
+    "snapshots",
+    "create"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Snapshot a volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly volumes snapshots list",
+   "words": [
+    "volumes",
+    "snapshots",
+    "list"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "List snapshots associated with the specified volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "fly volumes update",
+   "words": [
+    "volumes",
+    "update"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Update a volume for an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<volume id>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "scheduled-snapshots",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Activate/deactivate scheduled automatic snapshots",
+     "path": false
+    },
+    {
+     "name": "snapshot-retention",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Snapshot retention in days",
+     "path": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT (SELECT count(*) FROM projects)+(SELECT count(*) FROM accounts) AS count",
+  "describe": {
+    "columns": [
+      {
+        "name": "count",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "124ee0ffe1511816332e5a45ec41c9179cd0658a06d42983ccb7062e749e3b75"
+}

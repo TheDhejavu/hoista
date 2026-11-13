@@ -1,0 +1,96 @@
+{
+ "id": "modal",
+ "name": "Modal",
+ "cli": {
+  "name": "modal",
+  "version": "1.6.3",
+  "downloads": [
+   {
+    "platform": "darwin-arm64",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-aarch64-apple-darwin.tar.gz",
+    "integrity": "sha256-7TNtC6SduO+JsrQf/6NyzmO9Ay8ipW8AHCZYka7DKCk=",
+    "inside": "uv-aarch64-apple-darwin/uv"
+   },
+   {
+    "platform": "darwin-x64",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-x86_64-apple-darwin.tar.gz",
+    "integrity": "sha256-d/XKJsDeIOmSo2d6F0/hEh7iXDb5sUNKhj91vwd6Bes=",
+    "inside": "uv-x86_64-apple-darwin/uv"
+   },
+   {
+    "platform": "linux-arm64",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-aarch64-unknown-linux-musl.tar.gz",
+    "integrity": "sha256-1wza5of+tqrZoJ/o1obfjI769poQB/pYE3miAlrcEKU=",
+    "inside": "uv-aarch64-unknown-linux-musl/uv"
+   },
+   {
+    "platform": "linux-x64",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-x86_64-unknown-linux-musl.tar.gz",
+    "integrity": "sha256-H9BS8ZYQjYfmH8PZj+BrTsdYyaHrFGam/RpDb+RYhfI=",
+    "inside": "uv-x86_64-unknown-linux-musl/uv"
+   },
+   {
+    "platform": "windows-arm64",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-aarch64-pc-windows-msvc.zip",
+    "integrity": "sha256-p0J+oEQLuCa2cW0YN/89FzuOfUlssJ7o9Fa04COi/c0=",
+    "archive": "zip",
+    "inside": "uv.exe"
+   },
+   {
+    "platform": "windows-x64",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-x86_64-pc-windows-msvc.zip",
+    "integrity": "sha256-rP3lcEUc/bhon6FZoTjugFuk4kHEZkMnUDAshiVLCYQ=",
+    "archive": "zip",
+    "inside": "uv.exe"
+   }
+  ],
+  "inside": "uv",
+  "pip": {
+   "package": "modal",
+   "version": "1.6.3",
+   "module": "modal",
+   "python": "3.12",
+   "requirements": "requirements.txt"
+  },
+  "token_parts": {
+   "MODAL_TOKEN_ID": "ak-",
+   "MODAL_TOKEN_SECRET": "as-"
+  },
+  "variables": {
+   "DO_NOT_TRACK": "1"
+  },
+  "target_variables": {
+   "MODAL_ENVIRONMENT": "environment"
+  },
+  "targets": {
+   "env": "environment"
+  },
+  "json_flag": "json",
+  "yes_flag": "yes",
+  "context": {
+   "app_identifier": "app",
+   "app-id": "app"
+  },
+  "commands": "cli.json"
+ },
+ "actions": [
+  {
+   "label": "Restart containers",
+   "on": "service",
+   "run": "modal app rollover",
+   "description": "Redeploys the app to get fresh containers, without code changes.",
+   "refs": [
+    "app:"
+   ]
+  },
+  {
+   "label": "Running containers",
+   "on": "service",
+   "run": "modal container list",
+   "description": "The app's containers running now.",
+   "refs": [
+    "app:"
+   ]
+  }
+ ]
+}

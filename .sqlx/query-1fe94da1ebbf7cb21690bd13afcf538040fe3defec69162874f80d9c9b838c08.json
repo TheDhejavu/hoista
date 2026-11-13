@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT data FROM environments WHERE id != 'env_default' ORDER BY id LIMIT 21",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "1fe94da1ebbf7cb21690bd13afcf538040fe3defec69162874f80d9c9b838c08"
+}

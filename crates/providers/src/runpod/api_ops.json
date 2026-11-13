@@ -1,0 +1,3502 @@
+{
+ "source": "runpod OpenAPI spec",
+ "operations": [
+  {
+   "name": "listAuditLogs",
+   "area": "Audit logs",
+   "risk": "read",
+   "description": "List audit logs",
+   "method": "GET",
+   "path": "/v2/audit-logs",
+   "args": [
+    {
+     "name": "actorIds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "actions",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "search",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listBilling",
+   "area": "Billing",
+   "risk": "read",
+   "description": "Get aggregated billing history",
+   "method": "GET",
+   "path": "/v2/billing",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucketSize",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hour",
+       "day",
+       "week",
+       "month",
+       "year"
+      ]
+     }
+    },
+    {
+     "name": "lastN",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listClusterBilling",
+   "area": "Billing",
+   "risk": "read",
+   "description": "Get cluster billing history",
+   "method": "GET",
+   "path": "/v2/billing/clusters",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucketSize",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hour",
+       "day",
+       "week",
+       "month",
+       "year"
+      ]
+     }
+    },
+    {
+     "name": "lastN",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "clusterId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEndpointBilling",
+   "area": "Billing",
+   "risk": "read",
+   "description": "Get public endpoint billing history",
+   "method": "GET",
+   "path": "/v2/billing/endpoints",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucketSize",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hour",
+       "day",
+       "week",
+       "month",
+       "year"
+      ]
+     }
+    },
+    {
+     "name": "lastN",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listNetworkVolumeBilling",
+   "area": "Billing",
+   "risk": "read",
+   "description": "Get network volume billing history",
+   "method": "GET",
+   "path": "/v2/billing/network-volumes",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucketSize",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hour",
+       "day",
+       "week",
+       "month",
+       "year"
+      ]
+     }
+    },
+    {
+     "name": "lastN",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "networkVolumeId",
+     "in": "query",
+     "required": false,
+     "context": "volume",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPodBilling",
+   "area": "Billing",
+   "risk": "read",
+   "description": "Get pod billing history",
+   "method": "GET",
+   "path": "/v2/billing/pods",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucketSize",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hour",
+       "day",
+       "week",
+       "month",
+       "year"
+      ]
+     }
+    },
+    {
+     "name": "lastN",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "podId",
+     "in": "query",
+     "required": false,
+     "context": "pod",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listServerlessBilling",
+   "area": "Billing",
+   "risk": "read",
+   "description": "Get serverless billing history",
+   "method": "GET",
+   "path": "/v2/billing/serverless",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucketSize",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hour",
+       "day",
+       "week",
+       "month",
+       "year"
+      ]
+     }
+    },
+    {
+     "name": "lastN",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "serverlessId",
+     "in": "query",
+     "required": false,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCpuType",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "Get a CPU type",
+   "method": "GET",
+   "path": "/v2/catalog/cpus/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "AVAILABILITY"
+       ]
+      }
+     }
+    },
+    {
+     "name": "product",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "POD",
+        "SERVERLESS"
+       ]
+      }
+     }
+    },
+    {
+     "name": "vcpuCount",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDataCenter",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "Get a data center",
+   "method": "GET",
+   "path": "/v2/catalog/datacenters/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "GPU_AVAILABILITY",
+        "CPU_AVAILABILITY"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getGpuType",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "Get a GPU type",
+   "method": "GET",
+   "path": "/v2/catalog/gpus/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "AVAILABILITY"
+       ]
+      }
+     }
+    },
+    {
+     "name": "product",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "POD",
+        "CLUSTER",
+        "SERVERLESS"
+       ]
+      }
+     }
+    },
+    {
+     "name": "count",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "cloud",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SECURE",
+       "COMMUNITY"
+      ]
+     }
+    },
+    {
+     "name": "countryCodes",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cudaVersions",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "minCudaVersion",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listCpuTypes",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "List CPU types",
+   "method": "GET",
+   "path": "/v2/catalog/cpus",
+   "args": [
+    {
+     "name": "include",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "AVAILABILITY"
+       ]
+      }
+     }
+    },
+    {
+     "name": "product",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "POD",
+        "SERVERLESS"
+       ]
+      }
+     }
+    },
+    {
+     "name": "vcpuCount",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listDataCenters",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "List data centers",
+   "method": "GET",
+   "path": "/v2/catalog/datacenters",
+   "args": [
+    {
+     "name": "include",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "GPU_AVAILABILITY",
+        "CPU_AVAILABILITY"
+       ]
+      }
+     }
+    },
+    {
+     "name": "regions",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "NORTH_AMERICA",
+        "SOUTH_AMERICA",
+        "EUROPE",
+        "ASIA",
+        "MIDDLE_EAST",
+        "AFRICA",
+        "OCEANIA",
+        "ANTARCTICA",
+        "UNKNOWN"
+       ]
+      }
+     }
+    },
+    {
+     "name": "networkVolumeTypes",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "STANDARD",
+        "HIGH_PERFORMANCE"
+       ]
+      }
+     }
+    },
+    {
+     "name": "compliance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "GDPR",
+        "ISO_IEC_27001",
+        "ISO_14001",
+        "PCI_DSS",
+        "HITRUST",
+        "SOC_1_TYPE_2",
+        "SOC_2_TYPE_2",
+        "SOC_3_TYPE_2",
+        "ITAR",
+        "FISMA_HIGH",
+        "HIPAA",
+        "RENEWABLE"
+       ]
+      }
+     }
+    },
+    {
+     "name": "globalNetwork",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listGpuTypes",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "List GPU types",
+   "method": "GET",
+   "path": "/v2/catalog/gpus",
+   "args": [
+    {
+     "name": "include",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "AVAILABILITY"
+       ]
+      }
+     }
+    },
+    {
+     "name": "product",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "POD",
+        "CLUSTER",
+        "SERVERLESS"
+       ]
+      }
+     }
+    },
+    {
+     "name": "count",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "cloud",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SECURE",
+       "COMMUNITY"
+      ]
+     }
+    },
+    {
+     "name": "countryCodes",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cudaVersions",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "minCudaVersion",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPublicTemplates",
+   "area": "GPU and CPU catalog",
+   "risk": "read",
+   "description": "List public templates",
+   "method": "GET",
+   "path": "/v2/catalog/templates",
+   "args": [
+    {
+     "name": "source",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "official",
+       "verified",
+       "community"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "createGlobalVolume",
+   "area": "Global volumes",
+   "risk": "change",
+   "description": "Create a global volume",
+   "method": "POST",
+   "path": "/v2/global-volumes",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Human-readable name, 1\u2013191 characters with at least one non-whitespace character. Leading and trailing whitespace is trimmed."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteGlobalVolume",
+   "area": "Global volumes",
+   "risk": "destroy",
+   "description": "Delete a global volume",
+   "method": "DELETE",
+   "path": "/v2/global-volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getGlobalVolume",
+   "area": "Global volumes",
+   "risk": "read",
+   "description": "Get a global volume",
+   "method": "GET",
+   "path": "/v2/global-volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listGlobalVolumes",
+   "area": "Global volumes",
+   "risk": "read",
+   "description": "List global volumes",
+   "method": "GET",
+   "path": "/v2/global-volumes",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateGlobalVolume",
+   "area": "Global volumes",
+   "risk": "change",
+   "description": "Update a global volume",
+   "method": "PATCH",
+   "path": "/v2/global-volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New human-readable name, 1\u2013191 characters with at least one non-whitespace character. Leading and trailing whitespace is trimmed."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createCluster",
+   "area": "Instant Clusters",
+   "risk": "change",
+   "description": "Create a cluster",
+   "method": "POST",
+   "path": "/v2/clusters",
+   "args": [
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "compute",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "gpuTypeId",
+       "gpuCountPerPod",
+       "podCount"
+      ],
+      "properties": {
+       "gpuTypeId": {
+        "type": "string",
+        "description": "GPU type for every pod in the cluster, as returned by GET /v2/catalog/gpus."
+       },
+       "gpuCountPerPod": {
+        "type": "number",
+        "description": "Number of GPUs on each pod. Bounded above by the GPU type's per-cloud maximum (GpuType.maxCount); the upstream rejects values beyond it."
+       },
+       "podCount": {
+        "type": "number",
+        "description": "Number of pods (nodes) in the cluster."
+       }
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "APPLICATION",
+       "TRAINING",
+       "SLURM",
+       "RAY"
+      ]
+     }
+    },
+    {
+     "name": "templateId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID of a pod template to provision every member pod from. The\ntemplate supplies the container settings (image, args, disk,\nenv, ports) and the container registry credential for private\nimages \u2014 the only private-image path for clusters. Mutually\nexclusive with `image`, `args`, `entrypoint`, `cmd`, `disk`,\n`env`, and `ports` (rejected with 400). `mounts` combines with\nit: the volume in `mounts` is at"
+     }
+    },
+    {
+     "name": "dataCenterIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Preferred data centers for placement. Omit or pass an empty\narray to let the scheduler choose. A cluster is always placed\nwithin a single data center.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "persistent": {
+        "type": "object",
+        "required": [
+         "size",
+         "path"
+        ]
+       },
+       "network": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId",
+          "path"
+         ]
+        }
+       }
+      },
+      "type": "object"
+     }
+    },
+    {
+     "name": "startJupyter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Start Jupyter on every member pod, as on pod create."
+     }
+    },
+    {
+     "name": "startSsh",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Provision SSH access on every member pod: injects a PUBLIC_KEY environment variable carrying your account's registered SSH public key. Same semantics as the pod create flag."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteCluster",
+   "area": "Instant Clusters",
+   "risk": "destroy",
+   "description": "Delete a cluster",
+   "method": "DELETE",
+   "path": "/v2/clusters/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCluster",
+   "area": "Instant Clusters",
+   "risk": "read",
+   "description": "Get a cluster",
+   "method": "GET",
+   "path": "/v2/clusters/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listClusterPods",
+   "area": "Instant Clusters",
+   "risk": "read",
+   "description": "List a cluster's pods",
+   "method": "GET",
+   "path": "/v2/clusters/{id}/pods",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listClusters",
+   "area": "Instant Clusters",
+   "risk": "read",
+   "description": "List clusters",
+   "method": "GET",
+   "path": "/v2/clusters",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateCluster",
+   "area": "Instant Clusters",
+   "risk": "change",
+   "description": "Rename a cluster",
+   "method": "PATCH",
+   "path": "/v2/clusters/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createNetworkVolume",
+   "area": "Network volumes",
+   "risk": "change",
+   "description": "Create a network volume",
+   "method": "POST",
+   "path": "/v2/network-volumes",
+   "args": [
+    {
+     "name": "dataCenter",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Data center in which to create the volume"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Human-readable name"
+     }
+    },
+    {
+     "name": "size",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Storage to allocate in GB"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "STANDARD",
+       "HIGH_PERFORMANCE"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNetworkVolume",
+   "area": "Network volumes",
+   "risk": "read",
+   "description": "Get a network volume",
+   "method": "GET",
+   "path": "/v2/network-volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listNetworkVolumes",
+   "area": "Network volumes",
+   "risk": "read",
+   "description": "List network volumes",
+   "method": "GET",
+   "path": "/v2/network-volumes",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNetworkVolume",
+   "area": "Network volumes",
+   "risk": "change",
+   "description": "Update a network volume",
+   "method": "PATCH",
+   "path": "/v2/network-volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New human-readable name"
+     }
+    },
+    {
+     "name": "size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "New size in GB. Must be greater than or equal to the current size \u2014\nnetwork volume storage cannot be reduced."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createPod",
+   "area": "Pods",
+   "risk": "change",
+   "description": "Create a pod",
+   "method": "POST",
+   "path": "/v2/pods",
+   "args": [
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "registry",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Container registry credential ID (for private images)",
+      "nullable": true
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cloud",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SECURE",
+       "COMMUNITY"
+      ]
+     }
+    },
+    {
+     "name": "cpu",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "id",
+       "vcpuCount"
+      ],
+      "properties": {
+       "id": {
+        "type": "string",
+        "description": "CPU flavor identifier, as returned by GET /v2/catalog/cpus."
+       },
+       "vcpuCount": {
+        "type": "number",
+        "description": "Number of vCPUs. Must be valid for the selected CPU flavor and must be a power of two."
+       }
+      }
+     }
+    },
+    {
+     "name": "dataCenterIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Preferred data centers for placement. Omit or pass an empty\narray to let the scheduler choose.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "globalNetworking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Enable global networking, giving the pod a private IP reachable across data centers. Requires an NVIDIA GPU and a global-networking-enabled data center. See `GET /v2/catalog/datacenters` (`globalNetwork`) for eligible data centers."
+     }
+    },
+    {
+     "name": "gpu",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "id": {
+        "type": "string",
+        "description": "GPU type identifier"
+       },
+       "count": {
+        "type": "number",
+        "description": "Number of GPUs"
+       },
+       "allowedCudaVersions": {
+        "type": "array",
+        "description": "Acceptable CUDA versions for the host machine, as `major.minor`.\nOmit to accept any version. Matching is exact, so a version no\nmachine reports yields a capacity error rather than a fallback \u2014\ndiscover valid values per GPU type via\n`GET /v2/catalog/gpus?include=AVAILABILITY&product=POD`\n(`cudaVersions`).\n\nA non-empty set is mutually exclusive with minCudaVersion (400\nif both are sent). An explicit",
+        "items": {
+         "type": "string"
+        }
+       },
+       "minCudaVersion": {
+        "type": "string",
+        "description": "Lowest acceptable CUDA version for the host machine, as\n`major.minor`, compared numerically rather than as a decimal \u2014\nso 12.11 is above 12.2. Use this for an open-ended floor and\nallowedCudaVersions for an exact set.\n\nMutually exclusive with a non-empty allowedCudaVersions (400 if\nboth are sent); an explicit `[]` there states no constraint and\nmay accompany this floor."
+       },
+       "minRamPerGpu": {
+        "type": "number",
+        "description": "Minimum host system RAM in GB per requested GPU. This is a placement filter, not a resource request. The actual total allocated system RAM may be higher and is returned in gpu.memory."
+       },
+       "minVcpuCountPerGpu": {
+        "type": "number",
+        "description": "Minimum host vCPU count per requested GPU. This is a placement filter, not a resource request. The actual total allocated vCPU count may be higher and is returned in gpu.vcpuCount."
+       }
+      },
+      "type": "object",
+      "required": [
+       "id"
+      ]
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "persistent": {
+        "type": "object",
+        "required": [
+         "size",
+         "path"
+        ]
+       },
+       "network": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId",
+          "path"
+         ]
+        }
+       },
+       "global": {
+        "type": "array",
+        "description": "At most one global volume, on GPU and CPU pods, with no data\ncenter constraint. Combinable with `network` but not with\n`persistent` (rejected with 400): upstream drops a persistent\ndisk whenever a volume is attached. Same PATCH rules as\n`network`: global mounts are fixed at create, `global: []` is\nrejected with 400, and `volumeId` is immutable; only `path` may\nchange.",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId"
+         ]
+        }
+       }
+      },
+      "type": "object"
+     }
+    },
+    {
+     "name": "startJupyter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Create-time flag telling the provisioner to start JupyterLab:\ninjects a generated `JUPYTER_PASSWORD` environment variable,\nunless the request already sets one. Only images that honor\nthe convention start Jupyter from it (Runpod official images\ndo); expose `8888/http` in `ports` to reach it.\n\nNot part of the pod's readable config \u2014 never returned by\nGET and not changeable by PATCH."
+     }
+    },
+    {
+     "name": "startSsh",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Create-time flag telling the provisioner to set up SSH\naccess: injects a `PUBLIC_KEY` environment variable carrying\nyour account's registered SSH public keys, unless the request\nalready sets one. **Requires registered keys** (`PUT\n/v2/account/ssh-keys`) \u2014 with none registered the flag does\nnothing and the pod has no SSH access. Only images that honor\nthe convention start sshd from it (all Runpod o"
+     }
+    },
+    {
+     "name": "templateId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID of a pod template to base this pod on. The template is\nresolved at create time into the same container settings you\ncould otherwise spread into this body (image, args, disk,\nports, env, registry, persistent mount, startSsh,\nstartJupyter, allowedCudaVersions); explicit body fields\noverride the template's, except `env`, which is merged per\nkey with body values winning. Sending either CUDA field\n("
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPod",
+   "area": "Pods",
+   "risk": "read",
+   "description": "Get a pod",
+   "method": "GET",
+   "path": "/v2/pods/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "pod",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPodLogs",
+   "area": "Pods",
+   "risk": "read",
+   "description": "Stream pod logs",
+   "method": "GET",
+   "path": "/v2/pods/{id}/logs",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "pod",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "source",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "container",
+       "system"
+      ]
+     }
+    },
+    {
+     "name": "tail",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "since",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPods",
+   "area": "Pods",
+   "risk": "read",
+   "description": "List pods",
+   "method": "GET",
+   "path": "/v2/pods",
+   "args": [
+    {
+     "name": "includeClusterPods",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "podAction",
+   "area": "Pods",
+   "risk": "destroy",
+   "description": "Trigger a pod state transition",
+   "method": "POST",
+   "path": "/v2/pods/{id}/action",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "pod",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "action",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "start",
+       "stop",
+       "restart",
+       "terminate"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "updatePod",
+   "area": "Pods",
+   "risk": "change",
+   "description": "Update a pod",
+   "method": "PATCH",
+   "path": "/v2/pods/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "pod",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "registry",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Container registry credential ID (for private images)",
+      "nullable": true
+     }
+    },
+    {
+     "name": "globalNetworking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Enable (true) or disable (false) global networking. Takes effect on the next pod start/restart, not live. Requires an NVIDIA GPU and a global-networking-enabled data center. See `GET /v2/catalog/datacenters` (`globalNetwork`) for eligible data centers."
+     }
+    },
+    {
+     "name": "locked",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Lock the pod (true) or unlock it (false). Locked pods cannot be stopped or reset."
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "persistent": {
+        "type": "object",
+        "required": [
+         "size",
+         "path"
+        ]
+       },
+       "network": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId",
+          "path"
+         ]
+        }
+       },
+       "global": {
+        "type": "array",
+        "description": "At most one global volume, on GPU and CPU pods, with no data\ncenter constraint. Combinable with `network` but not with\n`persistent` (rejected with 400): upstream drops a persistent\ndisk whenever a volume is attached. Same PATCH rules as\n`network`: global mounts are fixed at create, `global: []` is\nrejected with 400, and `volumeId` is immutable; only `path` may\nchange.",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId"
+         ]
+        }
+       }
+      },
+      "type": "object"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "templateId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID of a pod template whose container settings are applied as\nif they were provided in this PATCH body (image, args, disk,\nports, env, registry \u2014 mounts are not applied on update).\nExplicit body fields override the template's; `env` merges\ntemplate and body per key (body wins) and, per PATCH\nsemantics, replaces the pod's env. One-time application \u2014\nno link to the template is retained. Must be one o"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createEndpoint",
+   "area": "Serverless",
+   "risk": "change",
+   "description": "Create a serverless endpoint",
+   "method": "POST",
+   "path": "/v2/serverless",
+   "args": [
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "registry",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Container registry credential ID (for private images)",
+      "nullable": true
+     }
+    },
+    {
+     "name": "gpu",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "pools": {
+        "type": "array",
+        "description": "Serverless GPU pool IDs (as returned by `GET /v2/catalog/gpus` in\n`pool`). Workers are placed on whichever listed pool has capacity.\nNarrow a pool down to specific cards with `excludedTypes`.\n\nOn `PATCH`, `pools` and `excludedTypes` are one selection and are\nreplaced together, so sending `pools` by itself **clears the\nexclusions**. Two cases:\n\n- **Changing pools, keeping exclusions** \u2014 send both f",
+        "items": {
+         "type": "string"
+        }
+       },
+       "allowedCudaVersions": {
+        "type": "array",
+        "description": "Acceptable CUDA versions for worker placement, as\n`major.minor`. Omit to accept any version (or inherit the\ntemplate's constraint when creating from `templateId`).\nMatching is exact \u2014 discover valid values per GPU type via\n`GET /v2/catalog/gpus?include=AVAILABILITY&product=SERVERLESS`\n(`cudaVersions`).\n\nA non-empty set is mutually exclusive with minCudaVersion (400\nif both are sent). An explicit `",
+        "items": {
+         "type": "string"
+        }
+       },
+       "minCudaVersion": {
+        "type": "string",
+        "description": "Lowest acceptable CUDA version for worker placement, as\n`major.minor`, compared numerically rather than as a decimal \u2014\nso 12.11 is above 12.2. Use this for an open-ended floor and\nallowedCudaVersions for an exact set.\n\nMutually exclusive with a non-empty allowedCudaVersions (400 if\nboth are sent); an explicit `[]` there states no constraint and\nmay accompany this floor."
+       }
+      },
+      "type": "object",
+      "required": [
+       "pools"
+      ]
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "scaling",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "anyOf": [
+       {
+        "type": "object",
+        "required": [
+         "type",
+         "queueDelay"
+        ],
+        "properties": {
+         "type": {
+          "type": "string",
+          "enum": [
+           "QUEUE_DELAY"
+          ],
+          "description": "Scaler discriminator. Always `QUEUE_DELAY` for this variant. (enum property replaced by openapi-typescript)"
+         },
+         "queueDelay": {
+          "type": "number",
+          "description": "Adjusts the number of workers based on how long requests wait in the queue."
+         }
+        }
+       },
+       {
+        "type": "object",
+        "required": [
+         "type",
+         "requestCount"
+        ],
+        "properties": {
+         "type": {
+          "type": "string",
+          "enum": [
+           "REQUEST_COUNT"
+          ],
+          "description": "Scaler discriminator. Always `REQUEST_COUNT` for this variant. (enum property replaced by openapi-typescript)"
+         },
+         "requestCount": {
+          "type": "number",
+          "description": "Adjusts the number of workers based on active in-flight requests."
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "QUEUE",
+       "LOAD_BALANCER"
+      ]
+     }
+    },
+    {
+     "name": "cpu",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Eligible CPU configurations for each worker. Memory is derived from the\nselected flavor's catalog RAM multiplier. Exact duplicate configurations\nare rejected; the same flavor may be listed at different vCPU counts.",
+      "items": {
+       "type": "object",
+       "required": [
+        "id",
+        "vcpuCount"
+       ],
+       "properties": {
+        "id": {
+         "type": "string",
+         "description": "CPU flavor identifier, as returned by GET /v2/catalog/cpus."
+        },
+        "vcpuCount": {
+         "type": "number",
+         "description": "Number of vCPUs. Must be valid for the selected CPU flavor and must be a power of two."
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "dataCenterIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Preferred data centers for placement. Omit or pass an empty array to let the scheduler choose.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "flashboot",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "OFF",
+       "FLASHBOOT",
+       "PRIORITY_FLASHBOOT"
+      ]
+     }
+    },
+    {
+     "name": "networkVolumes",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Network volume IDs.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "network": {
+        "type": "array",
+        "description": "Network volumes, at most one per data center.",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId"
+         ]
+        }
+       },
+       "global": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId"
+         ]
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "templateId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID of a serverless template to base this endpoint on. The\ntemplate is resolved at create time into the same container\nsettings you could otherwise spread into this body (image,\nargs, disk, ports, env, registry); explicit body fields\noverride the template's, except `env`, which is merged per\nkey with body values winning. The template's\nallowedCudaVersions seeds `gpu.allowedCudaVersions` when the\nbo"
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "workers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "min": {
+        "type": "number"
+       },
+       "max": {
+        "type": "number"
+       },
+       "idleTimeout": {
+        "type": "number"
+       }
+      },
+      "type": "object"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getEndpoint",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "Get a serverless endpoint",
+   "method": "GET",
+   "path": "/v2/serverless/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getEndpointBuild",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "Get a serverless endpoint build",
+   "method": "GET",
+   "path": "/v2/serverless/{id}/builds/{buildId}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getWorkerLogs",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "Stream serverless worker logs",
+   "method": "GET",
+   "path": "/v2/serverless/{id}/workers/{workerId}/logs",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "workerId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "source",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "container",
+       "system"
+      ]
+     }
+    },
+    {
+     "name": "tail",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "since",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEndpointBuilds",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "List serverless endpoint builds",
+   "method": "GET",
+   "path": "/v2/serverless/{id}/builds",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEndpointReleases",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "List serverless endpoint releases",
+   "method": "GET",
+   "path": "/v2/serverless/{id}/releases",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEndpointWorkers",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "List serverless endpoint workers",
+   "method": "GET",
+   "path": "/v2/serverless/{id}/workers",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEndpoints",
+   "area": "Serverless",
+   "risk": "read",
+   "description": "List serverless endpoints",
+   "method": "GET",
+   "path": "/v2/serverless",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateEndpoint",
+   "area": "Serverless",
+   "risk": "change",
+   "description": "Update a serverless endpoint",
+   "method": "PATCH",
+   "path": "/v2/serverless/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "endpoint",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "registry",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Container registry credential ID (for private images)",
+      "nullable": true
+     }
+    },
+    {
+     "name": "cpu",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Complete replacement CPU selection. Valid only for an existing CPU\nendpoint; endpoint compute family cannot be changed.",
+      "items": {
+       "type": "object",
+       "required": [
+        "id",
+        "vcpuCount"
+       ],
+       "properties": {
+        "id": {
+         "type": "string",
+         "description": "CPU flavor identifier, as returned by GET /v2/catalog/cpus."
+        },
+        "vcpuCount": {
+         "type": "number",
+         "description": "Number of vCPUs. Must be valid for the selected CPU flavor and must be a power of two."
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "dataCenterIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Preferred data centers for placement. Omit or pass an empty array to let the scheduler choose.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "flashboot",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "OFF",
+       "FLASHBOOT",
+       "PRIORITY_FLASHBOOT"
+      ]
+     }
+    },
+    {
+     "name": "gpu",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "pools": {
+        "type": "array",
+        "description": "Serverless GPU pool IDs (as returned by `GET /v2/catalog/gpus` in\n`pool`). Workers are placed on whichever listed pool has capacity.\nNarrow a pool down to specific cards with `excludedTypes`.\n\nOn `PATCH`, `pools` and `excludedTypes` are one selection and are\nreplaced together, so sending `pools` by itself **clears the\nexclusions**. Two cases:\n\n- **Changing pools, keeping exclusions** \u2014 send both f",
+        "items": {
+         "type": "string"
+        }
+       },
+       "excludedTypes": {
+        "type": "array",
+        "description": "GPU **type** IDs to subtract from the selected pools \u2014 the `id`\nfield of `GET /v2/catalog/gpus`, the same identifiers pods take in\n`gpu.id`. Workers run on every type in `pools` except these. Omit to\nuse the whole pool.\n\nPools stay the unit of selection; types are the unit of\nsubtraction. There is no inclusive allowlist: a card later added to\none of your pools becomes eligible, which is the honest",
+        "items": {
+         "type": "string"
+        }
+       },
+       "count": {
+        "type": "number",
+        "description": "GPUs per worker"
+       },
+       "allowedCudaVersions": {
+        "type": "array",
+        "description": "Acceptable CUDA versions for worker placement, as\n`major.minor`. An explicit `[]` clears the constraint;\nomitting the field leaves it unchanged. Takes effect as\nworkers are replaced.\n\nA non-empty set is mutually exclusive with minCudaVersion (400\nif both are sent). An explicit `[]` states no constraint, so it\nmay accompany a floor.\nSetting one does not clear the other \u2014 clear it explicitly in\nthe ",
+        "items": {
+         "type": "string"
+        }
+       },
+       "minCudaVersion": {
+        "type": "string",
+        "description": "Lowest acceptable CUDA version for worker placement, as\n`major.minor`. An explicit `\"\"` clears the floor; omitting the\nfield leaves it unchanged. Takes effect as workers are\nreplaced.\n\nMutually exclusive with a non-empty allowedCudaVersions (400 if\nboth are sent); an explicit `[]` there states no constraint and\nmay accompany this floor."
+       }
+      },
+      "type": "object"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "networkVolumes",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Network volume IDs. Pass `[]` to detach.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "network": {
+        "type": "array",
+        "description": "Network volumes, at most one per data center.",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId"
+         ]
+        }
+       },
+       "global": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "volumeId"
+         ]
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "scaling",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "anyOf": [
+       {
+        "type": "object",
+        "required": [
+         "type",
+         "queueDelay"
+        ],
+        "properties": {
+         "type": {
+          "type": "string",
+          "enum": [
+           "QUEUE_DELAY"
+          ],
+          "description": "Scaler discriminator. Always `QUEUE_DELAY` for this variant. (enum property replaced by openapi-typescript)"
+         },
+         "queueDelay": {
+          "type": "number",
+          "description": "Adjusts the number of workers based on how long requests wait in the queue."
+         }
+        }
+       },
+       {
+        "type": "object",
+        "required": [
+         "type",
+         "requestCount"
+        ],
+        "properties": {
+         "type": {
+          "type": "string",
+          "enum": [
+           "REQUEST_COUNT"
+          ],
+          "description": "Scaler discriminator. Always `REQUEST_COUNT` for this variant. (enum property replaced by openapi-typescript)"
+         },
+         "requestCount": {
+          "type": "number",
+          "description": "Adjusts the number of workers based on active in-flight requests."
+         }
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "templateId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID of a serverless template whose container settings are\napplied as if they were provided in this PATCH body (image,\nargs, disk, ports, env, registry). Explicit body fields\noverride the template's; `env` merges template and body per\nkey (body wins) and, per PATCH semantics, replaces the\nendpoint's env. One-time application \u2014 no link to the\ntemplate is retained. Must be one of your templates or a\np"
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    },
+    {
+     "name": "workers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "min": {
+        "type": "number",
+        "description": "Minimum number of workers."
+       },
+       "max": {
+        "type": "number",
+        "description": "Maximum number of workers."
+       },
+       "idleTimeout": {
+        "type": "number",
+        "description": "Seconds before idle workers scale down. Not applicable to queue-based\nendpoints scaling on `requestCount` \u2014 rejected on create/update and\nomitted from responses for that combination."
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getOrganization",
+   "area": "Team",
+   "risk": "read",
+   "description": "Get your current organization",
+   "method": "GET",
+   "path": "/v2/organization",
+   "args": []
+  },
+  {
+   "name": "createTemplate",
+   "area": "Templates",
+   "risk": "change",
+   "description": "Create a template",
+   "method": "POST",
+   "path": "/v2/templates",
+   "args": [
+    {
+     "name": "image",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "registry",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Container registry credential ID (for private images)",
+      "nullable": true
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "allowedCudaVersions",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Acceptable CUDA versions for containers created from this\ntemplate, as `major.minor`. Omit to accept any version \u2014 see\nthe same field on `createPod` for matching semantics.\nExpanded into GPU pod and serverless endpoint creates; CPU\npods ignore it.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "category",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CPU",
+       "NVIDIA",
+       "AMD"
+      ]
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "persistent": {
+        "type": "object",
+        "required": [
+         "size",
+         "path"
+        ],
+        "properties": {
+         "size": {
+          "type": "number",
+          "description": "Host-local persistent storage in GB. Upstream enforces a 10 GB floor."
+         },
+         "path": {
+          "type": "string",
+          "description": "Mount path inside the container. May be changed via PATCH."
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "public",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "serverless",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "startJupyter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Start JupyterLab in containers created from this template:\ninjects a generated `JUPYTER_PASSWORD` environment variable,\nunless `env` already sets one. Only images that honor the\nconvention start Jupyter from it (Runpod official images do);\nexpose `8888/http` in `ports` to reach it. Defaults to `true`\nwhen omitted, matching console-created templates."
+     }
+    },
+    {
+     "name": "startSsh",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Provision SSH access in containers created from this template:\ninjects a `PUBLIC_KEY` environment variable carrying the\ndeployer's registered SSH public keys (`PUT\n/v2/account/ssh-keys` \u2014 with none registered the flag does\nnothing), unless `env` already sets one. Only images that\nhonor the convention start sshd from it (all Runpod official\nimages do); direct SSH also needs a `22/tcp` entry in\n`por"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteTemplate",
+   "area": "Templates",
+   "risk": "destroy",
+   "description": "Delete a template",
+   "method": "DELETE",
+   "path": "/v2/templates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getTemplate",
+   "area": "Templates",
+   "risk": "read",
+   "description": "Get a template",
+   "method": "GET",
+   "path": "/v2/templates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listTemplates",
+   "area": "Templates",
+   "risk": "read",
+   "description": "List templates",
+   "method": "GET",
+   "path": "/v2/templates",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateTemplate",
+   "area": "Templates",
+   "risk": "change",
+   "description": "Update a template",
+   "method": "PATCH",
+   "path": "/v2/templates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "args",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The container's command, as a single raw string. This is the field `entrypoint` and `cmd` encode into, exposed in its stored form.\n\nTwo shapes are accepted. A bare shell string is treated as CMD and split into arguments, which is what the console's \"Container start command\" field writes. A JSON object of the form `{\"entrypoint\":[...],\"cmd\":[...]}` sets either or both explicitly.\n\nResponses always "
+     }
+    },
+    {
+     "name": "cmd",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container CMD in exec form. When the image defines an ENTRYPOINT, this is the argument list passed to it. Encoded into the `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "entrypoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Container ENTRYPOINT in exec form, overriding the image's own. Encoded into `args` field; supplying both is allowed only when they describe the same command. Send `[]` to clear, omit to leave unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "disk",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Container disk in GB (ephemeral, wiped on restart)"
+     }
+    },
+    {
+     "name": "env",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Environment variables as key-value pairs",
+      "properties": {}
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Docker image reference"
+     }
+    },
+    {
+     "name": "ports",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Exposed ports, formatted as port/protocol",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "registry",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Container registry credential ID (for private images)",
+      "nullable": true
+     }
+    },
+    {
+     "name": "allowedCudaVersions",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Acceptable CUDA versions for pods created from this template. An explicit `[]` clears the constraint; omitting the field leaves it unchanged.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "category",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CPU",
+       "NVIDIA",
+       "AMD"
+      ]
+     }
+    },
+    {
+     "name": "mounts",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "persistent": {
+        "type": "object",
+        "required": [
+         "size",
+         "path"
+        ],
+        "properties": {
+         "size": {
+          "type": "number",
+          "description": "Host-local persistent storage in GB. Upstream enforces a 10 GB floor."
+         },
+         "path": {
+          "type": "string",
+          "description": "Mount path inside the container. May be changed via PATCH."
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "public",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "serverless",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "startJupyter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Start JupyterLab at container startup (`JUPYTER_PASSWORD` env injection). See the create-time field for details."
+     }
+    },
+    {
+     "name": "startSsh",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Provision SSH access at container startup (`PUBLIC_KEY` env injection). See the create-time field for details."
+     }
+    }
+   ]
+  }
+ ]
+}

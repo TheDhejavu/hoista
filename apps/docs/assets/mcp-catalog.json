@@ -1,0 +1,412 @@
+[
+  {
+    "name": "get_my_access",
+    "description": "Read what this connection may do: its scopes (read, deploy and change, create), the projects and environments it may touch, tools it may never use, and when its access ends. Call this before planning work, instead of finding out by being refused. active_project is the project of the folder this agent works in (named in its .hoista/project.json, its source folder, or a clone of its repository), or null: tools about one project use it when project_id is left out.",
+    "read_only_hint": true
+  },
+  {
+    "name": "resolve_operation",
+    "description": "Say whether an unclear change happened at the provider (an operation.unclear refusal names it), after reading the provider to see. Give what you read as evidence; it's kept with the change and shown to the person in Activity. Then an identical change can be made again. Before saying it didn't happen, read twice a few seconds apart: providers can be slow to list something new.",
+    "read_only_hint": false
+  },
+  {
+    "name": "use_project",
+    "description": "Make a project the active project of the folder this agent works in, by writing its id to .hoista/project.json at the repository's root (kept out of git: ids are this computer's own). Later sessions in that folder find it without being told. Only for a coding tool on this computer.",
+    "read_only_hint": true
+  },
+  {
+    "name": "list_environments",
+    "description": "List Hoista's environments: separate spaces for projects, such as default and production. Every project is in one. They are Hoista's own; a provider's environments (such as a preview environment) are separate. Only environments this connection may touch are listed.",
+    "read_only_hint": true
+  },
+  {
+    "name": "move_project",
+    "description": "Move a project into another Hoista environment, such as from default to production. Nothing changes at the provider. Fails when that environment already has a project of the same name.",
+    "read_only_hint": false
+  },
+  {
+    "name": "list_projects",
+    "description": "List every project on every connected provider with its observed status, public URL, resources and last deploy, with cursor pagination. Watched projects (mode watching) run on their provider; Hoista reads them.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_attention",
+    "description": "Read what needs the person: pending approvals and notices such as failed deploys, failing or idle resources and accounts to reconnect. Follow both cursors to read everything.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_database_operations",
+    "description": "Read a page of database operations. Finished starts are counted only within this page, not as a daily or lifetime wake total.",
+    "read_only_hint": true
+  },
+  {
+    "name": "refresh_resource_bindings",
+    "description": "Refresh the bindings a provider reports into the local map without changing cloud configuration. Disappeared observed edges are retained as missing.",
+    "read_only_hint": false
+  },
+  {
+    "name": "get_project",
+    "description": "Read a project's status, resources (with each resource's provider, status and URL), links, last deploy and usage stats.",
+    "read_only_hint": true
+  },
+  {
+    "name": "list_provider_operations",
+    "description": "List everything the provider behind a resource (resource_id) or a connected account (account_id) can do through Hoista: its full API and, where Hoista has one, its command-line tool (operations named like `supabase db push`, run by Hoista with the token so you never need it or the CLI), grouped by area (deploys, environments, networking, storage and backups, observability, edge, templates, feature flags\u2026). Each entry has its name, risk (read, change, or destroy, which needs the person's approval) and required arguments. Filter with area. Then call describe_provider_operation for an operation's full argument schema, and run_provider_operation to run it.",
+    "read_only_hint": true
+  },
+  {
+    "name": "describe_provider_operation",
+    "description": "Read one provider operation's full argument schema. Arguments marked filled_in (project, environment, service, workspace) are filled from resource_id or account_id when you leave them out.",
+    "read_only_hint": true
+  },
+  {
+    "name": "give_key",
+    "description": "Give one service a key to another without anyone handling it, and set it straight into that service's variables: on Resend Hoista makes a key that can only send from the domain (RESEND_API_KEY); on Supabase it takes the project's public anon or publishable key (SUPABASE_ANON_KEY; pass variable, such as NEXT_PUBLIC_SUPABASE_ANON_KEY, for a browser app). The key is never returned or kept. Use this instead of asking the person to create or paste a key.",
+    "read_only_hint": false
+  },
+  {
+    "name": "move_resources",
+    "description": "Move resources into another project, from whichever project they are in now: for a resource that landed in the wrong project, such as one Hoista put in a project of its own after a provider operation created it. Nothing changes at the provider and the project keeps its mode. A project left empty with no deploys is removed.",
+    "read_only_hint": false
+  },
+  {
+    "name": "run_provider_operation",
+    "description": "Run one operation from list_provider_operations on a resource (resource_id) or account (account_id), with args as an object. When it creates something, pass project_id so it joins that project; without it, something made on an account becomes a project of its own. Reads return the provider's answer with secrets removed; changes are recorded in Activity; destroy operations return pending with an approval_id the first time: retry with it once the person allows it in Hoista. Prefer Hoista's dedicated tools (deploy_folder, set_secret, get_logs\u2026) where they exist; use this for everything else. Never put a key's value in args: for variables an operation takes (a pod's env, say), pass env_file (a .env file's absolute path) and env_names, and Hoista puts the values in env_arg itself and keeps them out of the answer.",
+    "read_only_hint": false
+  },
+  {
+    "name": "get_metrics",
+    "description": "Read a resource's numbers over a range (1h, 24h, 7d, 30d) as its provider reports them, for providers whose capabilities include metrics. Most providers answer with charts: each has an id, label, unit (count, milliseconds, percent, bytes, cores, seconds) and lines of {at, value} points, such as requests by status class, response time, CPU, memory or emails sent; note says what the provider couldn't answer. Railway answers requests and errors by status code, response time p50/p90/p95/p99, CPU and memory with their limits, network and disk, each series [{ts, value}], with null for what it doesn't report. Nothing is estimated.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_bills",
+    "description": "Read what each connected provider has actually billed so far this billing period, one row per connected account: bill (the money billed, with the period) when the provider shares it, plan_usage where it counts usage but not money, and note saying why when there is neither (no charges yet, the token can't read billing, the provider didn't answer). Hoista never estimates cost, and per-project costs are not available.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_provider_details",
+    "description": "Read what the provider reports for a resource right now (for providers that support it): its own deployment history with status, commit and time, its variable names (never values) and its domains. Nothing changes at the provider.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_project_map",
+    "description": "Read resource nodes and dependency edges.",
+    "read_only_hint": true
+  },
+  {
+    "name": "create_project",
+    "description": "Create an empty project. With source (a folder or repository), it's for plan_deploy and deploy, which Hoista builds and sends to a provider it deploys to. Without source, it's a project whose pieces you add at any providers with add_to_project: code, databases, buckets, email domains and images, one call each. To have one provider build a repository as a project of its own, use create_project_at_provider. Only for a new project: when the folder already belongs to one (get_my_access, active_project) it's refused unless confirm_new is true with a reason, which you set only when the person said it's new. After making one, call use_project so later sessions find it.",
+    "read_only_hint": false
+  },
+  {
+    "name": "create_project_at_provider",
+    "description": "Create a new project at a provider, on a connected account: from a GitHub repository (repo) where its capabilities include new_app, as a new project of its own with one service deploying the repo and a public address; or from a folder on this computer where they include new_from_folder, deployed with the provider's own tool (Modal: the folder's Python file that makes a modal.App, deployed under the project's name): give folder for a new project, or project_id for an empty project you already linked to a folder with create_project. This is how a first deploy to Modal is made; its modal deploy operation only redeploys an app Hoista already watches. The provider builds it; Hoista watches it like any watched project. Returns the project and its resources. Then call get_provider_details for the newest deployment id and wait_for_deploy with it. Never adds anything to a project that already has resources: for that, use add_to_project.",
+    "read_only_hint": false
+  },
+  {
+    "name": "list_domains",
+    "description": "Read a page of saved hostnames and their last DNS/certificate observations for a project.",
+    "read_only_hint": true
+  },
+  {
+    "name": "check_domain",
+    "description": "Refresh a managed hostname's DNS/certificate state. Requires apps:write; may trigger provider validation. Fly checks never recreate a removed hostname.",
+    "read_only_hint": false
+  },
+  {
+    "name": "delete_domain",
+    "description": "Request approval to detach a hostname and ALL its certificates (including custom Fly certificates), then retry with approval_id. Leaves DNS records and the project intact. An uncertain provider result requires inspection and a new approval, not replay.",
+    "read_only_hint": false
+  },
+  {
+    "name": "add_domain",
+    "description": "Add a custom hostname to a managed resource; requires apps:create. A missing DNS zone is created only when create_zone is explicitly true.",
+    "read_only_hint": false
+  },
+  {
+    "name": "plan_deploy",
+    "description": "Inspect a local folder and create a deployment plan. With project_id, the folder is the project's source folder or one inside it (one app of a monorepo), and the plan uses the project's existing database instead of making another; deploy it with the same project_id.",
+    "read_only_hint": false
+  },
+  {
+    "name": "get_plan",
+    "description": "Read a saved plan and its revision, including immutable queued snapshots.",
+    "read_only_hint": true
+  },
+  {
+    "name": "edit_plan",
+    "description": "Validate and reprice a saved plan without deploying. Preserve its read revision; stale edits fail and must be reviewed against a fresh read. Queued snapshots cannot be edited.",
+    "read_only_hint": false
+  },
+  {
+    "name": "deploy",
+    "description": "Queue a saved deployment plan for a managed project.",
+    "read_only_hint": false
+  },
+  {
+    "name": "cancel_deploy",
+    "description": "Request cancellation at the next safe boundary; in-flight provider writes may finish first.",
+    "read_only_hint": false
+  },
+  {
+    "name": "rollback",
+    "description": "Restore a previously successful deployment by id.",
+    "read_only_hint": false
+  },
+  {
+    "name": "list_repositories",
+    "description": "List the GitHub repositories a connected GitHub account (provider github, from get_my_access) can reach, newest pushed first: owner/name, default branch, private or not, last push. Use it to find where a project's code lives before pushing to it with git. Listing needs only the token's metadata access; link_repository also reads the newest commit, so it needs Contents: read on the repository.",
+    "read_only_hint": true
+  },
+  {
+    "name": "link_repository",
+    "description": "Link a project to one of the GitHub account's repositories, at the newest commit of branch (the repository's default when absent), so the person and agents know which code it runs. Push to that repository with git; providers that build from it deploy the push themselves.",
+    "read_only_hint": false
+  },
+  {
+    "name": "link_folder",
+    "description": "Link a project to the local folder its code is in, so the person and agents know which code it runs. Call it after making something at a provider from a folder (an image you built, a pod or function you created), since the provider doesn't say where its code came from.",
+    "read_only_hint": false
+  },
+  {
+    "name": "get_log_history",
+    "description": "Read up to 100 retained log records for a resource in a fixed time range, as the resource's provider keeps them (for some providers, only the latest deployment's). Retention and sampling may omit events. Follow next_cursor with the same query.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_resource",
+    "description": "Read a resource's recorded dependencies, consumers, domains, latest usage and latest recorded release. Does not refresh providers or prove that release is currently serving.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_database",
+    "description": "Read database branches and compute state without waking or connecting to the database, on providers that report them. No credentials or inferred wake counts are returned. For any other provider's database (tables, backups, settings, queries), use list_provider_operations with its resource_id.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_logs",
+    "description": "Capture up to 100 redacted live log records over five seconds from a resource whose provider has live logs; no historical backfill (use get_log_history).",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_deployment_request",
+    "description": "Inspect your committed deployment request by UUID without secret inputs or resubmission. A missing result is not proof an in-flight submission cannot still commit; a null deployment means accepted history was removed.",
+    "read_only_hint": true
+  },
+  {
+    "name": "get_deploy",
+    "description": "Read deployment progress and release metadata.",
+    "read_only_hint": true
+  },
+  {
+    "name": "wait_for_deploy",
+    "description": "Wait until a deploy finishes (live, failed or stopped), up to timeout_seconds (default 60, at most 120), checking every 5 seconds. Works for Hoista's deploys and for deploys at a watched provider (ids from get_provider_details). Returns finished true with the result, or finished false with the current status: then call it again. Use this to keep checking a deploy instead of shell loops or sleeps.",
+    "read_only_hint": true
+  },
+  {
+    "name": "replace_environment",
+    "description": "Queue a reviewed project deployment with new environment values for every runtime resource. Values stay in memory; restart requires resubmission. Managed bindings cannot be replaced.",
+    "read_only_hint": false
+  },
+  {
+    "name": "delete_secret",
+    "description": "Remove one hosted secret from a managed resource, or a variable of a watched resource whose provider allows it. Does not edit source or rebuild browser assets. Managed bindings and active deployments are rejected.",
+    "read_only_hint": false
+  },
+  {
+    "name": "set_secret",
+    "description": "Send a secret directly to its provider. Never returns its value. On a watched resource this sets the variable at the provider, which may redeploy to apply it.",
+    "read_only_hint": false
+  },
+  {
+    "name": "set_secrets",
+    "description": "Set many variables or secrets at once on any resource (resource_id): on a Worker or Fly app they become secrets, elsewhere service variables. On a watched resource they can instead be its provider project's shared variables (shared: true), optionally without redeploying (redeploy: false). For secrets pass env_file, the absolute path of a .env file (and names to pick some): Hoista reads the values itself, so they never pass through you or this conversation. Values go straight to the provider and are never returned. A value like ${{Postgres.DATABASE_URL}} references another service.",
+    "read_only_hint": false
+  },
+  {
+    "name": "delete_shared_variable",
+    "description": "Delete one of the provider project's shared variables, by name, for the watched resource's provider project and environment.",
+    "read_only_hint": false
+  },
+  {
+    "name": "redeploy_resource",
+    "description": "Watched projects: build and start a resource's current version again at its provider, as its Redeploy button does. Use after changing variables or when it crashed.",
+    "read_only_hint": false
+  },
+  {
+    "name": "restart_resource",
+    "description": "Watched projects: restart a resource's running deployment without rebuilding.",
+    "read_only_hint": false
+  },
+  {
+    "name": "rollback_resource",
+    "description": "Watched projects: serve an earlier deployment of a resource again. Take deployment_id from get_provider_details.",
+    "read_only_hint": false
+  },
+  {
+    "name": "deploy_latest_commit",
+    "description": "Watched projects: deploy the newest commit of the repository the resource is linked to at its provider. Push your changes first.",
+    "read_only_hint": false
+  },
+  {
+    "name": "deploy_commit",
+    "description": "Watched projects: deploy one commit (full hash) of the resource's linked repository.",
+    "read_only_hint": false
+  },
+  {
+    "name": "deploy_folder",
+    "description": "Watched projects: upload the project's linked folder (or a subfolder of it, such as backend) and deploy it, as the provider's own CLI does; .gitignore and the provider's own ignore file are respected. Use after fixing code locally. Then watch get_provider_details and get_logs until it's live.",
+    "read_only_hint": false
+  },
+  {
+    "name": "stop_resource",
+    "description": "Watched projects: stop a resource's running deployment. It stays stopped until the next deploy.",
+    "read_only_hint": false
+  },
+  {
+    "name": "configure_resource",
+    "description": "Watched projects: change how a resource builds and runs: start_command, build_command, root_directory, cron_schedule, healthcheck_path, replicas (1\u201320), region, restart_policy (on_failure, always, never). Only the fields given change; they apply on the next deploy.",
+    "read_only_hint": false
+  },
+  {
+    "name": "connect_repo",
+    "description": "Watched projects: make a resource deploy from a GitHub repository (owner/name, optional branch) from now on.",
+    "read_only_hint": false
+  },
+  {
+    "name": "add_resource_domain",
+    "description": "Watched projects: give a resource an address. With domain, adds your own domain (then point its DNS at the record list_domains shows); without, adds a free address from the provider. Optional port the service listens on.",
+    "read_only_hint": false
+  },
+  {
+    "name": "rename_resource_domain",
+    "description": "Watched projects: give the provider's own address a new name (to: the new address or just its first label). Custom domains can't be renamed: add the new one, then remove the old.",
+    "read_only_hint": false
+  },
+  {
+    "name": "remove_resource_domain",
+    "description": "Watched projects: remove one of a resource's addresses, as listed by get_provider_details. Needs the person's approval: the first call returns pending with an approval_id; retry with it once they allow it in Hoista.",
+    "read_only_hint": false
+  },
+  {
+    "name": "update_resource_domain",
+    "description": "Watched projects: change the port one of a resource's addresses sends traffic to.",
+    "read_only_hint": false
+  },
+  {
+    "name": "retry_domain_certificate",
+    "description": "Watched projects: ask the provider to issue a custom domain's TLS certificate again after it failed.",
+    "read_only_hint": false
+  },
+  {
+    "name": "disconnect_source",
+    "description": "Watched projects: stop a resource deploying from its repository or image.",
+    "read_only_hint": false
+  },
+  {
+    "name": "add_volume",
+    "description": "Watched projects: attach a persistent disk to a resource, mounted at an absolute path such as /data.",
+    "read_only_hint": false
+  },
+  {
+    "name": "remove_volume",
+    "description": "Watched projects: delete a resource's volume and all data on it (volume ids from get_provider_details). Needs the person's approval: retry with the approval_id once they allow it in Hoista.",
+    "read_only_hint": false
+  },
+  {
+    "name": "add_tcp_proxy",
+    "description": "Watched projects: open a public TCP endpoint to a port a resource listens on (for databases and non-HTTP projects). The endpoint shows in get_provider_details.",
+    "read_only_hint": false
+  },
+  {
+    "name": "remove_tcp_proxy",
+    "description": "Watched projects: close a public TCP endpoint (ids from get_provider_details). Needs the person's approval.",
+    "read_only_hint": false
+  },
+  {
+    "name": "rename_private_host",
+    "description": "Watched projects: rename a resource's private network address, which other services in the provider project reach it at.",
+    "read_only_hint": false
+  },
+  {
+    "name": "remove_service",
+    "description": "Watched projects: delete a resource at its provider for good, for providers whose capabilities include delete: a Railway or Render service, a Vercel or Supabase project, a Worker, Pages project, D1 database, empty R2 bucket or zone on Cloudflare, a Fly app, a Neon project or a Resend sending domain. Data in it is gone. Needs the person's approval: the first call returns pending with an approval_id; retry with it once they allow it in Hoista.",
+    "read_only_hint": false
+  },
+  {
+    "name": "create_service",
+    "description": "Watched projects: create a new service in the same project as the project's other services, empty or from a GitHub repo (owner/name, optional branch) or a Docker image. It joins the project.",
+    "read_only_hint": false
+  },
+  {
+    "name": "add_database",
+    "description": "Watched projects: add a database or any template next to the project's services: code postgres, mysql, redis or mongo (or another template code). Optional variables fill the template's required values. The new services join the project; connect them with set_secret using a reference such as ${{Postgres.DATABASE_URL}}.",
+    "read_only_hint": false
+  },
+  {
+    "name": "add_to_project",
+    "description": "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
+    "read_only_hint": false
+  },
+  {
+    "name": "create_bucket",
+    "description": "Watched projects: create an object storage bucket in the project's provider project.",
+    "read_only_hint": false
+  },
+  {
+    "name": "list_import_candidates",
+    "description": "List unassigned discovered resources, or pass ignored=true to inspect resources set aside locally. No provider activity is inferred.",
+    "read_only_hint": true
+  },
+  {
+    "name": "set_resource_ignored",
+    "description": "Set aside or restore one unassigned import candidate. Reversible local visibility only; never deletes, pauses or changes its provider resource.",
+    "read_only_hint": false
+  },
+  {
+    "name": "resolve_resources",
+    "description": "Read candidate resources matching exact names, IDs, provider project stems or hostnames in a description. Always review account/ownership and choose explicit IDs before grouping.",
+    "read_only_hint": true
+  },
+  {
+    "name": "link_resources",
+    "description": "Connect explicit from_resource/to_resource/via endpoints, or resolve a description into resource candidates. To group reviewed candidates, repeat description with project_id, resource_ids and review_token. Ambiguity requires explicit selection; no cloud resources are changed.",
+    "read_only_hint": false
+  },
+  {
+    "name": "suggest_imports",
+    "description": "Read review-only grouping proposals from shared resource names and exact public hostnames. Ambiguous alternatives require the user's choice; no resources are grouped by this read.",
+    "read_only_hint": true
+  },
+  {
+    "name": "import_resources",
+    "description": "Discover an account or group selected resources in watching mode.",
+    "read_only_hint": false
+  },
+  {
+    "name": "get_usage",
+    "description": "Read daily measured usage per resource since a UTC date (requests, errors, compute, storage), as the provider reported it. For money, use get_bills: what each provider itself reports.",
+    "read_only_hint": true
+  },
+  {
+    "name": "delete_project",
+    "description": "Request approval to delete a managed project, then retry with its approved approval_id.",
+    "read_only_hint": false
+  },
+  {
+    "name": "delete_resource",
+    "description": "Request approval to delete a managed resource, then retry with its approved approval_id.",
+    "read_only_hint": false
+  },
+  {
+    "name": "connect_account",
+    "description": "Request a guided desktop connection. Provider credentials must be entered in Hoista, never in tool arguments.",
+    "read_only_hint": false
+  },
+  {
+    "name": "get_approval",
+    "description": "Read this agent's approval decision. Expired and declined requests cannot execute.",
+    "read_only_hint": true
+  }
+]

@@ -1,0 +1,55 @@
+---
+title: "MCP server"
+description: "How agents connect to Hoista's MCP server and which tools to start with."
+---
+
+Hoista runs an MCP server so agents can read and change your projects. Every tool call goes through the daemon, which checks the agent's access level and asks you when a change needs your approval. The full list of tools is in the [tool catalog](/reference/mcp-tools).
+
+## Connections
+
+| Agent | How it connects | Access levels |
+| --- | --- | --- |
+| Coding tool on this computer | stdio, through `hoist mcp` | **View only**, **Ask for approval**, **Full access** |
+| Chat app or cloud agent | `https://<your-hoista-address>/mcp`, signed in with OAuth | **View only**, **Full access** |
+
+A chat app or cloud agent connects over HTTP, where Hoista can't ask you in the agent's window, so it can't use **Ask for approval**. It reaches either Hoista on your computer, through a tunnel or proxy to `127.0.0.1:8788` (see [From your computer](/agents/tools/chatgpt#from-your-computer)), or a [remote](/guides/remote). Find the address in **Settings → Agents**.
+
+To add Hoista to a coding tool, print its configuration:
+
+```bash
+hoist mcp config
+```
+
+It prints an `mcpServers` entry that runs `hoist mcp` with your state folder. With a remote in use, it prints the remote's `/mcp` address instead. It contains no credentials. Add `--name NAME` to label the connection. When the tool starts a session, Hoista opens a page in your browser where you check a code and choose the access level. If the page doesn't open, the request waits in **Agents**, or answer it with `hoist agents allow`. See [Connect an agent](/agents/connect).
+
+## Remote endpoints
+
+| Path | Use |
+| --- | --- |
+| `/mcp` | MCP over HTTP with an OAuth bearer token |
+| `/.well-known/oauth-protected-resource` | OAuth resource metadata, found by the agent itself |
+| `/.well-known/oauth-authorization-server` | OAuth server metadata |
+| `/oauth/register`, `/oauth/authorize`, `/oauth/token` | Client registration, sign-in and token exchange |
+
+## Tools to start with
+
+| Tool | Use |
+| --- | --- |
+| `get_my_access` | What this connection may do, and which projects and environments it can reach. Call it first. |
+| `list_projects` | Find the project to work on. |
+| `list_provider_operations` | Everything the provider behind an account or resource can do through Hoista. |
+| `describe_provider_operation` | An operation's arguments and risk. |
+| `run_provider_operation` | Run one of those operations. |
+| `plan_deploy`, `deploy` | Make a deployment plan, then queue it for a managed project. |
+| `wait_for_deploy` | Wait until a deploy is live, failed or stopped. |
+| `get_logs`, `get_log_history` | Capture live log records, or read earlier logs where the provider keeps them. |
+
+Each client gets the tool schemas from `tools/list`. Agents can't change their own access. Only you can, from **Agents** or with `hoist agents access`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="MCP tool catalog" icon="list" href="/reference/mcp-tools">Every tool an agent can call.</Card>
+<Card title="Connect an agent" icon="plug" href="/agents/connect">Every tool, and how each connects.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+</CardGroup>

@@ -1,0 +1,59 @@
+{
+ "id": "vercel",
+ "name": "Vercel",
+ "api": {
+  "kind": "rest",
+  "base": "",
+  "operations": "api_ops.json"
+ },
+ "cli": {
+  "name": "vercel",
+  "version": "65.0.0",
+  "npm": {
+   "package": "vercel",
+   "version": "65.0.0",
+   "bin": "dist/vc.js",
+   "node": 20,
+   "lockfile": "package-lock.json"
+  },
+  "token": "VERCEL_TOKEN",
+  "variables": {
+   "VERCEL_TELEMETRY_DISABLED": "1",
+   "NO_UPDATE_NOTIFIER": "1",
+   "DO_NOT_TRACK": "1"
+  },
+  "always": [
+   "--non-interactive",
+   "--no-color"
+  ],
+  "confirmed": [],
+  "targets": {},
+  "target_variables": {
+   "VERCEL_ORG_ID": "team",
+   "VERCEL_PROJECT_ID": "project"
+  },
+  "json_flag": "json",
+  "yes_flag": "yes",
+  "commands": "cli.json"
+ },
+ "actions": [
+  {
+   "label": "Recent logs",
+   "on": null,
+   "run": "vercel logs",
+   "description": "The project's latest runtime logs."
+  },
+  {
+   "label": "Domains",
+   "on": null,
+   "run": "getProjectDomains",
+   "description": "The project's domains and whether each is verified."
+  },
+  {
+   "label": "Environments",
+   "on": null,
+   "run": "vercel environments list",
+   "description": "The project's environments."
+  }
+ ]
+}

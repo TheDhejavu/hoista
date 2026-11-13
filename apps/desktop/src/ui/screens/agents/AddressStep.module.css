@@ -1,0 +1,137 @@
+.waitingBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-muted);
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.seen {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-lg);
+  color: var(--text-2);
+}
+
+.tick {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--good);
+  color: var(--text-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* It signed in: who, the code to match on Hoista's page, and waiting for Authorize there. */
+.signingIn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  background: var(--bg-muted);
+}
+
+.signingHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.signingFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.waitingLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.requestText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.requestText b {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--bg-hover);
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.code code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+/* Other agents asking while this is open. */
+.others {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.other {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.other .requestText {
+  flex: 1;
+  min-width: 0;
+}
+
+.other .requestText b {
+  font-size: var(--text-md);
+}
+
+.otherCode {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+
+.otherCode code {
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  letter-spacing: 0.06em;
+  color: var(--text);
+}

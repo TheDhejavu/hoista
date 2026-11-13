@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE deploys SET cancel_requested = 1 WHERE id = ?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "033fc1e5ca94c05e9f65d62e3c285404bfdfb5b0bc397ee7fe93729e1cdede82"
+}

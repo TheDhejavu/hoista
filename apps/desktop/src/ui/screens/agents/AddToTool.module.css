@@ -1,0 +1,12 @@
+.add {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.where {
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}

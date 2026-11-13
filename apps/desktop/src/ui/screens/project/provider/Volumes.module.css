@@ -1,0 +1,85 @@
+.cardActions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.volumeFacts {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: var(--text-sm);
+}
+
+.volumeFacts dt {
+  margin-bottom: 2px;
+  color: var(--text-3);
+  font-size: var(--text-xs);
+}
+
+.volumeFacts dd {
+  margin: 0;
+}
+
+.meterCell {
+  padding-bottom: 5px;
+}
+
+.meter {
+  display: block;
+  width: 160px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--bg-muted);
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--text);
+}
+
+.backups {
+  border-top: 1px solid var(--line);
+}
+
+.backupRow {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.7fr 1fr 250px;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.backupHead {
+  min-height: 34px;
+  border-top: none;
+  background: var(--bg-soft);
+  color: var(--text-3);
+  font-size: var(--text-xs);
+}
+
+.mutedCell {
+  color: var(--text-2);
+}
+
+.rowAction {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.backupNote {
+  margin: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: var(--text-sm);
+}

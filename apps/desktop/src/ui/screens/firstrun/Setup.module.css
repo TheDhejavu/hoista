@@ -1,0 +1,640 @@
+/* The rail on the left, the step beside it, filling the window. */
+.setup {
+  display: flex;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Rail ─────────────────────────────────────────────────────────── */
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 6px;
+  width: 300px;
+  box-sizing: border-box;
+  border-right: 1px solid var(--line);
+  background: var(--bg-sidebar);
+  padding: 28px 24px;
+  -webkit-app-region: drag;
+}
+
+.rail button {
+  -webkit-app-region: no-drag;
+}
+
+/* macOS: room for the window buttons above the title. */
+:global(html[data-os='darwin']) .rail {
+  padding-top: 52px;
+}
+
+.railHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  font-size: var(--text-xl);
+}
+
+.railHead b {
+  font-weight: var(--weight-semibold);
+}
+
+.railMark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--brand-tile);
+  /* The mascot in the page colour on the tile: white on black, black on white. */
+  --mascot-ink: var(--bg-raised);
+}
+
+.railSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.railStep {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.railDot {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.done {
+  background: var(--good);
+  color: var(--bg);
+}
+
+.now {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.later {
+  border: 1.5px solid color-mix(in srgb, var(--text) 25%, transparent);
+  color: var(--text-3);
+}
+
+.railText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.railTitle {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+}
+
+.railLater {
+  color: var(--text-3);
+}
+
+.railSub {
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.railLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.railMoving,
+.railSkip,
+.textLink {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-md);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 3px;
+  cursor: default;
+}
+
+.railMoving {
+  color: color-mix(in srgb, var(--text) 85%, var(--bg));
+}
+
+.railSkip {
+  color: var(--text-2);
+}
+
+.railMoving:hover,
+.railSkip:hover:not(:disabled),
+.textLink:hover {
+  color: var(--text);
+}
+
+.railSkip:disabled {
+  text-decoration: none;
+}
+
+.railMoving:focus-visible,
+.railSkip:focus-visible,
+.textLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Step frame ───────────────────────────────────────────────────── */
+
+.step {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.stepBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 52px 56px 24px;
+}
+
+/* A step of text and fields: held to a reading width. */
+.narrow > * {
+  max-width: 648px;
+}
+
+.eyebrow {
+  font-size: var(--text-md);
+  color: var(--text-3);
+}
+
+.title {
+  margin: 8px 0 0;
+  font-size: 30px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  max-width: 680px;
+  margin: 10px 0 0;
+  font-size: var(--text-xl);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.stepFooter {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding: 18px 56px;
+}
+
+.stepActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stepNote {
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.spinner {
+  display: inline-block;
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: setup-spin 0.7s linear infinite;
+}
+
+@keyframes setup-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Step 1: providers ────────────────────────────────────────────── */
+
+.providerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.providerCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 64px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--text) 4%, var(--bg));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 8%, transparent);
+  padding: 0 14px;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  cursor: default;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.providerCard:hover {
+  background: color-mix(in srgb, var(--text) 7%, var(--bg));
+}
+
+.providerCard:active {
+  transform: scale(0.99);
+}
+
+.providerCard:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Picked: the checkbox says so; the card only lifts a little, no ring. */
+.providerOn {
+  background: color-mix(in srgb, var(--text) 9%, var(--bg));
+}
+
+.providerOn:hover {
+  background: color-mix(in srgb, var(--text) 11%, var(--bg));
+}
+
+.providerText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.providerName {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+}
+
+.providerFor {
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--text-3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The checkbox: an empty square, filled with a tick once picked. */
+.tick {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--text) 26%, transparent);
+  color: transparent;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.tick svg {
+  transform: scale(0.6);
+  transition: transform var(--duration) var(--ease-spring);
+}
+
+.providerCard:hover .tick {
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--text) 40%, transparent);
+}
+
+.providerOn .tick,
+.providerOn:hover .tick {
+  background: var(--text);
+  box-shadow: none;
+  color: var(--bg);
+}
+
+.providerOn .tick svg {
+  transform: none;
+}
+
+/* ── Step 1: connecting ───────────────────────────────────────────── */
+
+.connectList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--text) 4%, var(--bg));
+  padding: 16px 18px;
+}
+
+/* The one being connected: lifted, with a light ring. */
+.cardNow {
+  border-color: transparent;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--text) 50%, transparent);
+  padding: 18px;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cardText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cardName {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+.cardSub {
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.next {
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.connected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--good);
+}
+
+.connectedBadge {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--good);
+  color: var(--bg);
+}
+
+.gaps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.row .textLink {
+  margin-left: 6px;
+  color: var(--text-2);
+}
+
+.tokenWay {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tokenWay .row .textLink {
+  margin-left: 0;
+  color: color-mix(in srgb, var(--text) 85%, var(--bg));
+}
+
+.tokenSteps {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.tokenRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.tokenField {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.tokenField input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--text) 3%, var(--bg));
+  padding: 0 12px;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.tokenField input::placeholder {
+  color: var(--text-4);
+}
+
+.tokenField input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.fine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.fine .textLink {
+  font-size: var(--text-sm);
+  color: color-mix(in srgb, var(--text) 85%, var(--bg));
+}
+
+.waiting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+/* ── Step 2: projects ─────────────────────────────────────────────── */
+
+.picker {
+  max-width: 860px;
+  margin-top: 18px;
+}
+
+.looking {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 26px 0 0;
+  font-size: var(--text-lg);
+  color: var(--text-2);
+}
+
+.nothing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 560px;
+  margin-top: 30px;
+  color: var(--text-3);
+}
+
+.nothing h2 {
+  margin: 8px 0 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.nothing p {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+/* ── Step 3: your AI ──────────────────────────────────────────────── */
+
+.agentPick {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* The dropdown at the step's size: as tall as its buttons. */
+.agentPick > button {
+  height: 40px;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: var(--text-lg);
+}
+
+.fieldLabel {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.pickHint {
+  margin: 18px 0 0;
+  font-size: var(--text-md);
+  color: var(--text-3);
+}
+
+.agentSteps {
+  margin-top: 22px;
+  font-size: 14.5px;
+}
+
+.agentSteps ol {
+  gap: 18px;
+}
+
+/* Each step's text takes the row, so a command fills the width. */
+.agentSteps li > span:last-child {
+  flex: 1;
+  gap: 8px;
+}
+
+.stepHint {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.starter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--text) 4%, var(--bg));
+  padding: 14px 16px;
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.starter > svg {
+  flex: none;
+}
+
+.starter > span {
+  flex: 1;
+}

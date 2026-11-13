@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ha-l" viewBox="0 0 1280 744" width="1280" height="744" role="img" aria-labelledby="ha-l-t ha-l-d">
+<title id="ha-l-t">How Hoista works</title><desc id="ha-l-d">Coding agents connect over stdio, chat apps over HTTP with OAuth, and you through the desktop app or the hoist CLI over a local socket. All of them reach hoistd, the engine, which runs on your computer or as a remote in your own account. hoistd checks each caller's access, keeps its state in SQLite, works with your providers through their APIs and CLIs, and reads a provider token only for the call that needs it.</desc>
+<style>#ha-l text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#111111}#ha-l .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#ha-l .h2{fill:#6b6b6b}#ha-l .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#ha-l .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#9a9a9a;letter-spacing:0.08em}#ha-l .eyebrow{font-size:12.5px;fill:#8f8f8f}#ha-l .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#ha-l .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#ha-l .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#737373}#ha-l .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#4a4a4a}#ha-l .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#888888}#ha-l .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#111111;letter-spacing:0.06em}#ha-l .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8a8a8a}#ha-l .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#555555}#ha-l .sheet{fill:#ffffff;stroke:#e4e4e7}#ha-l .card{fill:#ffffff;stroke:#e3e3e3}#ha-l .hoistd{fill:#ffffff;stroke:#111111;stroke-width:1.4}#ha-l .ring{fill:none;stroke:rgba(0,0,0,0.04);stroke-width:8}#ha-l .tile{fill:#f5f5f5;stroke:#e6e6e6}#ha-l .chip{fill:#f0f0f0;stroke:#e2e2e2}#ha-l .pill{fill:#ffffff;stroke:#e3e3e3}#ha-l .zone{fill:#fafafa;stroke:#cfcfcf;stroke-dasharray:5 4}#ha-l .dot{fill:#dcdcdc}#ha-l .badge{fill:#111111}#ha-l .ink{fill:#ffffff}#ha-l .eye{fill:#111111}#ha-l .ic{fill:none;stroke:#4a4a4a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#ha-l .logo{fill:#7a7a7a}#ha-l .link{fill:none;stroke:#c2c2c2;stroke-width:1.4;stroke-linejoin:round}#ha-l .dash{stroke-dasharray:5 4}#ha-l .head{fill:none;stroke:#9a9a9a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#ha-l .rule{stroke:#e4e4e7;stroke-dasharray:4 4}</style>
+<defs><g id="ha-l-mascot"><g fill="#ffffff"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#111111"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="ha-l-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="ha-l-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.04"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.05"/></filter><filter id="ha-l-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<rect x="0.5" y="0.5" width="1279" height="743" rx="20" class="sheet"/>
+<rect x="462" y="146" width="356" height="284" rx="16" class="zone"/>
+<text x="482" y="172" class="zl">on your computer, or as a remote</text>
+<text x="482" y="189" class="zl">in your own account</text>
+<path d="M348 221 L477 221" class="link" marker-end="url(#ha-l-open)"/>
+<path d="M348 364 L477 364" class="link" marker-end="url(#ha-l-open)"/>
+<path d="M348 507 L420 507 L420 388 L477 388" class="link" marker-end="url(#ha-l-open)"/>
+<path d="M348 641 L420 641 L420 507" class="link"/>
+<path d="M800 241 L929 241" class="link" marker-end="url(#ha-l-open)"/>
+<path d="M800 391 L929 391" class="link" marker-end="url(#ha-l-open)"/>
+<path d="M640 406 L640 501" class="link" marker-end="url(#ha-l-open)"/>
+<rect x="48" y="160" width="300" height="125" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="68" y="180" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 188)"><rect x="1.8" y="2.6" width="12.4" height="10.8" rx="2"/><path d="M4.6 6.2 6.8 8 4.6 9.8M8.4 10.2h3"/></g>
+<text x="116" y="193" class="eyebrow">On this computer</text>
+<text x="116" y="216" class="title">Coding agents</text>
+<text x="116" y="242" class="detail">Claude Code · Codex</text>
+<text x="116" y="261" class="detail">Cursor · any MCP tool</text>
+<rect x="48" y="303" width="300" height="125" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="68" y="323" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 331)"><path d="M3.5 3h9A1.5 1.5 0 0 1 14 4.5v5.5a1.5 1.5 0 0 1-1.5 1.5H7.2L4.5 13.6v-2.1h-1A1.5 1.5 0 0 1 2 10V4.5A1.5 1.5 0 0 1 3.5 3z"/></g>
+<text x="116" y="336" class="eyebrow">From the web</text>
+<text x="116" y="359" class="title">Chat apps</text>
+<text x="116" y="385" class="detail">ChatGPT · Claude</text>
+<text x="116" y="404" class="detail">MCP over HTTP · OAuth</text>
+<rect x="48" y="446" width="300" height="125" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="68" y="466" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 474)"><rect x="2" y="2.5" width="12" height="8.5" rx="1.5"/><path d="M5.8 13.8h4.4M8 11v2.8"/></g>
+<text x="116" y="479" class="eyebrow">You, in the app</text>
+<text x="116" y="502" class="title">Desktop app</text>
+<text x="116" y="528" class="detail">see and approve changes</text>
+<text x="116" y="547" class="detail">Touch ID or password</text>
+<rect x="48" y="589" width="300" height="106" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="68" y="609" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 617)"><rect x="1.8" y="2.6" width="12.4" height="10.8" rx="2"/><path d="M4.6 6.2 6.8 8 4.6 9.8M8.4 10.2h3"/></g>
+<text x="116" y="622" class="eyebrow">You, from the terminal</text>
+<text x="116" y="645" class="title">hoist CLI</text>
+<text x="116" y="671" class="detail">same local socket</text>
+<rect x="480" y="206" width="320" height="200" rx="13" class="ring"/>
+<rect x="480" y="206" width="320" height="200" rx="12" class="hoistd" filter="url(#ha-l-lift2)"/>
+<circle cx="502" cy="225" r="3.6" class="dot"/>
+<circle cx="514" cy="225" r="3.6" class="dot"/>
+<circle cx="526" cy="225" r="3.6" class="dot"/>
+<rect x="500.0" y="242.0" width="32" height="32" rx="8.6" class="badge"/><g transform="translate(503.27 245.27) scale(0.2545)"><use href="#ha-l-mascot"/></g>
+<text x="546" y="266" class="title-lg">hoistd</text>
+<text x="546" y="298" class="detail">checks each caller's access</text>
+<text x="546" y="318" class="detail">asks you before deletes</text>
+<text x="546" y="338" class="detail">plans, deploys and imports</text>
+<text x="546" y="358" class="detail">watches status and logs</text>
+<text x="546" y="378" class="detail">journals every change first</text>
+<rect x="932" y="180" width="300" height="125" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="952" y="200" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(960 208)"><ellipse cx="8" cy="4" rx="5" ry="1.9"/><path d="M3 4v8c0 1 2.2 1.9 5 1.9s5-.9 5-1.9V4M3 8c0 1 2.2 1.9 5 1.9S13 9 13 8"/></g>
+<text x="1000" y="213" class="eyebrow">Hoista's own state</text>
+<text x="1000" y="236" class="title">SQLite</text>
+<text x="1000" y="262" class="detail">projects · deploys</text>
+<text x="1000" y="281" class="detail">activity · in ~/.hoista</text>
+<rect x="932" y="326" width="300" height="130" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="952" y="346" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(960 354)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
+<text x="1000" y="368" class="title">Your providers</text>
+<text x="1000" y="394" class="detail">Cloudflare · Fly.io</text>
+<text x="1000" y="413" class="detail">Railway · Vercel · Neon</text>
+<text x="1000" y="432" class="detail">through APIs and CLIs</text>
+<rect x="480" y="504" width="320" height="125" rx="12" class="card" filter="url(#ha-l-lift)"/>
+<rect x="500" y="524" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(508 532)"><circle cx="5.5" cy="10.5" r="3"/><path d="M7.7 8.3 13.5 2.5M11.2 4.8l1.8 1.8M9.6 6.4l1.4 1.4"/></g>
+<text x="548" y="537" class="eyebrow">Provider tokens</text>
+<text x="548" y="560" class="title">Your vault</text>
+<text x="548" y="586" class="detail">OS keychain · 1Password ref</text>
+<text x="548" y="605" class="detail">a keeper process on a remote</text>
+<text x="48.0" y="70" class="headline">How</text>
+<rect x="117.1" y="38" width="106.1" height="44" rx="10" class="chip"/>
+<text x="128.1" y="70" class="headline">Hoista</text>
+<text x="232.2" y="70" class="headline">works</text>
+<rect x="1103.7" y="46.0" width="26" height="26" rx="7.0" class="badge"/><g transform="translate(1106.38 48.66) scale(0.2068)"><use href="#ha-l-mascot"/></g>
+<text x="1139.7" y="65" class="brand">hoista.dev</text>
+<text x="48" y="132" class="col">WHO USES IT</text>
+<text x="462" y="132" class="col">THE ENGINE</text>
+<text x="932" y="132" class="col">WHAT IT WORKS WITH</text>
+<rect x="376.0" y="209" width="58.0" height="24" rx="7" class="pill"/><text x="405" y="225.2" class="pill-t" text-anchor="middle">stdio</text>
+<rect x="376.0" y="352" width="58.0" height="24" rx="7" class="pill"/><text x="405" y="368.2" class="pill-t" text-anchor="middle">OAuth</text>
+<rect x="365.8" y="564" width="108.4" height="24" rx="7" class="pill"/><text x="420" y="580.2" class="pill-t" text-anchor="middle">local socket</text>
+<rect x="846.0" y="229" width="58.0" height="24" rx="7" class="pill"/><text x="875" y="245.2" class="pill-t" text-anchor="middle">state</text>
+<rect x="824.4" y="379" width="101.2" height="24" rx="7" class="pill"/><text x="875" y="395.2" class="pill-t" text-anchor="middle">APIs · CLIs</text>
+<rect x="582.2" y="450" width="115.6" height="24" rx="7" class="pill"/><text x="640" y="466.2" class="pill-t" text-anchor="middle">read per call</text>
+<text x="932" y="534" class="note-h">AGENTS NEVER SEE TOKENS</text>
+<text x="932" y="560" class="note">hoistd reads one only for the</text>
+<text x="932" y="580" class="note">call that needs it, and strips</text>
+<text x="932" y="600" class="note">secrets from what agents read.</text>
+</svg>

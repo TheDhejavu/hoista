@@ -1,0 +1,155 @@
+{
+ "cli": "rp",
+ "version": "2.1.0",
+ "source": "runpod 2.1.0 command tree",
+ "commands": [
+  {
+   "name": "rp flash deploy",
+   "words": [
+    "flash",
+    "deploy"
+   ],
+   "area": "Flash apps",
+   "risk": "change",
+   "description": "Package and deploy every Flash app (runpod.App) in the project\u2019s folder, each to its environment (--env, production by default). Redeploys a Flash app Hoista watches; for a first deploy use create_project_at_host with folder.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "target",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "path": true,
+     "description": "Target."
+    }
+   ],
+   "flags": [
+    {
+     "name": "python-version",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Worker python version for dependency wheels (3.10-3.14)."
+    },
+    {
+     "name": "exclude",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Comma-separated packages to exclude from the artifact (they must then come from the worker image)."
+    }
+   ]
+  },
+  {
+   "name": "rp flash env delete",
+   "words": [
+    "flash",
+    "env",
+    "delete"
+   ],
+   "area": "Flash environments",
+   "risk": "destroy",
+   "description": "Undeploy and delete an environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "env_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Env name."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "rp flash env get",
+   "words": [
+    "flash",
+    "env",
+    "get"
+   ],
+   "area": "Flash environments",
+   "risk": "read",
+   "description": "Show an environment with its endpoints.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "env_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Env name."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "rp flash env list",
+   "words": [
+    "flash",
+    "env",
+    "list"
+   ],
+   "area": "Flash environments",
+   "risk": "read",
+   "description": "List environments for an app.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "rp flash undeploy",
+   "words": [
+    "flash",
+    "undeploy"
+   ],
+   "area": "Flash environments",
+   "risk": "destroy",
+   "description": "Tear down a deployed environment's endpoints.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "app",
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  }
+ ]
+}

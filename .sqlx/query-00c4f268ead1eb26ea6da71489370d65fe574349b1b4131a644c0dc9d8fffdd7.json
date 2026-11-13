@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT (SELECT count(*) FROM projects)+(SELECT count(*) FROM accounts)+(SELECT count(*) FROM resources)+(SELECT count(*) FROM links)+(SELECT count(*) FROM usage)+(SELECT count(*) FROM plans)+(SELECT count(*) FROM deploys)+(SELECT count(*) FROM agents)+(SELECT count(*) FROM approvals)+(SELECT count(*) FROM secret_metadata)+(SELECT count(*) FROM custom_domains)+(SELECT count(*) FROM deployment_admissions)+(SELECT count(*) FROM environment_admission_keys)+(SELECT count(*) FROM oauth_clients)+(SELECT count(*) FROM oauth_pending)+(SELECT count(*) FROM oauth_grants)+(SELECT count(*) FROM private_link) AS count",
+  "describe": {
+    "columns": [
+      {
+        "name": "count",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "00c4f268ead1eb26ea6da71489370d65fe574349b1b4131a644c0dc9d8fffdd7"
+}

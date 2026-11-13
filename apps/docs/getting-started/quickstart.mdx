@@ -1,0 +1,76 @@
+---
+title: "Quickstart"
+description: "Connect a provider and add or deploy your first project."
+---
+
+import ConnectFlow from '/snippets/diagrams/connect-flow.mdx';
+
+Connect your provider accounts, add the projects already running on them, and look at one. It takes a few minutes. [Install Hoista](/getting-started/install) first.
+
+## Pick your providers
+
+Open Desktop and choose **Set up Hoista**. Tick every provider your projects run on, then choose **Connect**.
+
+<Frame caption="Setup, step 1, with Cloudflare, Vercel, Neon and GitHub picked.">
+  <img className="shot-light" src="/assets/screens/setup-providers-light.webp" alt="The Where do your projects live? step, with a checkbox on each provider card" />
+  <img className="shot-dark" src="/assets/screens/setup-providers-dark.webp" alt="The Where do your projects live? step, with a checkbox on each provider card" />
+</Frame>
+
+## Connect each one
+
+Choose **Connect** beside a provider. Where the provider offers it, Hoista opens its page so you can approve Hoista in your browser. Otherwise, paste an API token: **Open the tokens page** takes you to the right page, and **Step-by-step guide** walks you through it. Hoista checks the token works before saving it.
+
+<Frame caption="Cloudflare is connected. Neon is waiting for a token.">
+  <img className="shot-light" src="/assets/screens/setup-connect-light.webp" alt="The Connect your providers step, with Cloudflare connected and Neon asking for a token" />
+  <img className="shot-dark" src="/assets/screens/setup-connect-dark.webp" alt="The Connect your providers step, with Cloudflare connected and Neon asking for a token" />
+</Frame>
+
+From the command line:
+
+```bash
+hoist accounts add
+hoist accounts
+```
+
+`hoist accounts add` asks which provider to use, then reads its token through a hidden prompt.
+
+The token stays in this computer's keychain and only the daemon reads it:
+
+<ConnectFlow />
+
+## Pick what Hoista watches
+
+Each project found on a provider comes in as a Hoista project of the same name. Untick anything to leave out, or change which Hoista project it goes into, then choose **Import**.
+
+Imported projects are in **watching** mode: the provider keeps running them its own way, and nothing changes there. From the command line, `hoist import` lists what it found and lets you pick. In a script, run `hoist import --list` and pass the resource IDs: `hoist import RESOURCE_ID --new my-app`.
+
+## Look at a project
+
+Open a project to see its **Overview**, **Deploys**, **Logs** and **Metrics**.
+
+```bash
+hoist status my-app
+hoist logs my-app
+```
+
+## Deploy something new
+
+Desktop has no deploy form. Deploy from the CLI, or ask a [connected agent](/agents/connect) to "Deploy this project with Hoista".
+
+```bash
+hoist deploy ./my-app --project my-app
+```
+
+The CLI follows the deploy step by step until it is live or fails. You can also follow it in **Deploys**. See [plan and deploy](/guides/deploy) to review a plan first.
+
+## Without Desktop
+
+Every step above works from the CLI alone. Commands start the daemon when they need it, so Desktop does not have to be open. Run `hoist doctor` if something fails, and see the [CLI reference](/cli/overview) for every command.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Connect an agent" icon="plug" href="/agents/connect">Let a coding tool or chat app use Hoista.</Card>
+<Card title="Plan and deploy" icon="cloud-arrow-up" href="/guides/deploy">Review a plan, deploy it and roll back.</Card>
+<Card title="How Hoista works" icon="sitemap" href="/getting-started/concepts">Accounts, projects, resources and the daemon.</Card>
+</CardGroup>

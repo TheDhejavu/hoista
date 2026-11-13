@@ -1,0 +1,217 @@
+/* Across the bottom of the window: notes centred, cards on the right. */
+.stack {
+  position: fixed;
+  inset: auto 24px 22px;
+  width: auto;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast,
+.card {
+  pointer-events: auto;
+}
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(520px, calc(100vw - 48px));
+  /* Half the one-line height: a pill on one line, rounded on two. */
+  border-radius: 18px;
+  background: var(--text);
+  box-shadow: var(--shadow-overlay);
+  padding: 7px 8px 7px 13px;
+  min-height: 36px;
+  font-size: var(--text-sm);
+  color: var(--bg);
+  animation: enter var(--duration) var(--ease-spring);
+}
+
+/* Fades out just before lib/toast removes it. */
+.leaving {
+  animation: toast-out 180ms var(--ease-out) forwards;
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* With nothing after the text, the padding matches the icon side. */
+.toast:not(:has(button)) {
+  padding-right: 16px;
+}
+
+.text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* An error is read in full: it wraps instead of being cut off. */
+.error .text {
+  white-space: normal;
+  text-overflow: clip;
+  line-height: 1.4;
+}
+
+.icon {
+  flex: none;
+}
+
+.success .icon {
+  color: color-mix(in srgb, var(--good) 70%, var(--bg));
+}
+
+.error .icon {
+  color: color-mix(in srgb, var(--bad) 75%, var(--bg));
+}
+
+.info .icon {
+  color: color-mix(in srgb, var(--bg) 70%, transparent);
+}
+
+.action {
+  flex: none;
+  height: 22px;
+  margin-left: 4px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--bg) 16%, transparent);
+  padding: 0 10px;
+  font: inherit;
+  font-size: var(--text-xs);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.action:hover {
+  background: color-mix(in srgb, var(--bg) 26%, transparent);
+}
+
+.close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: color-mix(in srgb, var(--bg) 65%, transparent);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: color-mix(in srgb, var(--bg) 16%, transparent);
+  color: var(--bg);
+}
+
+.action:focus-visible,
+.close:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: 1px;
+}
+
+/* A summary worth reading, in the bottom right corner. */
+.card {
+  display: flex;
+  align-self: flex-end;
+  align-items: flex-start;
+  gap: 12px;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  margin-bottom: 2px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-xl);
+  background: var(--menu-material);
+  box-shadow: var(--menu-float);
+  backdrop-filter: var(--material-blur);
+  padding: 14px 16px;
+  color: var(--text);
+  animation: enter var(--duration) var(--ease-spring);
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--good);
+  color: var(--bg);
+}
+
+.error .badge {
+  background: var(--bad);
+}
+
+.info .badge {
+  background: var(--text-3);
+}
+
+.cardText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cardText b {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+}
+
+.cardText span {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.cardClose {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.cardClose:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.cardClose:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+
+  .toast {
+    animation: none;
+  }
+}

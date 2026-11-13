@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO links(id,from_resource,to_resource,data) VALUES(?,?,?,?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "15bac5068fdf57a379c9066c074e872286826526d5f5d7f224ca2d390914eaf4"
+}

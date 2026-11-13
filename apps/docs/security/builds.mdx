@@ -1,0 +1,45 @@
+---
+title: "Build isolation"
+description: "How Hoista runs your project's build code and checks it for secrets."
+---
+
+When Hoista builds a project on your computer, it runs code from the project and its dependencies, such as install and build scripts. Hoista runs that code in an OS sandbox. The build sees its own copy of the project, a package cache and the tools it needs. It can't read your home folder, Hoista's state and keys, or the keychain.
+
+## By operating system
+
+| System | Isolation |
+| --- | --- |
+| macOS | The system sandbox (`sandbox-exec`) |
+| Linux | bubblewrap (`bwrap`), which you need to install |
+| Windows | Not available |
+
+**Settings → Safety** shows whether builds can be isolated on this computer.
+
+## When isolation isn't available
+
+Hoista stops the build with `build.not_isolated`. It never falls back to an unisolated build on its own. On Linux, install bubblewrap and try again.
+
+If you trust the project, you can turn on **Build without isolation** in **Settings → Safety**. Hoista asks you to confirm it's you first. Build code then runs with your access to this computer. Where the provider can build the project itself, prefer that.
+
+## What isolation doesn't cover
+
+- Builds keep network access, because installs need it.
+- Builds that run at the provider happen in the provider's environment, outside Hoista's sandbox.
+- A database migration can't be undone by rolling back the deployment.
+
+## Secret scanning
+
+Before a deploy is released, Hoista checks the code changes and every file the build produces for:
+
+- Known key formats, such as Stripe, OpenAI, AWS, GitHub, Supabase and npm keys, private keys and database URLs that contain a password
+- The exact values of secrets you keep in Hoista
+
+If it finds one, the deploy stops and nothing is released. The agent is told which file and what kind of key, never the key itself. Remove the secret, rotate it at the service it belongs to and deploy again.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Plan and deploy" icon="cloud-arrow-up" href="/guides/deploy">Plan a deploy, follow it and roll back.</Card>
+<Card title="Threat model and limits" icon="triangle-exclamation" href="/security/limits">What Hoista can’t protect against.</Card>
+<Card title="Credential storage" icon="key" href="/security/credentials">Where tokens are kept.</Card>
+</CardGroup>

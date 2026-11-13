@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT secret_metadata.resource_id,secret_metadata.name,secret_metadata.data FROM secret_metadata JOIN resources ON resources.id = secret_metadata.resource_id WHERE resources.project_id = ? AND (secret_metadata.resource_id > ? OR (secret_metadata.resource_id = ? AND secret_metadata.name > ?)) ORDER BY secret_metadata.resource_id,secret_metadata.name LIMIT 101",
+  "describe": {
+    "columns": [
+      {
+        "name": "resource_id",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "name",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "data",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "fe7e731e56f77e1222a195c5c78c1c0f1d3c0104886f7f9ffb5d52ecc9735e47"
+}

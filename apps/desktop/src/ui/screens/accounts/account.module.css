@@ -1,0 +1,28 @@
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.small {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.inline {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--text);
+  text-decoration: underline;
+}

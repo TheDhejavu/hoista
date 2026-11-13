@@ -1,0 +1,50 @@
+---
+title: "Runpod"
+description: "Connect a Runpod account to manage pods, Serverless endpoints and network volumes."
+icon: "/logos/runpod.svg"
+---
+
+Hoista finds the GPU and CPU pods, Serverless endpoints and network volumes in a Runpod account. It shows what each is doing and what the account has cost, and can deploy a new pod or endpoint.
+
+## Connect
+
+Runpod connects with an API key:
+
+1. Open [Settings](https://console.runpod.io/user/settings): **Settings → API Keys → Create API Key**. Name it Hoista and choose **All**. A **Read only** key lets Hoista see your pods but not restart or stop them.
+2. Copy the key. It starts with `rpa_` and Runpod shows it once.
+3. In Desktop, open **Accounts**, choose Runpod and paste the key.
+
+From the CLI:
+
+```bash
+hoist accounts add runpod
+```
+
+Hoista asks for the key in a hidden prompt, then finds the account it belongs to. In scripts, use `hoist accounts add runpod --name NAME --token-stdin`, and add `--account <account-id>` if the token reaches more than one account.
+
+## What you can do
+
+- Deploy a pod or a Serverless endpoint from a folder or a container image.
+- See logs on the **Logs** tab and metrics on **Metrics**.
+- Use the **Runpod** tab for Runpod's own operations, such as starting and stopping a pod.
+- See what Runpod has billed the account this month on **Billing**.
+- Delete a pod, endpoint or network volume after you confirm it by name.
+
+## Bring in existing resources
+
+Hoista looks for resources when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --new my-app
+```
+
+Projects start in **watching** mode. Run `hoist projects manage my-app` when you want Hoista to make changes. To look again, run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

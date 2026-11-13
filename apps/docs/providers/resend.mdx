@@ -1,0 +1,54 @@
+---
+title: "Resend"
+description: "Connect a Resend team to manage sending domains and see plan usage."
+icon: "/logos/resend.svg"
+---
+
+Hoista finds the sending domains of a Resend team and shows whether each can send yet. It can add new sending domains and shows the team's recent emails.
+
+## Connect
+
+Resend connects with an API key:
+
+1. Open [API Keys](https://resend.com/api-keys): **API Keys → Create API Key**. Name it Hoista and choose **Full access** for all domains.
+2. Copy the key. It starts with `re_` and Resend shows it once.
+3. In Desktop, open **Accounts**, choose Resend and paste the key.
+
+<Frame caption="Resend’s API Keys page, captured November 2026. Personal details are blurred. If yours looks different, the names in the steps still match.">
+  <img src="/assets/tokens/resend-token.webp" alt="Resend’s API Keys page" />
+</Frame>
+
+From the CLI:
+
+```bash
+hoist accounts add resend
+```
+
+Hoista asks for the key in a hidden prompt. In scripts, use `hoist accounts add resend --name NAME --token-stdin`, and add `--account <team>` if the token reaches more than one team.
+
+## What you can do
+
+- Add a sending domain and see the DNS records Resend needs to verify it.
+- See recent emails and logs on the **Logs** tab, and metrics on **Metrics**.
+- See the team's plan usage on **Billing**: emails this month and today, domains and contacts. Resend doesn't share a bill through its API.
+- Use the **Resend** tab for Resend's own operations.
+- Delete a sending domain after you confirm it by name.
+
+## Bring in existing resources
+
+Hoista looks for sending domains when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --project my-app
+```
+
+`--project my-app` adds the domain to an existing project, such as the app that sends the email. Use `--new <name>` to start a new one. Projects start in **watching** mode. To look again, run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

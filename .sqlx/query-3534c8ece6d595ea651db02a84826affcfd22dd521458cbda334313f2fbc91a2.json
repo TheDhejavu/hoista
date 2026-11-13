@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT (SELECT count(*) FROM oauth_pending) AS pending, (SELECT count(*) FROM agents WHERE json_extract(data,'$.revoked') = 0) AS agents",
+  "describe": {
+    "columns": [
+      {
+        "name": "pending",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "agents",
+        "ordinal": 1,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "3534c8ece6d595ea651db02a84826affcfd22dd521458cbda334313f2fbc91a2"
+}

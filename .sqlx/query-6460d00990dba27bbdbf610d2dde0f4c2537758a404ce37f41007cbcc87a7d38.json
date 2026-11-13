@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT EXISTS(SELECT 1 FROM deploys WHERE project_id = ? AND status IN ('queued','running')) AS pending",
+  "describe": {
+    "columns": [
+      {
+        "name": "pending",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "6460d00990dba27bbdbf610d2dde0f4c2537758a404ce37f41007cbcc87a7d38"
+}

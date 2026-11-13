@@ -1,0 +1,3413 @@
+{
+ "cli": "render",
+ "version": "2.35.0",
+ "source": "render 2.35.0 --help",
+ "commands": [
+  {
+   "name": "render ea blueprints approve",
+   "words": [
+    "ea",
+    "blueprints",
+    "approve"
+   ],
+   "area": "Blueprints",
+   "risk": "change",
+   "description": "Approve a Blueprint's newest sync.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "blueprintid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<blueprintId>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "manual-env-vars-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Read manually-supplied environment variables from a JSON file, or - for stdin (defaults to ~/.render/state/manual-env-vars/<blueprintID>.json)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render ea blueprints create",
+   "words": [
+    "ea",
+    "blueprints",
+    "create"
+   ],
+   "area": "Blueprints",
+   "risk": "change",
+   "description": "Create a Blueprint and plan its first sync.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "auto-sync",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Automatically sync future pushes after the first approval (default: true)",
+     "path": false
+    },
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the branch (defaults to the local branch, or the repository's default branch with --repo)",
+     "path": false
+    },
+    {
+     "name": "existing-resources",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set how to handle existing resources: create_new or adopt (default: \"create_new\")",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Blueprint name (defaults to the repository name)",
+     "path": false
+    },
+    {
+     "name": "path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Blueprint file path relative to the repository root (default: \"render.yaml\")",
+     "path": true
+    },
+    {
+     "name": "repo",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the repository URL (defaults to the local remote named \"origin\")",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render ea blueprints plan",
+   "words": [
+    "ea",
+    "blueprints",
+    "plan"
+   ],
+   "area": "Blueprints",
+   "risk": "read",
+   "description": "Plan a sync of a Blueprint.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "blueprintid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<blueprintId>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render ea blueprints update",
+   "words": [
+    "ea",
+    "blueprints",
+    "update"
+   ],
+   "area": "Blueprints",
+   "risk": "change",
+   "description": "Update a Blueprint's settings.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "blueprintid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<blueprintId>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "auto-sync",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable automatic syncs of future pushes (pass --auto-sync=false to disable)",
+     "path": false
+    },
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the branch to read the Blueprint file from",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Blueprint name",
+     "path": false
+    },
+    {
+     "name": "path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Blueprint file path relative to the repository root",
+     "path": true
+    }
+   ]
+  },
+  {
+   "name": "render deploys cancel",
+   "words": [
+    "deploys",
+    "cancel"
+   ],
+   "area": "Deploys",
+   "risk": "destroy",
+   "description": "Cancel a running deploy.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<serviceID>",
+     "path": false
+    },
+    {
+     "name": "deployid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<deployID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render deploys create",
+   "words": [
+    "deploys",
+    "create"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Trigger a service deploy and stream logs in real time.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[serviceID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "clear-cache",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Clear build cache before deploying",
+     "path": false
+    },
+    {
+     "name": "commit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Deploy the specified commit ID",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Deploy the specified Docker image URL",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render deploys list",
+   "words": [
+    "deploys",
+    "list"
+   ],
+   "area": "Deploys",
+   "risk": "read",
+   "description": "List deploys for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[serviceID]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render jobs cancel",
+   "words": [
+    "jobs",
+    "cancel"
+   ],
+   "area": "Jobs",
+   "risk": "destroy",
+   "description": "Cancel a running job.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<serviceID>",
+     "path": false
+    },
+    {
+     "name": "jobid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<jobID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render jobs create",
+   "words": [
+    "jobs",
+    "create"
+   ],
+   "area": "Jobs",
+   "risk": "change",
+   "description": "Create a new job for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[serviceID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "plan-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the plan ID for the job (Optional)",
+     "path": false
+    },
+    {
+     "name": "start-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the job start command",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render jobs list",
+   "words": [
+    "jobs",
+    "list"
+   ],
+   "area": "Jobs",
+   "risk": "read",
+   "description": "List jobs for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[serviceID]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render keyvalues create",
+   "words": [
+    "keyvalues",
+    "create"
+   ],
+   "area": "Key Value",
+   "risk": "change",
+   "description": "Create a new Render Key Value instance.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the environment to create the Key Value in (ID or name, optional). Example: Production or evm-abc123def456",
+     "path": false
+    },
+    {
+     "name": "ip-allow-list",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Restrict inbound traffic to specific IP ranges (format: cidr=<range>,description=<label>). Repeat the flag for multiple entries",
+     "path": false
+    },
+    {
+     "name": "memory-policy",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the eviction policy used when the instance runs out of memory.",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Key Value instance name (generated if not provided)",
+     "path": false
+    },
+    {
+     "name": "persistence-mode",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the on-disk persistence mode: journal_snapshot | snapshot | off (off loses data on restart; omit to use the plan default)",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the plan to one of: free | 256mb | 1g | 5g | 10g | 20g | 40g. Custom enterprise plan names are also accepted",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Scope environment lookup to a project (ID or name, optional); if the project has exactly one environment it is used automatically",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the region: frankfurt | ohio | oregon | singapore | virginia",
+     "path": false
+    },
+    {
+     "name": "workspace",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the workspace to create the Key Value in (ID or name). Defaults to the active workspace (set via 'render workspace set')",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render keyvalues delete",
+   "words": [
+    "keyvalues",
+    "delete"
+   ],
+   "area": "Key Value",
+   "risk": "destroy",
+   "description": "Delete a Render Key Value instance.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "keyvalueid_keyvaluename",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<keyValueID|keyValueName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Key Value name exists in multiple environments",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render keyvalues get",
+   "words": [
+    "keyvalues",
+    "get"
+   ],
+   "area": "Key Value",
+   "risk": "read",
+   "description": "Get details of a Render Key Value instance.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "keyvalueid_keyvaluename",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<keyValueID|keyValueName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Key Value name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to a project (ID or name, optional) within the active workspace",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render keyvalues list",
+   "words": [
+    "keyvalues",
+    "list"
+   ],
+   "area": "Key Value",
+   "risk": "read",
+   "description": "List Render Key Value instances.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow results to a single environment (ID or name, optional)",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow results to environments in a project (ID or name, optional)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render keyvalues resume",
+   "words": [
+    "keyvalues",
+    "resume"
+   ],
+   "area": "Key Value",
+   "risk": "change",
+   "description": "Resume a suspended Render Key Value instance.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "keyvalueid_keyvaluename",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<keyValueID|keyValueName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Key Value name exists in multiple environments",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render keyvalues suspend",
+   "words": [
+    "keyvalues",
+    "suspend"
+   ],
+   "area": "Key Value",
+   "risk": "destroy",
+   "description": "Suspend a Render Key Value instance.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "keyvalueid_keyvaluename",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<keyValueID|keyValueName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Key Value name exists in multiple environments",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render keyvalues update",
+   "words": [
+    "keyvalues",
+    "update"
+   ],
+   "area": "Key Value",
+   "risk": "change",
+   "description": "Update a Render Key Value instance.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "keyvalueid_keyvaluename",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<keyValueID|keyValueName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "clear-ip-allow-list",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove all IP allow-list entries. Mutually exclusive with --ip-allow-list",
+     "path": false
+    },
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Key Value name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "ip-allow-list",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Replace the IP allow-list with the supplied entries (format: cidr=<range>,description=<label>). Repeat the flag for multiple entries",
+     "path": false
+    },
+    {
+     "name": "memory-policy",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the eviction policy used when the instance runs out of memory.",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Rename the Key Value instance",
+     "path": false
+    },
+    {
+     "name": "persistence-mode",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the on-disk persistence mode: journal_snapshot | snapshot | off (off loses data on restart)",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the plan to one of: free | 256mb | 1g | 5g | 10g | 20g | 40g. Custom enterprise plan names are also accepted",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render logs",
+   "words": [
+    "logs"
+   ],
+   "area": "Logs",
+   "risk": "read",
+   "description": "View logs for services and datastores.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "resources"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [
+    "--limit=500"
+   ],
+   "args": [],
+   "flags": [
+    {
+     "name": "direction",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set log query direction (backward or forward)",
+     "path": false
+    },
+    {
+     "name": "end",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs at or before the specified end time",
+     "path": false
+    },
+    {
+     "name": "host",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated host values",
+     "path": false
+    },
+    {
+     "name": "instance",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated instance IDs",
+     "path": false
+    },
+    {
+     "name": "level",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated log levels",
+     "path": false
+    },
+    {
+     "name": "method",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated HTTP methods",
+     "path": false
+    },
+    {
+     "name": "path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated request paths",
+     "path": true
+    },
+    {
+     "name": "start",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs at or after the specified start time",
+     "path": false
+    },
+    {
+     "name": "status-code",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated status codes",
+     "path": false
+    },
+    {
+     "name": "task-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated task IDs",
+     "path": false
+    },
+    {
+     "name": "task-run-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated task run IDs",
+     "path": false
+    },
+    {
+     "name": "text",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated text values",
+     "path": false
+    },
+    {
+     "name": "type",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs by comma-separated log types",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres create",
+   "words": [
+    "postgres",
+    "create"
+   ],
+   "area": "Postgres",
+   "risk": "change",
+   "description": "Create a new Render Postgres database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "connection-pool",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set connection pool to 'none' or 'pgbouncer' (default: \"none\")",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Postgres database name (server generates one if unset)",
+     "path": false
+    },
+    {
+     "name": "database-user",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Postgres database user (server generates one if unset)",
+     "path": false
+    },
+    {
+     "name": "datadog-site",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Datadog region/site (e.g. US1, US3, EU). Server default is US1",
+     "path": false
+    },
+    {
+     "name": "disk-autoscaling",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable disk autoscaling",
+     "path": false
+    },
+    {
+     "name": "disk-size-gb",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the disk size in GB. Must be 1 or a multiple of 5. Server picks a sensible default based on compute size if unset (default: 0)",
+     "path": false
+    },
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the environment to create the database in (ID or name, optional). Example: Production or evm-abc123def456",
+     "path": false
+    },
+    {
+     "name": "high-availability",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable high availability (available for plans with at least 1 CPU)",
+     "path": false
+    },
+    {
+     "name": "ip-allow-list",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Restrict inbound traffic to specific IP ranges (format: cidr=<range>,description=<label>). Repeat the flag for multiple entries",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the database name (generated if not provided)",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the plan to one of: free | 0.1c-256mb | 0.5c-1g | 1c-2g | 1c-4g | 2c-4g | 2c-8g | 2c-16g | 4c-16g | 4c-32g | 8c-32g | 8c-64g | 16c-64g | 16c-128g | 32c-128g | 32c-256g | 48c-192g | 48c-384g | 64c-256g | 64c-512g | 96c-384g | 96c-768g | 128c-512g | 128c-1024g. Custom enterprise plan names are also accepted",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Scope environment lookup to a project (ID or name, optional); if the project has exactly one environment it is used automatically",
+     "path": false
+    },
+    {
+     "name": "read-replica",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Create a read replica with the given name alongside the primary. Repeat the flag for multiple replicas",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the region: frankfurt | ohio | oregon | singapore | virginia (server picks if unset)",
+     "path": false
+    },
+    {
+     "name": "version",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Postgres major version. Defaults to 18 (default: 0)",
+     "path": false
+    },
+    {
+     "name": "workspace",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the workspace to create the database in (ID or name). Defaults to the active workspace (set via 'render workspace set')",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres delete",
+   "words": [
+    "postgres",
+    "delete"
+   ],
+   "area": "Postgres",
+   "risk": "destroy",
+   "description": "Delete a Render Postgres database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgresid_postgresname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<postgresID|postgresName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Postgres database name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to a project (ID or name, optional) when the same Postgres database name exists in multiple projects",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres get",
+   "words": [
+    "postgres",
+    "get"
+   ],
+   "area": "Postgres",
+   "risk": "read",
+   "description": "Get details of a Render Postgres database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgresid_postgresname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<postgresID|postgresName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Postgres database name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to a project (ID or name, optional) within the active workspace",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres list",
+   "words": [
+    "postgres",
+    "list"
+   ],
+   "area": "Postgres",
+   "risk": "read",
+   "description": "List Render Postgres databases.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow results to a single environment (ID or name, optional)",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow results to environments in a project (ID or name, optional)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres resume",
+   "words": [
+    "postgres",
+    "resume"
+   ],
+   "area": "Postgres",
+   "risk": "change",
+   "description": "Resume a suspended Render Postgres database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgresid_postgresname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<postgresID|postgresName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Postgres database name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to a project (ID or name, optional) when the same Postgres database name exists in multiple projects",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres suspend",
+   "words": [
+    "postgres",
+    "suspend"
+   ],
+   "area": "Postgres",
+   "risk": "destroy",
+   "description": "Suspend a Render Postgres database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgresid_postgresname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<postgresID|postgresName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Postgres database name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to a project (ID or name, optional) when the same Postgres database name exists in multiple projects",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render postgres update",
+   "words": [
+    "postgres",
+    "update"
+   ],
+   "area": "Postgres",
+   "risk": "change",
+   "description": "Update a Render Postgres database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "postgresid_postgresname",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<postgresID|postgresName>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "clear-ip-allow-list",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove all IP allow-list entries. Mutually exclusive with --ip-allow-list",
+     "path": false
+    },
+    {
+     "name": "connection-pool",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set connection pool to 'none' or 'pgbouncer' (default: \"none\")",
+     "path": false
+    },
+    {
+     "name": "datadog-site",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Datadog region/site (e.g. US1, US3, EU)",
+     "path": false
+    },
+    {
+     "name": "disk-autoscaling",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable disk autoscaling. Pass --disk-autoscaling=false to disable",
+     "path": false
+    },
+    {
+     "name": "disk-size-gb",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the disk size in GB. Must be 1 or a multiple of 5 (default: 0)",
+     "path": false
+    },
+    {
+     "name": "environment",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to an environment (ID or name, optional) when the same Postgres database name exists in multiple environments",
+     "path": false
+    },
+    {
+     "name": "high-availability",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable high availability (available for plans with at least 1 CPU). Pass --high-availability=false to disable",
+     "path": false
+    },
+    {
+     "name": "ip-allow-list",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Replace the IP allow-list with the supplied entries (format: cidr=<range>,description=<label>). Repeat the flag for multiple entries",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Rename the database",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the plan to one of: free | 0.1c-256mb | 0.5c-1g | 1c-2g | 1c-4g | 2c-4g | 2c-8g | 2c-16g | 4c-16g | 4c-32g | 8c-32g | 8c-64g | 16c-64g | 16c-128g | 32c-128g | 32c-256g | 48c-192g | 48c-384g | 64c-256g | 64c-512g | 96c-384g | 96c-768g | 128c-512g | 128c-1024g. Custom enterprise plan names are also accepted",
+     "path": false
+    },
+    {
+     "name": "project",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Narrow lookup to a project (ID or name, optional) when the same Postgres database name exists in multiple projects",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render environments",
+   "words": [
+    "environments"
+   ],
+   "area": "Projects",
+   "risk": "read",
+   "description": "List project environments by project ID.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "projectid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<projectID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render projects",
+   "words": [
+    "projects"
+   ],
+   "area": "Projects",
+   "risk": "read",
+   "description": "List projects in the active workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "render sandbox-groups create",
+   "words": [
+    "sandbox-groups",
+    "create"
+   ],
+   "area": "Sandboxes",
+   "risk": "change",
+   "description": "Create a sandbox group in the active workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name for the group, unique within the workspace",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandbox-groups images get",
+   "words": [
+    "sandbox-groups",
+    "images",
+    "get"
+   ],
+   "area": "Sandboxes",
+   "risk": "read",
+   "description": "Get a sandbox image.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "imageid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<imageId>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox group the image belongs to (defaults to the active workspace's default group)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandbox-groups images import",
+   "words": [
+    "sandbox-groups",
+    "images",
+    "import"
+   ],
+   "area": "Sandboxes",
+   "risk": "change",
+   "description": "Import an image so sandboxes can start from it.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "source",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<source>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox group to import into (defaults to the active workspace's default group)",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name of the image. Every version of an image shares it",
+     "path": false
+    },
+    {
+     "name": "registry-username",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Username for pulling the image from a private registry",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandbox-groups list",
+   "words": [
+    "sandbox-groups",
+    "list"
+   ],
+   "area": "Sandboxes",
+   "risk": "read",
+   "description": "List sandbox groups in the active workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "render sandboxes copy",
+   "words": [
+    "sandboxes",
+    "copy"
+   ],
+   "area": "Sandboxes",
+   "risk": "change",
+   "description": "Copy files to or from a sandbox.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "src",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<src>",
+     "path": false
+    },
+    {
+     "name": "dst",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<dst>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render sandboxes create",
+   "words": [
+    "sandboxes",
+    "create"
+   ],
+   "area": "Sandboxes",
+   "risk": "change",
+   "description": "Create a new sandbox.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "allow-egress-https",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Allow outbound HTTPS to a domain, e.g. api.example.com or *.example.com. Repeat for multiple domains. Implies --network-policy=allow-list",
+     "path": false
+    },
+    {
+     "name": "env-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to an env file to load. Repeat to load multiple files (later files override earlier ones). Every listed file must exist",
+     "path": false
+    },
+    {
+     "name": "env-var",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set environment variables in KEY=VALUE format (can be specified multiple times). Inline values override values loaded from --env-file",
+     "path": false
+    },
+    {
+     "name": "from",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Start from a snapshot ID or name",
+     "path": false
+    },
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox group ID. Omit to use the workspace default group",
+     "path": false
+    },
+    {
+     "name": "idle-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Seconds of inactivity before suspension. 0 disables automatic idle suspension (default: 900)",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Start from an imported image instead of the base image, by image ID or name. A name uses the newest succeeded image with that name in the sandbox group",
+     "path": false
+    },
+    {
+     "name": "network-policy",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Outbound network policy: allow-all, deny-all, allow-list",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Compute plan: 1c-2g, 2c-4g, 4c-8g, 8c-16g",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Accepted for compatibility; placement uses the sandbox group region",
+     "path": false
+    },
+    {
+     "name": "snapshot-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Start from this snapshot instead of the base image. The snapshot must be available and in the same sandbox group. A runtime snapshot requires --plan to match its plan",
+     "path": false
+    },
+    {
+     "name": "timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum sandbox lifetime in seconds, up to 2592000 (30 days), or 86400 (24 hours) on Hobby workspaces. 0 means no timeout. Omit to use the default of 86400 (24 hours) (default: 0)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandboxes list",
+   "words": [
+    "sandboxes",
+    "list"
+   ],
+   "area": "Sandboxes",
+   "risk": "read",
+   "description": "List sandboxes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include terminated sandboxes",
+     "path": false
+    },
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by sandbox group ID",
+     "path": false
+    },
+    {
+     "name": "status",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by status (repeatable: creating, running, suspending, suspended, resuming, errored, terminated)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandboxes snapshots create",
+   "words": [
+    "sandboxes",
+    "snapshots",
+    "create"
+   ],
+   "area": "Sandboxes",
+   "risk": "change",
+   "description": "Snapshot a running sandbox.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "sandboxid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<sandboxId>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "kind",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Snapshot kind: runtime (default), filesystem",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name the snapshot",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandboxes snapshots delete",
+   "words": [
+    "sandboxes",
+    "snapshots",
+    "delete"
+   ],
+   "area": "Sandboxes",
+   "risk": "destroy",
+   "description": "Delete a sandbox snapshot.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "snapshotid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<snapshotId>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox group the snapshot belongs to (defaults to the active workspace's default group)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandboxes snapshots get",
+   "words": [
+    "sandboxes",
+    "snapshots",
+    "get"
+   ],
+   "area": "Sandboxes",
+   "risk": "read",
+   "description": "Get a sandbox snapshot.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "snapshotid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<snapshotId>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox group the snapshot belongs to (defaults to the active workspace's default group)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandboxes snapshots list",
+   "words": [
+    "sandboxes",
+    "snapshots",
+    "list"
+   ],
+   "area": "Sandboxes",
+   "risk": "read",
+   "description": "List sandbox snapshots.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox group to list (defaults to the active workspace's default group)",
+     "path": false
+    },
+    {
+     "name": "status",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by status (repeatable: creating, available, failed)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render sandboxes stop",
+   "words": [
+    "sandboxes",
+    "stop"
+   ],
+   "area": "Sandboxes",
+   "risk": "destroy",
+   "description": "Terminate a sandbox.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "sandboxid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<sandboxId>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render restart",
+   "words": [
+    "restart"
+   ],
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Restart a service by resource ID.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "resourceid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<resourceID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render services create",
+   "words": [
+    "services",
+    "create"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Create a new service or clone an existing one.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "auto-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable auto-deploy (default: true)",
+     "path": false
+    },
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Git branch",
+     "path": false
+    },
+    {
+     "name": "build-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the build command",
+     "path": false
+    },
+    {
+     "name": "build-filter-ignored-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set build filter ignored paths (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "build-filter-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set build filter paths (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "cron-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the cron command",
+     "path": false
+    },
+    {
+     "name": "cron-schedule",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the cron schedule",
+     "path": false
+    },
+    {
+     "name": "env-var",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set environment variables in KEY=VALUE format (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "environment-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the environment ID",
+     "path": false
+    },
+    {
+     "name": "from",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Clone configuration from an existing service ID or name and override cloned values with other flags",
+     "path": false
+    },
+    {
+     "name": "health-check-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the health check path",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Docker image URL",
+     "path": false
+    },
+    {
+     "name": "ip-allow-list",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set IP allow list entries in cidr=..., description=... format (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "maintenance-mode",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable maintenance mode",
+     "path": false
+    },
+    {
+     "name": "maintenance-mode-uri",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the maintenance mode URI",
+     "path": false
+    },
+    {
+     "name": "max-shutdown-delay",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set max shutdown delay in seconds (default: 0)",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the service name",
+     "path": false
+    },
+    {
+     "name": "num-instances",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the number of instances (default: 0)",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the service plan",
+     "path": false
+    },
+    {
+     "name": "pre-deploy-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the pre-deploy command",
+     "path": false
+    },
+    {
+     "name": "previews",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set preview generation mode",
+     "path": false
+    },
+    {
+     "name": "publish-directory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the publish directory",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the deployment region",
+     "path": false
+    },
+    {
+     "name": "repo",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the Git repository URL",
+     "path": false
+    },
+    {
+     "name": "root-directory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the root directory",
+     "path": false
+    },
+    {
+     "name": "runtime",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the runtime environment",
+     "path": false
+    },
+    {
+     "name": "start-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the start command",
+     "path": false
+    },
+    {
+     "name": "type",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the service type",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render services delete",
+   "words": [
+    "services",
+    "delete"
+   ],
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Delete a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid_servicename",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<serviceID|serviceName>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render services instances",
+   "words": [
+    "services",
+    "instances"
+   ],
+   "area": "Services",
+   "risk": "read",
+   "description": "List instances for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "serviceid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[serviceID]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render services update",
+   "words": [
+    "services",
+    "update"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Update configuration for an existing service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "service",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<service>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "auto-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable auto-deploy",
+     "path": false
+    },
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Git branch",
+     "path": false
+    },
+    {
+     "name": "build-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Build command",
+     "path": false
+    },
+    {
+     "name": "build-filter-ignored-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Build filter ignored path (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "build-filter-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Build filter path (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "cron-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Cron command",
+     "path": false
+    },
+    {
+     "name": "cron-schedule",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Cron schedule",
+     "path": false
+    },
+    {
+     "name": "health-check-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Health check path",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Docker image URL",
+     "path": false
+    },
+    {
+     "name": "ip-allow-list",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "IP allow list entry in cidr=..., description=... format (can be specified multiple times)",
+     "path": false
+    },
+    {
+     "name": "maintenance-mode",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable maintenance mode",
+     "path": false
+    },
+    {
+     "name": "maintenance-mode-uri",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maintenance mode URI",
+     "path": false
+    },
+    {
+     "name": "max-shutdown-delay",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Max shutdown delay in seconds (default: 0)",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Service name",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Service plan",
+     "path": false
+    },
+    {
+     "name": "pre-deploy-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Pre-deploy command",
+     "path": false
+    },
+    {
+     "name": "previews",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Preview generation mode",
+     "path": false
+    },
+    {
+     "name": "publish-directory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Publish directory",
+     "path": false
+    },
+    {
+     "name": "repo",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Git repository URL",
+     "path": false
+    },
+    {
+     "name": "root-directory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Root directory",
+     "path": false
+    },
+    {
+     "name": "runtime",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Runtime environment",
+     "path": false
+    },
+    {
+     "name": "start-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Start command",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows cancel",
+   "words": [
+    "workflows",
+    "cancel"
+   ],
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Cancel a workflow task run (shortcut for `tasks runs cancel`).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "taskrunid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<taskRunID>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows create",
+   "words": [
+    "workflows",
+    "create"
+   ],
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Create a new workflow service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "auto-deploy-trigger",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Autodeploy behavior (commit, off, checksPass; default: commit)",
+     "path": false
+    },
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Git branch (Optional)",
+     "path": false
+    },
+    {
+     "name": "build-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Build command. Required in non-interactive mode",
+     "path": false
+    },
+    {
+     "name": "env-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to an env file to load. Repeat to load multiple files (later files override earlier ones). Every listed file must exist",
+     "path": false
+    },
+    {
+     "name": "env-var",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set environment variables in KEY=VALUE format (can be specified multiple times). Inline values override values loaded from --env-file",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Workflow name. Required in non-interactive mode",
+     "path": false
+    },
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Deployment region (default: oregon)",
+     "path": false
+    },
+    {
+     "name": "repo",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Git repository URL, or a local directory path (e.g. '.') to resolve via the repo's origin remote. Required in non-interactive mode",
+     "path": false
+    },
+    {
+     "name": "root-directory",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Root directory in the repository (Optional)",
+     "path": false
+    },
+    {
+     "name": "run-command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Command to run the workflow. Required in non-interactive mode",
+     "path": false
+    },
+    {
+     "name": "runtime",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Runtime (node, python, go, ruby, elixir). Required in non-interactive mode",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows flows get",
+   "words": [
+    "workflows",
+    "flows",
+    "get"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Show details for a flow.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "flowid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<flowID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render workflows flows list",
+   "words": [
+    "workflows",
+    "flows",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List flows in the active workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "cursor",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Pagination cursor from a previous page (printed to stderr when more results are available)",
+     "path": false
+    },
+    {
+     "name": "flow-slug",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by flow slug (workflow-slug/flow-name[:version], repeatable)",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of items to return per page (default: 100)",
+     "path": false
+    },
+    {
+     "name": "workflow",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by workflow ID or slug (repeatable)",
+     "path": false
+    },
+    {
+     "name": "workflow-version",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by workflow version ID (repeatable)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows flows runs cancel",
+   "words": [
+    "workflows",
+    "flows",
+    "runs",
+    "cancel"
+   ],
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Cancel a running flow run.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "flowrunid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<flowRunID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render workflows flows runs list",
+   "words": [
+    "workflows",
+    "flows",
+    "runs",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List flow runs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "cursor",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Pagination cursor from a previous page (printed to stderr when more results are available)",
+     "path": false
+    },
+    {
+     "name": "flow",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by flow ID (repeatable)",
+     "path": false
+    },
+    {
+     "name": "flow-slug",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by flow slug (repeatable)",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of items to return per page (default: 100)",
+     "path": false
+    },
+    {
+     "name": "status",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by flow run status (pending|running|succeeded|failed|canceled|paused, repeatable)",
+     "path": false
+    },
+    {
+     "name": "workflow",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by workflow ID or slug (repeatable)",
+     "path": false
+    },
+    {
+     "name": "workflow-version",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter by workflow version ID (repeatable)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows flows runs show",
+   "words": [
+    "workflows",
+    "flows",
+    "runs",
+    "show"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Show detailed information about a flow run.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "flowrunid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<flowRunID>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render workflows flows runs start",
+   "words": [
+    "workflows",
+    "flows",
+    "runs",
+    "start"
+   ],
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Start a flow run with the provided input.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "flowslug",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<flowSlug>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "flow",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Flow slug (alternative to the positional argument)",
+     "path": false
+    },
+    {
+     "name": "idempotency-key",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Client-generated key that makes starting the run safe to retry within 24 hours",
+     "path": false
+    },
+    {
+     "name": "input",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Flow input as JSON (array for positional args, object for named parameters)",
+     "path": false
+    },
+    {
+     "name": "input-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Read flow input from a JSON file path",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows flows runs steps list",
+   "words": [
+    "workflows",
+    "flows",
+    "runs",
+    "steps",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List the steps a flow run has recorded.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "flowrunid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<flowRunID>",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "cursor",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Pagination cursor from a previous page (printed to stderr when more results are available)",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of items to return per page (default: 100)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows flows runs steps show",
+   "words": [
+    "workflows",
+    "flows",
+    "runs",
+    "steps",
+    "show"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Show detailed information about a flow run step.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "flowrunid",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<flowRunID>",
+     "path": false
+    },
+    {
+     "name": "stepseq",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "<stepSeq>",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render workflows list",
+   "words": [
+    "workflows",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List workflow services in your workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "render workflows start",
+   "words": [
+    "workflows",
+    "start"
+   ],
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Start a workflow task run (shortcut for `tasks runs start`).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "taskslug",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[taskSlug]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "input",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Provide task input as a JSON array",
+     "path": false
+    },
+    {
+     "name": "input-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Read task input from a JSON file path",
+     "path": false
+    },
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    },
+    {
+     "name": "task",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "ID or slug of the task to run (alternative to the positional argument)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows tasks list",
+   "words": [
+    "workflows",
+    "tasks",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List tasks in a workflow version.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "workflowversionid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[workflowVersionID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows tasks runs cancel",
+   "words": [
+    "workflows",
+    "tasks",
+    "runs",
+    "cancel"
+   ],
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Cancel a running task run.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "taskrunid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[taskRunID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows tasks runs list",
+   "words": [
+    "workflows",
+    "tasks",
+    "runs",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List all execution runs for a specific task.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "taskid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[taskID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "task",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "ID or slug of the task whose runs to list (alternative to the positional argument)",
+     "path": false
+    },
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows tasks runs show",
+   "words": [
+    "workflows",
+    "tasks",
+    "runs",
+    "show"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Show detailed information about a task run.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "taskrunid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[taskRunID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows tasks runs start",
+   "words": [
+    "workflows",
+    "tasks",
+    "runs",
+    "start"
+   ],
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Start a task run with the provided input.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "taskslug",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[taskSlug]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "input",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Provide task input as a JSON array",
+     "path": false
+    },
+    {
+     "name": "input-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Read task input from a JSON file path",
+     "path": false
+    },
+    {
+     "name": "task",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "ID or slug of the task to run (alternative to the positional argument)",
+     "path": false
+    },
+    {
+     "name": "local",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Run against the local workflow development server",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set the port of the local task server (default: 8120)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workflows versions list",
+   "words": [
+    "workflows",
+    "versions",
+    "list"
+   ],
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List versions of a workflow.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "workflowid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[workflowID]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "render workflows versions release",
+   "words": [
+    "workflows",
+    "versions",
+    "release"
+   ],
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Release a new workflow version.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "workflowid",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "[workflowID]",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "commit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Release the specified commit ID",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "render workspaces",
+   "words": [
+    "workspaces"
+   ],
+   "area": "Workspace",
+   "risk": "read",
+   "description": "List workspaces available to your account.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  }
+ ]
+}

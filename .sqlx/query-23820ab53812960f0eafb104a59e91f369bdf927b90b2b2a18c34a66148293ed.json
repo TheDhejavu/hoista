@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT resource_id FROM ignored_resources WHERE resource_id=?",
+  "describe": {
+    "columns": [
+      {
+        "name": "resource_id",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "23820ab53812960f0eafb104a59e91f369bdf927b90b2b2a18c34a66148293ed"
+}

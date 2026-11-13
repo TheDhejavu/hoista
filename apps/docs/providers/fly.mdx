@@ -1,0 +1,59 @@
+---
+title: "Fly.io"
+description: "Connect a Fly.io organization to deploy and manage apps and Machines."
+icon: "/logos/fly.svg"
+---
+
+Hoista finds the Fly Apps in an organization, with their Machines. It deploys apps, rolls them back, pauses and resumes them, sets secrets and custom domains, and can run your [remote](/guides/remote).
+
+## Connect
+
+Fly.io connects with a token:
+
+1. Open [Tokens](https://fly.io/dashboard/personal/tokens) in the Fly.io dashboard, pick the organization under **Organization**, and choose **Create Organization Token**. Fly.io asks for a payment method before it runs any app.
+2. Copy the token. It starts with `FlyV1`.
+3. In Desktop, open **Accounts**, choose Fly.io, paste the token and pick the organization.
+
+<Frame caption="Fly.io’s Organization Tokens page, captured November 2026. Personal details are blurred. If yours looks different, the names in the steps still match.">
+  <img src="/assets/tokens/fly-token.webp" alt="Fly.io’s Organization Tokens page" />
+</Frame>
+
+From the CLI:
+
+```bash
+hoist accounts add fly
+```
+
+Hoista asks for the token in a hidden prompt and finds the organization from it. In scripts, use `hoist accounts add fly --name NAME --token-stdin`, and add `--account <organization-slug>` if the token reaches more than one organization.
+
+## What you can do
+
+- Deploy an app from a folder with `hoist deploy`, or from a container image. Roll back with `hoist rollback`.
+- Pause and resume an app with `hoist resources pause` and `hoist resources resume`. Fly.io still charges for storage while an app is paused.
+- Set variables and secrets on the **Variables** tab or with `hoist env`.
+- Add custom domains with `hoist domains add`. Fly.io issues the certificate. Hoista shows the DNS records to add at your DNS provider, and `hoist domains check` checks them.
+- See logs on the **Logs** tab and metrics on **Metrics**.
+- Use the **Fly.io** tab for Fly.io's own settings and operations.
+- Run your remote on Fly.io with `hoist remote create fly --account <account> --repo OWNER/NAME`. Until Hoista publishes a server image, `--repo` is needed; see [Set one up](/guides/remote#set-one-up).
+- Delete an app at Fly.io after you confirm it by name.
+
+Fly.io's bill isn't shown on **Billing**. See it in the Fly.io dashboard.
+
+## Bring in existing resources
+
+Hoista looks for apps when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --new my-app
+```
+
+Projects start in **watching** mode. Run `hoist projects manage my-app` when you want Hoista to make changes. To look again, run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

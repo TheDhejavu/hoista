@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# A page that only says how something ended. #}
+{% block content %}
+{%- match left %}{% when Some(left) %}<div class="pair"><span class="tile">{{ left|safe }}</span>{% call parts::to_hoista(done) %}{% endcall %}</div>{% when None %}{% call parts::hoista() %}{% endcall %}{% endmatch %}
+<section class="card"><h1>{{ title }}</h1><p class="sub">{{ text }}</p></section>
+{% endblock %}

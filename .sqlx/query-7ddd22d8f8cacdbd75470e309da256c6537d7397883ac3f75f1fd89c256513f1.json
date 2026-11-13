@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO links (id, from_resource, to_resource, data) VALUES (?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET from_resource = excluded.from_resource, to_resource = excluded.to_resource, data = excluded.data",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "7ddd22d8f8cacdbd75470e309da256c6537d7397883ac3f75f1fd89c256513f1"
+}

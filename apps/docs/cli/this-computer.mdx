@@ -1,0 +1,128 @@
+---
+title: "This computer"
+description: "hoist commands for this computer."
+---
+
+`hoist` talks to Hoista's engine, `hoistd`, and starts it when a command needs it. Keep both in the same folder.
+
+## `hoist start`
+
+Start Hoista's engine on this computer.
+
+```bash
+hoist start
+```
+
+## `hoist doctor`
+
+Check Hoista is installed and working.
+
+```bash
+hoist doctor
+```
+
+## `hoist doctor environment-key`
+
+The key that encrypts environment values: check it, or set it up again.
+
+```bash
+hoist doctor environment-key
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--retry-setup <TOKEN>` | Set it up again, with the review token this command printed. |
+
+## `hoist diagnostics`
+
+A report for troubleshooting, without secrets.
+
+```bash
+hoist diagnostics > report.json
+hoist diagnostics --save
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--save` | Save the report to a file in Hoista's state folder too. |
+
+## `hoist daemon status`
+
+Whether it's running, and what it's doing.
+
+```bash
+hoist daemon status
+```
+
+## `hoist daemon restart`
+
+Restart it once the work under way is done.
+
+```bash
+hoist daemon restart
+```
+
+## `hoist service install`
+
+Start Hoista at login, and again if it stops.
+
+```bash
+hoist service install --dry-run
+hoist service install
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--dry-run` | Print what would be installed, and install nothing. |
+
+## `hoist service restart`
+
+Restart the service.
+
+```bash
+hoist service restart
+```
+
+## `hoist service status`
+
+Whether the service is installed and running.
+
+```bash
+hoist service status
+```
+
+## `hoist service uninstall`
+
+Stop starting Hoista at login.
+
+```bash
+hoist service uninstall
+```
+
+## `hoist tools`
+
+Where provider tools such as flyctl and wrangler are.
+
+```bash
+hoist tools
+```
+
+## `hoist tools configure`
+
+Save where provider tools are, from this shell's PATH.
+
+```bash
+hoist tools configure
+```
+
+## `hoist completion <SHELL>`
+
+Print a shell completion script.
+
+```bash
+hoist completion zsh > "${fpath[1]}/_hoist"
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<SHELL>` | bash, zsh, fish, powershell or elvish. One of: bash, elvish, fish, powershell, zsh. |

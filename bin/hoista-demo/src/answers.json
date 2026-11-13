@@ -1,0 +1,301 @@
+{
+  "neon": {
+    "getProject": {
+      "project": {
+        "id": "young-sun-41823",
+        "pg_version": 17,
+        "region_id": "aws-us-east-2",
+        "synthetic_storage_size": 182000000,
+        "compute_time_seconds": 9420,
+        "written_data_bytes": 64000000,
+        "data_transfer_bytes": 12500000,
+        "created_at": "@-90d"
+      }
+    },
+    "listProjectBranches": {
+      "branches": [
+        { "name": "main", "current_state": "ready", "logical_size": 182000000, "default": true },
+        { "name": "preview/referrals", "current_state": "ready", "logical_size": 41000000, "default": false }
+      ]
+    },
+    "listProjectEndpoints": {
+      "endpoints": [
+        { "host": "ep-young-sun-41823.us-east-2.aws.neon.tech", "current_state": "idle", "autoscaling_limit_max_cu": 2 }
+      ]
+    },
+    "listProjectOperations": {
+      "operations": [
+        { "action": "suspend_compute", "status": "finished", "created_at": "@-40m" },
+        { "action": "start_compute", "status": "finished", "created_at": "@-95m" },
+        { "action": "apply_config", "status": "finished", "created_at": "@-26h" }
+      ]
+    },
+    "getOrganization": {
+      "name": "Sam Rivera",
+      "handle": "sam-rivera",
+      "plan": "free",
+      "created_at": "@-160d"
+    }
+  },
+  "fly": {
+    "machinesList": [
+      { "id": "148e2d0b6e3d89", "name": "small-river-4021", "region": "ams", "state": "started" },
+      { "id": "3d8d9e1f770e28", "name": "quiet-sea-1180", "region": "ams", "state": "stopped" }
+    ],
+    "fly status": {
+      "Name": "invoice-bot",
+      "Status": "deployed",
+      "Hostname": "invoice-bot.fly.dev",
+      "Machines": [
+        { "id": "148e2d0b6e3d89", "region": "ams", "state": "started", "checks": "1 total, 1 passing" }
+      ]
+    },
+    "fly machine list": [
+      { "id": "148e2d0b6e3d89", "name": "small-river-4021", "region": "ams", "state": "started" }
+    ]
+  },
+  "cloudflare": {
+    "wrangler deployments list": [
+      { "id": "b6f0c1e2", "created_on": "@-2h", "author": "sam@samrivera.dev", "source": "wrangler" },
+      { "id": "9a1d7c44", "created_on": "@-1d", "author": "sam@samrivera.dev", "source": "wrangler" }
+    ],
+    "wrangler d1 list": [
+      { "name": "short-links", "uuid": "3c8e1f2a-9b4d-4e6f-8a1c-2d3e4f5a6b7c", "created_at": "@-64d" }
+    ]
+  },
+  "vercel": {
+    "getProjectDomains": {
+      "domains": [
+        { "name": "support.sam.dev", "verified": true, "gitBranch": null },
+        { "name": "support-chat.vercel.app", "verified": true, "gitBranch": null }
+      ]
+    },
+    "getTeam": {
+      "name": "Sam's Projects",
+      "slug": "sam-projects",
+      "billing": { "plan": "pro" },
+      "membership": { "role": "OWNER" },
+      "createdAt": "@-600d"
+    }
+  },
+  "render": {
+    "retrieveOwner": { "name": "Sam Rivera", "email": "sam@example.com", "type": "user" }
+  },
+  "railway": {
+    "workspace": {
+      "name": "Sam's workspace",
+      "plan": "HOBBY",
+      "preferredRegion": "europe-west4",
+      "projectCount": 4
+    },
+    "projects": {
+      "edges": [
+        { "node": { "id": "prj-portfolio", "name": "portfolio", "description": null, "createdAt": "@-70d" } },
+        { "node": { "id": "prj-cron", "name": "cron-worker", "description": null, "createdAt": "@-20d" } },
+        { "node": { "id": "prj-old", "name": "old-portfolio", "description": null, "createdAt": "@-200d" } },
+        { "node": { "id": "prj-analytics", "name": "analytics", "description": null, "createdAt": "@-9d" } }
+      ]
+    },
+    "notificationRules": [
+      { "id": "r1", "eventTypes": ["DEPLOYMENT_FAILED"], "severities": ["CRITICAL"], "projectId": null, "serviceId": null },
+      { "id": "r2", "eventTypes": ["VOLUME_USAGE_HIGH"], "severities": ["WARNING"], "projectId": "prj-portfolio", "serviceId": null }
+    ],
+    "notificationDeliveries": {
+      "edges": [
+        {
+          "node": {
+            "id": "n1",
+            "createdAt": "@-3h",
+            "type": "EMAIL",
+            "notificationInstance": { "eventType": "DEPLOYMENT_CRASHED", "status": "RESOLVED" }
+          }
+        }
+      ]
+    },
+    "environments": {
+      "edges": [
+        { "node": { "id": "env-prod", "name": "production", "isEphemeral": false, "createdAt": "@-70d", "unmergedChangesCount": 0 } },
+        { "node": { "id": "env-pr-12", "name": "pr-12", "isEphemeral": true, "createdAt": "@-10d", "unmergedChangesCount": 1 } }
+      ]
+    },
+    "events": {
+      "edges": [
+        { "node": { "id": "e1", "action": "deployment.created", "object": "deployment", "severity": "INFO", "createdAt": "@-4d" } },
+        { "node": { "id": "e2", "action": "variable.updated", "object": "variable", "severity": "INFO", "createdAt": "@-5d" } }
+      ]
+    },
+    "regions": [
+      { "name": "europe-west4-drams3a", "country": "Netherlands", "location": "Amsterdam" },
+      { "name": "us-east4-eqdc4a", "country": "United States", "location": "Virginia" }
+    ],
+    "platformStatus": { "isStable": true, "incident": null },
+    "serviceInstance": {
+      "startCommand": "node server.js",
+      "region": "europe-west4",
+      "numReplicas": 1,
+      "restartPolicyType": "ON_FAILURE",
+      "healthcheckPath": "/health",
+      "cronSchedule": null,
+      "sleepApplication": false
+    },
+    "deploymentTriggers": {
+      "edges": [
+        { "node": { "id": "t1", "branch": "main", "repository": "sam-builds/portfolio-api", "checkSuites": true } }
+      ]
+    },
+    "tcpProxies": [
+      { "id": "tcp1", "domain": "shuttle.proxy.rlwy.net", "proxyPort": 41234, "applicationPort": 5432 }
+    ],
+    "privateNetworks": [
+      { "name": "portfolio-api.railway.internal", "networkId": "net1", "dnsName": "portfolio-api" }
+    ],
+    "egressGateways": [],
+    "signals": [],
+    "volumeInstanceBackupScheduleList": [
+      { "id": "s1", "kind": "DAILY", "name": "Daily", "cron": "0 3 * * *", "retentionSeconds": 604800 },
+      { "id": "s2", "kind": "WEEKLY", "name": "Weekly", "cron": "0 3 * * 0", "retentionSeconds": 2419200 }
+    ],
+    "volumeInstanceBackupList": [
+      { "id": "b1", "name": "Daily", "createdAt": "@-9h", "expiresAt": "@+6d", "usedMB": 1400 },
+      { "id": "b2", "name": "Daily", "createdAt": "@-33h", "expiresAt": "@+5d", "usedMB": 1380 },
+      { "id": "b3", "name": "Before migration", "createdAt": "@-2d", "expiresAt": null, "usedMB": 1310 }
+    ],
+    "serviceInstanceLimits": { "cpu": 8, "memoryGB": 8 }
+  },
+  "supabase": {
+    "getProject": {
+      "id": "qzvkpmsamrivera01",
+      "ref": "qzvkpmsamrivera01",
+      "name": "portfolio-auth",
+      "organization_id": "org-sam-rivera",
+      "region": "eu-west-3",
+      "status": "ACTIVE_HEALTHY",
+      "created_at": "@-46d",
+      "database": {
+        "host": "db.qzvkpmsamrivera01.supabase.co",
+        "version": "17.4.1.054",
+        "postgres_engine": "17",
+        "release_channel": "ga"
+      }
+    },
+    "getServicesHealth": [
+      { "name": "db", "healthy": true, "status": "ACTIVE_HEALTHY" },
+      { "name": "auth", "healthy": true, "status": "ACTIVE_HEALTHY" },
+      { "name": "rest", "healthy": true, "status": "ACTIVE_HEALTHY" },
+      { "name": "realtime", "healthy": true, "status": "ACTIVE_HEALTHY" },
+      { "name": "storage", "healthy": true, "status": "ACTIVE_HEALTHY" },
+      { "name": "pooler", "healthy": true, "status": "ACTIVE_HEALTHY" }
+    ],
+    "getDiskUtilization": {
+      "timestamp": "@-5m",
+      "metrics": { "fs_size_bytes": 8589934592, "fs_avail_bytes": 7387217510, "fs_used_bytes": 1202717082 }
+    },
+    "readOnlyQuery": [
+      { "schema": "public", "table": "profiles", "rows": 1284, "size": "1048 kB" },
+      { "schema": "public", "table": "posts", "rows": 9311, "size": "4392 kB" },
+      { "schema": "public", "table": "comments", "rows": 22740, "size": "6120 kB" },
+      { "schema": "public", "table": "sessions", "rows": 410, "size": "216 kB" }
+    ],
+    "listMigrationHistory": [
+      { "version": "20260921101500", "name": "create_profiles" },
+      { "version": "20261002140030", "name": "posts_and_comments" },
+      { "version": "20261030093012", "name": "add_session_expiry" }
+    ],
+    "getPoolerConfig": [
+      {
+        "database_type": "PRIMARY",
+        "db_port": 6543,
+        "default_pool_size": 15,
+        "pool_mode": "transaction",
+        "db_host": "aws-0-eu-west-3.pooler.supabase.com"
+      }
+    ],
+    "getPostgresConfig": { "max_connections": 60, "statement_timeout": "8s", "work_mem": "2184kB", "shared_buffers": "224MB" },
+    "getReadonlyModeStatus": { "enabled": false, "override_enabled": false },
+    "listAllBackups": {
+      "region": "eu-west-3",
+      "pitr_enabled": false,
+      "walg_enabled": true,
+      "backups": [
+        { "id": 7741, "is_physical_backup": true, "status": "COMPLETED", "inserted_at": "@-9h" },
+        { "id": 7702, "is_physical_backup": true, "status": "COMPLETED", "inserted_at": "@-33h" },
+        { "id": 7663, "is_physical_backup": true, "status": "COMPLETED", "inserted_at": "@-57h" }
+      ]
+    },
+    "getBackupSchedule": { "schedule_for": "02:00" },
+    "listAllFunctions": [
+      { "slug": "send-welcome", "name": "send-welcome", "status": "ACTIVE", "version": 6, "verify_jwt": true, "updated_at": "@-3d" },
+      { "slug": "resize-avatar", "name": "resize-avatar", "status": "ACTIVE", "version": 2, "verify_jwt": false, "updated_at": "@-12d" }
+    ],
+    "listAllBuckets": [
+      { "id": "avatars", "name": "avatars", "public": true, "created_at": "@-40d" },
+      { "id": "exports", "name": "exports", "public": false, "created_at": "@-18d" }
+    ],
+    "getStorageConfig": { "fileSizeLimit": 52428800, "features": { "imageTransformation": { "enabled": true } } },
+    "getAuthServiceConfig": {
+      "site_url": "https://sam.dev",
+      "disable_signup": false,
+      "external_email_enabled": true,
+      "external_github_enabled": true,
+      "external_google_enabled": false,
+      "jwt_exp": 3600,
+      "password_min_length": 8,
+      "mfa_totp_enroll_enabled": true
+    },
+    "listAllSsoProvider": { "items": [] },
+    "listProjectTpaIntegrations": [],
+    "getPostgrestServiceConfig": { "db_schema": "public, graphql_public", "max_rows": 1000 },
+    "getRealtimeConfig": { "private_only": false, "max_concurrent_users": 200 },
+    "getNetworkRestrictions": {
+      "entitlement": "allowed",
+      "status": "applied",
+      "config": { "dbAllowedCidrs": ["0.0.0.0/0"], "dbAllowedCidrsV6": ["::/0"] }
+    },
+    "getSslEnforcementConfig": { "currentConfig": { "database": false }, "appliedSuccessfully": true },
+    "listAllNetworkBans": { "banned_ipv4_addresses": [] },
+    "getHostnameConfig": { "status": "Not set up", "custom_hostname": null },
+    "getVanitySubdomainConfig": { "status": "not-used" },
+    "listAllSecrets": [
+      { "name": "RESEND_API_KEY", "updated_at": "@-9d" },
+      { "name": "SITE_URL", "updated_at": "@-30d" }
+    ],
+    "getProjectSigningKeys": { "keys": [{ "id": "k1", "algorithm": "ES256", "status": "in_use" }] },
+    "getProjectLegacyApiKeys": { "enabled": true },
+    "listAllBranches": [
+      { "name": "main", "is_default": true, "status": "FUNCTIONS_DEPLOYED", "created_at": "@-46d" }
+    ],
+    "listActionRuns": [],
+    "getSecurityAdvisors": {
+      "lints": [
+        {
+          "name": "rls_disabled_in_public",
+          "title": "RLS disabled in public",
+          "level": "ERROR",
+          "detail": "Table public.sessions is public, but row level security is off."
+        }
+      ]
+    },
+    "getPerformanceAdvisors": {
+      "lints": [
+        {
+          "name": "unindexed_foreign_keys",
+          "title": "Unindexed foreign keys",
+          "level": "INFO",
+          "detail": "comments.post_id has no index."
+        }
+      ]
+    },
+    "getProjectLogs": {
+      "result": [
+        { "timestamp": "@-2m", "event_message": "GET /rest/v1/posts 200" },
+        { "timestamp": "@-3m", "event_message": "POST /auth/v1/token 200" },
+        { "timestamp": "@-6m", "event_message": "GET /storage/v1/object/public/avatars/sam.png 200" }
+      ]
+    },
+    "getProjectUsageRequestCount": { "result": [{ "count": 18420 }] },
+    "listProjectAddons": {
+      "selected_addons": [{ "type": "compute_instance", "variant": { "id": "ci_nano", "name": "Nano" } }],
+      "available_addons": []
+    }
+  }
+}

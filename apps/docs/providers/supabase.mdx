@@ -1,0 +1,59 @@
+---
+title: "Supabase"
+description: "Connect a Supabase organization to watch its projects and create new ones."
+icon: "/logos/supabase.svg"
+---
+
+Hoista finds the Supabase projects in an organization, with each project's Postgres database, Edge Functions and Storage buckets. Your data stays at Supabase. Hoista shows each project's status, logs and metrics, and can create new projects.
+
+## Connect
+
+Supabase connects with an access token:
+
+1. Open [Access Tokens](https://supabase.com/dashboard/account/tokens): **Account → Access Tokens → Generate new token**. Name it Hoista.
+2. Choose all projects in your organization and set **Projects** to read-write, so Hoista can also create new ones.
+3. Copy the token before you close the window. It starts with `sbp_`.
+4. In Desktop, open **Accounts**, choose Supabase, paste the token and pick the organization.
+
+<Frame caption="Supabase’s Access Tokens page, captured November 2026. Personal details are blurred. If yours looks different, the names in the steps still match.">
+  <img src="/assets/tokens/supabase-token.webp" alt="Supabase’s Access Tokens page" />
+</Frame>
+
+From the CLI:
+
+```bash
+hoist accounts add supabase
+```
+
+Hoista asks for the token in a hidden prompt and finds the organization from it. In scripts, use `hoist accounts add supabase --name NAME --token-stdin`, and add `--account <organization-id>` if the token reaches more than one organization.
+
+If your backend was created by an app builder, the token must belong to a Supabase account that can reach that project.
+
+## What you can do
+
+- Create a new Supabase project.
+- Read and change variables on the **Variables** tab.
+- See logs on the **Logs** tab and metrics on **Metrics**.
+- Use the **Supabase** tab for Supabase's own settings and operations.
+- Delete a Supabase project after you confirm it by name.
+
+Supabase's bill isn't shown on **Billing**. See it in the Supabase dashboard. A project on the free plan pauses after a week without use. A paused project shows no other details until you restore it at Supabase.
+
+## Bring in existing resources
+
+Hoista looks for projects when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --new my-app
+```
+
+Projects start in **watching** mode. Run `hoist projects manage my-app` when you want Hoista to make changes. To look again, run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

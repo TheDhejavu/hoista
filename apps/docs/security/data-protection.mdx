@@ -1,0 +1,44 @@
+---
+title: "Data protection"
+description: "Where Hoista keeps sensitive data and how to handle backups, exports and reports."
+---
+
+Your provider tokens are the most sensitive thing Hoista holds, and they stay in the credential store. Other files can still contain sensitive information, such as project names, environment values in logs, and database contents. Treat them with care too.
+
+## Where data lives
+
+| Location | What's in it | How it's protected |
+| --- | --- | --- |
+| OS credential store, or the sealed file on a remote | Provider tokens, agent credentials, webhook secrets | The store's own access controls |
+| `~/.hoista` | Projects, accounts, agent access, activity history and engine logs | Readable only by your user account |
+| `~/.hoista/backups` | Projects, accounts and settings, without sign-ins | Readable only by your user account |
+| An export file | Everything in a backup, plus account sign-ins | Encrypted with your passphrase (Argon2 and XChaCha20-Poly1305) |
+| A database archive | The data in your Postgres database | A private file where Hoista runs |
+
+On a remote, the state lives on the provider's volume. Anyone with access to your provider account may be able to read that volume.
+
+## How long history is kept
+
+**Settings → General → Keep history** sets how long activity, finished changes and webhook deliveries are kept. Hoista always keeps the last 30 days and removes older entries each day. Engine logs are kept for 14 days.
+
+## Backups and exports
+
+- Copy backups to another disk. A backup on the same disk is lost with it.
+- An export file carries your account sign-ins, including values Hoista reads from 1Password. Keep the file and its passphrase in different places, and delete the file once you've imported it.
+- Hoista backups don't include database contents. See [Backups and recovery](/guides/backups).
+
+## Webhooks
+
+Webhook events carry a short summary of what happened, never a secret or a submitted value. Hoista only sends them to public HTTPS addresses. Your receiver should check the signature on each one. See [Webhooks](/guides/webhooks).
+
+## Sharing a report
+
+`hoist diagnostics --save` and **Settings → General → Diagnostic report** build a report without tokens or secret values. Read it before you share it. When you ask for help, share operation IDs, error codes and short log excerpts. Remove tokens, claim codes, cookies, `Authorization` headers, connection strings, environment values and passphrases, including from screenshots. If you shared a secret by mistake, revoke it at the service it belongs to.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Backups and recovery" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear changes.</Card>
+<Card title="Credential storage" icon="key" href="/security/credentials">Where tokens are kept.</Card>
+<Card title="Incident checklist" icon="circle-exclamation" href="/security/incident-response">What to do if something looks wrong.</Card>
+</CardGroup>

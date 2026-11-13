@@ -1,0 +1,124 @@
+.note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 6px;
+  color: var(--text-2);
+}
+
+.edit {
+  border: none;
+  background: transparent;
+  color: var(--text-2);
+}
+
+.edit:hover {
+  color: var(--text);
+}
+
+.pillDark {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.pillBad {
+  background: var(--bad-tint);
+  color: var(--bad-ink);
+}
+
+.missing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 16px;
+  background: var(--bg-soft);
+  padding: 8px 10px 8px 16px;
+}
+
+.missing > span {
+  flex: 1;
+}
+
+.missing b {
+  font-size: var(--text-md);
+}
+
+.missingIcon {
+  flex-shrink: 0;
+  color: var(--bad);
+}
+
+.empty {
+  margin: 0;
+  padding: 24px;
+  color: var(--text-2);
+}
+
+.confirmText {
+  margin: 0 0 8px;
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.menuWrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-4);
+}
+
+.more:hover,
+.more[aria-expanded='true'] {
+  background: var(--bg-muted);
+  color: var(--text);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  border-radius: var(--radius-lg);
+  background: var(--menu-material);
+  box-shadow: var(--edge), var(--edge-light), var(--menu-float);
+  backdrop-filter: var(--material-blur);
+  padding: 6px;
+}
+
+.menu button {
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  padding: 7px 9px;
+  font-size: var(--text-sm);
+  color: var(--text);
+  text-align: left;
+}
+
+.menu button:hover {
+  background: var(--bg-hover);
+}
+
+.menu .danger {
+  color: var(--bad);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}

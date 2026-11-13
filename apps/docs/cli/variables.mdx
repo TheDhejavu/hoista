@@ -1,0 +1,113 @@
+---
+title: "Variables and domains"
+description: "hoist commands for variables and domains."
+---
+
+Values never go in a command's arguments, where they'd land in your shell history: type them at a hidden prompt, pipe them with `--value-stdin`, or read a `.env` file with `--file`. Hoista never prints a value back.
+
+## `hoist env list [PROJECT]`
+
+List a project's variable names. Values are never shown.
+
+```bash
+hoist env list my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+
+## `hoist env set [PROJECT] [NAMES]...`
+
+Set variables. Values are typed hidden, piped, or read from a .env file; never in arguments.
+
+<Note>On a project Hoista manages, the new values go out in a new deploy, so the release and its values change together; retry with the same `--request-key` and values. On a watched project they're set at the provider, which redeploys it unless you pass `--no-redeploy`.</Note>
+
+```bash
+hoist env set my-app STRIPE_KEY                      # asks for the value, hidden
+op read op://Work/stripe/key | hoist env set my-app STRIPE_KEY --value-stdin
+hoist env set my-app --file .env.production
+hoist env set my-app API_URL --file .env -r web     # only API_URL, on the web resource
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+| `[NAMES]...` | Variable names. Each value is asked for hidden. |
+| `-r, --resource <RESOURCE>` | The resource the variables belong to, when the project has more than one. |
+| `--value-stdin` | Read one variable's value from stdin. |
+| `--file <PATH>` | Read NAME=value lines from a .env file. With names, only those. |
+| `-m, --message <TEXT>` | A note saved with the deploy. |
+| `--plan <PLAN>` | Deploy with a plan you reviewed, instead of planning again. |
+| `--plan-revision <N>` | With --plan: only if the plan is still this revision. |
+| `--request-key <UUID>` | A UUID that makes retrying safe. Retry with the same values. |
+| `--detach` | Start the deploy and return without waiting. |
+| `--no-redeploy` | Watched projects: set them without the provider redeploying. |
+
+## `hoist env remove [PROJECT] [NAME]`
+
+Remove a variable.
+
+```bash
+hoist env remove my-app OLD_FLAG
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+| `[NAME]` | Variable name. |
+| `-r, --resource <RESOURCE>` | The resource it belongs to, when more than one has it. |
+
+## `hoist domains [PROJECT]`
+
+A project's custom domains.
+
+```bash
+hoist domains my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. Default: the project linked to this folder. |
+
+## `hoist domains add <HOSTNAME>`
+
+Add a custom domain to a project's resource.
+
+```bash
+hoist domains add shop.example.com -p my-app -r web
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<HOSTNAME>` | The domain, such as api.example.com. |
+| `-p, --project <PROJECT>` | Project name or id. |
+| `-r, --resource <RESOURCE>` | The resource that answers on it, when the project has more than one. |
+| `--zone <ZONE>` | The DNS zone it's in. Default: its last two labels, such as example.com. |
+| `--create-zone` | Create the zone at the provider if it isn't there. |
+
+## `hoist domains check <DOMAIN>`
+
+Look up a domain's DNS and certificate again now.
+
+```bash
+hoist domains check shop.example.com -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<DOMAIN>` | Domain name or id. |
+| `-p, --project <PROJECT>` | Project name or id, when naming the domain by name. |
+
+## `hoist domains remove <DOMAIN>`
+
+Remove a custom domain.
+
+```bash
+hoist domains remove shop.example.com -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<DOMAIN>` | Domain name or id. |
+| `-p, --project <PROJECT>` | Project name or id, when naming the domain by name. |

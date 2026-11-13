@@ -1,0 +1,54 @@
+{
+  "block2@0.6.2": {
+    "file": "block2-0.6.2-MIT.txt",
+    "source": "https://raw.githubusercontent.com/madsmtm/objc2/ee9a7ada2131f5944b8750428e265c15632f2a19/LICENSE-MIT.txt",
+    "sha256": "f6a2e783669a0dd7a2c3b8a4f76db40ae49033e66e1bdc30f3aa25fe5577b070",
+    "selected_license": "MIT",
+    "note": "The release commit has only LICENSE.md, which names MIT for this crate; this is the MIT text the project added later."
+  },
+  "objc2-encode@4.1.0": {
+    "file": "objc2-encode-4.1.0-MIT.txt",
+    "source": "https://raw.githubusercontent.com/madsmtm/objc2/ee9a7ada2131f5944b8750428e265c15632f2a19/LICENSE-MIT.txt",
+    "sha256": "f6a2e783669a0dd7a2c3b8a4f76db40ae49033e66e1bdc30f3aa25fe5577b070",
+    "selected_license": "MIT",
+    "note": "The release commit has only LICENSE.md, which names MIT for this crate; this is the MIT text the project added later."
+  },
+  "objc2-local-authentication@0.3.2": {
+    "file": "objc2-local-authentication-0.3.2-MIT.txt",
+    "source": "https://raw.githubusercontent.com/madsmtm/objc2/ee9a7ada2131f5944b8750428e265c15632f2a19/LICENSE-MIT.txt",
+    "sha256": "f6a2e783669a0dd7a2c3b8a4f76db40ae49033e66e1bdc30f3aa25fe5577b070",
+    "selected_license": "MIT",
+    "note": "The release commit has only LICENSE.md, which names MIT for this crate; this is the MIT text the project added later."
+  },
+  "objc2@0.6.5": {
+    "file": "objc2-0.6.5-MIT.txt",
+    "source": "https://raw.githubusercontent.com/madsmtm/objc2/ee9a7ada2131f5944b8750428e265c15632f2a19/LICENSE-MIT.txt",
+    "sha256": "f6a2e783669a0dd7a2c3b8a4f76db40ae49033e66e1bdc30f3aa25fe5577b070",
+    "selected_license": "MIT",
+    "note": "The release commit has only LICENSE.md, which names MIT for this crate; this is the MIT text the project added later."
+  },
+  "prost-reflect@0.14.7": {
+    "file": "prost-reflect-0.14.7-MIT.txt",
+    "source": "https://raw.githubusercontent.com/andrewhickman/prost-reflect/71c4c98d7565dfc30f76ebc7daaa139a443419e6/LICENSE-MIT",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "selected_license": "MIT"
+  },
+  "robius-authentication@0.3.1": {
+    "file": "robius-authentication-0.3.1-MIT.txt",
+    "source": "https://raw.githubusercontent.com/project-robius/robius/e18299f7c6a0efbb2ee93cebb83d41267c745f04/LICENSE",
+    "sha256": "4411ed6ac0ab8ea859b56748e0b654a951a15205c165c63c0f1b63342ed55fac",
+    "selected_license": "MIT"
+  },
+  "ts-rs-macros@11.1.0": {
+    "file": "ts-rs-macros-11.1.0-MIT.txt",
+    "source": "https://raw.githubusercontent.com/Aleph-Alpha/ts-rs/1dce5297090804082e9639d2b7d851ba815aa359/LICENSE",
+    "sha256": "db7f7f8e7236a2d0b41b855b2501b7b913caebbcda6ce498637a304ad1706ce1",
+    "selected_license": "MIT"
+  },
+  "ts-rs@11.1.0": {
+    "file": "ts-rs-11.1.0-MIT.txt",
+    "source": "https://raw.githubusercontent.com/Aleph-Alpha/ts-rs/1dce5297090804082e9639d2b7d851ba815aa359/LICENSE",
+    "sha256": "db7f7f8e7236a2d0b41b855b2501b7b913caebbcda6ce498637a304ad1706ce1",
+    "selected_license": "MIT"
+  }
+}

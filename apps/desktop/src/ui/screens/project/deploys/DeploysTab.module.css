@@ -1,0 +1,170 @@
+.note {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--text-3);
+}
+
+.working {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.versionCol {
+  white-space: nowrap;
+}
+
+.row:hover td {
+  background: var(--bg-hover);
+}
+
+.stepsRow td {
+  border-top: none;
+  background: var(--bg-soft);
+  padding-top: 14px;
+  padding-bottom: 16px;
+}
+
+.stepsRow p {
+  margin: 0 0 10px;
+}
+
+.commitBody {
+  margin: 0 0 12px;
+  max-width: 760px;
+  font-family: inherit;
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.versionLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong, var(--text-4));
+  text-underline-offset: 3px;
+}
+
+.versionLink:hover {
+  text-decoration-color: currentColor;
+}
+
+.openDeploy {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.empty {
+  margin: 0;
+  padding: 24px;
+  color: var(--text-2);
+}
+
+.dialogText {
+  margin: 0 0 10px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.rowActions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 6px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  vertical-align: -1px;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* The change column: the commit subject on one line; the whole message on hover. */
+.changeCell {
+  max-width: 0;
+  width: 100%;
+}
+
+.changeRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.change {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Where a deploy came from: branch, short commit, folder. */
+.source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* The commands for one deploy, ready to copy. */
+.commands {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+  margin-top: 14px;
+}
+
+/* No deploys yet. */
+.noDeploys {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 560px;
+  padding: 24px;
+}
+
+.noDeploysText {
+  margin: 0;
+  color: var(--text-2);
+}

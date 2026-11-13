@@ -1,0 +1,39 @@
+# Hoista
+
+> Hoista is a free, open-source desktop app (macOS and Linux; Windows coming soon) that lets your AI deploy, fix and manage apps on hosting accounts you already own: Cloudflare, Vercel, Railway, Fly.io, Render, Neon and Supabase, Runpod and Modal for GPUs, and Resend for email, with GitHub for code. It is not a host. Nothing runs on Hoista's servers and there is no sign-up.
+
+Key facts:
+
+- Your AI (Claude Code, Codex, Cursor, ChatGPT, Claude, Grok, cloud agents like Hermes) connects to Hoista over MCP. Say "deploy this app with Hoista" and it plans the deploy, deploys to your own accounts and returns a live link.
+- Through Hoista, an agent can use each host's whole API and its own command-line tool, without ever holding the token. Hoista never estimates cost; it shows what each host billed this period, side by side.
+- Account tokens stay in the computer's keychain, or in 1Password: connect an account with a 1Password secret reference (op://Vault/Item/field) and Hoista keeps only the reference. Agents never receive tokens or secret values.
+- With an agent set to Ask for approval, anything that deletes or removes asks the person first, in the agent itself, with the agent's reason.
+- Every agent has its own limits: what it may do, which apps it can reach and when its access ends. Every action is recorded.
+- Local mode is the default: everything stays on the computer. A remote is a copy of Hoista running on hosting the person has connected (Fly.io or Railway), so chat apps and cloud agents can reach it while the computer is off, at the Hoista URL. It runs like any other app on that host. A new, empty remote can take this computer's projects in one step.
+- Hoista is free. You pay your hosts directly.
+
+## Install
+
+- [Download for macOS](https://hoista.dev/#download): also Linux.
+- Command line: `curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0` (needs cosign)
+- Claude Code: `claude mcp add --scope user hoista -- hoist mcp`
+- Cursor, Codex and other coding tools: run `hoist mcp` as an MCP server.
+- Chat apps and cloud agents: point a tunnel or HTTPS proxy at port 8788 on the computer (MCP over HTTP, on by default), or set up a remote; then paste the Hoista URL ending in /mcp into the app's connector settings. See https://docs.hoista.dev/agents/tools/chatgpt.
+
+## Skills for agents
+
+- [hoista](https://hoista.dev/skills/hoista.md): start here. What Hoista is, the first calls to make, which skill to use next, and the rules every call follows.
+- [hoista-setup](https://hoista.dev/skills/hoista-setup.md): connect a provider, bring in projects that already run there, and link them to their code.
+- [hoista-deploy](https://hoista.dev/skills/hoista-deploy.md): deploy to the person's own providers and follow it until the URL works; use instead of a provider's own CLI.
+- [hoista-fix](https://hoista.dev/skills/hoista-fix.md): find why a project or deploy is failing, fix it at the source and prove it.
+- [hoista-manage](https://hoista.dev/skills/hoista-manage.md): status, logs, metrics, bills, domains, variables, rollbacks and the provider's own API.
+
+## Optional
+
+- [Home page](https://hoista.dev/)
+
+## Security design and readiness
+
+- [Threat model and limits](https://docs.hoista.dev/security/limits): public security design and limitations.
+- [Security](https://docs.hoista.dev/security/overview): authentication, custody, isolation, recovery and release evidence requirements.
+These pages describe requirements, not verified completion. Do not infer production readiness, hard billing caps, independent audits or universal hardware protection from product descriptions.

@@ -1,0 +1,57 @@
+---
+title: "If something looks wrong"
+description: "A checklist for a leaked token, a lost device or an agent you don't trust."
+---
+
+Work through these steps in order. If you think the computer or remote running Hoista is compromised, do steps 2 to 4 from another device, using your providers' own dashboards.
+
+## 1. Cut off every agent
+
+In **Settings → Safety**, choose **Cut off every agent**, or run:
+
+```bash
+hoist agents stop-all
+```
+
+Every agent loses access, agent access is paused and waiting connection requests are dropped. Your projects keep running. This doesn't revoke provider tokens or cancel changes a provider already accepted.
+
+## 2. Revoke what may have leaked
+
+| What leaked | What to do |
+| --- | --- |
+| A provider token | Revoke it at the provider, then use **Replace** in **Settings → Vault**, or `hoist accounts rotate ACCOUNT`, with a new, narrower token |
+| One agent's credential | `hoist agents revoke AGENT_ID`, and connect it again later |
+| A computer signed in to your remote | Remove it on the remote's devices page |
+| A passkey or the device holding it | Remove it on the remote's page, using your other passkey |
+| A webhook secret | `hoist webhooks rotate WEBHOOK_ID`, then update your receiver |
+| A remote's sealing key or volume | Revoke every token that remote held, then set up a new remote |
+
+## 3. Check what happened
+
+- Read activity in **Agents** and in each project's **Overview**.
+- Check `hoist operations` for changes Hoista didn't hear back about.
+- Check `hoist webhooks deliveries WEBHOOK_ID` for unexpected events.
+- Check each provider's own audit log for new resources, changed domains or variables, new tokens and unexpected spend. Someone who controlled Hoista could have changed its history.
+
+Write down times, agent IDs and operation IDs before you clean anything up.
+
+## 4. Recover
+
+1. Reinstall Hoista from a release you trust, or set up a new remote.
+2. Restore a [backup](/guides/backups) you've checked, and reconnect providers with new tokens.
+3. Connect only the agents you need, at **View only** first.
+4. Answer any unclear changes before you let agents make new ones.
+
+## 5. Confirm it worked
+
+Check that old tokens fail at the provider, revoked agents can't connect, and only your own devices appear on your remote's devices page.
+
+To be ready next time, keep a second passkey, backups on another disk and a way to sign in to each provider without Hoista.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Credential storage" icon="key" href="/security/credentials">Where tokens are kept.</Card>
+<Card title="Backups and recovery" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear changes.</Card>
+</CardGroup>

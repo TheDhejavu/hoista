@@ -1,0 +1,59 @@
+---
+title: "VS Code (GitHub Copilot)"
+description: "Add Hoista to GitHub Copilot in VS Code."
+---
+
+Copilot in VS Code starts Hoista's MCP server itself, over stdio, in agent mode. You need Hoista on this computer: run `hoist doctor` to check.
+
+## Add Hoista
+
+In VS Code, run **MCP: Open User Configuration** from the Command Palette. It opens your user `mcp.json`. Add Hoista under `servers`:
+
+```json
+{
+  "servers": {
+    "hoista": {
+      "type": "stdio",
+      "command": "/Users/you/.local/bin/hoist",
+      "args": ["mcp", "--name", "VS Code"]
+    }
+  }
+}
+```
+
+Use the path `command -v hoist` prints. VS Code's file uses `servers` and needs `"type": "stdio"`, so it isn't the same shape `hoist mcp config` prints for other tools. For one project only, put the same entry in `.vscode/mcp.json` in that project.
+
+Start the server from the **Start** link VS Code shows above the entry, or run **MCP: List Servers**.
+
+## Approve it in Hoista
+
+When VS Code starts Hoista, Hoista opens a page in your browser with a code. Check the code matches the one VS Code shows, choose **What it may do** and allow it. If the page doesn't open, allow it in **Agents** in the desktop app, or from a terminal:
+
+```bash
+hoist agents requests
+hoist agents allow
+```
+
+Start with **View only** and widen it later in [Agent permissions](/agents/permissions).
+
+## Check it works
+
+Ask Copilot: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+## Hoista on a remote
+
+VS Code talks to Hoista on this computer. While a [remote](/guides/remote) is selected (`hoist remote use NAME`), `hoist mcp` won't start. To use the remote, add it to VS Code as an HTTP MCP server at its own address: `hoist mcp config` prints the remote's `/mcp` URL. VS Code then signs in with OAuth.
+
+## If it doesn't connect
+
+- Run **MCP: List Servers**, pick `hoista` and choose **Show Output** to see why it stopped.
+- Check the `command` path exists, and run `hoist doctor`.
+- **To remove it:** delete the entry, then revoke the agent in **Agents** or with `hoist agents revoke`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Prompts" icon="message" href="/agents/prompts">Prompts to start with.</Card>
+</CardGroup>

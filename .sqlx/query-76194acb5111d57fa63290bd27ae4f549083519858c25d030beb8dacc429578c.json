@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO oauth_pending(id,data) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "76194acb5111d57fa63290bd27ae4f549083519858c25d030beb8dacc429578c"
+}

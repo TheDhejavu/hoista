@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT coalesce(max(CAST(json_extract(data, '$.release_version') AS INTEGER)), 0) AS \"maximum!: i64\" FROM deploys WHERE project_id = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "maximum!: i64",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "1f1b4993102254b826db5581a5b786ee411816594e31f2e3df72f99f16d1972a"
+}

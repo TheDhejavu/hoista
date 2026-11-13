@@ -1,0 +1,140 @@
+---
+title: "Remotes"
+description: "hoist commands for remotes."
+---
+
+A remote is another Hoista you use from here: on a server, in Docker, or at Railway or Fly.io, running while this computer is off. The list is shared with the desktop app. `hoist remote use NAME` makes every command after it go there; `--remote NAME` does it for one command; `this-computer` comes back.
+
+## `hoist remote`
+
+Other Hoistas you use: on a server, in Docker or at a provider.
+
+```bash
+hoist remote
+```
+
+## `hoist remote check <TARGET>`
+
+Check a Hoista's address: that it answers there, and whether it has an owner yet.
+
+```bash
+hoist remote check https://hoista.example.com
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<TARGET>` | Its address, such as https://hoista.example.com, or a remote's name. |
+
+## `hoist remote add <NAME> <URL>`
+
+Add a remote that's already running, and sign in to it.
+
+```bash
+hoist remote add office https://hoista.example.com
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<NAME>` | What to call it, such as office. |
+| `<URL>` | Its address, such as https://hoista.example.com. |
+| `--no-login` | Add it without signing in now. |
+
+## `hoist remote create [PLACE]`
+
+Put Hoista on Railway, Fly.io or Docker, and add it as a remote.
+
+```bash
+hoist remote create railway
+hoist remote create fly --account work-fly --name fly-hoista
+hoist remote create docker                       # inside a copy of Hoista's repository
+hoist remote create docker --url https://hoista.example.com
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PLACE]` | Where it runs. One of: railway, fly, docker. |
+| `--account <ACCOUNT>` | Railway or Fly: the account to run it in. |
+| `--name <NAME>` | What to call it. Default: from its address. |
+| `--repo <OWNER/NAME>` | Railway or Fly: build from this GitHub repository (OWNER/NAME) instead of the released image. |
+| `--branch <BRANCH>` | With --repo: the branch. |
+| `--folder <PATH>` | Docker: the copy of Hoista's repository. Default: this folder. |
+| `--url <URL>` | Docker on a server: the HTTPS address it answers on. Default: http://localhost:8787. |
+
+## `hoist remote login [NAME]`
+
+Sign this computer in to a remote.
+
+<Note>Each app signs in on its own: the desktop app and `hoist` keep separate keys, in the system keychain.</Note>
+
+```bash
+hoist remote login office
+hoist remote login office --no-browser          # over SSH: type a code on its page instead
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[NAME]` | Remote name. Default: the one in use. |
+| `--no-browser` | Show a code to type on the remote's page instead of opening a browser. |
+
+## `hoist remote logout [NAME]`
+
+Sign this computer out of a remote.
+
+```bash
+hoist remote logout office
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[NAME]` | Remote name. Default: the one in use. |
+
+## `hoist remote use [NAME]`
+
+Use a remote for the commands that follow, or this-computer for this one.
+
+```bash
+hoist remote use office
+hoist projects                     # office's projects
+hoist remote use this-computer
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[NAME]` | Remote name, or this-computer. |
+
+## `hoist remote rename <NAME> <NEW_NAME>`
+
+Rename a remote.
+
+```bash
+hoist remote rename office studio
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<NAME>` | Its name now. |
+| `<NEW_NAME>` | The new name. |
+
+## `hoist remote remove <NAME>`
+
+Remove a remote from the list. It keeps running.
+
+```bash
+hoist remote remove studio
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<NAME>` | Remote name. |
+
+## `hoist remote push [NAME]`
+
+Send this computer's projects and accounts to an empty remote.
+
+```bash
+hoist remote push office
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[NAME]` | Remote name. Default: the one in use. |

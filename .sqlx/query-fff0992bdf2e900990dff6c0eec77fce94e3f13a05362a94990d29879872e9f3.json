@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO approvals (id, agent_id, decision, expires_at, data) VALUES (?, ?, 'pending', ?, ?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "fff0992bdf2e900990dff6c0eec77fce94e3f13a05362a94990d29879872e9f3"
+}

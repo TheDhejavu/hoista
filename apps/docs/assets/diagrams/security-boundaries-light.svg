@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sb-l" viewBox="0 0 1280 836" width="1280" height="836" role="img" aria-labelledby="sb-l-t sb-l-d">
+<title id="sb-l-t">Trust boundaries</title><desc id="sb-l-d">Agents connect with their own scoped credential and you with Touch ID, your password or a passkey. Both reach your providers only through hoistd, which checks access, asks you before anything that can't be undone and journals every change. On your computer, provider tokens sit in the OS credential store; on a remote, a separate credential keeper holds them in a sealed file. hoistd itself is trusted.</desc>
+<style>#sb-l text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#111111}#sb-l .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#sb-l .h2{fill:#6b6b6b}#sb-l .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#sb-l .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#9a9a9a;letter-spacing:0.08em}#sb-l .eyebrow{font-size:12.5px;fill:#8f8f8f}#sb-l .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#sb-l .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#sb-l .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#737373}#sb-l .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#4a4a4a}#sb-l .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#888888}#sb-l .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#111111;letter-spacing:0.06em}#sb-l .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8a8a8a}#sb-l .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#555555}#sb-l .sheet{fill:#ffffff;stroke:#e4e4e7}#sb-l .card{fill:#ffffff;stroke:#e3e3e3}#sb-l .hoistd{fill:#ffffff;stroke:#111111;stroke-width:1.4}#sb-l .ring{fill:none;stroke:rgba(0,0,0,0.04);stroke-width:8}#sb-l .tile{fill:#f5f5f5;stroke:#e6e6e6}#sb-l .chip{fill:#f0f0f0;stroke:#e2e2e2}#sb-l .pill{fill:#ffffff;stroke:#e3e3e3}#sb-l .zone{fill:#fafafa;stroke:#cfcfcf;stroke-dasharray:5 4}#sb-l .dot{fill:#dcdcdc}#sb-l .badge{fill:#111111}#sb-l .ink{fill:#ffffff}#sb-l .eye{fill:#111111}#sb-l .ic{fill:none;stroke:#4a4a4a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#sb-l .logo{fill:#7a7a7a}#sb-l .link{fill:none;stroke:#c2c2c2;stroke-width:1.4;stroke-linejoin:round}#sb-l .dash{stroke-dasharray:5 4}#sb-l .head{fill:none;stroke:#9a9a9a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#sb-l .rule{stroke:#e4e4e7;stroke-dasharray:4 4}</style>
+<defs><g id="sb-l-mascot"><g fill="#ffffff"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#111111"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="sb-l-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="sb-l-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.04"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.05"/></filter><filter id="sb-l-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<rect x="0.5" y="0.5" width="1279" height="835" rx="20" class="sheet"/>
+<rect x="462" y="150" width="356" height="242" rx="16" class="zone"/>
+<text x="482" y="176" class="zl">policy is enforced here</text>
+<path d="M348 226 L477 226" class="link" marker-end="url(#sb-l-open)"/>
+<path d="M348 381 L405 381 L405 322 L477 322" class="link" marker-end="url(#sb-l-open)"/>
+<path d="M800 265 L929 265" class="link" marker-end="url(#sb-l-open)"/>
+<rect x="430" y="456" width="802" height="192" rx="16" class="zone"/>
+<text x="450" y="482" class="zl">where provider tokens live</text>
+<path d="M640 368 L640 497" class="link" marker-end="url(#sb-l-open)"/>
+<path d="M640 424 L1030 424 L1030 497" class="link" marker-end="url(#sb-l-open)"/>
+<path d="M48 686 H1232" class="rule"/>
+<rect x="480" y="190" width="320" height="178" rx="13" class="ring"/>
+<rect x="480" y="190" width="320" height="178" rx="12" class="hoistd" filter="url(#sb-l-lift2)"/>
+<circle cx="502" cy="209" r="3.6" class="dot"/>
+<circle cx="514" cy="209" r="3.6" class="dot"/>
+<circle cx="526" cy="209" r="3.6" class="dot"/>
+<rect x="500.0" y="226.0" width="32" height="32" rx="8.6" class="badge"/><g transform="translate(503.27 229.27) scale(0.2545)"><use href="#sb-l-mascot"/></g>
+<text x="546" y="250" class="title-lg">hoistd</text>
+<text x="546" y="282" class="detail">checks each caller's access</text>
+<text x="546" y="302" class="detail">asks you before deletes</text>
+<text x="546" y="322" class="detail">journals every change first</text>
+<text x="546" y="342" class="detail">strips secrets from replies</text>
+<rect x="48" y="172" width="300" height="125" rx="12" class="card" filter="url(#sb-l-lift)"/>
+<rect x="68" y="192" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 200)"><path d="M8 2.2 9.3 6.7 13.8 8 9.3 9.3 8 13.8 6.7 9.3 2.2 8 6.7 6.7z"/></g>
+<text x="116" y="205" class="eyebrow">Their own credential</text>
+<text x="116" y="228" class="title">Agents</text>
+<text x="116" y="254" class="detail">MCP: stdio, or OAuth</text>
+<text x="116" y="273" class="detail">View · Ask · Full access</text>
+<rect x="48" y="320" width="300" height="125" rx="12" class="card" filter="url(#sb-l-lift)"/>
+<rect x="68" y="340" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(76 348)"><circle cx="8" cy="5.4" r="2.6"/><path d="M3 13.6c.7-2.5 2.7-3.9 5-3.9s4.3 1.4 5 3.9"/></g>
+<text x="116" y="353" class="eyebrow">Touch ID · password · passkey</text>
+<text x="116" y="376" class="title">You</text>
+<text x="116" y="402" class="detail">Desktop app · hoist</text>
+<text x="116" y="421" class="detail">approve what can't be undone</text>
+<rect x="932" y="200" width="300" height="130" rx="12" class="card" filter="url(#sb-l-lift)"/>
+<rect x="952" y="220" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(960 228)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
+<text x="1000" y="242" class="title">Your providers</text>
+<text x="1000" y="268" class="detail">Railway · Vercel · Neon</text>
+<text x="1000" y="287" class="detail">Cloudflare · Fly.io …</text>
+<text x="1000" y="306" class="detail">token scopes cap Hoista</text>
+<rect x="455" y="500" width="370" height="125" rx="12" class="card" filter="url(#sb-l-lift)"/>
+<rect x="475" y="520" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(483 528)"><rect x="2" y="2.5" width="12" height="8.5" rx="1.5"/><path d="M5.8 13.8h4.4M8 11v2.8"/></g>
+<text x="523" y="533" class="eyebrow">On your computer</text>
+<text x="523" y="556" class="title">OS credential store</text>
+<text x="523" y="582" class="detail">Keychain · Credential Manager</text>
+<text x="523" y="601" class="detail">Secret Service · 1Password ref</text>
+<rect x="847" y="500" width="365" height="125" rx="12" class="card" filter="url(#sb-l-lift)"/>
+<rect x="867" y="520" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(875 528)"><circle cx="5.5" cy="10.5" r="3"/><path d="M7.7 8.3 13.5 2.5M11.2 4.8l1.8 1.8M9.6 6.4l1.4 1.4"/></g>
+<text x="915" y="533" class="eyebrow">On a remote · separate user</text>
+<text x="915" y="556" class="title">Credential keeper</text>
+<text x="915" y="582" class="detail">sealed file, key outside hoistd</text>
+<text x="915" y="601" class="detail">adds tokens to provider calls</text>
+<rect x="48.0" y="38" width="241.3" height="44" rx="10" class="chip"/>
+<text x="59.0" y="70" class="headline">Trust boundaries</text>
+<rect x="1103.7" y="46.0" width="26" height="26" rx="7.0" class="badge"/><g transform="translate(1106.38 48.66) scale(0.2068)"><use href="#sb-l-mascot"/></g>
+<text x="1139.7" y="65" class="brand">hoista.dev</text>
+<text x="48" y="132" class="col">WHO CONNECTS</text>
+<text x="462" y="132" class="col">THE ONLY WAY IN</text>
+<text x="932" y="132" class="col">UPSTREAM</text>
+<rect x="376.0" y="214" width="58.0" height="24" rx="7" class="pill"/><text x="405" y="230.2" class="pill-t" text-anchor="middle">grant</text>
+<rect x="365.2" y="340" width="79.6" height="24" rx="7" class="pill"/><text x="405" y="356.2" class="pill-t" text-anchor="middle">verified</text>
+<rect x="853.2" y="253" width="43.6" height="24" rx="7" class="pill"/><text x="875" y="269.2" class="pill-t" text-anchor="middle">API</text>
+<rect x="802.4" y="412" width="65.2" height="24" rx="7" class="pill"/><text x="835" y="428.2" class="pill-t" text-anchor="middle">tokens</text>
+<text x="48" y="720" class="note-h">LIMITS</text>
+<text x="48" y="748" class="note">· hoistd is trusted. If it's compromised, its own checks can be skipped.</text>
+<text x="660" y="748" class="note">· The keeper guards where tokens are kept, not which actions run.</text>
+<text x="48" y="772" class="note">· Connecting or importing an account passes its token through hoistd once.</text>
+<text x="660" y="772" class="note">· Revoking an agent doesn’t revoke your provider tokens.</text>
+<text x="48" y="796" class="note">· Your computer's admin, or the server's, can read what hoistd can.</text>
+<text x="660" y="796" class="note">· Stopping Hoista doesn’t undo changes a provider already made.</text>
+</svg>

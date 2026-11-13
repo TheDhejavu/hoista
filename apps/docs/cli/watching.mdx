@@ -1,0 +1,89 @@
+---
+title: "Watching"
+description: "hoist commands for watching."
+---
+
+Every number here is one the provider reported. Hoista doesn't estimate.
+
+## `hoist logs [PROJECT]`
+
+A project's logs, recent or live.
+
+```bash
+hoist logs my-app
+hoist logs my-app -f --level error
+hoist logs my-app --since 2h --filter timeout -r api
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. Default: the project linked to this folder. |
+| `-r, --resource <RESOURCE>` | The resource, when the project has more than one. |
+| `-f, --follow` | Keep printing new lines as they come. |
+| `--filter <TEXT>` | Only lines containing this text. |
+| `--level <LEVEL>` | Only lines at this level. One of: debug, info, warn, error. |
+| `--since <WHEN>` | From this long ago (30m, 2h, 1d) or this time (RFC 3339). Not with --follow. |
+
+## `hoist metrics [RESOURCE]`
+
+CPU, memory and request charts the provider reports.
+
+```bash
+hoist metrics api -p my-app --since 24h
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. In a terminal, pick it from a list instead. |
+| `-p, --project <PROJECT>` | The resource's project, when naming it by name. |
+| `--since <SINCE>` | How far back: 15m, 1h, 6h, 24h, 7d or 30d [default: 1h] One of: 15m, 1h, 6h, 24h, 7d, 30d. |
+
+## `hoist activity`
+
+What happened recently, by you and by agents.
+
+```bash
+hoist activity
+hoist activity --agents -n 20
+hoist activity -p my-app --json
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `-p, --project <PROJECT>` | Only this project. |
+| `--agent <AGENT>` | Only this agent's calls (name or id). |
+| `--agents` | Only calls agents made. |
+| `-n, --limit <LIMIT>` | How many to show, newest first [default: 50] |
+
+## `hoist activity show <EVENT>`
+
+What an agent's call sent and how it ended, secrets removed.
+
+```bash
+hoist activity show 128
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<EVENT>` | Event id from hoist activity. |
+
+## `hoist billing`
+
+What each provider has billed this period, and plan limits.
+
+```bash
+hoist billing
+```
+
+## `hoist usage [PROJECT]`
+
+What the provider measured each day for a project.
+
+```bash
+hoist usage my-app --since 2026-10-01
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. Default: the project linked to this folder. |
+| `--since <DATE>` | From this day, as YYYY-MM-DD. Default: 30 days ago. |

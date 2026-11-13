@@ -1,0 +1,20 @@
+/* Invisible for the first 300ms, so a quick answer never flashes it. */
+.loading {
+  animation: fade var(--duration) var(--ease-out) 300ms both;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px 0;
+  animation: fade var(--duration) var(--ease-out);
+}
+
+.error p {
+  margin: 0;
+  max-width: 520px;
+  line-height: 1.5;
+  color: var(--text-2);
+}

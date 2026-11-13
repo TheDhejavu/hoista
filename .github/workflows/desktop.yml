@@ -1,0 +1,43 @@
+name: Desktop
+on:
+  push:
+    branches: [main]
+    paths: ['apps/desktop/**', 'package.json', 'package-lock.json', '.github/workflows/desktop.yml']
+  pull_request:
+    paths: ['apps/desktop/**', 'package.json', 'package-lock.json', '.github/workflows/desktop.yml']
+permissions:
+  contents: read
+jobs:
+  screens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run desktop:check
+
+  shell:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: apps/desktop/src-tauri
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the webview's libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libdbus-1-dev pkg-config
+      - name: Install Rust
+        run: rustup toolchain install 1.97.0 --profile minimal --component rustfmt --component clippy
+      # tauri::generate_context! reads the built page; an empty one is enough to compile.
+      - run: mkdir -p ../dist && touch ../dist/index.html
+      - run: cargo fmt -- --check
+      - run: cargo clippy --all-targets --locked -- -D warnings
+      - run: cargo test --locked

@@ -1,0 +1,180 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 16px;
+  background: var(--bad-tint);
+  box-shadow: inset 0 0 0 1px var(--bad-line);
+  padding: 14px 16px;
+  animation: enter var(--duration-slow) var(--ease-out);
+}
+
+.bannerLogo {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+.bannerText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+.bannerText strong {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+/* Recommended on the left, the other providers on the right, as in the design. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  align-items: start;
+  gap: 24px;
+}
+
+@media (max-width: 1000px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.split ul,
+.tiles ul {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.cardName {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.identity {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.good,
+.bad {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.good {
+  color: var(--text);
+}
+
+.bad {
+  color: var(--bad);
+}
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--pill);
+  padding: 0 9px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.muted {
+  color: var(--text-3);
+}
+
+.more {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+/* Connected accounts, one row each. */
+.tableFrame {
+  overflow-x: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.table th {
+  height: 36px;
+  background: var(--shot-side);
+  padding: 0 16px;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  text-align: left;
+}
+
+.table td {
+  height: 64px;
+  border-top: 1px solid var(--line);
+  padding: 0 16px;
+  vertical-align: middle;
+}
+
+.accountCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actionCell {
+  text-align: right;
+}

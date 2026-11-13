@@ -1,0 +1,118 @@
+.lede {
+  max-width: 620px;
+  margin: 4px 0 0;
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.risk {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--pill);
+  color: var(--text-2);
+  font-size: var(--text-xs);
+}
+
+.destroy {
+  background: var(--bad-tint);
+  color: var(--bad-ink);
+}
+
+.result {
+  padding: 4px 16px 16px;
+}
+
+.muted {
+  margin: 0;
+  color: var(--text-3);
+  font-size: var(--text-sm);
+}
+
+.empty {
+  padding: 20px;
+  color: var(--text-3);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sectionHead {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionHead h3 {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+}
+
+.sectionHead .lede {
+  margin-top: 2px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raised);
+  overflow: hidden;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+.cardHead h4 {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+}
+
+.cardAbout {
+  color: var(--text-2);
+  font-size: var(--text-sm);
+}
+
+.cardHead .risk {
+  margin-left: auto;
+}
+
+.cardBody {
+  padding: 0 16px 16px;
+}
+
+.risk {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Each kind of button: its label as it appears on operations, then what it does. */
+.helpGrid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: baseline;
+  column-gap: 12px;
+  row-gap: 10px;
+  line-height: 1.45;
+}
+
+.helpGrid > .risk {
+  justify-self: start;
+}

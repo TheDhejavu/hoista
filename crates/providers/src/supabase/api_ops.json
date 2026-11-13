@@ -1,0 +1,6889 @@
+{
+ "source": "Supabase Management API OpenAPI spec",
+ "operations": [
+  {
+   "name": "getPerformanceAdvisors",
+   "area": "Advisors",
+   "risk": "read",
+   "description": "Gets project performance advisors",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/advisors/performance",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getSecurityAdvisors",
+   "area": "Advisors",
+   "risk": "read",
+   "description": "Gets project security advisors",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/advisors/security",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "lint_type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "sql"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "createLegacySigningKey",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Set up the project's existing JWT secret as an in_use JWT signing key",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys/legacy",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectSigningKey",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Create a new signing key for the project in standby status",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "algorithm",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "EdDSA",
+       "ES256",
+       "RS256",
+       "HS256"
+      ]
+     }
+    },
+    {
+     "name": "status",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "in_use",
+       "standby"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectTpaIntegration",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Creates a new third-party auth integration",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/config/auth/third-party-auth",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "oidc_issuer_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "jwks_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "custom_jwks",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {}
+    }
+   ]
+  },
+  {
+   "name": "createSsoProvider",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Creates a new SSO provider",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/config/auth/sso/providers",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "saml"
+      ],
+      "description": "What type of provider will be created"
+     }
+    },
+    {
+     "name": "metadata_xml",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "metadata_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "domains",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "attribute_mapping",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "keys"
+      ],
+      "properties": {
+       "keys": {
+        "type": "object"
+       }
+      }
+     }
+    },
+    {
+     "name": "name_id_format",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+       "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
+       "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+       "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectTpaIntegration",
+   "area": "Auth",
+   "risk": "destroy",
+   "description": "Removes a third-party auth integration",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "tpa_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteSsoProvider",
+   "area": "Auth",
+   "risk": "destroy",
+   "description": "Removes a SSO provider by its UUID",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/config/auth/sso/providers/{provider_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "provider_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getAuthServiceConfig",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Gets project's auth config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getLegacySigningKey",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Get the signing key information for the JWT secret imported as signing key for this project",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys/legacy",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectSigningKey",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Get information about a signing key",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectSigningKeys",
+   "area": "Auth",
+   "risk": "read",
+   "description": "List all signing keys for the project",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectTpaIntegration",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Get a third-party integration",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "tpa_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getSsoProvider",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Gets a SSO provider by its UUID",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/sso/providers/{provider_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "provider_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllSsoProvider",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Lists all SSO providers",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/sso/providers",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectTpaIntegrations",
+   "area": "Auth",
+   "risk": "read",
+   "description": "Lists all third-party auth integrations",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/auth/third-party-auth",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeProjectSigningKey",
+   "area": "Auth",
+   "risk": "destroy",
+   "description": "Remove a signing key from a project. Only possible if the key has been in revoked status for a while",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateAuthServiceConfig",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Updates a project's auth config",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/config/auth",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "site_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "disable_signup",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "jwt_exp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 604800,
+      "nullable": true
+     }
+    },
+    {
+     "name": "smtp_admin_email",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "email",
+      "nullable": true
+     }
+    },
+    {
+     "name": "smtp_host",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "smtp_port",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "smtp_user",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "smtp_max_frequency",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767,
+      "nullable": true
+     }
+    },
+    {
+     "name": "smtp_sender_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_allow_unverified_email_sign_ins",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_autoconfirm",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_invite",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_confirmation",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_recovery",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_email_change",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_magic_link",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_reauthentication",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_email_changed_notification",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_phone_changed_notification",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_mfa_factor_enrolled_notification",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_mfa_factor_unenrolled_notification",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_identity_linked_notification",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_subjects_identity_unlinked_notification",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_invite_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_confirmation_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_recovery_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_email_change_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_magic_link_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_reauthentication_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_email_changed_notification_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_phone_changed_notification_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_mfa_factor_enrolled_notification_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_mfa_factor_unenrolled_notification_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_identity_linked_notification_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_templates_identity_unlinked_notification_content",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_notifications_email_changed_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_notifications_phone_changed_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_notifications_mfa_factor_enrolled_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_notifications_mfa_factor_unenrolled_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_notifications_identity_linked_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_notifications_identity_unlinked_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_max_enrolled_factors",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "uri_allow_list",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_anonymous_users_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_email_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_phone_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "saml_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "saml_external_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "security_sb_forwarded_for_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "security_captcha_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "security_captcha_provider",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "turnstile",
+       "hcaptcha",
+       null
+      ],
+      "nullable": true
+     }
+    },
+    {
+     "name": "sessions_timebox",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Session timebox in hours. Maximum 8760 hours (1 year).",
+      "minimum": 0,
+      "nullable": true
+     }
+    },
+    {
+     "name": "sessions_inactivity_timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "Session inactivity timeout in hours. Maximum 8760 hours (1 year).",
+      "minimum": 0,
+      "nullable": true
+     }
+    },
+    {
+     "name": "sessions_single_per_user",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sessions_tags",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "rate_limit_anonymous_users",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "rate_limit_email_sent",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "rate_limit_sms_sent",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "rate_limit_verify",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "rate_limit_otp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "rate_limit_web3",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_secure_email_change_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "security_manual_linking_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mailer_otp_exp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+     }
+    },
+    {
+     "name": "mailer_otp_length",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 6,
+      "maximum": 10,
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_autoconfirm",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_max_frequency",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767,
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_otp_exp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647,
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_otp_length",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+     }
+    },
+    {
+     "name": "sms_provider",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "messagebird",
+       "textlocal",
+       "twilio",
+       "twilio_verify",
+       "vonage",
+       null
+      ],
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_messagebird_originator",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_test_otp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_test_otp_valid_until",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_textlocal_sender",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_twilio_account_sid",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_twilio_content_sid",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_twilio_message_service_sid",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_twilio_verify_account_sid",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_twilio_verify_message_service_sid",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_vonage_from",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "sms_template",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_mfa_verification_attempt_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_mfa_verification_attempt_uri",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_send_sms_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_send_sms_uri",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_send_email_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_send_email_uri",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_before_user_created_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_before_user_created_uri",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_after_user_created_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "hook_after_user_created_uri",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_apple_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_apple_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_apple_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_apple_additional_client_ids",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_azure_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_azure_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_azure_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_azure_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_bitbucket_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_bitbucket_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_bitbucket_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_discord_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_discord_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_discord_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_facebook_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_facebook_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_facebook_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_figma_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_figma_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_figma_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_github_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_github_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_github_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_gitlab_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_gitlab_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_gitlab_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_gitlab_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_google_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_google_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_google_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_google_additional_client_ids",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_google_skip_nonce_check",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_kakao_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_kakao_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_kakao_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_keycloak_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_keycloak_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_keycloak_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_keycloak_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_linkedin_oidc_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_linkedin_oidc_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_linkedin_oidc_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_slack_oidc_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_slack_oidc_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_slack_oidc_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_notion_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_notion_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_notion_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_slack_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_slack_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_slack_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_spotify_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_spotify_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_spotify_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_twitch_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_twitch_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_twitch_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_twitter_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_twitter_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_twitter_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_x_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_x_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_x_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_workos_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_workos_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_workos_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_web3_solana_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_web3_ethereum_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_zoom_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_zoom_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "external_zoom_email_optional",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "db_max_pool_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991,
+      "nullable": true
+     }
+    },
+    {
+     "name": "db_max_pool_size_unit",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "connections",
+       "percent",
+       null
+      ],
+      "nullable": true
+     }
+    },
+    {
+     "name": "api_max_request_duration",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991,
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_totp_enroll_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_totp_verify_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_web_authn_enroll_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_web_authn_verify_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "webauthn_rp_display_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "webauthn_rp_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "webauthn_rp_origins",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_phone_enroll_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_phone_verify_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_phone_max_frequency",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767,
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_phone_otp_length",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767,
+      "nullable": true
+     }
+    },
+    {
+     "name": "mfa_phone_template",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "nimbus_oauth_client_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "oauth_server_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "oauth_server_allow_dynamic_registration",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "nullable": true
+     }
+    },
+    {
+     "name": "oauth_server_authorization_path",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "nullable": true
+     }
+    },
+    {
+     "name": "custom_oauth_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectSigningKey",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Update a signing key, mainly its status",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/config/auth/signing-keys/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "status",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "in_use",
+       "previously_used",
+       "revoked",
+       "standby"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateSsoProvider",
+   "area": "Auth",
+   "risk": "change",
+   "description": "Updates a SSO provider by its UUID",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/config/auth/sso/providers/{provider_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "provider_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "metadata_xml",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "metadata_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "domains",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "attribute_mapping",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "keys"
+      ],
+      "properties": {
+       "keys": {
+        "type": "object"
+       }
+      }
+     }
+    },
+    {
+     "name": "name_id_format",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+       "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
+       "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+       "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "applyProjectAddon",
+   "area": "Billing",
+   "risk": "destroy",
+   "description": "Apply or update billing addons, including compute instance size",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/billing/addons",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "addon_variant",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "ci_micro",
+       "ci_small",
+       "ci_medium",
+       "ci_large",
+       "ci_xlarge",
+       "ci_2xlarge",
+       "ci_4xlarge",
+       "ci_8xlarge",
+       "ci_12xlarge",
+       "ci_16xlarge",
+       "ci_24xlarge",
+       "ci_24xlarge_optimized_cpu",
+       "ci_24xlarge_optimized_memory",
+       "ci_24xlarge_high_memory",
+       "ci_48xlarge",
+       "ci_48xlarge_optimized_cpu",
+       "ci_48xlarge_optimized_memory",
+       "ci_48xlarge_high_memory"
+      ]
+     }
+    },
+    {
+     "name": "addon_type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "custom_domain",
+       "compute_instance",
+       "pitr",
+       "ipv4",
+       "auth_mfa_phone",
+       "auth_mfa_web_authn",
+       "log_drain",
+       "etl_pipeline"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectAddons",
+   "area": "Billing",
+   "risk": "read",
+   "description": "List billing addons and compute instance selections",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/billing/addons",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeProjectAddon",
+   "area": "Billing",
+   "risk": "destroy",
+   "description": "Remove billing addons or revert compute instance sizing",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/billing/addons/{addon_variant}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "addon_variant",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "ci_micro",
+       "ci_small",
+       "ci_medium",
+       "ci_large",
+       "ci_xlarge",
+       "ci_2xlarge",
+       "ci_4xlarge",
+       "ci_8xlarge",
+       "ci_12xlarge",
+       "ci_16xlarge",
+       "ci_24xlarge",
+       "ci_24xlarge_optimized_cpu",
+       "ci_24xlarge_optimized_memory",
+       "ci_24xlarge_high_memory",
+       "ci_48xlarge",
+       "ci_48xlarge_optimized_cpu",
+       "ci_48xlarge_optimized_memory",
+       "ci_48xlarge_high_memory"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "createBranch",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create a database branch",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/branches",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "git_branch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "is_default",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "persistent",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "desired_instance_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "pico",
+       "nano",
+       "micro",
+       "small",
+       "medium",
+       "large",
+       "xlarge",
+       "2xlarge",
+       "4xlarge",
+       "8xlarge",
+       "12xlarge",
+       "16xlarge",
+       "24xlarge",
+       "24xlarge_optimized_memory",
+       "24xlarge_optimized_cpu",
+       "24xlarge_high_memory",
+       "48xlarge",
+       "48xlarge_optimized_memory",
+       "48xlarge_optimized_cpu",
+       "48xlarge_high_memory"
+      ]
+     }
+    },
+    {
+     "name": "release_channel",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "internal",
+       "alpha",
+       "beta",
+       "ga",
+       "withdrawn",
+       "preview"
+      ],
+      "description": "Release channel. If not provided, GA will be used."
+     }
+    },
+    {
+     "name": "postgres_engine",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "15",
+       "17",
+       "17-oriole"
+      ],
+      "description": "Postgres engine version. If not provided, the latest version will be used."
+     }
+    },
+    {
+     "name": "with_data",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "notify_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "HTTP endpoint to receive branch status updates.",
+      "format": "uri"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Delete a database branch",
+   "method": "DELETE",
+   "path": "/v1/branches/{branch_id_or_ref}",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    },
+    {
+     "name": "force",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diffBranch",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Diffs a database branch",
+   "method": "GET",
+   "path": "/v1/branches/{branch_id_or_ref}/diff",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    },
+    {
+     "name": "included_schemas",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "pgdelta",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "disablePreviewBranching",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Disables preview branching",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/branches",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getActionRun",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Get the status of an action run",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/actions/{run_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "run_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getActionRunLogs",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Get the logs of an action run",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/actions/{run_id}/logs",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "run_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getBranch",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Get a database branch",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/branches/{name}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getBranchConfig",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Get database branch config",
+   "method": "GET",
+   "path": "/v1/branches/{branch_id_or_ref}",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionRuns",
+   "area": "Branches",
+   "risk": "read",
+   "description": "List all action runs",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/actions",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "offset",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 0
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 10
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllBranches",
+   "area": "Branches",
+   "risk": "read",
+   "description": "List all database branches",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/branches",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mergeBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Merges a database branch",
+   "method": "POST",
+   "path": "/v1/branches/{branch_id_or_ref}/merge",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    },
+    {
+     "name": "migration_version",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "pushBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Pushes a database branch",
+   "method": "POST",
+   "path": "/v1/branches/{branch_id_or_ref}/push",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    },
+    {
+     "name": "migration_version",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "resetBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Resets a database branch",
+   "method": "POST",
+   "path": "/v1/branches/{branch_id_or_ref}/reset",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    },
+    {
+     "name": "migration_version",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restoreBranch",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Restore a scheduled branch deletion",
+   "method": "POST",
+   "path": "/v1/branches/{branch_id_or_ref}/restore",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateActionRunStatus",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Update the status of an action run",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/actions/{run_id}/status",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "run_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "clone",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    },
+    {
+     "name": "pull",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    },
+    {
+     "name": "health",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    },
+    {
+     "name": "configure",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    },
+    {
+     "name": "migrate",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    },
+    {
+     "name": "seed",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    },
+    {
+     "name": "deploy",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATED",
+       "DEAD",
+       "EXITED",
+       "PAUSED",
+       "REMOVING",
+       "RESTARTING",
+       "RUNNING"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateBranchConfig",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Update database branch config",
+   "method": "PATCH",
+   "path": "/v1/branches/{branch_id_or_ref}",
+   "args": [
+    {
+     "name": "branch_id_or_ref",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Project ref"
+     }
+    },
+    {
+     "name": "branch_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "git_branch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "reset_on_push",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "This field is deprecated and will be ignored. Use v1-reset-a-branch endpoint directly instead."
+     }
+    },
+    {
+     "name": "persistent",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "status",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "CREATING_PROJECT",
+       "RUNNING_MIGRATIONS",
+       "MIGRATIONS_PASSED",
+       "MIGRATIONS_FAILED",
+       "FUNCTIONS_DEPLOYED",
+       "FUNCTIONS_FAILED"
+      ]
+     }
+    },
+    {
+     "name": "request_review",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "notify_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "HTTP endpoint to receive branch status updates.",
+      "format": "uri"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPostgrestServiceConfig",
+   "area": "Data API",
+   "risk": "read",
+   "description": "Gets project's postgrest config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/postgrest",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updatePostgrestServiceConfig",
+   "area": "Data API",
+   "risk": "change",
+   "description": "Updates project's postgrest config",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/postgrest",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "db_extra_search_path",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "db_schema",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "max_rows",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000
+     }
+    },
+    {
+     "name": "db_pool",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+     }
+    },
+    {
+     "name": "db_pool_acquisition_timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 60
+     }
+    },
+    {
+     "name": "db_pool_max_lifetime",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3600
+     }
+    },
+    {
+     "name": "db_pool_max_idletime",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 60
+     }
+    }
+   ]
+  },
+  {
+   "name": "applyMigration",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Apply a database migration",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/migrations",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "query",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "rollback",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "authorizeJitAccess",
+   "area": "Database",
+   "risk": "change",
+   "description": "Authorize user-id to role mappings for JIT access",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/jit",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "role",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "rhost",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "ipv4"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createRestorePoint",
+   "area": "Database",
+   "risk": "change",
+   "description": "Initiates a creation of a restore point for a database",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/backups/restore-point",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteInviteExternalJitAccess",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Deletes the invite for an external user to a database for JIT access",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/database/jit/invite/{invite_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "invite_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteJitAccess",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Delete JIT access by user-id",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/database/jit/{user_id}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "user_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteLoginRoles",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Delete existing login roles used by CLI",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/cli/login-role",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "disableReadonlyModeTemporarily",
+   "area": "Database",
+   "risk": "change",
+   "description": "Disables project's readonly mode for the next 15 minutes",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/readonly/temporary-disable",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "enableDatabaseWebhook",
+   "area": "Database",
+   "risk": "change",
+   "description": "Enables Database Webhooks on the project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/webhooks/enable",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "generateTypescriptTypes",
+   "area": "Database",
+   "risk": "read",
+   "description": "Generate TypeScript types",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/types/typescript",
+   "args": [
+    {
+     "name": "included_schemas",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "default": "public"
+     }
+    },
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getBackupSchedule",
+   "area": "Database",
+   "risk": "read",
+   "description": "Gets the backup schedule for a project",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/backups/schedule",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDatabaseMetadata",
+   "area": "Database",
+   "risk": "read",
+   "description": "Gets database metadata for the given project",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/context",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDatabaseOpenapi",
+   "area": "Database",
+   "risk": "read",
+   "description": "Get PostgREST OpenAPI spec",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/openapi",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "schema",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "default": "public"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getJitAccess",
+   "area": "Database",
+   "risk": "read",
+   "description": "Get user-id to role mappings for JIT access",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/jit",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getJitAccessConfig",
+   "area": "Database",
+   "risk": "read",
+   "description": "Get project's temporary access configuration",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/jit-access",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMigration",
+   "area": "Database",
+   "risk": "read",
+   "description": "Fetch an existing entry from migration history",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/migrations/{version}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "version",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPoolerConfig",
+   "area": "Database",
+   "risk": "read",
+   "description": "Gets project's supavisor config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/database/pooler",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPostgresConfig",
+   "area": "Database",
+   "risk": "read",
+   "description": "Gets project's Postgres config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/database/postgres",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectPgbouncerConfig",
+   "area": "Database",
+   "risk": "read",
+   "description": "Get project's pgbouncer config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/database/pgbouncer",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getReadonlyModeStatus",
+   "area": "Database",
+   "risk": "read",
+   "description": "Returns project's readonly mode status",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/readonly",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getRestorePoint",
+   "area": "Database",
+   "risk": "read",
+   "description": "Get restore points for project",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/backups/restore-point",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getSslEnforcementConfig",
+   "area": "Database",
+   "risk": "read",
+   "description": "Get project's SSL enforcement configuration",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/ssl-enforcement",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inviteExternalJitAccess",
+   "area": "Database",
+   "risk": "change",
+   "description": "Invites an external user to a database for JIT access",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/jit/invite",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "email",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "email"
+     }
+    },
+    {
+     "name": "roles",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "role"
+       ],
+       "properties": {
+        "role": {
+         "type": "string"
+        },
+        "expires_at": {
+         "type": "number"
+        },
+        "allowed_networks": {
+         "type": "object",
+         "properties": {
+          "allowed_cidrs": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "required": [
+             "cidr"
+            ],
+            "properties": {
+             "cidr": {
+              "type": "string",
+              "format": "cidrv4"
+             }
+            }
+           }
+          },
+          "allowed_cidrs_v6": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "required": [
+             "cidr"
+            ],
+            "properties": {
+             "cidr": {
+              "type": "string",
+              "format": "cidrv6"
+             }
+            }
+           }
+          }
+         }
+        },
+        "branches_only": {
+         "type": "boolean"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllBackups",
+   "area": "Database",
+   "risk": "read",
+   "description": "Lists all backups",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/backups",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listJitAccess",
+   "area": "Database",
+   "risk": "read",
+   "description": "List all user-id to role mappings for JIT access",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/jit/list",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listMigrationHistory",
+   "area": "Database",
+   "risk": "read",
+   "description": "List applied migration versions",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/database/migrations",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "patchMigration",
+   "area": "Database",
+   "risk": "change",
+   "description": "Patch an existing entry in migration history",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/database/migrations/{version}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "version",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "rollback",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "readOnlyQuery",
+   "area": "Database",
+   "risk": "read",
+   "description": "Run a sql query as supabase_read_only_user",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/query/read-only",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "query",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "parameters",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {}
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeReadReplica",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Remove a read replica",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/read-replicas/remove",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_identifier",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restorePhysicalBackup",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Restores a physical backup for a database",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/backups/restore",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "id",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "restorePitrBackup",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Restores a PITR backup for a database",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/backups/restore-pitr",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "recovery_time_target_unix",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 0,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "rollbackMigrations",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Rollback database migrations and remove them from history table",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/database/migrations",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "gte",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "runQuery",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Run sql query",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/query",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "query",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "parameters",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {}
+     }
+    },
+    {
+     "name": "read_only",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "setupReadReplica",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Set up a read replica",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/read-replicas/setup",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "read_replica_region",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "us-east-1",
+       "us-east-2",
+       "us-west-1",
+       "us-west-2",
+       "ap-east-1",
+       "ap-southeast-1",
+       "ap-northeast-1",
+       "ap-northeast-2",
+       "ap-southeast-2",
+       "eu-west-1",
+       "eu-west-2",
+       "eu-west-3",
+       "eu-north-1",
+       "eu-central-1",
+       "eu-central-2",
+       "ca-central-1",
+       "ap-south-1",
+       "sa-east-1"
+      ],
+      "description": "Region you want your read replica to reside in"
+     }
+    }
+   ]
+  },
+  {
+   "name": "undo",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Initiates an undo to a given restore point",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/database/backups/undo",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateBackupSchedule",
+   "area": "Database",
+   "risk": "change",
+   "description": "Updates the backup schedule time for a project",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/database/backups/schedule",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "schedule_for",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Time of day to schedule daily backups, in UTC. Format: HH:MM:SS."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateJitAccess",
+   "area": "Database",
+   "risk": "change",
+   "description": "Updates a user mapping for JIT access",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/database/jit",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "user_id",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "roles",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "role"
+       ],
+       "properties": {
+        "role": {
+         "type": "string"
+        },
+        "expires_at": {
+         "type": "number"
+        },
+        "allowed_networks": {
+         "type": "object",
+         "properties": {
+          "allowed_cidrs": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "required": [
+             "cidr"
+            ],
+            "properties": {
+             "cidr": {
+              "type": "string",
+              "format": "cidrv4"
+             }
+            }
+           }
+          },
+          "allowed_cidrs_v6": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "required": [
+             "cidr"
+            ],
+            "properties": {
+             "cidr": {
+              "type": "string",
+              "format": "cidrv6"
+             }
+            }
+           }
+          }
+         }
+        },
+        "branches_only": {
+         "type": "boolean"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateJitAccessConfig",
+   "area": "Database",
+   "risk": "change",
+   "description": "Update project's temporary access configuration",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/jit-access",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "state",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "enabled",
+       "disabled"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "updatePoolerConfig",
+   "area": "Database",
+   "risk": "change",
+   "description": "Updates project's supavisor config",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/config/database/pooler",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "default_pool_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3000,
+      "nullable": true
+     }
+    },
+    {
+     "name": "pool_mode",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "transaction",
+       "session"
+      ],
+      "description": "Dedicated pooler mode for the project"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updatePostgresConfig",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Updates project's Postgres config",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/config/database/postgres",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "effective_cache_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "logical_decoding_work_mem",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "pg_stat_statements.max",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 45000
+     }
+    },
+    {
+     "name": "pg_net.batch_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32767
+     }
+    },
+    {
+     "name": "autovacuum_max_workers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 262143
+     }
+    },
+    {
+     "name": "autovacuum_work_mem",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cron.log_statement",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_autovacuum_min_duration",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Default unit: ms"
+     }
+    },
+    {
+     "name": "log_checkpoints",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_connections",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_disconnections",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_duration",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_lock_waits",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_recovery_conflict_waits",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_replication_commands",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "log_startup_progress_interval",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Default unit: ms"
+     }
+    },
+    {
+     "name": "log_temp_files",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "maintenance_work_mem",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "track_activity_query_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "max_connections",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 262143
+     }
+    },
+    {
+     "name": "max_locks_per_transaction",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 2147483640
+     }
+    },
+    {
+     "name": "max_logical_replication_workers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 262143
+     }
+    },
+    {
+     "name": "max_parallel_maintenance_workers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1024
+     }
+    },
+    {
+     "name": "max_parallel_workers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1024
+     }
+    },
+    {
+     "name": "max_parallel_workers_per_gather",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1024
+     }
+    },
+    {
+     "name": "max_replication_slots",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "max_slot_wal_keep_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "max_standby_archive_delay",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "max_standby_streaming_delay",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "max_sync_workers_per_subscription",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 262143
+     }
+    },
+    {
+     "name": "max_wal_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "max_wal_senders",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "max_worker_processes",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 262143
+     }
+    },
+    {
+     "name": "session_replication_role",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "origin",
+       "replica",
+       "local"
+      ]
+     }
+    },
+    {
+     "name": "shared_buffers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "statement_timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Default unit: ms"
+     }
+    },
+    {
+     "name": "track_commit_timestamp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "wal_keep_size",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "wal_sender_timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Default unit: ms"
+     }
+    },
+    {
+     "name": "work_mem",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "checkpoint_timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Default unit: s"
+     }
+    },
+    {
+     "name": "hot_standby_feedback",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "restart_database",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateSslEnforcementConfig",
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Update project's SSL enforcement configuration",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/ssl-enforcement",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "requestedConfig",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "database"
+      ],
+      "properties": {
+       "database": {
+        "type": "boolean"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "upsertMigration",
+   "area": "Database",
+   "risk": "change",
+   "description": "Upsert a database migration without applying",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/database/migrations",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "query",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "rollback",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "activateCustomHostname",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Activates a custom hostname for a project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/custom-hostname/activate",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "activateVanitySubdomainConfig",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Activates a vanity subdomain for a project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/vanity-subdomain/activate",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vanity_subdomain",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "checkVanitySubdomainAvailability",
+   "area": "Domains",
+   "risk": "read",
+   "description": "Checks vanity subdomain availability",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/vanity-subdomain/check-availability",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vanity_subdomain",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deactivateVanitySubdomainConfig",
+   "area": "Domains",
+   "risk": "destroy",
+   "description": "Deletes a project's vanity subdomain configuration",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/vanity-subdomain",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteHostnameConfig",
+   "area": "Domains",
+   "risk": "destroy",
+   "description": "Deletes a project's custom hostname configuration",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/custom-hostname",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "remove_addon",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getHostnameConfig",
+   "area": "Domains",
+   "risk": "read",
+   "description": "Gets project's custom hostname config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/custom-hostname",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getVanitySubdomainConfig",
+   "area": "Domains",
+   "risk": "read",
+   "description": "Gets current vanity subdomain config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/vanity-subdomain",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateHostnameConfig",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Updates project's custom hostname configuration",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/custom-hostname/initialize",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "custom_hostname",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "verifyDnsConfig",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Attempts to verify the DNS configuration for project's custom hostname configuration",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/custom-hostname/reverify",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteFunction",
+   "area": "Edge functions",
+   "risk": "destroy",
+   "description": "Delete a function",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/functions/{function_slug}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "function_slug",
+     "in": "path",
+     "required": true,
+     "context": "function",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFunction",
+   "area": "Edge functions",
+   "risk": "read",
+   "description": "Retrieve a function",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/functions/{function_slug}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "function_slug",
+     "in": "path",
+     "required": true,
+     "context": "function",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllFunctions",
+   "area": "Edge functions",
+   "risk": "read",
+   "description": "List all functions",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/functions",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateFunction",
+   "area": "Edge functions",
+   "risk": "change",
+   "description": "Update a function",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/functions/{function_slug}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "function_slug",
+     "in": "path",
+     "required": true,
+     "context": "function",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "slug",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "verify_jwt",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "import_map",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "entrypoint_path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "import_map_path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "ezbr_sha256",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "body",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectFunctionCombinedStats",
+   "area": "Logs and usage",
+   "risk": "read",
+   "description": "Gets a project's function combined statistics",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/analytics/endpoints/functions.combined-stats",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "interval",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "15min",
+       "1hr",
+       "3hr",
+       "1day"
+      ]
+     }
+    },
+    {
+     "name": "function_id",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectLogs",
+   "area": "Logs and usage",
+   "risk": "read",
+   "description": "Gets all project's logs in a single log stream",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/analytics/endpoints/logs",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sql",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "iso_timestamp_start",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "iso_timestamp_end",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectUsageApiCount",
+   "area": "Logs and usage",
+   "risk": "read",
+   "description": "Gets project's usage api counts",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/analytics/endpoints/usage.api-counts",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "interval",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "15min",
+       "30min",
+       "1hr",
+       "3hr",
+       "1day",
+       "3day",
+       "7day"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectUsageRequestCount",
+   "area": "Logs and usage",
+   "risk": "read",
+   "description": "Gets project's usage api requests count",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/analytics/endpoints/usage.api-requests-count",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "cancelProjectRestoration",
+   "area": "Project",
+   "risk": "change",
+   "description": "Cancels the given project restoration",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/restore/cancel",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteNetworkBans",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Remove network bans",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/network-bans",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "ipv4_addresses",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "List of IP addresses to unban.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "requester_ip",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Include requester's public IP in the list of addresses to unban.",
+      "default": false
+     }
+    },
+    {
+     "name": "identifier",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProject",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Deletes the given project",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDatabaseDisk",
+   "area": "Project",
+   "risk": "read",
+   "description": "Get database disk attributes",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/disk",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDiskUtilization",
+   "area": "Project",
+   "risk": "read",
+   "description": "Get disk utilization",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/disk/util",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNetworkRestrictions",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets project's network restrictions",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/network-restrictions",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPostgresUpgradeEligibility",
+   "area": "Project",
+   "risk": "read",
+   "description": "Returns the project's eligibility for upgrades",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/upgrade/eligibility",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPostgresUpgradeStatus",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets the latest status of the project's upgrade",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/upgrade/status",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "tracking_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProject",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets a specific project that belongs to the authenticated user",
+   "method": "GET",
+   "path": "/v1/projects/{ref}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectDiskAutoscaleConfig",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets project disk autoscale config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/disk/autoscale",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getServicesHealth",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets project's service health status",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/health",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "services",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Comma-separated list of enums:\n\n- `auth`\n- `db`\n- `db_postgres_user`\n- `pooler`\n- `realtime`\n- `rest`\n- `storage`\n- `pg_bouncer`"
+     }
+    },
+    {
+     "name": "timeout_ms",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllNetworkBans",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets project's network bans",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/network-bans/retrieve",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllNetworkBansEnriched",
+   "area": "Project",
+   "risk": "read",
+   "description": "Gets project's network bans with additional information about which databases they affect",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/network-bans/retrieve/enriched",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAvailableRestoreVersions",
+   "area": "Project",
+   "risk": "read",
+   "description": "Lists available restore versions for the given project",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/restore",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "modifyDatabaseDisk",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Modify database disk",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/config/disk",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "attributes",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "iops",
+       "size_gb",
+       "type"
+      ],
+      "properties": {
+       "iops": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+       },
+       "size_gb": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+       },
+       "throughput_mibps": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "gp3"
+        ]
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "patchNetworkRestrictions",
+   "area": "Project",
+   "risk": "change",
+   "description": "Updates project's network restrictions by adding or removing CIDRs",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/network-restrictions",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "add",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "dbAllowedCidrs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "dbAllowedCidrsV6": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "remove",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "dbAllowedCidrs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "dbAllowedCidrsV6": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "pauseProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Pauses the given project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/pause",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restartProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Restarts the given project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/restart",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restoreProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Restores the given project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/restore",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNetworkRestrictions",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Updates project's network restrictions",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/network-restrictions/apply",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "dbAllowedCidrs",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "dbAllowedCidrsV6",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Updates the given project",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "upgradePostgresVersion",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Upgrades the project's Postgres version",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/upgrade",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "target_version",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "release_channel",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "internal",
+       "alpha",
+       "beta",
+       "ga",
+       "withdrawn",
+       "preview"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "getRealtimeConfig",
+   "area": "Realtime",
+   "risk": "read",
+   "description": "Gets realtime configuration",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/realtime",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "shutdownRealtime",
+   "area": "Realtime",
+   "risk": "destroy",
+   "description": "Shutdowns realtime connections for a project",
+   "method": "POST",
+   "path": "/v1/projects/{ref}/config/realtime/shutdown",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateRealtimeConfig",
+   "area": "Realtime",
+   "risk": "change",
+   "description": "Updates realtime configuration",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/config/realtime",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "private_only",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether to only allow private channels"
+     }
+    },
+    {
+     "name": "connection_pool",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets connection pool size for Realtime Authorization",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "postgres_changes_pool",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets connection pool size used to create Postgres Changes subscriptions",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "max_concurrent_users",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of concurrent users rate limit",
+      "minimum": 1,
+      "maximum": 300000
+     }
+    },
+    {
+     "name": "max_events_per_second",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of events per second rate per channel limit",
+      "minimum": 1,
+      "maximum": 50000
+     }
+    },
+    {
+     "name": "max_bytes_per_second",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of bytes per second rate per channel limit",
+      "minimum": 1,
+      "maximum": 10000000
+     }
+    },
+    {
+     "name": "max_channels_per_client",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of channels per client rate limit",
+      "minimum": 1,
+      "maximum": 10000
+     }
+    },
+    {
+     "name": "max_joins_per_second",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of joins per second rate limit",
+      "minimum": 1,
+      "maximum": 5000
+     }
+    },
+    {
+     "name": "max_presence_events_per_second",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of presence events per second rate limit",
+      "minimum": 1,
+      "maximum": 5000
+     }
+    },
+    {
+     "name": "max_payload_size_in_kb",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Sets maximum number of payload size in KB rate limit",
+      "minimum": 1,
+      "maximum": 10000
+     }
+    },
+    {
+     "name": "suspend",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Disables the Realtime service for this project when true. Set to false to re-enable it."
+     }
+    },
+    {
+     "name": "presence_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether to enable presence"
+     }
+    }
+   ]
+  },
+  {
+   "name": "bulkDeleteSecrets",
+   "area": "Secrets and keys",
+   "risk": "destroy",
+   "description": "Bulk delete secrets",
+   "method": "DELETE",
+   "path": "/v1/projects/{ref}/secrets",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectLegacyApiKeys",
+   "area": "Secrets and keys",
+   "risk": "read",
+   "description": "Check whether JWT based legacy (anon, service_role) API keys are enabled",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/api-keys/legacy",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllSecrets",
+   "area": "Secrets and keys",
+   "risk": "read",
+   "description": "List all secrets",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/secrets",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectLegacyApiKeys",
+   "area": "Secrets and keys",
+   "risk": "destroy",
+   "description": "Disable or re-enable JWT based legacy (anon, service_role) API keys",
+   "method": "PUT",
+   "path": "/v1/projects/{ref}/api-keys/legacy",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getStorageConfig",
+   "area": "Storage",
+   "risk": "read",
+   "description": "Gets project's storage config",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/config/storage",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listAllBuckets",
+   "area": "Storage",
+   "risk": "read",
+   "description": "Lists all buckets",
+   "method": "GET",
+   "path": "/v1/projects/{ref}/storage/buckets",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateStorageConfig",
+   "area": "Storage",
+   "risk": "change",
+   "description": "Updates project's storage config",
+   "method": "PATCH",
+   "path": "/v1/projects/{ref}/config/storage",
+   "args": [
+    {
+     "name": "ref",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "fileSizeLimit",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 0,
+      "maximum": 536870912000
+     }
+    },
+    {
+     "name": "features",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "imageTransformation": {
+        "type": "object",
+        "required": [
+         "enabled"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean"
+         }
+        }
+       },
+       "s3Protocol": {
+        "type": "object",
+        "required": [
+         "enabled"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean"
+         }
+        }
+       },
+       "purgeCache": {
+        "type": "object",
+        "required": [
+         "enabled"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean"
+         }
+        }
+       },
+       "icebergCatalog": {
+        "type": "object",
+        "required": [
+         "enabled",
+         "maxNamespaces",
+         "maxTables",
+         "maxCatalogs"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean"
+         },
+         "maxNamespaces": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+         },
+         "maxTables": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+         },
+         "maxCatalogs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+         }
+        }
+       },
+       "vectorBuckets": {
+        "type": "object",
+        "required": [
+         "enabled",
+         "maxBuckets",
+         "maxIndexes"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean"
+         },
+         "maxBuckets": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+         },
+         "maxIndexes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "external",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "upstreamTarget"
+      ],
+      "properties": {
+       "upstreamTarget": {
+        "type": "string",
+        "enum": [
+         "main",
+         "canary"
+        ]
+       }
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

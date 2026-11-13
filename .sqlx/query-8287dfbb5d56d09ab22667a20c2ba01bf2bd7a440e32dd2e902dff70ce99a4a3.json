@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO ignored_resources(resource_id,ignored_at) VALUES(?,?) ON CONFLICT(resource_id) DO NOTHING",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "8287dfbb5d56d09ab22667a20c2ba01bf2bd7a440e32dd2e902dff70ce99a4a3"
+}

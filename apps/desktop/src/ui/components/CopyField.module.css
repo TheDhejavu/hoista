@@ -1,0 +1,32 @@
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.code {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lines {
+  align-items: flex-start;
+}
+
+.block {
+  margin: 0;
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre;
+  line-height: 1.5;
+}

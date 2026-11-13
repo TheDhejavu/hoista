@@ -1,0 +1,283 @@
+/* Left-aligned even when opened over a centred screen, such as Welcome. */
+.main,
+.footer {
+  text-align: left;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 26px 28px 24px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 2px;
+}
+
+.headIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--tile);
+  color: var(--text);
+}
+
+.headText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  min-height: 44px;
+}
+
+.headText h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: var(--weight-medium);
+}
+
+.headText span {
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--text-2);
+  cursor: default;
+}
+
+.close:hover {
+  color: var(--text);
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* The drop zone: dashed, and lit while a file is over it. */
+.drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px dashed color-mix(in srgb, var(--text) 18%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--text) 3%, var(--bg));
+  padding: 26px 20px;
+  text-align: center;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out);
+}
+
+.dragging {
+  border-color: var(--text);
+  background: color-mix(in srgb, var(--text) 7%, var(--bg));
+}
+
+.fileArt {
+  margin-top: 4px;
+}
+
+.paper {
+  fill: var(--tile);
+  stroke: color-mix(in srgb, var(--text) 18%, transparent);
+}
+
+.fold {
+  stroke: color-mix(in srgb, var(--text) 18%, transparent);
+}
+
+.lock {
+  fill: var(--text);
+}
+
+.shackle {
+  stroke: var(--text);
+}
+
+.dropTitle {
+  font-size: 14.5px;
+  font-weight: var(--weight-medium);
+}
+
+.dropText {
+  max-width: 380px;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.path {
+  max-width: 100%;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropAction {
+  margin-top: 4px;
+}
+
+.wrong {
+  margin: -10px 0 0;
+  font-size: var(--text-sm);
+  color: var(--bad);
+}
+
+/* What comes over, three cards in a row. */
+.brings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.brings li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: var(--radius-lg);
+  background: var(--chip);
+  padding: 12px;
+}
+
+.brings b {
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+}
+
+.brings span {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+/* A grey strip along the bottom, the full width of the window. */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+  padding: 16px 28px;
+}
+
+.footerEnd {
+  justify-content: flex-end;
+}
+
+.footNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.footActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* After restoring: who's back and what came with them. */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 28px 24px;
+  text-align: center;
+}
+
+.mascot {
+  display: flex;
+  color: var(--text);
+}
+
+.welcomeTitle {
+  margin: 18px 0 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+}
+
+.welcomeSub {
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin-top: 22px;
+  text-align: left;
+}
+
+.count {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: var(--radius-xl);
+  background: var(--chip);
+  padding: 14px;
+}
+
+.count b {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+}
+
+.count span {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.notes li {
+  display: flex;
+  gap: 10px;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.notes svg {
+  flex: none;
+  margin-top: 2px;
+}

@@ -1,0 +1,60 @@
+---
+title: "Environments"
+description: "Keep projects in separate spaces, such as default and production."
+---
+
+import Environments from '/snippets/diagrams/environments.mdx';
+
+A Hoista **environment** is a separate space for projects, such as `default` and `production`. Every project is in exactly one environment. Creating, renaming or moving between environments changes nothing at any provider.
+
+Hoista environments are different from environment variables and from a provider's own environments, such as a Vercel preview environment.
+
+<Environments />
+
+## Create and switch
+
+Pick the environment the window shows from the switcher under the search box. Choose **New environment** to add one, or **Manage environments** to rename or remove one. To move a project, open its **Settings** and change **Environment**.
+
+From the CLI:
+
+```bash
+hoist environments
+hoist environments add staging
+hoist environments use staging
+hoist projects move my-app --to production
+hoist projects --all
+```
+
+`hoist environments use` sets the environment for every command after it. For one command, add `-e NAME` or set `HOISTA_ENVIRONMENT`. `hoist environments rename` and `hoist environments remove` change or remove one; only an empty environment can be removed.
+
+## What follows the environment
+
+These show only for the environment you are viewing:
+
+- **Projects**: the list, its count and the recent projects in the sidebar
+- **Deploys** of projects in this environment
+- **Agent activity** on projects here. Actions with no project, such as an agent connecting, always show.
+- **Problems** on the Projects page
+- **Found on your providers**: anything you add goes into the environment you are viewing
+
+Opening a project from another environment, through search, a link or a notification, switches the window to that environment.
+
+## What stays the same everywhere
+
+- **Accounts**: one provider account can serve projects in several environments
+- **Billing**: providers bill per account, not per project
+- **Agents** and their access
+- **Approvals** waiting for you, **Settings** and **remotes**
+- **Search**, which finds projects in every environment
+
+## Limit an agent to some environments
+
+In **Agents**, open an agent's access and choose the environments it can reach. Projects in other environments are hidden from it. See [agent permissions](/agents/permissions).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Limit an agent to some environments.</Card>
+<Card title="Use Hoista Desktop" icon="display" href="/guides/desktop">The switcher and the rest of the window.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">New projects go into the environment you view.</Card>
+</CardGroup>

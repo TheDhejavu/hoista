@@ -1,0 +1,81 @@
+/* Connected. */
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.done p {
+  margin: 0;
+  max-width: 420px;
+  font-size: var(--text-md);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.doneTick {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--good) 16%, transparent);
+  color: var(--good);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ask {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-muted);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  text-align: left;
+}
+
+.askArrow {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--bg-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-md);
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+/* Hoista can't listen on its port, so the tunnel reaches something else. */
+.portBusy {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 16px;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--warn) 12%, transparent);
+  padding: 12px 14px;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.portBusy svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--warn);
+}

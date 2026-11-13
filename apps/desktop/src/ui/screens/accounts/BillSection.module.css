@@ -1,0 +1,70 @@
+.billCard {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+  padding: 16px 20px;
+}
+
+.billLabel {
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.billRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.billAmount {
+  font-size: 30px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.over {
+  font-size: var(--text-md);
+  color: var(--bad-ink);
+}
+
+.meter {
+  position: relative;
+  height: 8px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+}
+
+.meter i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: var(--text);
+}
+
+.softMark,
+.hardMark {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+}
+
+.softMark {
+  background: var(--warn, #d97706);
+}
+
+.hardMark {
+  background: var(--bad);
+}
+
+.meterKey {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}

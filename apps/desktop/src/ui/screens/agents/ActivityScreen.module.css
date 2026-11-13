@@ -1,0 +1,283 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px var(--page-gutter) 32px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.header > div {
+  flex: 1;
+}
+
+.trail {
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.trail a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.header h1 {
+  margin: 4px 0 0;
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.03em;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: var(--text-2);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.count {
+  margin-left: auto;
+  color: var(--text-3);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.withPanel {
+  grid-template-columns: minmax(0, 1fr) 292px;
+}
+
+@media (max-width: 1100px) {
+  .withPanel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* With the side panel open the table loses its Tool column (the panel shows
+   what was sent) so every other column still fits without scrolling. */
+.withPanel .table {
+  min-width: 0;
+}
+
+.withPanel .table th:nth-child(5),
+.withPanel .table td:nth-child(5) {
+  display: none;
+}
+
+.frame {
+  overflow-x: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  height: 36px;
+  background: var(--shot-side);
+  padding: 0 14px;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+  text-align: left;
+}
+
+.dayRow th {
+  height: 32px;
+  border-top: 1px solid var(--line);
+  background: var(--shot-side);
+  padding: 0 16px;
+  font-size: var(--text-sm);
+  text-align: left;
+}
+
+.row td {
+  height: 44px;
+  border-top: 1px solid var(--line);
+  padding: 4px 14px;
+}
+
+.row:hover td {
+  background: var(--bg-hover);
+}
+
+.selected td {
+  background: var(--bg-soft);
+}
+
+.selected td:first-child {
+  box-shadow: inset 2px 0 0 var(--text);
+}
+
+.time {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.tool {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.muted {
+  color: var(--text-2);
+}
+
+.result {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Beside text that wraps, a dot sits on the first line. */
+.result .dot,
+.line .dot {
+  margin-top: 0.5lh;
+  transform: translateY(-50%);
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-4);
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.warn {
+  background: var(--warn);
+}
+
+.empty {
+  margin: 0;
+  padding: 24px;
+  color: var(--text-2);
+}
+
+.panel {
+  /* Stays in view while the list scrolls under it. */
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+}
+
+.panelTop {
+  border-bottom: 1px solid var(--line);
+  padding: 16px 18px;
+}
+
+.panelWho {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panelWhen {
+  margin-left: auto;
+  color: var(--text-3);
+}
+
+.panelTitle {
+  margin-top: 12px;
+  font-weight: var(--weight-medium);
+}
+
+.panelBody {
+  padding: 14px 18px 18px;
+}
+
+.panelBody h3 {
+  margin: 14px 0 6px;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-3);
+}
+
+.panelBody h3:first-child {
+  margin-top: 0;
+}
+
+.panelBody blockquote {
+  margin: 0;
+  border-left: 2px solid var(--text);
+  padding-left: 10px;
+  font-size: var(--text-md);
+}
+
+.code {
+  margin: 0;
+  border-radius: 12px;
+  background: #151515;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: #e5e5e5;
+  white-space: pre-wrap;
+}
+
+.line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 4px;
+  font-size: var(--text-md);
+}
+
+.note {
+  margin: 6px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.review {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nowrap {
+  white-space: nowrap;
+}

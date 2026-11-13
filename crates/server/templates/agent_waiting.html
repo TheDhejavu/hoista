@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# An agent's sign-in, opened in a browser: the code to match, and where to answer. #}
+{% block head %}{% if review.is_none() %}<meta http-equiv="refresh" content="3">{% endif %}{% endblock %}
+{% block content %}
+{% call parts::hoista() %}{% endcall %}
+<div class="card"><h1>An agent wants to use your Hoista</h1>
+{%- match review %}
+{%- when Some(review) %}
+<div class="code">Code <b>{{ code }}</b> <span>should match the next page</span></div>
+<p class="sub">Sign in with your passkey to see what it asks for and answer.</p>
+<a class="go" href="{{ review }}">Sign in and review</a>
+{%- when None %}
+<div class="code">Code <b>{{ code }}</b> <span>should match the page on your computer</span></div>
+<p class="sub">On the computer Hoista runs on, check the code on the page Hoista opened, or in Hoista under Agents, and allow the agent. This page carries on by itself once you have.</p>
+{%- endmatch %}
+</div>
+{% endblock %}

@@ -1,0 +1,250 @@
+/*
+ * Design tokens. Components use these names, never raw colours or sizes.
+ *
+ * Light and dark are each chosen, not flipped. The project follows the system
+ * unless Settings → Theme picks one, which sets `data-theme` on <html>.
+ * Black and white with grey surfaces, like hoista.dev: the one main action is
+ * black (white in dark), and colour is kept for status. Type is the system
+ * face (SF Pro on macOS), with Inter bundled as the stand-in elsewhere.
+ */
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg: #ffffff;
+  --bg-sidebar: #fafafa;
+  --bg-raised: #ffffff;
+  --bg-hover: color-mix(in srgb, var(--text) 5%, transparent);
+  --bg-muted: color-mix(in srgb, var(--text) 8%, transparent);
+
+  /* Lines */
+  --line: rgb(0 0 0 / 8%);
+  --line-strong: rgb(0 0 0 / 13%);
+  --grid-dot: rgb(0 0 0 / 9%);
+
+  /* Text, strongest first */
+  --text: #111111;
+  /* Readable on white: secondary text at 7:1, quiet lines at 5:1 (WCAG AA),
+     and the faintest (placeholders, disabled) still at 3:1. */
+  --text-2: #4f4f4f;
+  --text-3: #6b6b6b;
+  --text-4: #8f8f8f;
+  --text-on-accent: #ffffff;
+  --text-on-bad: #ffffff;
+
+  /* Brand: black fills the one main action; `--accent-ink` is for icons and text. */
+  --accent: #111111;
+  --accent-ink: #111111;
+  /* The mascot and its logo tile follow the text colour, like the main buttons. */
+  --brand: var(--text);
+  --brand-tile: var(--text);
+
+  /* Status */
+  --good: #1a9e45;
+  --bad: #d03b3b;
+  --warn: #c98a00;
+  --info: #2a78d6;
+  --idle: #8e8e93;
+  --good-line: color-mix(in srgb, var(--good) 35%, transparent);
+  --bad-line: color-mix(in srgb, var(--bad) 35%, transparent);
+  --warn-line: color-mix(in srgb, var(--warn) 35%, transparent);
+
+  /* Elevation: cards sit flat on a hairline; only things that float get a shadow. */
+  --shadow-overlay: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px -6px rgb(0 0 0 / 16%);
+  --scrim: rgb(0 0 0 / 16%);
+
+  /* Native material, as macOS draws sheets and popovers: a translucent
+     surface, a half-pixel edge and a lit top edge instead of a border. */
+  --material: rgb(255 255 255 / 86%);
+  --material-blur: blur(30px) saturate(1.6);
+  --edge: 0 0 0 0.5px rgb(0 0 0 / 16%);
+  --edge-light: inset 0 1px 0 rgb(255 255 255 / 90%);
+  --float: 0 24px 48px -8px rgb(18 31 41 / 14%), 0 2px 4px rgb(18 31 41 / 6%);
+  --hairline: rgb(0 0 0 / 9%);
+  /* A small tile (an icon, a number): lit from above, ringed by a half pixel. */
+  --tile: #ffffff;
+  --tile-bevel: inset 0 0 0 0.5px rgb(0 0 0 / 12%), 0 1px 2px rgb(18 31 41 / 6%);
+  --chip: rgb(142 142 147 / 14%);
+  /* Cards on the page: a soft hairline and a faint lift. */
+  --card-line: rgb(0 0 0 / 7%);
+  --card-lift: 0 1px 2px rgb(18 31 41 / 4%);
+  /* Menus, dropdowns and the command palette: material that floats a step
+     above whatever opened it. */
+  --menu-material: rgb(255 255 255 / 90%);
+  --menu-float: 0 12px 32px -6px rgb(18 31 41 / 18%), 0 1px 3px rgb(18 31 41 / 8%);
+  /* Lighter than macOS's own medium (510) and semibold (590): SF Pro at
+     those reads heavy at app sizes. Names and labels use medium; only
+     large titles and figures use semibold. */
+  --weight-medium: 450;
+  --weight-semibold: 560;
+  /* The whole app uses the system face (SF Pro on macOS), like native apps;
+     Inter, bundled, stands in elsewhere. */
+  --font-system: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, system-ui, sans-serif;
+
+  /* Type */
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: var(--font-system);
+
+  --text-2xs: 10.5px;
+  --text-xs: 11.5px;
+  --text-sm: 12.5px;
+  --text-md: 13px;
+  --text-lg: 14px;
+  --text-xl: 15px;
+  --text-title: 18px;
+  --text-2xl: 22px;
+  --text-3xl: 26px;
+  --text-4xl: 36px;
+
+  /* Shape */
+  --radius-xs: 4px;
+  --radius-sm: 7px;
+  --radius: 9px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
+  --radius-pill: 999px;
+
+  /* Motion: quick and settled, like a native project. Durations shrink to zero under reduced motion. */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  /* How iOS and macOS sheets settle: quick, then soft, no overshoot. */
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 120ms;
+  --duration: 180ms;
+  --duration-slow: 260ms;
+
+  /* Layout */
+  --titlebar-height: 52px;
+  --sidebar-width: 248px;
+  --page-gutter: 32px;
+}
+
+/* Dark: flat neutral greys with no tint, like Claude's Mac app. The sidebar
+   is the darkest (#0e0e0e), the page a step lighter (#121212), and cards,
+   bubbles and controls #1f1f1f with a faint lit top edge. Used when the
+   system asks for it and the user hasn't picked light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #121212;
+    --bg-sidebar: #0e0e0e;
+    --bg-raised: #1f1f1f;
+    --line: rgb(255 255 255 / 6%);
+    --line-strong: rgb(255 255 255 / 11%);
+    --grid-dot: rgb(255 255 255 / 5%);
+    --text: #f5f5f5;
+    --text-2: #b8b8b8;
+    --text-3: #9c9c9c;
+    --text-4: #7c7c7c;
+    --accent: #f5f5f5;
+    --accent-ink: #f5f5f5;
+    --text-on-accent: #121212;
+    --text-on-bad: #1f0d09;
+    --good: #7ee0a1;
+    --bad: #f0806f;
+    --warn: #f2b35b;
+    --info: #6199f8;
+    --shadow-overlay: 0 18px 50px rgb(0 0 0 / 60%);
+    --scrim: rgb(0 0 0 / 60%);
+    --material: rgb(31 31 31 / 94%);
+    --edge: 0 0 0 0.5px rgb(255 255 255 / 7%);
+    --edge-light: inset 0 0.5px 0 rgb(255 255 255 / 10%);
+    --float: 0 28px 70px rgb(0 0 0 / 50%);
+    --hairline: rgb(255 255 255 / 7%);
+    --tile: #282828;
+    --tile-bevel: inset 0 0.5px 0 rgb(255 255 255 / 9%);
+    --chip: #282828;
+    --card-line: rgb(255 255 255 / 6%);
+    --card-lift: inset 0 0.5px 0 rgb(255 255 255 / 5%);
+    --menu-material: rgb(40 40 40 / 94%);
+    --menu-float: 0 16px 44px rgb(0 0 0 / 55%);
+  }
+}
+
+/* Dark, when picked in Settings. Same values as above. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #121212;
+  --bg-sidebar: #0e0e0e;
+  --bg-raised: #1f1f1f;
+  --line: rgb(255 255 255 / 6%);
+  --line-strong: rgb(255 255 255 / 11%);
+  --grid-dot: rgb(255 255 255 / 5%);
+  --text: #f5f5f5;
+  --text-2: #b8b8b8;
+  --text-3: #9c9c9c;
+  --text-4: #7c7c7c;
+  --accent: #f5f5f5;
+  --accent-ink: #f5f5f5;
+  --text-on-accent: #121212;
+  --text-on-bad: #1f0d09;
+  --good: #7ee0a1;
+  --bad: #f0806f;
+  --warn: #f2b35b;
+  --info: #6199f8;
+  --shadow-overlay: 0 18px 50px rgb(0 0 0 / 60%);
+  --scrim: rgb(0 0 0 / 60%);
+  --material: rgb(31 31 31 / 94%);
+  --edge: 0 0 0 0.5px rgb(255 255 255 / 7%);
+  --edge-light: inset 0 0.5px 0 rgb(255 255 255 / 10%);
+  --float: 0 28px 70px rgb(0 0 0 / 50%);
+  --hairline: rgb(255 255 255 / 7%);
+  --tile: #282828;
+  --tile-bevel: inset 0 0.5px 0 rgb(255 255 255 / 9%);
+  --chip: #282828;
+  --card-line: rgb(255 255 255 / 6%);
+  --card-lift: inset 0 0.5px 0 rgb(255 255 255 / 5%);
+  --menu-material: rgb(40 40 40 / 94%);
+  --menu-float: 0 16px 44px rgb(0 0 0 / 55%);
+}
+
+/* Project previews and soft cards, drawn like the design boards. */
+:root {
+  --bg-soft: #f6f6f6;
+  --spark: #d4d4d4;
+  --pill: #f2f2f2;
+  /* Small bar charts: older bars quiet, the newest one stands out. */
+  --chart-bar: #e4e4e4;
+  --chart-now: var(--info);
+  --bad-tint: #fef2f2;
+  --bad-ink: #b91c1c;
+  --shot-page: #ffffff;
+  --shot-side: #fafafa;
+  --shot-fill: #f1f1f1;
+  --shot-line: #e9e9e9;
+  --shot-edge: #f2f2f2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg-soft: #1a1a1a;
+    --spark: #3a3a3a;
+    --pill: #2a2a2a;
+    --chart-bar: #333333;
+    --chart-now: var(--info);
+    --bad-tint: #3b1414;
+    --bad-ink: #f87171;
+    --shot-page: #0e0e0e;
+    --shot-side: #121212;
+    --shot-fill: #1f1f1f;
+    --shot-line: #2a2a2a;
+    --shot-edge: #1c1c1c;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg-soft: #1a1a1a;
+  --spark: #3a3a3a;
+  --pill: #2a2a2a;
+  --chart-bar: #333333;
+  --chart-now: var(--info);
+  --bad-tint: #3b1414;
+  --bad-ink: #f87171;
+  --shot-page: #0e0e0e;
+  --shot-side: #121212;
+  --shot-fill: #1f1f1f;
+  --shot-line: #2a2a2a;
+  --shot-edge: #1c1c1c;
+}

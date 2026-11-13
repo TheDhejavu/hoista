@@ -1,0 +1,5835 @@
+{
+ "source": "resend OpenAPI spec",
+ "operations": [
+  {
+   "name": "automationsCreate",
+   "area": "Automations",
+   "risk": "change",
+   "description": "Create an automation",
+   "method": "POST",
+   "path": "/automations",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the automation."
+     }
+    },
+    {
+     "name": "status",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "enabled",
+       "disabled"
+      ],
+      "description": "The initial status of the automation. Defaults to `disabled`.",
+      "default": "disabled"
+     }
+    },
+    {
+     "name": "steps",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The steps that compose the automation workflow. Must include at least one `trigger` step.",
+      "items": {
+       "type": "object",
+       "description": "A step in an automation workflow. The `config` object varies based on the step `type`.",
+       "required": [
+        "key",
+        "type",
+        "config"
+       ]
+      }
+     }
+    },
+    {
+     "name": "connections",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The connections between steps in the automation graph.",
+      "items": {
+       "type": "object",
+       "description": "A connection between two steps in the automation graph.",
+       "required": [
+        "from",
+        "to"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsDuplicate",
+   "area": "Automations",
+   "risk": "change",
+   "description": "Duplicate an automation",
+   "method": "POST",
+   "path": "/automations/{automation_id}/duplicate",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsGet",
+   "area": "Automations",
+   "risk": "read",
+   "description": "Retrieve a single automation",
+   "method": "GET",
+   "path": "/automations/{automation_id}",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsGetRun",
+   "area": "Automations",
+   "risk": "read",
+   "description": "Retrieve a single automation run",
+   "method": "GET",
+   "path": "/automations/{automation_id}/runs/{run_id}",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "run_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsList",
+   "area": "Automations",
+   "risk": "read",
+   "description": "Retrieve a list of automations",
+   "method": "GET",
+   "path": "/automations",
+   "args": [
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "enabled",
+       "disabled"
+      ]
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsListRuns",
+   "area": "Automations",
+   "risk": "read",
+   "description": "Retrieve a list of automation runs",
+   "method": "GET",
+   "path": "/automations/{automation_id}/runs",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsRemove",
+   "area": "Automations",
+   "risk": "destroy",
+   "description": "Delete an automation",
+   "method": "DELETE",
+   "path": "/automations/{automation_id}",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsStop",
+   "area": "Automations",
+   "risk": "destroy",
+   "description": "Stop an automation",
+   "method": "POST",
+   "path": "/automations/{automation_id}/stop",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "automationsUpdate",
+   "area": "Automations",
+   "risk": "change",
+   "description": "Update an automation",
+   "method": "PATCH",
+   "path": "/automations/{automation_id}",
+   "args": [
+    {
+     "name": "automation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the automation."
+     }
+    },
+    {
+     "name": "status",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "enabled",
+       "disabled"
+      ],
+      "description": "The status of the automation."
+     }
+    },
+    {
+     "name": "steps",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The steps that compose the automation workflow. Must be provided together with `connections`.",
+      "items": {
+       "type": "object",
+       "description": "A step in an automation workflow. The `config` object varies based on the step `type`.",
+       "required": [
+        "key",
+        "type",
+        "config"
+       ]
+      }
+     }
+    },
+    {
+     "name": "connections",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The connections between steps in the automation graph. Must be provided together with `steps`.",
+      "items": {
+       "type": "object",
+       "description": "A connection between two steps in the automation graph.",
+       "required": [
+        "from",
+        "to"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsCancel",
+   "area": "Broadcasts",
+   "risk": "destroy",
+   "description": "Cancel a broadcast",
+   "method": "POST",
+   "path": "/broadcasts/{id}/cancel",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsCreate",
+   "area": "Broadcasts",
+   "risk": "change",
+   "description": "Create a broadcast",
+   "method": "POST",
+   "path": "/broadcasts",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the broadcast."
+     }
+    },
+    {
+     "name": "segment_id",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Unique identifier of the segment this broadcast will be sent to."
+     }
+    },
+    {
+     "name": "audience_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Use `segment_id` instead. Unique identifier of the segment this broadcast will be sent to."
+     }
+    },
+    {
+     "name": "from",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The email address of the sender."
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subject line of the email."
+     }
+    },
+    {
+     "name": "reply_to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The email addresses to which replies should be sent.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "preview_text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The preview text of the email."
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The HTML version of the message."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plain text version of the message."
+     }
+    },
+    {
+     "name": "topic_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The topic ID that the broadcast will be scoped to."
+     }
+    },
+    {
+     "name": "send",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether to send the broadcast immediately or keep it as a draft.\n"
+     }
+    },
+    {
+     "name": "scheduled_at",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Schedule time to send the broadcast. Can only be used if `send` is true.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsDuplicate",
+   "area": "Broadcasts",
+   "risk": "change",
+   "description": "Duplicate a broadcast",
+   "method": "POST",
+   "path": "/broadcasts/{id}/duplicate",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsGet",
+   "area": "Broadcasts",
+   "risk": "read",
+   "description": "Retrieve a single broadcast",
+   "method": "GET",
+   "path": "/broadcasts/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsList",
+   "area": "Broadcasts",
+   "risk": "read",
+   "description": "Retrieve a list of broadcasts",
+   "method": "GET",
+   "path": "/broadcasts",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsListClickedLinks",
+   "area": "Broadcasts",
+   "risk": "read",
+   "description": "Retrieve a broadcast's clicked links",
+   "method": "GET",
+   "path": "/broadcasts/{id}/clicked-links",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsRecipients",
+   "area": "Broadcasts",
+   "risk": "read",
+   "description": "Retrieve broadcast recipients",
+   "method": "GET",
+   "path": "/broadcasts/{id}/recipients",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "sent",
+       "delivered",
+       "opened",
+       "clicked",
+       "bounced",
+       "complained",
+       "unsubscribed",
+       "suppressed"
+      ]
+     }
+    },
+    {
+     "name": "email",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bounce_type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "permanent",
+       "transient",
+       "undetermined"
+      ]
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsRemove",
+   "area": "Broadcasts",
+   "risk": "destroy",
+   "description": "Remove an existing broadcast that is in the draft status",
+   "method": "DELETE",
+   "path": "/broadcasts/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsSend",
+   "area": "Broadcasts",
+   "risk": "destroy",
+   "description": "Send or schedule a broadcast",
+   "method": "POST",
+   "path": "/broadcasts/{id}/send",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "scheduled_at",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Schedule email to be sent later. The date should be in ISO 8601 format."
+     }
+    }
+   ]
+  },
+  {
+   "name": "broadcastsUpdate",
+   "area": "Broadcasts",
+   "risk": "change",
+   "description": "Update an existing broadcast",
+   "method": "PATCH",
+   "path": "/broadcasts/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the broadcast."
+     }
+    },
+    {
+     "name": "audience_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Use `segment_id` instead. Unique identifier of the audience this broadcast will be sent to."
+     }
+    },
+    {
+     "name": "segment_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Unique identifier of the segment this broadcast will be sent to."
+     }
+    },
+    {
+     "name": "from",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The email address of the sender."
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subject line of the email."
+     }
+    },
+    {
+     "name": "reply_to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The email addresses to which replies should be sent.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "preview_text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The preview text of the email."
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The HTML version of the message."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plain text version of the message."
+     }
+    },
+    {
+     "name": "topic_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The topic ID that the broadcast will be scoped to."
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactPropertiesCreate",
+   "area": "Contact properties",
+   "risk": "change",
+   "description": "Create a new contact property",
+   "method": "POST",
+   "path": "/contact-properties",
+   "args": [
+    {
+     "name": "key",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The property key. Max length is 50 characters. Only alphanumeric characters and underscores are allowed."
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "string",
+       "number"
+      ],
+      "description": "The property type."
+     }
+    },
+    {
+     "name": "fallback_value",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The default value to use when the property is not set for a contact. Must match the type specified in the type field.",
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactPropertiesGet",
+   "area": "Contact properties",
+   "risk": "read",
+   "description": "Retrieve a single contact property",
+   "method": "GET",
+   "path": "/contact-properties/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactPropertiesList",
+   "area": "Contact properties",
+   "risk": "read",
+   "description": "Retrieve a list of contact properties",
+   "method": "GET",
+   "path": "/contact-properties",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactPropertiesRemove",
+   "area": "Contact properties",
+   "risk": "destroy",
+   "description": "Remove an existing contact property",
+   "method": "DELETE",
+   "path": "/contact-properties/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactPropertiesUpdate",
+   "area": "Contact properties",
+   "risk": "change",
+   "description": "Update an existing contact property",
+   "method": "PATCH",
+   "path": "/contact-properties/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "fallback_value",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The default value to use when the property is not set for a contact. Must match the type of the property.",
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsAddSegment",
+   "area": "Contacts",
+   "risk": "change",
+   "description": "Add a contact to a segment",
+   "method": "POST",
+   "path": "/contacts/{contact_id}/segments/{segment_id}",
+   "args": [
+    {
+     "name": "contact_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "segment_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsCreate",
+   "area": "Contacts",
+   "risk": "change",
+   "description": "Create a new contact",
+   "method": "POST",
+   "path": "/contacts",
+   "args": [
+    {
+     "name": "email",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email address of the contact."
+     }
+    },
+    {
+     "name": "first_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "First name of the contact."
+     }
+    },
+    {
+     "name": "last_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Last name of the contact."
+     }
+    },
+    {
+     "name": "unsubscribed",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "The Contact's global subscription status. If set to true, the contact will be unsubscribed from all Broadcasts."
+     }
+    },
+    {
+     "name": "properties",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "A map of custom property keys and values to create."
+     }
+    },
+    {
+     "name": "segments",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of segment IDs to add the contact to.",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "type": "string",
+         "description": "The segment ID"
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "topics",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of topic subscriptions for the contact.",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "type": "string",
+         "description": "The topic ID."
+        },
+        "subscription": {
+         "type": "string",
+         "enum": [
+          "opt_in",
+          "opt_out"
+         ],
+         "description": "The subscription status for this topic."
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "audience_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Unique identifier of the audience to which the contact belongs."
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsGet",
+   "area": "Contacts",
+   "risk": "read",
+   "description": "Retrieve a single contact by ID or email",
+   "method": "GET",
+   "path": "/contacts/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsGetImport",
+   "area": "Contacts",
+   "risk": "read",
+   "description": "Retrieve a single contact import",
+   "method": "GET",
+   "path": "/contacts/imports/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsList",
+   "area": "Contacts",
+   "risk": "read",
+   "description": "Retrieve a list of contacts",
+   "method": "GET",
+   "path": "/contacts",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsListImports",
+   "area": "Contacts",
+   "risk": "read",
+   "description": "Retrieve a list of contact imports",
+   "method": "GET",
+   "path": "/contacts/imports",
+   "args": [
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "queued",
+       "in_progress",
+       "completed",
+       "failed"
+      ]
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsListSegments",
+   "area": "Contacts",
+   "risk": "read",
+   "description": "Retrieve a list of segments for a contact",
+   "method": "GET",
+   "path": "/contacts/{contact_id}/segments",
+   "args": [
+    {
+     "name": "contact_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsListTopics",
+   "area": "Contacts",
+   "risk": "read",
+   "description": "Retrieve topics for a contact",
+   "method": "GET",
+   "path": "/contacts/{contact_id}/topics",
+   "args": [
+    {
+     "name": "contact_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsRemove",
+   "area": "Contacts",
+   "risk": "destroy",
+   "description": "Remove an existing contact by ID or email",
+   "method": "DELETE",
+   "path": "/contacts/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsRemoveSegment",
+   "area": "Contacts",
+   "risk": "destroy",
+   "description": "Remove a contact from a segment",
+   "method": "DELETE",
+   "path": "/contacts/{contact_id}/segments/{segment_id}",
+   "args": [
+    {
+     "name": "contact_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "segment_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsUpdate",
+   "area": "Contacts",
+   "risk": "change",
+   "description": "Update a single contact by ID or email",
+   "method": "PATCH",
+   "path": "/contacts/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "email",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email address of the contact."
+     }
+    },
+    {
+     "name": "first_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "First name of the contact."
+     }
+    },
+    {
+     "name": "last_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Last name of the contact."
+     }
+    },
+    {
+     "name": "unsubscribed",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "The Contact's global subscription status. If set to true, the contact will be unsubscribed from all Broadcasts."
+     }
+    },
+    {
+     "name": "properties",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "A map of custom property keys and values to update."
+     }
+    }
+   ]
+  },
+  {
+   "name": "contactsUpdateTopics",
+   "area": "Contacts",
+   "risk": "change",
+   "description": "Update topics for a contact",
+   "method": "PATCH",
+   "path": "/contacts/{contact_id}/topics",
+   "args": [
+    {
+     "name": "contact_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "topics",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "type": "string",
+         "description": "The ID of the topic."
+        },
+        "subscription": {
+         "type": "string",
+         "enum": [
+          "opt_in",
+          "opt_out"
+         ],
+         "description": "The subscription status (opt_in or opt_out)."
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsCreate",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Create a new domain",
+   "method": "POST",
+   "path": "/domains",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the domain you want to create."
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "us-east-1",
+       "eu-west-1",
+       "sa-east-1",
+       "ap-northeast-1"
+      ],
+      "description": "The region where emails will be sent from. Possible values are us-east-1 | eu-west-1 | sa-east-1 | ap-northeast-1",
+      "default": "us-east-1"
+     }
+    },
+    {
+     "name": "custom_return_path",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "For advanced use cases, choose a subdomain for the Return-Path address. Defaults to 'send' (i.e., send.yourdomain.tld)."
+     }
+    },
+    {
+     "name": "open_tracking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Track the open rate of each email."
+     }
+    },
+    {
+     "name": "click_tracking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Track clicks within the body of each HTML email."
+     }
+    },
+    {
+     "name": "tls",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "opportunistic",
+       "enforced"
+      ],
+      "description": "TLS mode. Opportunistic attempts secure connection but falls back to unencrypted. Enforced requires TLS or email won't be sent.",
+      "default": "opportunistic"
+     }
+    },
+    {
+     "name": "capabilities",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configure the domain capabilities for sending and receiving emails. At least one capability must be enabled.",
+      "properties": {
+       "sending": {
+        "type": "string",
+        "enum": [
+         "enabled",
+         "disabled"
+        ],
+        "description": "Enable or disable sending emails from this domain."
+       },
+       "receiving": {
+        "type": "string",
+        "enum": [
+         "enabled",
+         "disabled"
+        ],
+        "description": "Enable or disable receiving emails to this domain."
+       }
+      }
+     }
+    },
+    {
+     "name": "tracking_subdomain",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subdomain to use for click and open tracking."
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsCreateClaim",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Claim a domain",
+   "method": "POST",
+   "path": "/domains/claim",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the domain you want to claim."
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "us-east-1",
+       "eu-west-1",
+       "sa-east-1",
+       "ap-northeast-1"
+      ],
+      "description": "The region where emails will be sent from. Possible values are us-east-1 | eu-west-1 | sa-east-1 | ap-northeast-1",
+      "default": "us-east-1"
+     }
+    },
+    {
+     "name": "custom_return_path",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "For advanced use cases, choose a subdomain for the Return-Path address. Defaults to 'send' (i.e., send.yourdomain.tld).",
+      "default": "send"
+     }
+    },
+    {
+     "name": "open_tracking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Track the open rate of each email."
+     }
+    },
+    {
+     "name": "click_tracking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Track clicks within the body of each HTML email."
+     }
+    },
+    {
+     "name": "tracking_subdomain",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subdomain to use for click and open tracking."
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsGet",
+   "area": "Domains",
+   "risk": "read",
+   "description": "Retrieve a single domain",
+   "method": "GET",
+   "path": "/domains/{domain_id}",
+   "args": [
+    {
+     "name": "domain_id",
+     "in": "path",
+     "required": true,
+     "context": "domain",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsGetClaim",
+   "area": "Domains",
+   "risk": "read",
+   "description": "Retrieve a domain claim",
+   "method": "GET",
+   "path": "/domains/{domain_id}/claim",
+   "args": [
+    {
+     "name": "domain_id",
+     "in": "path",
+     "required": true,
+     "context": "domain",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsList",
+   "area": "Domains",
+   "risk": "read",
+   "description": "Retrieve a list of domains",
+   "method": "GET",
+   "path": "/domains",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsUpdate",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Update an existing domain",
+   "method": "PATCH",
+   "path": "/domains/{domain_id}",
+   "args": [
+    {
+     "name": "domain_id",
+     "in": "path",
+     "required": true,
+     "context": "domain",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "open_tracking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Track the open rate of each email."
+     }
+    },
+    {
+     "name": "click_tracking",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Track clicks within the body of each HTML email."
+     }
+    },
+    {
+     "name": "tls",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "opportunistic",
+       "enforced"
+      ],
+      "description": "enforced | opportunistic.",
+      "default": "opportunistic"
+     }
+    },
+    {
+     "name": "capabilities",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configure the domain capabilities for sending and receiving emails. At least one capability must be enabled.",
+      "properties": {
+       "sending": {
+        "type": "string",
+        "enum": [
+         "enabled",
+         "disabled"
+        ],
+        "description": "Enable or disable sending emails from this domain."
+       },
+       "receiving": {
+        "type": "string",
+        "enum": [
+         "enabled",
+         "disabled"
+        ],
+        "description": "Enable or disable receiving emails to this domain."
+       }
+      }
+     }
+    },
+    {
+     "name": "tracking_subdomain",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subdomain to use for click and open tracking."
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsVerify",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Verify an existing domain",
+   "method": "POST",
+   "path": "/domains/{domain_id}/verify",
+   "args": [
+    {
+     "name": "domain_id",
+     "in": "path",
+     "required": true,
+     "context": "domain",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "domainsVerifyClaim",
+   "area": "Domains",
+   "risk": "change",
+   "description": "Verify a domain claim",
+   "method": "POST",
+   "path": "/domains/{domain_id}/claim/verify",
+   "args": [
+    {
+     "name": "domain_id",
+     "in": "path",
+     "required": true,
+     "context": "domain",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsCancel",
+   "area": "Emails",
+   "risk": "destroy",
+   "description": "Cancel the schedule of the e-mail",
+   "method": "POST",
+   "path": "/emails/{email_id}/cancel",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsGet",
+   "area": "Emails",
+   "risk": "read",
+   "description": "Retrieve a single email",
+   "method": "GET",
+   "path": "/emails/{email_id}",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsGetAttachment",
+   "area": "Emails",
+   "risk": "read",
+   "description": "Retrieve a single attachment for a sent email",
+   "method": "GET",
+   "path": "/emails/{email_id}/attachments/{attachment_id}",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "attachment_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsList",
+   "area": "Emails",
+   "risk": "read",
+   "description": "Retrieve a list of emails",
+   "method": "GET",
+   "path": "/emails",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsListAttachments",
+   "area": "Emails",
+   "risk": "read",
+   "description": "Retrieve a list of attachments for a sent email",
+   "method": "GET",
+   "path": "/emails/{email_id}/attachments",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsMetrics",
+   "area": "Emails",
+   "risk": "read",
+   "description": "Retrieve account-level email metrics",
+   "method": "GET",
+   "path": "/emails/metrics",
+   "args": [
+    {
+     "name": "start_date",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "end_date",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timezone",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "default": "UTC"
+     }
+    },
+    {
+     "name": "granularity",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hourly",
+       "daily",
+       "weekly",
+       "monthly"
+      ],
+      "default": "daily"
+     }
+    },
+    {
+     "name": "metrics",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "received",
+        "delivered",
+        "complained",
+        "suppressed",
+        "bounced",
+        "bounced_transient",
+        "bounced_permanent",
+        "bounced_undetermined",
+        "opened",
+        "clicked",
+        "unsubscribed",
+        "delivery_delayed",
+        "failed",
+        "sent",
+        "unique_opened",
+        "unique_clicked",
+        "delivery_rate",
+        "open_rate",
+        "click_rate",
+        "bounce_rate",
+        "complaint_rate",
+        "unsubscribe_rate"
+       ]
+      }
+     }
+    },
+    {
+     "name": "dimensions",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "period",
+        "domain",
+        "email",
+        "broadcast"
+       ]
+      }
+     }
+    },
+    {
+     "name": "domain_id",
+     "in": "query",
+     "required": false,
+     "context": "domain",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    },
+    {
+     "name": "email_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    },
+    {
+     "name": "broadcast_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsSend",
+   "area": "Emails",
+   "risk": "destroy",
+   "description": "Send an email",
+   "method": "POST",
+   "path": "/emails",
+   "args": [
+    {
+     "name": "from",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Sender email address. To include a friendly name, use the format \"Your Name <sender@domain.com>\"."
+     }
+    },
+    {
+     "name": "to",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "description": "Recipient email address. For multiple addresses, send as an array of strings. Max 50.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email subject."
+     }
+    },
+    {
+     "name": "bcc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "Bcc recipient email address. For multiple addresses, send as an array of strings.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "cc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "Cc recipient email address. For multiple addresses, send as an array of strings.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "reply_to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "Reply-to email address. For multiple addresses, send as an array of strings.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The HTML version of the message."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plain text version of the message."
+     }
+    },
+    {
+     "name": "template",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "properties": {
+       "id": {
+        "type": "string",
+        "description": "The id of the published email template."
+       },
+       "variables": {
+        "type": "object",
+        "description": "Template variables object with key/value pairs."
+       }
+      },
+      "type": "object",
+      "required": [
+       "id"
+      ],
+      "description": "Use a published template to send the email. If provided, do not include html or text."
+     }
+    },
+    {
+     "name": "headers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Custom headers to add to the email."
+     }
+    },
+    {
+     "name": "scheduled_at",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Schedule email to be sent later. The date should be in ISO 8601 format."
+     }
+    },
+    {
+     "name": "attachments",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    {
+     "name": "tags",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    {
+     "name": "topic_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The topic ID to scope the email to. If the recipient is a contact and opted-in to the topic, the email is sent. If opted-out, the email is not sent. If the recipient is not a contact, the email is sent if the topic's default subscription is opt_in."
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsSendBatch",
+   "area": "Emails",
+   "risk": "destroy",
+   "description": "Trigger up to 100 batch emails at once",
+   "method": "POST",
+   "path": "/emails/batch",
+   "args": [
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "from",
+        "to",
+        "subject"
+       ],
+       "properties": {
+        "from": {
+         "type": "string",
+         "description": "Sender email address. To include a friendly name, use the format \"Your Name <sender@domain.com>\"."
+        },
+        "to": {
+         "description": "Recipient email address. For multiple addresses, send as an array of strings. Max 50.",
+         "type": "string"
+        },
+        "subject": {
+         "type": "string",
+         "description": "Email subject."
+        },
+        "bcc": {
+         "description": "Bcc recipient email address. For multiple addresses, send as an array of strings.",
+         "type": "string"
+        },
+        "cc": {
+         "description": "Cc recipient email address. For multiple addresses, send as an array of strings.",
+         "type": "string"
+        },
+        "reply_to": {
+         "description": "Reply-to email address. For multiple addresses, send as an array of strings.",
+         "type": "string"
+        },
+        "html": {
+         "type": "string",
+         "description": "The HTML version of the message."
+        },
+        "text": {
+         "type": "string",
+         "description": "The plain text version of the message."
+        },
+        "template": {
+         "required": [
+          "id"
+         ],
+         "type": "object",
+         "description": "Use a published template to send the email. If provided, do not include html or text."
+        },
+        "headers": {
+         "type": "object",
+         "description": "Custom headers to add to the email."
+        },
+        "scheduled_at": {
+         "type": "string",
+         "description": "Schedule email to be sent later. The date should be in ISO 8601 format."
+        },
+        "attachments": {
+         "type": "array",
+         "items": {
+          "type": "object"
+         }
+        },
+        "tags": {
+         "type": "array",
+         "items": {
+          "type": "object"
+         }
+        },
+        "topic_id": {
+         "type": "string",
+         "description": "The topic ID to scope the email to. If the recipient is a contact and opted-in to the topic, the email is sent. If opted-out, the email is not sent. If the recipient is not a contact, the email is sent if the topic's default subscription is opt_in."
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsShare",
+   "area": "Emails",
+   "risk": "change",
+   "description": "Create a shareable link for a sent or received email",
+   "method": "POST",
+   "path": "/emails/{email_id}/share",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "expires_in",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "How long the link stays valid for, as a duration like `10m`, `2 hours`, or `1 day`. Defaults to `48h` and cannot exceed 48 hours."
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsUpdate",
+   "area": "Emails",
+   "risk": "change",
+   "description": "Update a single email",
+   "method": "PATCH",
+   "path": "/emails/{email_id}",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "eventsCreate",
+   "area": "Events",
+   "risk": "change",
+   "description": "Create an event",
+   "method": "POST",
+   "path": "/events",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the event. Cannot start with the reserved `resend:` prefix."
+     }
+    },
+    {
+     "name": "schema",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "An optional flat key/type map defining the event payload schema. Supported types are `string`, `number`, `boolean`, and `date`."
+     }
+    }
+   ]
+  },
+  {
+   "name": "eventsGet",
+   "area": "Events",
+   "risk": "read",
+   "description": "Retrieve a single event",
+   "method": "GET",
+   "path": "/events/{identifier}",
+   "args": [
+    {
+     "name": "identifier",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "eventsList",
+   "area": "Events",
+   "risk": "read",
+   "description": "Retrieve a list of events",
+   "method": "GET",
+   "path": "/events",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "eventsRemove",
+   "area": "Events",
+   "risk": "destroy",
+   "description": "Delete an event",
+   "method": "DELETE",
+   "path": "/events/{identifier}",
+   "args": [
+    {
+     "name": "identifier",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "eventsSend",
+   "area": "Events",
+   "risk": "destroy",
+   "description": "Send an event",
+   "method": "POST",
+   "path": "/events/send",
+   "args": [
+    {
+     "name": "event",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the event to send."
+     }
+    },
+    {
+     "name": "contact_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The ID of the contact to associate with this event. Exactly one of `contact_id` or `email` must be provided.",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "email",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The email address to associate with this event. Exactly one of `contact_id` or `email` must be provided.",
+      "format": "email"
+     }
+    },
+    {
+     "name": "payload",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "An optional payload of key/value pairs to include with the event."
+     }
+    }
+   ]
+  },
+  {
+   "name": "eventsUpdate",
+   "area": "Events",
+   "risk": "change",
+   "description": "Update an event",
+   "method": "PATCH",
+   "path": "/events/{identifier}",
+   "args": [
+    {
+     "name": "identifier",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "schema",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "A flat key/type map defining the event payload schema. Set to `null` to clear the schema. Supported types are `string`, `number`, `boolean`, and `date`."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesAddThreadLabels",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Add labels to an inbox thread",
+   "method": "POST",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/labels",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The IDs of the labels to apply to the thread. Between 1 and 10 IDs, each a label of the inbox.",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesCreate",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Create an inbox",
+   "method": "POST",
+   "path": "/inboxes",
+   "args": [
+    {
+     "name": "email_address",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The inbox email address on one of your domains. The API trims and lowercases it. The part before the `@` is at most 64 characters and contains only letters, numbers, and `. _ % -`. A `+` returns a 422. It cannot start or end with a dot or contain two dots in a row."
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Internal name for the inbox. Recipients do not see it. Max 64 characters. Defaults to `email_address`."
+     }
+    },
+    {
+     "name": "from_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name recipients see when mail is sent from this inbox. A plain name, not a `Name <email>` address. Max 78 characters. It cannot contain a colon, `<`, `>`, line breaks, or other control characters. An email address inside the name must be on a domain the team has verified for sending. An empty string leaves it unset."
+     }
+    },
+    {
+     "name": "forwarding",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "When `true`, Resend provisions a receiving address so you can receive mail without adding an MX record. The address is returned in `receiving_address`.",
+      "default": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesCreateDraft",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Create a draft",
+   "method": "POST",
+   "path": "/inboxes/{inbox_id}/drafts",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The recipients. For multiple addresses, send an array of strings. Each value can include a friendly name, for example `Ada Lovelace <ada@example.org>`. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "cc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The CC recipients. For multiple addresses, send an array of strings. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "bcc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The BCC recipients. For multiple addresses, send an array of strings. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The subject. Max 2000 characters. A string that is only whitespace, or that contains a line break, is rejected."
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The HTML body."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The plain text body."
+     }
+    },
+    {
+     "name": "attachments",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "description": "Files to store on the draft. Each one needs a `filename` and either `content` or a `path` URL. A `path` file is downloaded when the request is made and stored on the draft. When both are sent, `path` is ignored. A `content_id` returns a 422. The files on a draft, downloaded ones included, can total at most 25 MB. A `path` that does not start with `http` or `https`, or that cannot be downloaded, re",
+      "items": {
+       "type": "object",
+       "description": "A file to store on a draft. Send either `content` or a `path` URL. Unlike `POST /emails` attachments, a `path` file is downloaded when the request is made, not when the draft is sent, and a draft attachment cannot use `content_id`. When both `content` and `path` are sent, `path` is ignored.",
+       "required": [
+        "filename"
+       ]
+      }
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The Thread ID to reply in. Must be sent with `reply_to_email_id`.",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "reply_to_email_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The Email ID to reply to, as returned in `data[].id` by the list thread emails endpoint. Must be sent with `thread_id`.",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesCreateLabel",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Create a label on an inbox",
+   "method": "POST",
+   "path": "/inboxes/{inbox_id}/labels",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the label. Max 64 characters. Leading and trailing whitespace is trimmed. Must not match another label on the inbox, compared without case."
+     }
+    },
+    {
+     "name": "color",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The color of the label, as a `#RRGGBB` hex color. It is stored in uppercase. When omitted, a random color from the dashboard palette is used."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesForwardThreadEmail",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Forward a thread email",
+   "method": "POST",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/forward",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "to",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "description": "Recipient email address. For multiple addresses, send as an array of strings. Must name at least one address. `to`, `cc` and `bcc` combined cannot exceed 50 recipients. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "cc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "CC recipient email address. For multiple addresses, send as an array of strings. Counts toward the 50-recipient limit. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "bcc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "BCC recipient email address. For multiple addresses, send as an array of strings. Counts toward the 50-recipient limit. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "An HTML note sent above the quoted original."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A plain-text note sent above the quoted original."
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subject of the forward. Cannot be only whitespace or contain a line break. When omitted, the thread subject is used, prefixed with `Fwd:` if it does not already start with it."
+     }
+    },
+    {
+     "name": "attachments",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "description": "Files to attach, as on `POST /emails`. Each one needs `content` or `path`. They share one limit with the attachments of the original message, which the forward also sends. Together they can have at most 25 MB of `content`. A `path` file does not count toward the 25 MB, because it is fetched when the email is sent. An empty file, a blocked file type, a `path` that does not start with `http` or that",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    {
+     "name": "headers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "Custom headers to add to the email. The `In-Reply-To`, `References` and `Reply-To` headers are set by Resend and cannot be set here. Sending one of them, in any letter case, returns a 422. Header names cannot be empty, and names and values cannot contain line breaks or null characters, or the request returns a 422. `null` means no custom headers."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesGet",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a single inbox by ID or email address",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesGetAgent",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve the agent settings for an inbox",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/agent",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesGetDraft",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a single draft",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/drafts/{draft_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "draft_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesGetThread",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a single inbox thread",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesGetThreadEmail",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a single thread email",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesList",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a list of inboxes",
+   "method": "GET",
+   "path": "/inboxes",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesListDrafts",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a list of drafts",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/drafts",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesListLabels",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a list of inbox labels",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/labels",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesListThreadEmails",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a list of thread emails",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/emails",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesListThreads",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Retrieve a list of inbox threads",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/threads",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "folders",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "inbox",
+        "archive",
+        "spam",
+        "sent",
+        "trash"
+       ]
+      }
+     }
+    },
+    {
+     "name": "labels",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    },
+    {
+     "name": "read",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesRemove",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Remove an existing inbox by ID or email address",
+   "method": "DELETE",
+   "path": "/inboxes/{inbox_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesRemoveDraft",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Remove an existing draft",
+   "method": "DELETE",
+   "path": "/inboxes/{inbox_id}/drafts/{draft_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "draft_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesRemoveLabel",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Remove an existing inbox label",
+   "method": "DELETE",
+   "path": "/inboxes/{inbox_id}/labels/{label_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesRemoveThread",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Remove an existing inbox thread",
+   "method": "DELETE",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesRemoveThreadLabel",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Remove a label from an inbox thread",
+   "method": "DELETE",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/labels/{label_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "label_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesReplyThreadEmail",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Reply to a thread email",
+   "method": "POST",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/emails/{email_id}/reply",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "cc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "CC recipient email address. For multiple addresses, send as an array of strings. Without `reply_all`, the reply copies only these addresses. With `reply_all`, these addresses are merged with the copied recipients, without duplicates. `cc` and `bcc` combined must be fewer than 50 addresses. After the `to` recipients are added, the reply cannot exceed 50 recipients. Each address is `email@example.co",
+      "type": "string"
+     }
+    },
+    {
+     "name": "bcc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "BCC recipient email address. For multiple addresses, send as an array of strings. BCC recipients of the original message are never copied. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The HTML body of the reply."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plain-text body of the reply."
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The subject of the reply. Cannot be only whitespace or contain a line break. When omitted, the thread subject is used, prefixed with `Re:` if it does not already start with it."
+     }
+    },
+    {
+     "name": "reply_all",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Reply to everyone on the original message. For a message the inbox received, the reply goes to its `Reply-To` addresses, or to its sender when it has none, and copies the other addresses of its `To` header and its `cc` recipients in `cc`. For a message the inbox sent, the reply goes to that message's `Reply-To` addresses when they are not the inbox address, otherwise to its `to` recipients, and co",
+      "default": false
+     }
+    },
+    {
+     "name": "attachments",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "description": "Files to attach, as on `POST /emails`. Each one needs `content` or `path`. The `content` of all files can total at most 25 MB. A `path` file does not count toward the 25 MB, because it is fetched when the email is sent. An empty file, a blocked file type, a `path` that does not start with `http` or that starts with `http://localhost:`, or a `content_type` that is not a valid MIME type returns a 42",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    {
+     "name": "headers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "Custom headers to add to the email. The `In-Reply-To`, `References` and `Reply-To` headers are set by Resend and cannot be set here. Sending one of them, in any letter case, returns a 422. Header names cannot be empty, and names and values cannot contain line breaks or null characters, or the request returns a 422. `null` means no custom headers."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesSearchThreads",
+   "area": "Inboxes",
+   "risk": "read",
+   "description": "Search the threads of an inbox",
+   "method": "GET",
+   "path": "/inboxes/{inbox_id}/threads/search",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "query",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "from",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "to",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cc",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "bcc",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "has_attachment",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "start_date",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "end_date",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "folders",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "inbox",
+        "archive",
+        "spam",
+        "sent",
+        "trash"
+       ]
+      }
+     }
+    },
+    {
+     "name": "labels",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    },
+    {
+     "name": "read",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesSendDraft",
+   "area": "Inboxes",
+   "risk": "destroy",
+   "description": "Send a draft",
+   "method": "POST",
+   "path": "/inboxes/{inbox_id}/drafts/{draft_id}/send",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "draft_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "headers",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "Custom headers to add to the email. The `In-Reply-To`, `References` and `Reply-To` headers are set by Resend and cannot be set here. Sending one of them, in any letter case, returns a 422. Header names cannot be empty, and names and values cannot contain line breaks or null characters, or the request returns a 422. `null` means no custom headers."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesSetThreadLabels",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Set the labels of an inbox thread",
+   "method": "PUT",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}/labels",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The IDs of the labels the thread carries after the change. Up to 100 IDs, each a label of the inbox. Pass an empty array to take every label off the thread.",
+      "items": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesUpdate",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Update an existing inbox by ID or email address",
+   "method": "PATCH",
+   "path": "/inboxes/{inbox_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New internal name for the inbox. Recipients do not see it. Between 1 and 64 characters after trimming."
+     }
+    },
+    {
+     "name": "from_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name recipients see when mail is sent from this inbox. A plain name, not a `Name <email>` address. Max 78 characters. It cannot contain a colon, `<`, `>`, line breaks, or other control characters. An email address inside the name must be on a domain the team has verified for sending. An empty string removes it."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesUpdateAgent",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Update the agent settings for an inbox",
+   "method": "PATCH",
+   "path": "/inboxes/{inbox_id}/agent",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instructions",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Instructions the agent follows when it handles the threads of the inbox. Max 4000 characters. Leading and trailing whitespace is trimmed, and the trimmed value must not be empty. Send null to clear the instructions."
+     }
+    },
+    {
+     "name": "tone",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "concise_professional",
+       "concise_casual",
+       "expanded_professional",
+       "expanded_casual",
+       null
+      ],
+      "description": "The tone the agent writes in. Send null to clear the tone."
+     }
+    },
+    {
+     "name": "actions",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The actions the agent can take. Replaces the whole set. Duplicates are removed. Send an empty array to disable all actions. The old names `archive_thread` and `delete_thread` return a 422. Use `archive` and `move_to_trash`.",
+      "items": {
+       "type": "string",
+       "enum": [
+        "draft_reply",
+        "forward_thread",
+        "add_labels",
+        "assign_thread",
+        "mark_as_spam",
+        "archive",
+        "move_to_trash"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesUpdateDraft",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Update an existing draft",
+   "method": "PATCH",
+   "path": "/inboxes/{inbox_id}/drafts/{draft_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "draft_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The recipients. For multiple addresses, send an array of strings. Each value can include a friendly name. Pass `null` to clear. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "cc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The CC recipients. Pass `null` or `[]` to clear. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "bcc",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "The BCC recipients. Pass `null` or `[]` to clear. Each address is `email@example.com` or `Name <email@example.com>`. An address that is not valid returns a 422.",
+      "type": "string"
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The subject. Max 2000 characters. Cannot be only whitespace or contain a line break. Pass `null` to clear."
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The HTML body. Pass `null` to clear."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The plain text body. Pass `null` to clear."
+     }
+    },
+    {
+     "name": "attachments",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "description": "Files to store on the draft. Each one needs a `filename` and either `content` or a `path` URL. A `path` file is downloaded when the request is made and stored on the draft. When both are sent, `path` is ignored. A `content_id` returns a 422. The files on a draft, downloaded ones included, can total at most 25 MB. A `path` that does not start with `http` or `https`, or that cannot be downloaded, re",
+      "items": {
+       "type": "object",
+       "description": "A file to store on a draft. Send either `content` or a `path` URL. Unlike `POST /emails` attachments, a `path` file is downloaded when the request is made, not when the draft is sent, and a draft attachment cannot use `content_id`. When both `content` and `path` are sent, `path` is ignored.",
+       "required": [
+        "filename"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesUpdateLabel",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Update an existing inbox label",
+   "method": "PATCH",
+   "path": "/inboxes/{inbox_id}/labels/{label_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A new name for the label. Max 64 characters. Leading and trailing whitespace is trimmed. Must not match another label on the inbox, compared without case."
+     }
+    },
+    {
+     "name": "color",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A new color for the label, as a `#RRGGBB` hex color. It is stored in uppercase."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inboxesUpdateThread",
+   "area": "Inboxes",
+   "risk": "change",
+   "description": "Update an existing inbox thread",
+   "method": "PATCH",
+   "path": "/inboxes/{inbox_id}/threads/{thread_id}",
+   "args": [
+    {
+     "name": "inbox_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "thread_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "read",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Marks every email in the thread read or unread."
+     }
+    },
+    {
+     "name": "folder",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "inbox",
+       "archive",
+       "spam",
+       "trash"
+      ],
+      "description": "Moves the thread to this folder. `sent` is assigned automatically and cannot be set."
+     }
+    }
+   ]
+  },
+  {
+   "name": "logsList",
+   "area": "Logs",
+   "risk": "read",
+   "description": "Retrieve a list of logs",
+   "method": "GET",
+   "path": "/logs",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsGetReceiving",
+   "area": "Receiving emails",
+   "risk": "read",
+   "description": "Retrieve a single received email",
+   "method": "GET",
+   "path": "/emails/receiving/{email_id}",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsGetReceivingAttachment",
+   "area": "Receiving emails",
+   "risk": "read",
+   "description": "Retrieve a single attachment for a received email",
+   "method": "GET",
+   "path": "/emails/receiving/{email_id}/attachments/{attachment_id}",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "attachment_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsListReceiving",
+   "area": "Receiving emails",
+   "risk": "read",
+   "description": "Retrieve a list of received emails",
+   "method": "GET",
+   "path": "/emails/receiving",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "emailsListReceivingAttachments",
+   "area": "Receiving emails",
+   "risk": "read",
+   "description": "Retrieve a list of attachments for a received email",
+   "method": "GET",
+   "path": "/emails/receiving/{email_id}/attachments",
+   "args": [
+    {
+     "name": "email_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "segmentsCreate",
+   "area": "Segments",
+   "risk": "change",
+   "description": "Create a new segment",
+   "method": "POST",
+   "path": "/segments",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the segment."
+     }
+    },
+    {
+     "name": "audience_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The ID of the audience this segment belongs to."
+     }
+    },
+    {
+     "name": "filter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Filter conditions for the segment."
+     }
+    }
+   ]
+  },
+  {
+   "name": "segmentsGet",
+   "area": "Segments",
+   "risk": "read",
+   "description": "Retrieve a single segment",
+   "method": "GET",
+   "path": "/segments/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "segmentsList",
+   "area": "Segments",
+   "risk": "read",
+   "description": "Retrieve a list of segments",
+   "method": "GET",
+   "path": "/segments",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "segmentsListContacts",
+   "area": "Segments",
+   "risk": "read",
+   "description": "Retrieve a list of contacts in a segment",
+   "method": "GET",
+   "path": "/segments/{id}/contacts",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "segmentsRemove",
+   "area": "Segments",
+   "risk": "destroy",
+   "description": "Remove an existing segment",
+   "method": "DELETE",
+   "path": "/segments/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "segmentsUpdate",
+   "area": "Segments",
+   "risk": "change",
+   "description": "Update an existing segment",
+   "method": "PATCH",
+   "path": "/segments/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the segment."
+     }
+    }
+   ]
+  },
+  {
+   "name": "suppressionsAdd",
+   "area": "Suppressions",
+   "risk": "change",
+   "description": "Create a suppression",
+   "method": "POST",
+   "path": "/suppressions",
+   "args": [
+    {
+     "name": "email",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email address to suppress."
+     }
+    }
+   ]
+  },
+  {
+   "name": "suppressionsBatchAdd",
+   "area": "Suppressions",
+   "risk": "change",
+   "description": "Add up to 100 suppressions at once",
+   "method": "POST",
+   "path": "/suppressions/batch/add",
+   "args": [
+    {
+     "name": "emails",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Email addresses to suppress.",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "suppressionsBatchRemove",
+   "area": "Suppressions",
+   "risk": "change",
+   "description": "Remove up to 100 suppressions at once",
+   "method": "POST",
+   "path": "/suppressions/batch/remove",
+   "args": [
+    {
+     "name": "emails",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Email addresses to remove from the suppression list.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "ids",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Suppression IDs to remove from the suppression list.",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "suppressionsGet",
+   "area": "Suppressions",
+   "risk": "read",
+   "description": "Retrieve a single suppression by ID or email",
+   "method": "GET",
+   "path": "/suppressions/{suppression}",
+   "args": [
+    {
+     "name": "suppression",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "suppressionsList",
+   "area": "Suppressions",
+   "risk": "read",
+   "description": "Retrieve a list of suppressions",
+   "method": "GET",
+   "path": "/suppressions",
+   "args": [
+    {
+     "name": "origin",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "bounce",
+       "complaint",
+       "manual"
+      ]
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "suppressionsRemove",
+   "area": "Suppressions",
+   "risk": "destroy",
+   "description": "Remove a single suppression by ID or email",
+   "method": "DELETE",
+   "path": "/suppressions/{suppression}",
+   "args": [
+    {
+     "name": "suppression",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesCreate",
+   "area": "Templates",
+   "risk": "change",
+   "description": "Create a template",
+   "method": "POST",
+   "path": "/templates",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the template."
+     }
+    },
+    {
+     "name": "alias",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The alias of the template."
+     }
+    },
+    {
+     "name": "from",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Sender email address. To include a friendly name, use the format \"Your Name <sender@domain.com>\"."
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email subject."
+     }
+    },
+    {
+     "name": "reply_to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Reply-to email addresses.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The HTML version of the template."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plain text version of the template."
+     }
+    },
+    {
+     "name": "variables",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "key",
+        "type"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesDuplicate",
+   "area": "Templates",
+   "risk": "change",
+   "description": "Duplicate a template",
+   "method": "POST",
+   "path": "/templates/{id}/duplicate",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesGet",
+   "area": "Templates",
+   "risk": "read",
+   "description": "Retrieve a single template",
+   "method": "GET",
+   "path": "/templates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesList",
+   "area": "Templates",
+   "risk": "read",
+   "description": "Retrieve a list of templates",
+   "method": "GET",
+   "path": "/templates",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesPublish",
+   "area": "Templates",
+   "risk": "change",
+   "description": "Publish a template",
+   "method": "POST",
+   "path": "/templates/{id}/publish",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesRemove",
+   "area": "Templates",
+   "risk": "destroy",
+   "description": "Remove an existing template",
+   "method": "DELETE",
+   "path": "/templates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "templatesUpdate",
+   "area": "Templates",
+   "risk": "change",
+   "description": "Update an existing template",
+   "method": "PATCH",
+   "path": "/templates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the template."
+     }
+    },
+    {
+     "name": "alias",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The alias of the template."
+     }
+    },
+    {
+     "name": "from",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Sender email address. To include a friendly name, use the format \"Your Name <sender@domain.com>\"."
+     }
+    },
+    {
+     "name": "subject",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email subject."
+     }
+    },
+    {
+     "name": "reply_to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Reply-to email addresses.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "html",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The HTML version of the template."
+     }
+    },
+    {
+     "name": "text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plain text version of the template."
+     }
+    },
+    {
+     "name": "variables",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "key",
+        "type"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "topicsCreate",
+   "area": "Topics",
+   "risk": "change",
+   "description": "Create a new topic",
+   "method": "POST",
+   "path": "/topics",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the topic. Max 50 characters."
+     }
+    },
+    {
+     "name": "default_subscription",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "opt_in",
+       "opt_out"
+      ],
+      "description": "The default subscription status for the topic. Cannot be changed after creation."
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A description of the topic. Max 200 characters."
+     }
+    },
+    {
+     "name": "visibility",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "public",
+       "private"
+      ],
+      "description": "The visibility of the topic. Public topics are visible to all contacts on the unsubscribe page. Private topics are only visible to opted-in contacts.",
+      "default": "private"
+     }
+    }
+   ]
+  },
+  {
+   "name": "topicsGet",
+   "area": "Topics",
+   "risk": "read",
+   "description": "Retrieve a single topic",
+   "method": "GET",
+   "path": "/topics/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "topicsList",
+   "area": "Topics",
+   "risk": "read",
+   "description": "Retrieve a list of topics",
+   "method": "GET",
+   "path": "/topics",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "topicsRemove",
+   "area": "Topics",
+   "risk": "destroy",
+   "description": "Remove an existing topic",
+   "method": "DELETE",
+   "path": "/topics/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "topicsUpdate",
+   "area": "Topics",
+   "risk": "change",
+   "description": "Update an existing topic",
+   "method": "PATCH",
+   "path": "/topics/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the topic. Max 50 characters."
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A description of the topic. Max 200 characters."
+     }
+    },
+    {
+     "name": "visibility",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "public",
+       "private"
+      ],
+      "description": "The visibility of the topic."
+     }
+    }
+   ]
+  },
+  {
+   "name": "usageGet",
+   "area": "Usage",
+   "risk": "read",
+   "description": "Retrieve account usage",
+   "method": "GET",
+   "path": "/usage",
+   "args": []
+  },
+  {
+   "name": "webhooksCreate",
+   "area": "Webhooks",
+   "risk": "change",
+   "description": "Create a new webhook",
+   "method": "POST",
+   "path": "/webhooks",
+   "args": [
+    {
+     "name": "endpoint",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The URL where webhook events will be sent."
+     }
+    },
+    {
+     "name": "events",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of event types to subscribe to.",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksGet",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "Retrieve a single webhook",
+   "method": "GET",
+   "path": "/webhooks/{webhook_id}",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksGetEvent",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "Retrieve a single webhook event",
+   "method": "GET",
+   "path": "/webhooks/{webhook_id}/events/{event_id}",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "event_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksList",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "Retrieve a list of webhooks",
+   "method": "GET",
+   "path": "/webhooks",
+   "args": [
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "before",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksListEventAttempts",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "Retrieve a list of webhook event attempts",
+   "method": "GET",
+   "path": "/webhooks/{webhook_id}/events/{event_id}/attempts",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "event_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksListEvents",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "Retrieve a list of webhook events",
+   "method": "GET",
+   "path": "/webhooks/{webhook_id}/events",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+     }
+    },
+    {
+     "name": "after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksRemove",
+   "area": "Webhooks",
+   "risk": "destroy",
+   "description": "Remove an existing webhook",
+   "method": "DELETE",
+   "path": "/webhooks/{webhook_id}",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksReplayEvent",
+   "area": "Webhooks",
+   "risk": "destroy",
+   "description": "Replay a webhook event",
+   "method": "POST",
+   "path": "/webhooks/{webhook_id}/events/{event_id}/replay",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "event_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "webhooksUpdate",
+   "area": "Webhooks",
+   "risk": "change",
+   "description": "Update an existing webhook",
+   "method": "PATCH",
+   "path": "/webhooks/{webhook_id}",
+   "args": [
+    {
+     "name": "webhook_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    },
+    {
+     "name": "endpoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The URL where webhook events will be sent."
+     }
+    },
+    {
+     "name": "events",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of event types to subscribe to.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "enabled",
+       "disabled"
+      ],
+      "description": "The status of the webhook."
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO resources (id, project_id, account_id, provider_ref, data) VALUES (?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET project_id = excluded.project_id, account_id = excluded.account_id, provider_ref = excluded.provider_ref, data = excluded.data",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "fbd211a21f4360e20efa71c61364d40d8571f35e0aa23b883e6ac03138c74f6a"
+}

@@ -1,0 +1,71 @@
+---
+title: "Cloudflare"
+description: "Connect a Cloudflare account to deploy Workers and manage its storage and zones."
+icon: "/logos/cloudflare.svg"
+---
+
+Hoista finds the Workers, Pages projects, D1 databases, KV namespaces, R2 buckets and zones in a Cloudflare account. It deploys Workers, rolls them back, and sets their variables, secrets and custom domains.
+
+## Connect
+
+In Desktop, open **Accounts**, choose Cloudflare, and paste an API token:
+
+1. Open [API Tokens](https://dash.cloudflare.com/profile/api-tokens): **My Profile → API Tokens → Create Token → Create Custom Token**. Name it Hoista.
+2. Add these permissions.
+
+   | Scope | Permission | Access | Needed for |
+   | --- | --- | --- | --- |
+   | Account | Workers Scripts | Edit | Always |
+   | Account | Workers R2 Storage | Edit | Always |
+   | Account | Account Settings | Read | Always |
+   | Account | Account Analytics | Read | Always |
+   | Account | Workers Tail | Read | Always |
+   | Account | Billing | Read | Always |
+   | Account | D1 | Edit | D1 databases |
+   | Zone | Zone | Edit | Your own domain |
+   | Zone | DNS | Edit | Your own domain |
+   | Zone | Workers Routes | Edit | Your own domain |
+
+3. Paste the token into Hoista and pick the account.
+
+<Frame caption="Cloudflare’s User API Tokens page, captured November 2026. Personal details are blurred. If yours looks different, the names in the steps still match.">
+  <img src="/assets/tokens/cloudflare-token.webp" alt="Cloudflare’s User API Tokens page" />
+</Frame>
+
+From the CLI:
+
+```bash
+hoist accounts add cloudflare
+```
+
+It asks for the token in a hidden prompt and finds the account from it. In scripts, use `hoist accounts add cloudflare --name NAME --token-stdin`, and add `--account <account-id>` if the token reaches more than one account. The account ID is the long ID in your dashboard address.
+
+## What you can do
+
+- Deploy a Worker from a folder with `hoist deploy`, and roll back with `hoist rollback`.
+- Create a D1 database or an R2 bucket.
+- Set variables and secrets on the **Variables** tab or with `hoist env`.
+- Add custom domains on your zones with `hoist domains add`.
+- Follow a Worker's live logs on the **Logs** tab or with `hoist logs --follow`.
+- See metrics, and daily usage with `hoist usage`.
+- Use the **Cloudflare** tab for Cloudflare's own settings and actions, such as Cron Triggers, DNS records and D1 Time Travel.
+- See what Cloudflare has billed the account on **Billing**.
+
+## Bring in existing resources
+
+Hoista looks for resources when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --new my-app
+```
+
+Projects start in **watching** mode. Run `hoist projects manage my-app` when you want Hoista to make changes. If something is missing, check the token's permissions and run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

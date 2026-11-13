@@ -1,0 +1,50 @@
+---
+title: "Modal"
+description: "Connect a Modal workspace to manage its apps and volumes."
+icon: "/logos/modal.svg"
+---
+
+Hoista finds the Modal apps and volumes in every environment of a workspace. It shows whether each app is running or scaled to zero, what the workspace has cost, and can deploy an app from a folder.
+
+## Connect
+
+Modal connects with a token ID and secret:
+
+1. Open [API Tokens](https://modal.com/settings/tokens): **Settings → API Tokens → New Token**. Name it Hoista.
+2. Copy the whole line Modal shows, such as `modal token set --token-id ak-… --token-secret as-…`. Hoista needs both the token ID and the secret, and takes both from that line.
+3. In Desktop, open **Accounts**, choose Modal and paste the line.
+
+From the CLI:
+
+```bash
+hoist accounts add modal
+```
+
+Paste the same line at the hidden prompt. In scripts, use `hoist accounts add modal --name NAME --token-stdin`, and add `--account <workspace>` if the token reaches more than one workspace.
+
+## What you can do
+
+- Deploy a Modal app from a folder.
+- See logs on the **Logs** tab and metrics on **Metrics**.
+- Use the **Modal** tab for Modal's own operations.
+- See what Modal has billed the workspace on **Billing**.
+- Delete an app or volume after you confirm it by name.
+
+## Bring in existing resources
+
+Hoista looks for apps and volumes when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --new my-app
+```
+
+Projects start in **watching** mode. Run `hoist projects manage my-app` when you want Hoista to make changes. To look again, run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

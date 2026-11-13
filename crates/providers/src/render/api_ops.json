@@ -1,0 +1,9123 @@
+{
+ "source": "render OpenAPI spec",
+ "operations": [
+  {
+   "name": "disconnectBlueprint",
+   "area": "Blueprints",
+   "risk": "destroy",
+   "description": "Disconnect Blueprint",
+   "method": "DELETE",
+   "path": "/blueprints/{blueprintId}",
+   "args": [
+    {
+     "name": "blueprintId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listBlueprintSyncs",
+   "area": "Blueprints",
+   "risk": "read",
+   "description": "List Blueprint syncs",
+   "method": "GET",
+   "path": "/blueprints/{blueprintId}/syncs",
+   "args": [
+    {
+     "name": "blueprintId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listBlueprints",
+   "area": "Blueprints",
+   "risk": "read",
+   "description": "List Blueprints",
+   "method": "GET",
+   "path": "/blueprints",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveBlueprint",
+   "area": "Blueprints",
+   "risk": "read",
+   "description": "Retrieve Blueprint",
+   "method": "GET",
+   "path": "/blueprints/{blueprintId}",
+   "args": [
+    {
+     "name": "blueprintId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateBlueprint",
+   "area": "Blueprints",
+   "risk": "change",
+   "description": "Update Blueprint",
+   "method": "PATCH",
+   "path": "/blueprints/{blueprintId}",
+   "args": [
+    {
+     "name": "blueprintId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "autoSync",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Configuration value that controls whether or not this blueprint will be re-synced on each git push to the configured branch.\nEven when true, autoSync will not apply when the blueprint has the Created status, which indicates its first sync has not yet been approved.\nOther conditions, such as a locked workspace, can also prevent automatic syncing even when this is true.\n"
+     }
+    },
+    {
+     "name": "path",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Path to the Blueprint file in the repository"
+     }
+    },
+    {
+     "name": "branch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The Git branch to read the Blueprint file from. Requires Blueprint onboarding early access.\nThe branch must contain a Blueprint file at the configured path.\nUpdating this field does not plan a sync.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createBuildSource",
+   "area": "Builds",
+   "risk": "change",
+   "description": "Create a build source",
+   "method": "POST",
+   "path": "/build-sources",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "body",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "projectId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "git",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "runtime"
+      ],
+      "properties": {
+       "branch": {
+        "type": "string"
+       },
+       "buildCommand": {
+        "type": "string"
+       },
+       "buildFilter": {
+        "type": "object",
+        "description": "Glob patterns matched against files changed by a commit. When set, a commit only triggers a build when at least one changed file matches `paths` and none match `ignoredPaths`. Useful for monorepos where a single repo backs many services.\n",
+        "required": [
+         "paths",
+         "ignoredPaths"
+        ],
+        "properties": {
+         "paths": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "ignoredPaths": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         }
+        }
+       },
+       "dockerContext": {
+        "type": "string",
+        "description": "Directory passed to `docker build` as the build context, relative to the repository root. Only valid for the `docker` runtime. Defaults to \".\".\n"
+       },
+       "dockerfilePath": {
+        "type": "string"
+       },
+       "runtime": {
+        "type": "string",
+        "enum": [
+         "docker",
+         "elixir",
+         "go",
+         "node",
+         "python",
+         "ruby",
+         "rust"
+        ],
+        "description": "Build runtime for the build source. Static sites are not supported for build sources.\n"
+       },
+       "registryCredentialId": {
+        "type": "string"
+       },
+       "region": {
+        "type": "string",
+        "enum": [
+         "frankfurt",
+         "oregon",
+         "ohio",
+         "singapore",
+         "virginia"
+        ],
+        "description": "Defaults to \"oregon\"",
+        "default": "oregon"
+       },
+       "repoUrl": {
+        "type": "string"
+       },
+       "rootDir": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "ownerId",
+       "imageUrl"
+      ],
+      "properties": {
+       "ownerId": {
+        "type": "string"
+       },
+       "registryCredentialId": {
+        "type": "string"
+       },
+       "imageUrl": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    {
+     "name": "serviceIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "envVars",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    {
+     "name": "envGroupIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "IDs of env groups to link to the build source. Only valid for `git` sources; env groups must belong to the same workspace and must not be scoped to an environment.\n",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteBuildSource",
+   "area": "Builds",
+   "risk": "destroy",
+   "description": "Delete a build source",
+   "method": "DELETE",
+   "path": "/build-sources/{buildSourceId}",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getBuildSource",
+   "area": "Builds",
+   "risk": "read",
+   "description": "Retrieve a build source",
+   "method": "GET",
+   "path": "/build-sources/{buildSourceId}",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "linkEnvGroupToBuildSource",
+   "area": "Builds",
+   "risk": "change",
+   "description": "Link environment group",
+   "method": "POST",
+   "path": "/build-sources/{buildSourceId}/env-groups/{envGroupId}",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "envGroupId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listBuildSources",
+   "area": "Builds",
+   "risk": "read",
+   "description": "List build sources",
+   "method": "GET",
+   "path": "/build-sources",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "projectId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "includePreviews",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "default": true
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listBuildsInBuildSource",
+   "area": "Builds",
+   "risk": "read",
+   "description": "List builds in a build source",
+   "method": "GET",
+   "path": "/build-sources/{buildSourceId}/builds",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveBuildSourceBuild",
+   "area": "Builds",
+   "risk": "read",
+   "description": "Retrieve a build",
+   "method": "GET",
+   "path": "/build-sources/{buildSourceId}/builds/{buildId}",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "triggerBuildSourceBuild",
+   "area": "Builds",
+   "risk": "change",
+   "description": "Trigger a build",
+   "method": "POST",
+   "path": "/build-sources/{buildSourceId}/builds",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "unlinkEnvGroupFromBuildSource",
+   "area": "Builds",
+   "risk": "destroy",
+   "description": "Unlink environment group",
+   "method": "DELETE",
+   "path": "/build-sources/{buildSourceId}/env-groups/{envGroupId}",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "envGroupId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateBuildSource",
+   "area": "Builds",
+   "risk": "change",
+   "description": "Update a build source",
+   "method": "PATCH",
+   "path": "/build-sources/{buildSourceId}",
+   "args": [
+    {
+     "name": "buildSourceId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "git",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "branch": {
+        "type": "string"
+       },
+       "buildCommand": {
+        "type": "string"
+       },
+       "buildFilter": {
+        "type": "object",
+        "description": "Glob patterns matched against files changed by a commit. When set, a commit only triggers a build when at least one changed file matches `paths` and none match `ignoredPaths`. Useful for monorepos where a single repo backs many services.\n",
+        "required": [
+         "paths",
+         "ignoredPaths"
+        ],
+        "properties": {
+         "paths": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "ignoredPaths": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         }
+        }
+       },
+       "dockerContext": {
+        "type": "string",
+        "description": "Directory passed to `docker build` as the build context, relative to the repository root. Only valid for the `docker` runtime.\n"
+       },
+       "dockerfilePath": {
+        "type": "string"
+       },
+       "runtime": {
+        "type": "string",
+        "enum": [
+         "docker",
+         "elixir",
+         "go",
+         "node",
+         "python",
+         "ruby",
+         "rust"
+        ],
+        "description": "Build runtime for the build source. Static sites are not supported for build sources.\n"
+       },
+       "registryCredentialId": {
+        "type": "string",
+        "description": "Optional reference to the registry credential for this build. Omit the field to leave the stored credential unchanged; send an empty string to clear it.\n"
+       },
+       "region": {
+        "type": "string",
+        "enum": [
+         "frankfurt",
+         "oregon",
+         "ohio",
+         "singapore",
+         "virginia"
+        ],
+        "description": "Region for the build. Honored only when this PATCH performs an image\u2192build transition; rejected on a pure build patch (the cluster is pinned for an existing build), and must match the prior build region when switching back to build after time as an external image. Defaults to \"oregon\" for first-time builds.\n"
+       },
+       "repoUrl": {
+        "type": "string"
+       },
+       "rootDir": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Patch shape for a build source's image identity. Unset fields are left unchanged on the underlying image reference. ownerId is intentionally omitted \u2014 a build source's owner is fixed at creation, and changing the image's owner would amount to a different identity.\n",
+      "properties": {
+       "imageUrl": {
+        "type": "string"
+       },
+       "registryCredentialId": {
+        "type": "string",
+        "description": "Optional reference to the registry credential passed to the image repository to retrieve this image. Omit the field to leave the stored credential unchanged; send an empty string to clear it.\n"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "cancelCronJobRun",
+   "area": "Cron jobs",
+   "risk": "destroy",
+   "description": "Cancel running cron job",
+   "method": "DELETE",
+   "path": "/cron-jobs/{cronJobId}/runs",
+   "args": [
+    {
+     "name": "cronJobId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "runCronJob",
+   "area": "Cron jobs",
+   "risk": "change",
+   "description": "Trigger cron job run",
+   "method": "POST",
+   "path": "/cron-jobs/{cronJobId}/runs",
+   "args": [
+    {
+     "name": "cronJobId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createCustomDomain",
+   "area": "Custom domains",
+   "risk": "change",
+   "description": "Add custom domain",
+   "method": "POST",
+   "path": "/services/{serviceId}/custom-domains",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteCustomDomain",
+   "area": "Custom domains",
+   "risk": "destroy",
+   "description": "Delete custom domain",
+   "method": "DELETE",
+   "path": "/services/{serviceId}/custom-domains/{customDomainNameOrID}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "customDomainNameOrID",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listCustomDomains",
+   "area": "Custom domains",
+   "risk": "read",
+   "description": "List custom domains",
+   "method": "GET",
+   "path": "/services/{serviceId}/custom-domains",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "domainType",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "apex",
+       "subdomain"
+      ]
+     }
+    },
+    {
+     "name": "verificationStatus",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "verified",
+       "unverified"
+      ]
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    }
+   ]
+  },
+  {
+   "name": "refreshCustomDomain",
+   "area": "Custom domains",
+   "risk": "change",
+   "description": "Verify DNS configuration",
+   "method": "POST",
+   "path": "/services/{serviceId}/custom-domains/{customDomainNameOrID}/verify",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "customDomainNameOrID",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveCustomDomain",
+   "area": "Custom domains",
+   "risk": "read",
+   "description": "Retrieve custom domain",
+   "method": "GET",
+   "path": "/services/{serviceId}/custom-domains/{customDomainNameOrID}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "customDomainNameOrID",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "cancelDeploy",
+   "area": "Deploys",
+   "risk": "destroy",
+   "description": "Cancel deploy",
+   "method": "POST",
+   "path": "/services/{serviceId}/deploys/{deployId}/cancel",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "deployId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createDeploy",
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Trigger deploy",
+   "method": "POST",
+   "path": "/services/{serviceId}/deploys",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The ID of the build to deploy. Cannot be combined with `commitId`, `imageUrl`, or `deployMode`.\n"
+     }
+    },
+    {
+     "name": "clearCache",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "clear",
+       "do_not_clear"
+      ],
+      "description": "If `clear`, Render clears the service's build cache before deploying. This can be useful if you're experiencing issues with your build.",
+      "default": "do_not_clear"
+     }
+    },
+    {
+     "name": "commitId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The SHA of a specific Git commit to deploy for a service. Defaults to the latest commit on the service's connected branch. Cannot be combined with `buildId`, `imageUrl`, or `deployMode: deploy_only`.\n\nNote that deploying a specific commit with this endpoint does not disable autodeploys for the service.\n\nYou can toggle autodeploys for your service with the [Update service](https://api-docs.render.c"
+     }
+    },
+    {
+     "name": "imageUrl",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The URL of the image to deploy for an image-backed service. Cannot be combined with `buildId`, `commitId`, or `deployMode: deploy_only`.\n\nThe host, repository, and image name all must match the currently configured image for the service.\n"
+     }
+    },
+    {
+     "name": "deployMode",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "deploy_only",
+       "build_and_deploy"
+      ],
+      "description": "Controls deployment behavior when triggering a deploy.\n\n- `deploy_only`: Deploy the last successful build without rebuilding (minimizes downtime)\n- `build_and_deploy`: Build new code and deploy it (default behavior when not specified)\n\n**Note:** `deployMode` cannot be combined with `buildId`. `deploy_only` cannot be combined with\n`commitId`, `imageUrl`, or `clearCache`, as those are build related ",
+      "default": "build_and_deploy"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listDeploys",
+   "area": "Deploys",
+   "risk": "read",
+   "description": "List deploys",
+   "method": "GET",
+   "path": "/services/{serviceId}/deploys",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "created",
+        "queued",
+        "build_in_progress",
+        "update_in_progress",
+        "live",
+        "deactivated",
+        "build_failed",
+        "update_failed",
+        "canceled",
+        "pre_deploy_in_progress",
+        "pre_deploy_failed"
+       ]
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "finishedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "finishedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveDeploy",
+   "area": "Deploys",
+   "risk": "read",
+   "description": "Retrieve deploy",
+   "method": "GET",
+   "path": "/services/{serviceId}/deploys/{deployId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "deployId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "rollbackDeploy",
+   "area": "Deploys",
+   "risk": "destroy",
+   "description": "Roll back deploy",
+   "method": "POST",
+   "path": "/services/{serviceId}/rollback",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "deployId",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The ID of the deploy to roll back to"
+     }
+    }
+   ]
+  },
+  {
+   "name": "addDisk",
+   "area": "Disks",
+   "risk": "change",
+   "description": "Add disk",
+   "method": "POST",
+   "path": "/disks",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sizeGB",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "mountPath",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "serviceId",
+     "in": "body",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteDisk",
+   "area": "Disks",
+   "risk": "destroy",
+   "description": "Delete disk",
+   "method": "DELETE",
+   "path": "/disks/{diskId}",
+   "args": [
+    {
+     "name": "diskId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listDisks",
+   "area": "Disks",
+   "risk": "read",
+   "description": "List disks",
+   "method": "GET",
+   "path": "/disks",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "diskId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "serviceId",
+     "in": "query",
+     "required": false,
+     "context": "service",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listSnapshots",
+   "area": "Disks",
+   "risk": "read",
+   "description": "List snapshots",
+   "method": "GET",
+   "path": "/disks/{diskId}/snapshots",
+   "args": [
+    {
+     "name": "diskId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restoreSnapshot",
+   "area": "Disks",
+   "risk": "destroy",
+   "description": "Restore snapshot",
+   "method": "POST",
+   "path": "/disks/{diskId}/snapshots/restore",
+   "args": [
+    {
+     "name": "diskId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "snapshotKey",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instanceId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "When a service with a disk is scaled, the instanceId is used to identify the instance that the disk is attached to. Each instance's disks get their own snapshots, and can be restored separately."
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveDisk",
+   "area": "Disks",
+   "risk": "read",
+   "description": "Retrieve disk",
+   "method": "GET",
+   "path": "/disks/{diskId}",
+   "args": [
+    {
+     "name": "diskId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateDisk",
+   "area": "Disks",
+   "risk": "change",
+   "description": "Update disk",
+   "method": "PATCH",
+   "path": "/disks/{diskId}",
+   "args": [
+    {
+     "name": "diskId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sizeGB",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "mountPath",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteEnvGroup",
+   "area": "Environment groups",
+   "risk": "destroy",
+   "description": "Delete environment group",
+   "method": "DELETE",
+   "path": "/env-groups/{envGroupId}",
+   "args": [
+    {
+     "name": "envGroupId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "linkServiceToEnvGroup",
+   "area": "Environment groups",
+   "risk": "change",
+   "description": "Link service",
+   "method": "POST",
+   "path": "/env-groups/{envGroupId}/services/{serviceId}",
+   "args": [
+    {
+     "name": "envGroupId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEnvGroups",
+   "area": "Environment groups",
+   "risk": "read",
+   "description": "List environment groups",
+   "method": "GET",
+   "path": "/env-groups",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "unlinkServiceFromEnvGroup",
+   "area": "Environment groups",
+   "risk": "destroy",
+   "description": "Unlink service",
+   "method": "DELETE",
+   "path": "/env-groups/{envGroupId}/services/{serviceId}",
+   "args": [
+    {
+     "name": "envGroupId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateEnvGroup",
+   "area": "Environment groups",
+   "risk": "change",
+   "description": "Update environment group",
+   "method": "PATCH",
+   "path": "/env-groups/{envGroupId}",
+   "args": [
+    {
+     "name": "envGroupId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveEvent",
+   "area": "Events",
+   "risk": "read",
+   "description": "Retrieve event",
+   "method": "GET",
+   "path": "/events/{eventId}",
+   "args": [
+    {
+     "name": "eventId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "addHeaders",
+   "area": "Headers",
+   "risk": "change",
+   "description": "Add header rule",
+   "method": "POST",
+   "path": "/services/{serviceId}/headers",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "path",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The request path to add the header to. Wildcards will cause headers to be applied to all matching paths."
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Header name"
+     }
+    },
+    {
+     "name": "value",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Header value"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteHeader",
+   "area": "Headers",
+   "risk": "destroy",
+   "description": "Delete header rule",
+   "method": "DELETE",
+   "path": "/services/{serviceId}/headers/{headerId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "headerId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listHeaders",
+   "area": "Headers",
+   "risk": "read",
+   "description": "List header rules",
+   "method": "GET",
+   "path": "/services/{serviceId}/headers",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "value",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateHeaders",
+   "area": "Headers",
+   "risk": "change",
+   "description": "Replace header rules",
+   "method": "PUT",
+   "path": "/services/{serviceId}/headers",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "path",
+        "name",
+        "value"
+       ],
+       "properties": {
+        "path": {
+         "type": "string",
+         "description": "The request path to add the header to. Wildcards will cause headers to be applied to all matching paths."
+        },
+        "name": {
+         "type": "string",
+         "description": "Header name"
+        },
+        "value": {
+         "type": "string",
+         "description": "Header value"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "cancelJob",
+   "area": "Jobs",
+   "risk": "destroy",
+   "description": "Cancel running job",
+   "method": "POST",
+   "path": "/services/{serviceId}/jobs/{jobId}/cancel",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "jobId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listJob",
+   "area": "Jobs",
+   "risk": "read",
+   "description": "List jobs",
+   "method": "GET",
+   "path": "/services/{serviceId}/jobs",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "pending",
+        "running",
+        "succeeded",
+        "failed",
+        "canceled"
+       ]
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "startedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "startedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "finishedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "finishedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postJob",
+   "area": "Jobs",
+   "risk": "change",
+   "description": "Create job",
+   "method": "POST",
+   "path": "/services/{serviceId}/jobs",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "startCommand",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "planId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveJob",
+   "area": "Jobs",
+   "risk": "read",
+   "description": "Retrieve job",
+   "method": "GET",
+   "path": "/services/{serviceId}/jobs/{jobId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "jobId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listKeyValue",
+   "area": "Key Value",
+   "risk": "read",
+   "description": "List Key Value instances",
+   "method": "GET",
+   "path": "/key-value",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "region",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "frankfurt",
+        "oregon",
+        "ohio",
+        "singapore",
+        "virginia"
+       ],
+       "description": "Defaults to \"oregon\"",
+       "default": "oregon"
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "resumeKeyValue",
+   "area": "Key Value",
+   "risk": "change",
+   "description": "Resume Key Value instance",
+   "method": "POST",
+   "path": "/key-value/{redisId}/resume",
+   "args": [
+    {
+     "name": "redisId",
+     "in": "path",
+     "required": true,
+     "context": "key_value",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveKeyValue",
+   "area": "Key Value",
+   "risk": "read",
+   "description": "Retrieve Key Value instance",
+   "method": "GET",
+   "path": "/key-value/{redisId}",
+   "args": [
+    {
+     "name": "redisId",
+     "in": "path",
+     "required": true,
+     "context": "key_value",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "suspendKeyValue",
+   "area": "Key Value",
+   "risk": "destroy",
+   "description": "Suspend Key Value instance",
+   "method": "POST",
+   "path": "/key-value/{redisId}/suspend",
+   "args": [
+    {
+     "name": "redisId",
+     "in": "path",
+     "required": true,
+     "context": "key_value",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateKeyValue",
+   "area": "Key Value",
+   "risk": "change",
+   "description": "Update Key Value instance",
+   "method": "PATCH",
+   "path": "/key-value/{redisId}",
+   "args": [
+    {
+     "name": "redisId",
+     "in": "path",
+     "required": true,
+     "context": "key_value",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the Key Value instance"
+     }
+    },
+    {
+     "name": "plan",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "free",
+       "starter",
+       "standard",
+       "pro",
+       "pro_plus",
+       "custom",
+       "256mb",
+       "1g",
+       "5g",
+       "10g",
+       "20g",
+       "40g"
+      ]
+     }
+    },
+    {
+     "name": "maxmemoryPolicy",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "noeviction",
+       "allkeys_lfu",
+       "allkeys_lru",
+       "allkeys_random",
+       "volatile_lfu",
+       "volatile_lru",
+       "volatile_random",
+       "volatile_ttl"
+      ],
+      "description": "The eviction policy for the Key Value instance"
+     }
+    },
+    {
+     "name": "persistenceMode",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "journal_snapshot",
+       "snapshot",
+       "off"
+      ],
+      "description": "The persistence mode for the Key Value instance. The default for paid instances is journal_snapshot (both journaling and snapshots). Only turn off persistence if you're using this Key Value instance as a cache and are okay with losing data. Free instances do not have persistence."
+     }
+    },
+    {
+     "name": "ipAllowList",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "cidrBlock",
+        "description"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteOwnerLogStream",
+   "area": "Logs",
+   "risk": "destroy",
+   "description": "Delete log stream",
+   "method": "DELETE",
+   "path": "/logs/streams/owner/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteResourceLogStream",
+   "area": "Logs",
+   "risk": "destroy",
+   "description": "Delete log stream override",
+   "method": "DELETE",
+   "path": "/logs/streams/resource/{resourceId}",
+   "args": [
+    {
+     "name": "resourceId",
+     "in": "path",
+     "required": true,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getOwnerLogStream",
+   "area": "Logs",
+   "risk": "read",
+   "description": "Retrieve log stream",
+   "method": "GET",
+   "path": "/logs/streams/owner/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getResourceLogStream",
+   "area": "Logs",
+   "risk": "read",
+   "description": "Retrieve log stream override",
+   "method": "GET",
+   "path": "/logs/streams/resource/{resourceId}",
+   "args": [
+    {
+     "name": "resourceId",
+     "in": "path",
+     "required": true,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listLogs",
+   "area": "Logs",
+   "risk": "read",
+   "description": "List logs",
+   "method": "GET",
+   "path": "/logs",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "direction",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "forward",
+       "backward"
+      ],
+      "default": "backward"
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": true,
+     "context": "resource",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "host",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "statusCode",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "method",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "task",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "taskRun",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "sandbox",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "level",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "text",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listLogsValues",
+   "area": "Logs",
+   "risk": "read",
+   "description": "List log label values",
+   "method": "GET",
+   "path": "/logs/values",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "instance",
+       "host",
+       "statusCode",
+       "method",
+       "level",
+       "type"
+      ]
+     }
+    },
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "direction",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "forward",
+       "backward"
+      ],
+      "default": "backward"
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": true,
+     "context": "resource",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "host",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "statusCode",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "method",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "task",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "taskRun",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "sandbox",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "level",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "text",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listResourceLogStreams",
+   "area": "Logs",
+   "risk": "read",
+   "description": "List log stream overrides",
+   "method": "GET",
+   "path": "/logs/streams/resource",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "logStreamId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "resourceId",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "setting",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "send",
+        "drop"
+       ],
+       "description": "Whether to send logs or drop them."
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateOwnerLogStream",
+   "area": "Logs",
+   "risk": "change",
+   "description": "Update log stream",
+   "method": "PUT",
+   "path": "/logs/streams/owner/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The endpoint to stream logs to."
+     }
+    },
+    {
+     "name": "preview",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "send",
+       "drop"
+      ],
+      "description": "Whether to send logs or drop them."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateResourceLogStream",
+   "area": "Logs",
+   "risk": "change",
+   "description": "Update log stream override",
+   "method": "PUT",
+   "path": "/logs/streams/resource/{resourceId}",
+   "args": [
+    {
+     "name": "resourceId",
+     "in": "path",
+     "required": true,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The endpoint to stream logs to."
+     }
+    },
+    {
+     "name": "setting",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "send",
+       "drop"
+      ],
+      "description": "Whether to send logs or drop them."
+     }
+    }
+   ]
+  },
+  {
+   "name": "listMaintenance",
+   "area": "Maintenance",
+   "risk": "read",
+   "description": "List maintenance runs",
+   "method": "GET",
+   "path": "/maintenance",
+   "args": [
+    {
+     "name": "resourceId",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "description": "The Id of a resource that can undergo maintenance (Id of a service, a Postgres instance, or a Redis instance)"
+      }
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "state",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "scheduled",
+        "in_progress",
+        "user_fix_required",
+        "cancelled",
+        "succeeded",
+        "failed"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveMaintenance",
+   "area": "Maintenance",
+   "risk": "read",
+   "description": "Retrieve maintenance run",
+   "method": "GET",
+   "path": "/maintenance/{maintenanceRunID}",
+   "args": [
+    {
+     "name": "maintenanceRunID",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "triggerMaintenance",
+   "area": "Maintenance",
+   "risk": "destroy",
+   "description": "Trigger maintenance run",
+   "method": "POST",
+   "path": "/maintenance/{maintenanceRunID}/trigger",
+   "args": [
+    {
+     "name": "maintenanceRunID",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateMaintenance",
+   "area": "Maintenance",
+   "risk": "change",
+   "description": "Update maintenance run",
+   "method": "PATCH",
+   "path": "/maintenance/{maintenanceRunID}",
+   "args": [
+    {
+     "name": "maintenanceRunID",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "scheduledAt",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The date-time at which the maintenance is scheduled to start. This must be before the pendingMaintenanceBy date-time.",
+      "format": "date-time"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteOwnerMetricsStream",
+   "area": "Metrics",
+   "risk": "destroy",
+   "description": "Delete metrics stream",
+   "method": "DELETE",
+   "path": "/metrics-stream/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getActiveConnections",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get active connection count",
+   "method": "GET",
+   "path": "/metrics/active-connections",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getBandwidth",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get bandwidth usage",
+   "method": "GET",
+   "path": "/metrics/bandwidth",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getBandwidthSources",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get bandwidth usage breakdown by traffic source",
+   "method": "GET",
+   "path": "/metrics/bandwidth-sources",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCpu",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get CPU usage",
+   "method": "GET",
+   "path": "/metrics/cpu",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "aggregationMethod",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "AVG",
+       "MAX",
+       "MIN"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCpuLimit",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get CPU limit",
+   "method": "GET",
+   "path": "/metrics/cpu-limit",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCpuTarget",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get CPU target",
+   "method": "GET",
+   "path": "/metrics/cpu-target",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDiskCapacity",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get disk capacity",
+   "method": "GET",
+   "path": "/metrics/disk-capacity",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getDiskUsage",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get disk usage",
+   "method": "GET",
+   "path": "/metrics/disk-usage",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getHttpLatency",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get HTTP latency",
+   "method": "GET",
+   "path": "/metrics/http-latency",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "host",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "quantile",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "format": "float"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getHttpRequests",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get HTTP request count",
+   "method": "GET",
+   "path": "/metrics/http-requests",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "host",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "aggregateBy",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "statusCode",
+       "host"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "getInstanceCount",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get instance count",
+   "method": "GET",
+   "path": "/metrics/instance-count",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMemory",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get memory usage",
+   "method": "GET",
+   "path": "/metrics/memory",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMemoryLimit",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get memory limit",
+   "method": "GET",
+   "path": "/metrics/memory-limit",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMemoryTarget",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get memory target",
+   "method": "GET",
+   "path": "/metrics/memory-target",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getOwnerMetricsStream",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Retrieve metrics stream",
+   "method": "GET",
+   "path": "/metrics-stream/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getReplicationLag",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get replica lag",
+   "method": "GET",
+   "path": "/metrics/replication-lag",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getTaskRunsCompleted",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get task runs completed count",
+   "method": "GET",
+   "path": "/metrics/task-runs-completed",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "state",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "succeeded",
+       "failed"
+      ]
+     }
+    },
+    {
+     "name": "aggregateBy",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "state"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "getTaskRunsQueued",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "Get task runs queued count",
+   "method": "GET",
+   "path": "/metrics/task-runs-queued",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listApplicationFilterValues",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "List queryable instance values",
+   "method": "GET",
+   "path": "/metrics/filters/application",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listHttpFilterValues",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "List queryable status codes and host values",
+   "method": "GET",
+   "path": "/metrics/filters/http",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "host",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "statusCode",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPathFilterValues",
+   "area": "Metrics",
+   "risk": "read",
+   "description": "List queryable paths",
+   "method": "GET",
+   "path": "/metrics/filters/path",
+   "args": [
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "resolutionSeconds",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "minimum": 30,
+      "default": 60
+     }
+    },
+    {
+     "name": "resource",
+     "in": "query",
+     "required": false,
+     "context": "resource",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "service",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "host",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "statusCode",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "path",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "upsertOwnerMetricsStream",
+   "area": "Metrics",
+   "risk": "change",
+   "description": "Create or update metrics stream",
+   "method": "PUT",
+   "path": "/metrics-stream/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "provider",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "BETTER_STACK",
+       "GRAFANA",
+       "DATADOG",
+       "NEW_RELIC",
+       "HONEYCOMB",
+       "SIGNOZ",
+       "GROUNDCOVER",
+       "LOGFIRE",
+       "CUSTOM"
+      ],
+      "description": "Provider to send metrics to"
+     }
+    },
+    {
+     "name": "url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The endpoint URL to stream metrics to"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createDedicatedIp",
+   "area": "Networking",
+   "risk": "change",
+   "description": "Create dedicated IP set",
+   "method": "POST",
+   "path": "/dedicated-ips",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name for the dedicated IP set."
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Free-form description for the dedicated IP set."
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "body",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string",
+      "description": "The ID of the workspace that will own this dedicated IP set."
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "frankfurt",
+       "oregon",
+       "ohio",
+       "singapore",
+       "virginia"
+      ],
+      "description": "Defaults to \"oregon\"",
+      "default": "oregon"
+     }
+    },
+    {
+     "name": "environmentIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Environments to scope the dedicated IP set to. If omitted or empty, it applies to all services in the workspace within its region.\n",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteDedicatedIp",
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Delete dedicated IP set",
+   "method": "DELETE",
+   "path": "/dedicated-ips/{dedicatedIpId}",
+   "args": [
+    {
+     "name": "dedicatedIpId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listDedicatedIps",
+   "area": "Networking",
+   "risk": "read",
+   "description": "List dedicated IPs",
+   "method": "GET",
+   "path": "/dedicated-ips",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveDedicatedIp",
+   "area": "Networking",
+   "risk": "read",
+   "description": "Retrieve dedicated IP set",
+   "method": "GET",
+   "path": "/dedicated-ips/{dedicatedIpId}",
+   "args": [
+    {
+     "name": "dedicatedIpId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateDedicatedIp",
+   "area": "Networking",
+   "risk": "change",
+   "description": "Update dedicated IP set",
+   "method": "PATCH",
+   "path": "/dedicated-ips/{dedicatedIpId}",
+   "args": [
+    {
+     "name": "dedicatedIpId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "environmentIds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "listNotificationOverrides",
+   "area": "Notifications",
+   "risk": "read",
+   "description": "List notification overrides",
+   "method": "GET",
+   "path": "/notification-settings/overrides",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "serviceId",
+     "in": "query",
+     "required": false,
+     "context": "service",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "patchOwnerNotificationSettings",
+   "area": "Notifications",
+   "risk": "change",
+   "description": "Update notification settings",
+   "method": "PATCH",
+   "path": "/notification-settings/owners/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "emailEnabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "previewNotificationsEnabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "notificationsToSend",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "none",
+       "failure",
+       "all"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "patchServiceNotificationOverrides",
+   "area": "Notifications",
+   "risk": "change",
+   "description": "Update notification override",
+   "method": "PATCH",
+   "path": "/notification-settings/overrides/services/{serviceId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "previewNotificationsEnabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "default",
+       "false",
+       "true"
+      ]
+     }
+    },
+    {
+     "name": "notificationsToSend",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "default",
+       "none",
+       "failure",
+       "all"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveOwnerNotificationSettings",
+   "area": "Notifications",
+   "risk": "read",
+   "description": "Retrieve notification settings",
+   "method": "GET",
+   "path": "/notification-settings/owners/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveServiceNotificationOverrides",
+   "area": "Notifications",
+   "risk": "read",
+   "description": "Retrieve notification override",
+   "method": "GET",
+   "path": "/notification-settings/overrides/services/{serviceId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "failoverPostgres",
+   "area": "Postgres",
+   "risk": "destroy",
+   "description": "Failover Postgres instance",
+   "method": "POST",
+   "path": "/postgres/{postgresId}/failover",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPostgres",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "List Postgres instances",
+   "method": "GET",
+   "path": "/postgres",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "region",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "frankfurt",
+        "oregon",
+        "ohio",
+        "singapore",
+        "virginia"
+       ],
+       "description": "Defaults to \"oregon\"",
+       "default": "oregon"
+      }
+     }
+    },
+    {
+     "name": "suspended",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "suspended",
+        "not_suspended"
+       ]
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "includeReplicas",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "default": true
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPostgresProcesses",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "List live queries",
+   "method": "GET",
+   "path": "/postgres/{postgresId}/query/processes",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPostgresSizes",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "List database, table, and index sizes",
+   "method": "GET",
+   "path": "/postgres/{postgresId}/query/sizes",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPostgresTableScans",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "List table scans",
+   "method": "GET",
+   "path": "/postgres/{postgresId}/query/table-scans",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPostgresTopQueries",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "List top queries",
+   "method": "GET",
+   "path": "/postgres/{postgresId}/query/top-queries",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "recoverPostgres",
+   "area": "Postgres",
+   "risk": "destroy",
+   "description": "Trigger point-in-time recovery",
+   "method": "POST",
+   "path": "/postgres/{postgresId}/recovery",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "restoreName",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the new database."
+     }
+    },
+    {
+     "name": "restoreTime",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The point in time to restore the database to. See `/recovery-info` for restore availability",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "datadogSite",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Datadog region code to use for monitoring the new database. Defaults to the region code of the original database. Use an empty string to prevent copying of the region code to the new database."
+     }
+    },
+    {
+     "name": "plan",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The plan to use for the new database. Defaults to the same plan as the original database. Cannot be a lower tier plan than the original database."
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The environment to create the new database in. Defaults to the environment of the original database."
+     }
+    }
+   ]
+  },
+  {
+   "name": "restartPostgres",
+   "area": "Postgres",
+   "risk": "change",
+   "description": "Restart Postgres instance",
+   "method": "POST",
+   "path": "/postgres/{postgresId}/restart",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "resumePostgres",
+   "area": "Postgres",
+   "risk": "change",
+   "description": "Resume Postgres instance",
+   "method": "POST",
+   "path": "/postgres/{postgresId}/resume",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrievePostgres",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "Retrieve Postgres instance",
+   "method": "GET",
+   "path": "/postgres/{postgresId}",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrievePostgresRecoveryInfo",
+   "area": "Postgres",
+   "risk": "read",
+   "description": "Retrieve point-in-time recovery status",
+   "method": "GET",
+   "path": "/postgres/{postgresId}/recovery",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "suspendPostgres",
+   "area": "Postgres",
+   "risk": "destroy",
+   "description": "Suspend Postgres instance",
+   "method": "POST",
+   "path": "/postgres/{postgresId}/suspend",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updatePostgres",
+   "area": "Postgres",
+   "risk": "change",
+   "description": "Update Postgres instance",
+   "method": "PATCH",
+   "path": "/postgres/{postgresId}",
+   "args": [
+    {
+     "name": "postgresId",
+     "in": "path",
+     "required": true,
+     "context": "postgres",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "plan",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "free",
+       "starter",
+       "standard",
+       "pro",
+       "pro_plus",
+       "custom",
+       "basic_256mb",
+       "basic_1gb",
+       "basic_4gb",
+       "pro_4gb",
+       "pro_8gb",
+       "pro_16gb",
+       "pro_32gb",
+       "pro_64gb",
+       "pro_128gb",
+       "pro_192gb",
+       "pro_256gb",
+       "pro_384gb",
+       "pro_512gb",
+       "accelerated_16gb",
+       "accelerated_32gb",
+       "accelerated_64gb",
+       "accelerated_128gb",
+       "accelerated_256gb",
+       "accelerated_384gb",
+       "accelerated_512gb",
+       "accelerated_768gb",
+       "accelerated_1024gb",
+       "0.1c-256mb",
+       "0.5c-1g",
+       "1c-2g",
+       "1c-4g",
+       "2c-4g",
+       "2c-8g",
+       "2c-16g",
+       "4c-16g",
+       "4c-32g",
+       "8c-32g",
+       "8c-64g",
+       "16c-64g",
+       "16c-128g",
+       "32c-128g",
+       "32c-256g",
+       "48c-192g",
+       "48c-384g",
+       "64c-256g",
+       "64c-512g",
+       "96c-384g",
+       "96c-768g",
+       "128c-512g",
+       "128c-1024g"
+      ]
+     }
+    },
+    {
+     "name": "diskSizeGB",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "The number of gigabytes of disk space to allocate for the database"
+     }
+    },
+    {
+     "name": "enableDiskAutoscaling",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "connectionPool",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "What connection pool to use (if any) out of 'pgbouncer' and 'none'",
+      "default": "none"
+     }
+    },
+    {
+     "name": "enableHighAvailability",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "datadogSite",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Datadog region to use for monitoring the new database. Defaults to 'US1'."
+     }
+    },
+    {
+     "name": "ipAllowList",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "cidrBlock",
+        "description"
+       ]
+      }
+     }
+    },
+    {
+     "name": "readReplicas",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "name"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "addResourcesToEnvironment",
+   "area": "Projects",
+   "risk": "change",
+   "description": "Add resources to environment",
+   "method": "POST",
+   "path": "/environments/{environmentId}/resources",
+   "args": [
+    {
+     "name": "environmentId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "resourceIds",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "description": "The ID of an env group, a service, a Postgres database, or a Redis instance"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createEnvironment",
+   "area": "Projects",
+   "risk": "change",
+   "description": "Create environment",
+   "method": "POST",
+   "path": "/environments",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "projectId",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "protectedStatus",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "unprotected",
+       "protected"
+      ],
+      "description": "Indicates whether an environment is `unprotected` or `protected`. Only admin users can perform destructive actions in `protected` environments."
+     }
+    },
+    {
+     "name": "networkIsolationEnabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Indicates whether network connections across environments are allowed."
+     }
+    },
+    {
+     "name": "ipAllowList",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "cidrBlock",
+        "description"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProject",
+   "area": "Projects",
+   "risk": "change",
+   "description": "Create project",
+   "method": "POST",
+   "path": "/projects",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The name of the project"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "body",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string",
+      "description": "The ID of the owner that the project belongs to"
+     }
+    },
+    {
+     "name": "environments",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The environments to create when creating the project",
+      "items": {
+       "type": "object",
+       "required": [
+        "name"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteEnvironment",
+   "area": "Projects",
+   "risk": "destroy",
+   "description": "Delete environment",
+   "method": "DELETE",
+   "path": "/environments/{environmentId}",
+   "args": [
+    {
+     "name": "environmentId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProject",
+   "area": "Projects",
+   "risk": "destroy",
+   "description": "Delete project",
+   "method": "DELETE",
+   "path": "/projects/{projectId}",
+   "args": [
+    {
+     "name": "projectId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEnvironments",
+   "area": "Projects",
+   "risk": "read",
+   "description": "List environments",
+   "method": "GET",
+   "path": "/environments",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "projectId",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjects",
+   "area": "Projects",
+   "risk": "read",
+   "description": "List projects",
+   "method": "GET",
+   "path": "/projects",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeResourcesFromEnvironment",
+   "area": "Projects",
+   "risk": "destroy",
+   "description": "Remove resources from environment",
+   "method": "DELETE",
+   "path": "/environments/{environmentId}/resources",
+   "args": [
+    {
+     "name": "environmentId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "resourceIds",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "description": "The ID of an env group, a service, a Postgres database, or a Redis instance"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveEnvironment",
+   "area": "Projects",
+   "risk": "read",
+   "description": "Retrieve environment",
+   "method": "GET",
+   "path": "/environments/{environmentId}",
+   "args": [
+    {
+     "name": "environmentId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveProject",
+   "area": "Projects",
+   "risk": "read",
+   "description": "Retrieve Project",
+   "method": "GET",
+   "path": "/projects/{projectId}",
+   "args": [
+    {
+     "name": "projectId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateEnvironment",
+   "area": "Projects",
+   "risk": "change",
+   "description": "Update environment",
+   "method": "PATCH",
+   "path": "/environments/{environmentId}",
+   "args": [
+    {
+     "name": "environmentId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "networkIsolationEnabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Indicates whether network connections across environments are allowed."
+     }
+    },
+    {
+     "name": "protectedStatus",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "unprotected",
+       "protected"
+      ],
+      "description": "Indicates whether an environment is `unprotected` or `protected`. Only admin users can perform destructive actions in `protected` environments."
+     }
+    },
+    {
+     "name": "ipAllowList",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "cidrBlock",
+        "description"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProject",
+   "area": "Projects",
+   "risk": "change",
+   "description": "Update project",
+   "method": "PATCH",
+   "path": "/projects/{projectId}",
+   "args": [
+    {
+     "name": "projectId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "addRoute",
+   "area": "Redirects and rewrites",
+   "risk": "change",
+   "description": "Add redirect/rewrite rules",
+   "method": "POST",
+   "path": "/services/{serviceId}/routes",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "redirect",
+       "rewrite"
+      ]
+     }
+    },
+    {
+     "name": "source",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "destination",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "priority",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteRoute",
+   "area": "Redirects and rewrites",
+   "risk": "destroy",
+   "description": "Delete redirect/rewrite rule",
+   "method": "DELETE",
+   "path": "/services/{serviceId}/routes/{routeId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "routeId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listRoutes",
+   "area": "Redirects and rewrites",
+   "risk": "read",
+   "description": "List redirect/rewrite rules",
+   "method": "GET",
+   "path": "/services/{serviceId}/routes",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "redirect",
+        "rewrite"
+       ]
+      }
+     }
+    },
+    {
+     "name": "source",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "destination",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "patchRoute",
+   "area": "Redirects and rewrites",
+   "risk": "change",
+   "description": "Update redirect/rewrite rule priority",
+   "method": "PATCH",
+   "path": "/services/{serviceId}/routes/{routeId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "routeId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "priority",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Redirect and Rewrite Rules are applied in priority order starting at 0. Moves this route to the specified priority and adjusts other route priorities accordingly."
+     }
+    }
+   ]
+  },
+  {
+   "name": "putRoutes",
+   "area": "Redirects and rewrites",
+   "risk": "change",
+   "description": "Update redirect/rewrite rules",
+   "method": "PUT",
+   "path": "/services/{serviceId}/routes",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "type",
+        "source",
+        "destination"
+       ],
+       "properties": {
+        "type": {
+         "type": "string",
+         "enum": [
+          "redirect",
+          "rewrite"
+         ]
+        },
+        "source": {
+         "type": "string"
+        },
+        "destination": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "autoscaleService",
+   "area": "Services",
+   "risk": "change",
+   "description": "Update autoscaling config",
+   "method": "PUT",
+   "path": "/services/{serviceId}/autoscaling",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "default": false
+     }
+    },
+    {
+     "name": "min",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "The minimum number of instances for the service"
+     }
+    },
+    {
+     "name": "max",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "The maximum number of instances for the service"
+     }
+    },
+    {
+     "name": "criteria",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "cpu",
+       "memory"
+      ],
+      "properties": {
+       "cpu": {
+        "type": "object",
+        "required": [
+         "enabled",
+         "percentage"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean",
+          "default": false
+         },
+         "percentage": {
+          "type": "integer",
+          "description": "Determines when your service will be scaled. If the average resource utilization is significantly above/below the target, we will increase/decrease the number of instances.\n"
+         }
+        }
+       },
+       "memory": {
+        "type": "object",
+        "required": [
+         "enabled",
+         "percentage"
+        ],
+        "properties": {
+         "enabled": {
+          "type": "boolean",
+          "default": false
+         },
+         "percentage": {
+          "type": "integer",
+          "description": "Determines when your service will be scaled. If the average resource utilization is significantly above/below the target, we will increase/decrease the number of instances.\n"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteAutoscalingConfig",
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Delete autoscaling config",
+   "method": "DELETE",
+   "path": "/services/{serviceId}/autoscaling",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listEvents",
+   "area": "Services",
+   "risk": "read",
+   "description": "List events",
+   "method": "GET",
+   "path": "/services/{serviceId}/events",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "artifact_fetch_failed",
+       "artifact_source_changed",
+       "autoscaling_config_changed",
+       "autoscaling_ended",
+       "autoscaling_started",
+       "branch_deleted",
+       "build_ended",
+       "build_started",
+       "commit_ignored",
+       "cron_job_run_ended",
+       "cron_job_run_started",
+       "deploy_ended",
+       "deploy_started",
+       "disk_created",
+       "disk_updated",
+       "disk_deleted",
+       "disk_snapshot_restored",
+       "service_disk_usage_high",
+       "service_disk_usage_recovered",
+       "image_pull_failed",
+       "initial_deploy_hook_ended",
+       "initial_deploy_hook_started",
+       "instance_count_changed",
+       "job_run_ended",
+       "maintenance_mode_enabled",
+       "maintenance_mode_uri_updated",
+       "maintenance_ended",
+       "maintenance_started",
+       "pipeline_minutes_exhausted",
+       "plan_changed",
+       "pre_deploy_ended",
+       "pre_deploy_started",
+       "server_available",
+       "server_failed",
+       "server_hardware_failure",
+       "server_restarted",
+       "service_resumed",
+       "service_suspended",
+       "suspender_added",
+       "suspender_removed",
+       "zero_downtime_redeploy_ended",
+       "zero_downtime_redeploy_started",
+       "auto_deploy_disabled",
+       "auto_deploy_enabled"
+      ]
+     }
+    },
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listInstances",
+   "area": "Services",
+   "risk": "read",
+   "description": "List instances",
+   "method": "GET",
+   "path": "/services/{serviceId}/instances",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listServices",
+   "area": "Services",
+   "risk": "read",
+   "description": "List services",
+   "method": "GET",
+   "path": "/services",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "static_site",
+        "web_service",
+        "private_service",
+        "background_worker",
+        "cron_job"
+       ]
+      }
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "env",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "docker",
+        "elixir",
+        "go",
+        "node",
+        "python",
+        "ruby",
+        "rust",
+        "image"
+       ],
+       "description": "Runtime"
+      }
+     }
+    },
+    {
+     "name": "region",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "frankfurt",
+        "oregon",
+        "ohio",
+        "singapore",
+        "virginia"
+       ],
+       "description": "Defaults to \"oregon\"",
+       "default": "oregon"
+      }
+     }
+    },
+    {
+     "name": "suspended",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "suspended",
+        "not_suspended"
+       ]
+      }
+     }
+    },
+    {
+     "name": "createdBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "createdAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "updatedAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "includePreviews",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "default": true
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "previewService",
+   "area": "Services",
+   "risk": "change",
+   "description": "Create service preview (image-backed)",
+   "method": "POST",
+   "path": "/services/{serviceId}/preview",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "imagePath",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Must be either a full URL or the relative path to an image. If a relative path, Render uses the base service's image URL as its root. For example, if the base service's image URL is `docker.io/library/nginx:latest`, then valid values are: `docker.io/library/nginx:<any tag or SHA>`, `library/nginx:<any tag or SHA>`, or `nginx:<any tag or SHA>`. Note that the path must match (only the tag or SHA can"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A name for the service preview instance. If not specified, Render generates the name using the base service's name and the specified tag or SHA."
+     }
+    },
+    {
+     "name": "plan",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "starter",
+       "starter_plus",
+       "standard",
+       "standard_plus",
+       "pro",
+       "pro_plus",
+       "pro_max",
+       "pro_ultra",
+       "free",
+       "custom",
+       "starter_legacy",
+       "standard_legacy",
+       "standard_plus_legacy",
+       "pro_legacy",
+       "pro_plus_legacy",
+       "0.5c-512mb",
+       "1c-2g",
+       "2c-4g",
+       "2c-8g",
+       "2c-16g",
+       "4c-8g",
+       "4c-16g",
+       "4c-32g",
+       "8c-16g",
+       "8c-32g",
+       "8c-64g",
+       "12c-24g",
+       "12c-48g",
+       "12c-96g"
+      ],
+      "description": "The compute plan to use. Legacy variants (`*_legacy`) identify grandfathered plans no longer offered for new services. Note that base services on any paid compute plan can't create preview instances with the `free` plan."
+     }
+    }
+   ]
+  },
+  {
+   "name": "purgeCache",
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Purge Web Service Cache",
+   "method": "POST",
+   "path": "/services/{serviceId}/cache/purge",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restartService",
+   "area": "Services",
+   "risk": "change",
+   "description": "Restart service",
+   "method": "POST",
+   "path": "/services/{serviceId}/restart",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "resumeService",
+   "area": "Services",
+   "risk": "change",
+   "description": "Resume service",
+   "method": "POST",
+   "path": "/services/{serviceId}/resume",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveService",
+   "area": "Services",
+   "risk": "read",
+   "description": "Retrieve service",
+   "method": "GET",
+   "path": "/services/{serviceId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveServiceOutboundIps",
+   "area": "Services",
+   "risk": "read",
+   "description": "Retrieve service outbound IPs",
+   "method": "GET",
+   "path": "/services/{serviceId}/outbound-ips",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "scaleService",
+   "area": "Services",
+   "risk": "change",
+   "description": "Scale instance count",
+   "method": "POST",
+   "path": "/services/{serviceId}/scale",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "numInstances",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "suspendService",
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Suspend service",
+   "method": "POST",
+   "path": "/services/{serviceId}/suspend",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateService",
+   "area": "Services",
+   "risk": "change",
+   "description": "Update service",
+   "method": "PATCH",
+   "path": "/services/{serviceId}",
+   "args": [
+    {
+     "name": "serviceId",
+     "in": "path",
+     "required": true,
+     "context": "service",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildSourceId",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "autoDeploy",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "yes",
+       "no"
+      ],
+      "description": "Deprecated: use `autoDeployTrigger` instead. You can't set both `autoDeploy` and `autoDeployTrigger` in the same request.\n\n- `yes` is equivalent to `autoDeployTrigger: commit`.\n- `no` is equivalent to `autoDeployTrigger: off`.\n",
+      "default": "yes"
+     }
+    },
+    {
+     "name": "autoDeployTrigger",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "commit",
+       "off",
+       "checksPass"
+      ],
+      "description": "Controls autodeploy behavior.\n\n- `commit`: Deploy each time a commit is pushed to the service's linked branch.\n- `checksPass`: Deploy each time a commit is pushed to the linked branch, but only after the commit's CI checks pass.\n- `off`: Disable autodeploys.\n"
+     }
+    },
+    {
+     "name": "repo",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "imagePath",
+       "ownerId"
+      ],
+      "properties": {
+       "ownerId": {
+        "type": "string",
+        "description": "The ID of the owner for this image. This should match the owner of the service as well as the owner of any specified registry credential."
+       },
+       "registryCredentialId": {
+        "type": "string",
+        "description": "Optional reference to the registry credential passed to the image repository to retrieve this image."
+       },
+       "imagePath": {
+        "type": "string",
+        "description": "Path to the image used for this server (e.g docker.io/library/nginx:latest)."
+       }
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildFilter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "paths",
+       "ignoredPaths"
+      ],
+      "properties": {
+       "paths": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "ignoredPaths": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "rootDir",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "serviceDetails",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createWebhook",
+   "area": "Webhooks",
+   "risk": "change",
+   "description": "Create a webhook",
+   "method": "POST",
+   "path": "/webhooks",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "body",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string",
+      "description": "The ID of the owner (team or personal user) whose resources should be returned"
+     }
+    },
+    {
+     "name": "url",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "eventFilter",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The event types that will trigger the webhook. An empty list means all event types will trigger the webhook.",
+      "items": {
+       "type": "string",
+       "enum": [
+        "artifact_fetch_failed",
+        "artifact_source_changed",
+        "autoscaling_config_changed",
+        "autoscaling_ended",
+        "autoscaling_started",
+        "branch_deleted",
+        "build_ended",
+        "build_started",
+        "commit_ignored",
+        "cron_job_run_ended",
+        "cron_job_run_started",
+        "deploy_ended",
+        "deploy_started",
+        "disk_created",
+        "disk_updated",
+        "disk_deleted",
+        "disk_snapshot_restored",
+        "image_pull_failed",
+        "instance_count_changed",
+        "job_run_ended",
+        "maintenance_mode_enabled",
+        "maintenance_mode_uri_updated",
+        "maintenance_ended",
+        "maintenance_started",
+        "pipeline_minutes_exhausted",
+        "plan_changed",
+        "pre_deploy_ended",
+        "pre_deploy_started",
+        "server_available",
+        "server_failed",
+        "server_hardware_failure",
+        "server_restarted",
+        "service_resumed",
+        "service_suspended",
+        "zero_downtime_redeploy_ended",
+        "zero_downtime_redeploy_started",
+        "edge_cache_enabled",
+        "edge_cache_disabled",
+        "edge_cache_purged",
+        "auto_deploy_disabled",
+        "auto_deploy_enabled",
+        "postgres_available",
+        "postgres_backup_completed",
+        "postgres_backup_failed",
+        "postgres_backup_started",
+        "postgres_cluster_leader_changed",
+        "postgres_connection_pool_changed",
+        "postgres_connection_pool_enabled_changed",
+        "postgres_created",
+        "postgres_disk_size_changed",
+        "postgres_disk_autoscaling_enabled_changed",
+        "postgres_ha_status_changed",
+        "postgres_restarted",
+        "postgres_unavailable",
+        "postgres_upgrade_failed",
+        "postgres_upgrade_started",
+        "postgres_upgrade_succeeded",
+        "postgres_restore_failed",
+        "postgres_restore_succeeded",
+        "postgres_read_replicas_changed",
+        "postgres_pitr_checkpoint_started",
+        "postgres_pitr_checkpoint_failed",
+        "postgres_pitr_checkpoint_completed",
+        "postgres_read_replica_stale",
+        "postgres_wal_archive_failed",
+        "key_value_available",
+        "key_value_config_restart",
+        "key_value_unhealthy"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteWebhook",
+   "area": "Webhooks",
+   "risk": "destroy",
+   "description": "Delete a webhook",
+   "method": "DELETE",
+   "path": "/webhooks/{webhookId}",
+   "args": [
+    {
+     "name": "webhookId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listWebhookEvents",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "List webhook events",
+   "method": "GET",
+   "path": "/webhooks/{webhookId}/events",
+   "args": [
+    {
+     "name": "webhookId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sentBefore",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "sentAfter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listWebhooks",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "List webhooks",
+   "method": "GET",
+   "path": "/webhooks",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveWebhook",
+   "area": "Webhooks",
+   "risk": "read",
+   "description": "Retrieve a webhook",
+   "method": "GET",
+   "path": "/webhooks/{webhookId}",
+   "args": [
+    {
+     "name": "webhookId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateWebhook",
+   "area": "Webhooks",
+   "risk": "change",
+   "description": "Update a webhook",
+   "method": "PATCH",
+   "path": "/webhooks/{webhookId}",
+   "args": [
+    {
+     "name": "webhookId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "eventFilter",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The event types that will trigger the webhook. An empty list means all event types will trigger the webhook.",
+      "items": {
+       "type": "string",
+       "enum": [
+        "artifact_fetch_failed",
+        "artifact_source_changed",
+        "autoscaling_config_changed",
+        "autoscaling_ended",
+        "autoscaling_started",
+        "branch_deleted",
+        "build_ended",
+        "build_started",
+        "commit_ignored",
+        "cron_job_run_ended",
+        "cron_job_run_started",
+        "deploy_ended",
+        "deploy_started",
+        "disk_created",
+        "disk_updated",
+        "disk_deleted",
+        "disk_snapshot_restored",
+        "image_pull_failed",
+        "instance_count_changed",
+        "job_run_ended",
+        "maintenance_mode_enabled",
+        "maintenance_mode_uri_updated",
+        "maintenance_ended",
+        "maintenance_started",
+        "pipeline_minutes_exhausted",
+        "plan_changed",
+        "pre_deploy_ended",
+        "pre_deploy_started",
+        "server_available",
+        "server_failed",
+        "server_hardware_failure",
+        "server_restarted",
+        "service_resumed",
+        "service_suspended",
+        "zero_downtime_redeploy_ended",
+        "zero_downtime_redeploy_started",
+        "edge_cache_enabled",
+        "edge_cache_disabled",
+        "edge_cache_purged",
+        "auto_deploy_disabled",
+        "auto_deploy_enabled",
+        "postgres_available",
+        "postgres_backup_completed",
+        "postgres_backup_failed",
+        "postgres_backup_started",
+        "postgres_cluster_leader_changed",
+        "postgres_connection_pool_changed",
+        "postgres_connection_pool_enabled_changed",
+        "postgres_created",
+        "postgres_disk_size_changed",
+        "postgres_disk_autoscaling_enabled_changed",
+        "postgres_ha_status_changed",
+        "postgres_restarted",
+        "postgres_unavailable",
+        "postgres_upgrade_failed",
+        "postgres_upgrade_started",
+        "postgres_upgrade_succeeded",
+        "postgres_restore_failed",
+        "postgres_restore_succeeded",
+        "postgres_read_replicas_changed",
+        "postgres_pitr_checkpoint_started",
+        "postgres_pitr_checkpoint_failed",
+        "postgres_pitr_checkpoint_completed",
+        "postgres_read_replica_stale",
+        "postgres_wal_archive_failed",
+        "key_value_available",
+        "key_value_config_restart",
+        "key_value_unhealthy"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "cancelFlowRun",
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Cancel flow run",
+   "method": "DELETE",
+   "path": "/flow-runs/{flowRunId}",
+   "args": [
+    {
+     "name": "flowRunId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "cancelTaskRun",
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Cancel task run",
+   "method": "DELETE",
+   "path": "/task-runs/{taskRunId}",
+   "args": [
+    {
+     "name": "taskRunId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createTask",
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Run task",
+   "method": "POST",
+   "path": "/task-runs",
+   "args": [
+    {
+     "name": "task",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A task slug in the format workflow-slug/task-name. An optional version can be appended (workflow-slug/task-name:version). If no version is provided, the latest version is used. Cannot be blank."
+     }
+    },
+    {
+     "name": "input",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "description": "Input data for a task. Can be either an array (for positional arguments) or an object (for named parameters).",
+      "type": "array",
+      "items": {}
+     }
+    },
+    {
+     "name": "idempotencyKey",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A client-generated key that makes starting a task run safe to retry. Repeating a request with the same key within 24 hours returns the task run that the first request started instead of starting another one; the repeated request's input is ignored. Keys are scoped to a workflow. Omit the key to always start a new run."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createWorkflow",
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Create a workflow",
+   "method": "POST",
+   "path": "/workflows",
+   "args": [
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "body",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildConfig",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "required": [
+       "buildCommand",
+       "repo",
+       "runtime"
+      ],
+      "properties": {
+       "branch": {
+        "type": "string",
+        "description": "The branch to use for the build, if applicable."
+       },
+       "buildCommand": {
+        "type": "string",
+        "description": "The command to run to build the workflow. Required for every runtime except docker, which builds from its Dockerfile."
+       },
+       "repo": {
+        "type": "string",
+        "description": "The repository URL to use for the build. Cannot be blank."
+       },
+       "rootDir": {
+        "type": "string",
+        "description": "The root directory of the repository to use for the build, if applicable."
+       },
+       "runtime": {
+        "type": "string",
+        "enum": [
+         "elixir",
+         "go",
+         "node",
+         "python",
+         "ruby"
+        ],
+        "description": "The runtime environment for the workflow (e.g., node, python, etc.)."
+       }
+      }
+     }
+    },
+    {
+     "name": "runCommand",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The command to run the workflow. Cannot be blank."
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "frankfurt",
+       "oregon",
+       "ohio",
+       "singapore",
+       "virginia"
+      ],
+      "description": "Defaults to \"oregon\"",
+      "default": "oregon"
+     }
+    },
+    {
+     "name": "autoDeployTrigger",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "commit",
+       "off",
+       "checksPass"
+      ],
+      "description": "Controls autodeploy behavior. \"commit\" deploys when a commit is pushed to the branch. \"checksPass\" waits for CI checks to pass before deploying. \"off\" disables autodeploy.",
+      "default": "commit"
+     }
+    },
+    {
+     "name": "envVars",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createWorkflowVersion",
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Deploy a workflow version",
+   "method": "POST",
+   "path": "/workflowversions",
+   "args": [
+    {
+     "name": "workflowId",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "commit",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteWorkflow",
+   "area": "Workflows",
+   "risk": "destroy",
+   "description": "Delete workflow",
+   "method": "DELETE",
+   "path": "/workflows/{workflowId}",
+   "args": [
+    {
+     "name": "workflowId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFlow",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve flow",
+   "method": "GET",
+   "path": "/flows/{flowId}",
+   "args": [
+    {
+     "name": "flowId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFlowRun",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve flow run",
+   "method": "GET",
+   "path": "/flow-runs/{flowRunId}",
+   "args": [
+    {
+     "name": "flowRunId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFlowRunStep",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve flow run step",
+   "method": "GET",
+   "path": "/flow-runs/{flowRunId}/steps/{stepSeq}",
+   "args": [
+    {
+     "name": "flowRunId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "stepSeq",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 0
+     }
+    },
+    {
+     "name": "stepKey",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getTask",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve task",
+   "method": "GET",
+   "path": "/tasks/{taskId}",
+   "args": [
+    {
+     "name": "taskId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getTaskRun",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve task run",
+   "method": "GET",
+   "path": "/task-runs/{taskRunId}",
+   "args": [
+    {
+     "name": "taskRunId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getWorkflow",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve workflow",
+   "method": "GET",
+   "path": "/workflows/{workflowId}",
+   "args": [
+    {
+     "name": "workflowId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getWorkflowVersion",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "Retrieve workflow version",
+   "method": "GET",
+   "path": "/workflowversions/{workflowVersionId}",
+   "args": [
+    {
+     "name": "workflowVersionId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFlowRunSteps",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List flow run steps",
+   "method": "GET",
+   "path": "/flow-runs/{flowRunId}/steps",
+   "args": [
+    {
+     "name": "flowRunId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFlowRuns",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List flow runs",
+   "method": "GET",
+   "path": "/flow-runs",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    },
+    {
+     "name": "flowSlug",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "flowId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "pending",
+        "running",
+        "succeeded",
+        "failed",
+        "canceled",
+        "paused"
+       ],
+       "description": "The status of a flow run."
+      }
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowVersionId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFlows",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List flows",
+   "method": "GET",
+   "path": "/flows",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "flowSlug",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowVersionId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listTaskRuns",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List task runs",
+   "method": "GET",
+   "path": "/task-runs",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    },
+    {
+     "name": "taskSlug",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "rootTaskRunId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowVersionId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "listTasks",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List tasks",
+   "method": "GET",
+   "path": "/tasks",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "taskSlug",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowVersionId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listWorkflowVersions",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List workflow versions",
+   "method": "GET",
+   "path": "/workflowversions",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowID",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowVersionId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listWorkflows",
+   "area": "Workflows",
+   "risk": "read",
+   "description": "List workflows",
+   "method": "GET",
+   "path": "/workflows",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "ownerId",
+     "in": "query",
+     "required": false,
+     "context": "workspace",
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "workflowID",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "environmentId",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "startFlowRun",
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Start flow run",
+   "method": "POST",
+   "path": "/flow-runs",
+   "args": [
+    {
+     "name": "flow",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A flow slug in the format workflow-slug/flow-name. An optional version can be appended (workflow-slug/flow-name:version). If no version is provided, the latest version is used. Cannot be blank."
+     }
+    },
+    {
+     "name": "input",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "description": "Input data for a flow. Can be either an array (for positional arguments) or an object (for named parameters).",
+      "type": "array",
+      "items": {}
+     }
+    },
+    {
+     "name": "idempotencyKey",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A client-generated key that makes starting a task run safe to retry. Repeating a request with the same key within 24 hours returns the task run that the first request started instead of starting another one; the repeated request's input is ignored. Keys are scoped to a workflow. Omit the key to always start a new run."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateWorkflow",
+   "area": "Workflows",
+   "risk": "change",
+   "description": "Update workflow",
+   "method": "PATCH",
+   "path": "/workflows/{workflowId}",
+   "args": [
+    {
+     "name": "workflowId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "buildConfig",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "A partial update to a workflow's build config. Every field is optional; omitted fields are left unchanged.",
+      "properties": {
+       "branch": {
+        "type": "string",
+        "description": "The branch to use for the build, if applicable."
+       },
+       "buildCommand": {
+        "type": "string",
+        "description": "The command to run to build the workflow. Required for every runtime except docker, which builds from its Dockerfile."
+       },
+       "repo": {
+        "type": "string",
+        "description": "The repository URL to use for the build. Cannot be blank."
+       },
+       "rootDir": {
+        "type": "string",
+        "description": "The root directory of the repository to use for the build, if applicable."
+       },
+       "runtime": {
+        "type": "string",
+        "enum": [
+         "elixir",
+         "go",
+         "node",
+         "python",
+         "ruby"
+        ],
+        "description": "The runtime environment for the workflow (e.g., node, python, etc.)."
+       }
+      }
+     }
+    },
+    {
+     "name": "runCommand",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The command to run the workflow. Cannot be blank."
+     }
+    },
+    {
+     "name": "autoDeployTrigger",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "commit",
+       "off",
+       "checksPass"
+      ],
+      "description": "Controls autodeploy behavior. \"commit\" deploys when a commit is pushed to the branch. \"checksPass\" waits for CI checks to pass before deploying. \"off\" disables autodeploy.",
+      "default": "commit"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listOrganizationAuditLogs",
+   "area": "Workspace",
+   "risk": "read",
+   "description": "List organization audit logs",
+   "method": "GET",
+   "path": "/organizations/{orgId}/audit-logs",
+   "args": [
+    {
+     "name": "orgId",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "direction",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "forward",
+       "backward"
+      ],
+      "default": "backward"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 1000,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listOwnerAuditLogs",
+   "area": "Workspace",
+   "risk": "read",
+   "description": "List workspace audit logs",
+   "method": "GET",
+   "path": "/owners/{ownerId}/audit-logs",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "startTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "endTime",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "direction",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "forward",
+       "backward"
+      ],
+      "default": "backward"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 1000,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "listOwners",
+   "area": "Workspace",
+   "risk": "read",
+   "description": "List workspaces",
+   "method": "GET",
+   "path": "/owners",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "email",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Defaults to 20",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     }
+    }
+   ]
+  },
+  {
+   "name": "retrieveOwner",
+   "area": "Workspace",
+   "risk": "read",
+   "description": "Retrieve workspace",
+   "method": "GET",
+   "path": "/owners/{ownerId}",
+   "args": [
+    {
+     "name": "ownerId",
+     "in": "path",
+     "required": true,
+     "context": "workspace",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  }
+ ]
+}

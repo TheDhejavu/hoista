@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO custom_domains(id,project_id,resource_id,hostname,data) VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET data = excluded.data",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "1e3b503c74186bd4edb6949b130cc5ba47a3746732990641760e4bce2eed0be0"
+}

@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT data FROM links WHERE from_resource = ? ORDER BY id LIMIT 1001",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "0514908ee77bd310aac2ef1c1d34c367eebf09d596135ca89d361a3af1f4384e"
+}

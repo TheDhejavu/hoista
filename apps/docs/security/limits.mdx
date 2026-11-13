@@ -1,0 +1,41 @@
+---
+title: "Threat model and limits"
+description: "What Hoista protects against, what you still trust and what it can't do."
+---
+
+Hoista limits what agents and build code can reach. It can't protect you from someone who controls the computer or provider account it runs on. What a provider token is allowed to do is the most any of this can reach, so keep tokens narrow.
+
+## What Hoista protects against
+
+| Threat | Protection | What remains |
+| --- | --- | --- |
+| An agent asks for a destructive action | Access levels, exceptions and approvals | An action you allowed, or one an agent with **Full access** runs, can still cause harm |
+| Instructions hidden in logs, source or provider output | Access never depends on what that content says, and Hoista tells agents to treat it as data | An agent can be talked into misusing access it already has |
+| A malicious install or build script | OS build sandbox on macOS and Linux, plus secret scanning | Builds keep network access |
+| A stolen agent credential | Revoke the agent, or cut off every agent | Changes a provider already accepted aren't undone |
+| A compromised gateway on a remote | The credential keeper holds tokens under a separate user | The gateway can still ask for any change the token allows |
+| A stolen remote volume | Tokens are in a sealed file | The volume plus the sealing key opens them. Project metadata isn't sealed |
+| A forged or repeated webhook | HMAC signatures, timestamps and event IDs | Your receiver has to check them |
+
+## What you trust
+
+On your computer, you trust the operating system, your user account and its credential store, the Hoista build you installed and your providers. On a remote, you also trust the provider account, its secret variables, the volume and the image. An administrator of either can replace Hoista or read its memory.
+
+## Limits
+
+- The credential store has no Hoista lock. Hoista reads tokens without a biometric prompt each time, so malware running as you can reach them.
+- Hoista doesn't use the Secure Enclave, a TPM or remote attestation to protect tokens.
+- On a remote, approvals are enforced by the gateway. The credential keeper doesn't check them.
+- Build isolation isn't available on Windows.
+- Some features don't work on a remote yet. See [Remote runtime](/security/remote-runtime).
+- Someone who controls the daemon or its database can change Hoista's activity history. Compare it with your providers' own audit logs during an investigation.
+- Pushing to a remote pauses agents on this computer, but this computer still holds working tokens. Revoke or rotate them if you retire it.
+- Backups don't include database contents, and rolling back a deployment doesn't undo a migration.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Incident checklist" icon="circle-exclamation" href="/security/incident-response">What to do if something looks wrong.</Card>
+<Card title="Remote runtime" icon="lock" href="/security/remote-runtime">How a remote keeps your tokens.</Card>
+<Card title="Build isolation" icon="box" href="/security/builds">How local builds are sandboxed.</Card>
+</CardGroup>

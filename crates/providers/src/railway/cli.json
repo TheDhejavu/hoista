@@ -1,0 +1,5168 @@
+{
+ "cli": "railway",
+ "version": "5.71.0",
+ "source": "railway 5.71.0 --help",
+ "commands": [
+  {
+   "name": "railway config apply",
+   "words": [
+    "config",
+    "apply"
+   ],
+   "area": "Config as code",
+   "risk": "destroy",
+   "description": "Apply the changes from the authoring file to the linked Railway project.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to the Railway configuration file. Defaults to nearest .railway/railway.{ts,py,go}",
+     "path": true
+    },
+    {
+     "name": "confirm-destructive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Allow destructive applies in non-interactive or agent sessions",
+     "path": false
+    },
+    {
+     "name": "include-types",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include generated graph TypeScript types in runner output",
+     "path": false
+    },
+    {
+     "name": "runner",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional TypeScript runner binary. When set, plan/apply use railway-iac-ts instead of the CLI engine",
+     "path": false
+    },
+    {
+     "name": "verbose",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show full change details",
+     "path": false
+    },
+    {
+     "name": "detailed-exit-code",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Exit 2 when changes are pending, 0 when none (plan only). For CI gating",
+     "path": false
+    },
+    {
+     "name": "show-values",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print variable values in the plan instead of redacting them",
+     "path": false
+    },
+    {
+     "name": "out",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Write a pinned plan artifact. Plan only",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Apply this pinned plan without re-evaluating the authoring file. Apply only",
+     "path": false
+    },
+    {
+     "name": "source-tree",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Tree written into `--out`. Defaults to `git rev-parse HEAD:.railway`",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway config migrate cutover",
+   "words": [
+    "config",
+    "migrate",
+    "cutover"
+   ],
+   "area": "Config as code",
+   "risk": "destroy",
+   "description": "Switch services off Config as Code so IaC can manage them.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "service"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway config plan",
+   "words": [
+    "config",
+    "plan"
+   ],
+   "area": "Config as code",
+   "risk": "read",
+   "description": "Preview the changes Railway would make from the authoring file without applying them.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to the Railway configuration file. Defaults to nearest .railway/railway.{ts,py,go}",
+     "path": true
+    },
+    {
+     "name": "confirm-destructive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Allow destructive applies in non-interactive or agent sessions",
+     "path": false
+    },
+    {
+     "name": "include-types",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include generated graph TypeScript types in runner output",
+     "path": false
+    },
+    {
+     "name": "runner",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional TypeScript runner binary. When set, plan/apply use railway-iac-ts instead of the CLI engine",
+     "path": false
+    },
+    {
+     "name": "verbose",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show full change details",
+     "path": false
+    },
+    {
+     "name": "detailed-exit-code",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Exit 2 when changes are pending, 0 when none (plan only). For CI gating",
+     "path": false
+    },
+    {
+     "name": "show-values",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print variable values in the plan instead of redacting them",
+     "path": false
+    },
+    {
+     "name": "out",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Write a pinned plan artifact. Plan only",
+     "path": false
+    },
+    {
+     "name": "plan",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Apply this pinned plan without re-evaluating the authoring file. Apply only",
+     "path": false
+    },
+    {
+     "name": "source-tree",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Tree written into `--out`. Defaults to `git rev-parse HEAD:.railway`",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway config pull",
+   "words": [
+    "config",
+    "pull"
+   ],
+   "area": "Config as code",
+   "risk": "change",
+   "description": "Import the linked Railway project's current configuration into the authoring file.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Overwrite an existing authoring file",
+     "path": false
+    },
+    {
+     "name": "runner",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional TypeScript runner binary. When set, plan/apply use railway-iac-ts instead of the CLI engine",
+     "path": false
+    },
+    {
+     "name": "omit-preserved-variables",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Omit unknown imported variables instead of rendering them as preserve()",
+     "path": false
+    },
+    {
+     "name": "agent",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Ask an agent to turn imported state into idiomatic authoring code",
+     "path": false
+    },
+    {
+     "name": "variables",
+     "kind": "choice",
+     "choices": [
+      "managed",
+      "unmanaged"
+     ],
+     "many": false,
+     "description": "Who owns service variables: `managed` or `unmanaged`",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway deployment list",
+   "words": [
+    "deployment",
+    "list"
+   ],
+   "area": "Deploys",
+   "risk": "read",
+   "description": "List deployments for a service with IDs, statuses and other metadata.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of deployments to show (default: 20, max: 1000) [default: 20]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway deployment redeploy",
+   "words": [
+    "deployment",
+    "redeploy"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Redeploy the latest deployment of a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "from-source",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Pull and deploy the latest commit or image from the configured source, instead of redeploying the existing deployment",
+     "path": false
+    },
+    {
+     "name": "commit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Deploy a specific commit from the connected repository once, without pinning it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway deployment up",
+   "words": [
+    "deployment",
+    "up"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Upload and deploy project from the current directory.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "path",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "",
+     "path": true
+    }
+   ],
+   "flags": [
+    {
+     "name": "detach",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Don't attach to the log stream \u2014 start the deploy and return immediately. Use --no-wait as the alternate name in scripted flows. Combine with -y for fully unattended runs",
+     "path": false
+    },
+    {
+     "name": "ci",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Stream build logs only, then exit (equivalent to setting $CI=true)",
+     "path": false
+    },
+    {
+     "name": "new",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Create a NEW project + service from this directory and deploy it, even if one is already linked. Implied on a cold/unauthenticated first run, and for `-y` when nothing is linked",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name for a newly created project (defaults to the current directory's name). Only used when creating a new project",
+     "path": false
+    },
+    {
+     "name": "no-gitignore",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Don't ignore paths from .gitignore",
+     "path": false
+    },
+    {
+     "name": "path-as-root",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Use the path argument as the prefix for the archive instead of the project directory",
+     "path": false
+    },
+    {
+     "name": "verbose",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Verbose output",
+     "path": false
+    },
+    {
+     "name": "message",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Message to attach to the deployment",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway down",
+   "words": [
+    "down"
+   ],
+   "area": "Deploys",
+   "risk": "destroy",
+   "description": "Remove the most recent deployment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway redeploy",
+   "words": [
+    "redeploy"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Redeploy the latest deployment of a service By default the existing build or image is redeployed as-is.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "from-source",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Pull and deploy the latest commit or image from the configured source, instead of redeploying the existing deployment",
+     "path": false
+    },
+    {
+     "name": "commit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Deploy a specific commit from the connected repository once, without pinning it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway restart",
+   "words": [
+    "restart"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Restart the latest deployment of a service (without rebuilding).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway up",
+   "words": [
+    "up"
+   ],
+   "area": "Deploys",
+   "risk": "change",
+   "description": "Upload and deploy project from the current directory.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "path",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "",
+     "path": true
+    }
+   ],
+   "flags": [
+    {
+     "name": "detach",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Don't attach to the log stream \u2014 start the deploy and return immediately. Use --no-wait as the alternate name in scripted flows. Combine with -y for fully unattended runs",
+     "path": false
+    },
+    {
+     "name": "ci",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Stream build logs only, then exit (equivalent to setting $CI=true)",
+     "path": false
+    },
+    {
+     "name": "new",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Create a NEW project + service from this directory and deploy it, even if one is already linked. Implied on a cold/unauthenticated first run, and for `-y` when nothing is linked",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name for a newly created project (defaults to the current directory's name). Only used when creating a new project",
+     "path": false
+    },
+    {
+     "name": "no-gitignore",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Don't ignore paths from .gitignore",
+     "path": false
+    },
+    {
+     "name": "path-as-root",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Use the path argument as the prefix for the archive instead of the project directory",
+     "path": false
+    },
+    {
+     "name": "verbose",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Verbose output",
+     "path": false
+    },
+    {
+     "name": "message",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Message to attach to the deployment",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway environment edit",
+   "words": [
+    "environment",
+    "edit"
+   ],
+   "area": "Environments",
+   "risk": "destroy",
+   "description": "Edit an environment's configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "service-config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "<PATH> <VALUE> Configure a service using dot-path notation Format: --service-config <SERVICE> <PATH> <VALUE> Examples: --service-config backend variables.API_KEY.value \"secret\" --service-config api deploy.startCommand \"npm start\" --service-config web source.image \"nginx:latest\"",
+     "path": false
+    },
+    {
+     "name": "message",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Commit message for the changes",
+     "path": false
+    },
+    {
+     "name": "stage",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Stage changes without committing",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway cdn disable",
+   "words": [
+    "cdn",
+    "disable"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Disable CDN caching.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway cdn enable",
+   "words": [
+    "cdn",
+    "enable"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Enable CDN caching.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway cdn purge",
+   "words": [
+    "cdn",
+    "purge"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Purge cached content.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "scope",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Content scope to purge [possible values: html, all]",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway cdn status",
+   "words": [
+    "cdn",
+    "status"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Show CDN settings for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway cdn update",
+   "words": [
+    "cdn",
+    "update"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Update CDN caching settings.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "html-caching",
+     "kind": "choice",
+     "choices": [
+      "auto",
+      "force",
+      "never"
+     ],
+     "many": false,
+     "description": "HTML caching mode",
+     "path": false
+    },
+    {
+     "name": "default-ttl",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Default TTL: 30m, 1h, 2h, 4h, 12h, 1d, or matching seconds",
+     "path": false
+    },
+    {
+     "name": "swr",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Honor stale-while-revalidate Cache-Control directives",
+     "path": false
+    },
+    {
+     "name": "no-swr",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Ignore stale-while-revalidate Cache-Control directives",
+     "path": false
+    },
+    {
+     "name": "purge-on-deploy",
+     "kind": "choice",
+     "choices": [
+      "off",
+      "html",
+      "all"
+     ],
+     "many": false,
+     "description": "Cache purge policy after successful deploys",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway domain certificate retry",
+   "words": [
+    "domain",
+    "certificate",
+    "retry"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Retry certificate issuance for a custom domain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain_or_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Domain name, URL, or domain ID",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway domain delete",
+   "words": [
+    "domain",
+    "delete"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Delete a custom or service domain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain_or_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Domain name, URL, or domain ID",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway domain list",
+   "words": [
+    "domain",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List domains for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway domain status",
+   "words": [
+    "domain",
+    "status"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Show status and DNS details for a domain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain_or_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Domain name, URL, or domain ID",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway domain update",
+   "words": [
+    "domain",
+    "update"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Update a domain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain_or_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Domain name, URL, or domain ID",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The target port to route HTTP traffic to",
+     "path": false
+    },
+    {
+     "name": "domain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Rename a Railway-provided service domain. Accepts a full service domain or host label",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway logs",
+   "words": [
+    "logs"
+   ],
+   "area": "Observability",
+   "risk": "read",
+   "description": "View build, deploy, HTTP, network flow, or DNS logs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [
+    "--lines=500"
+   ],
+   "args": [
+    {
+     "name": "deployment_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Deployment ID to view logs from. Defaults to most recent successful deployment, or latest deployment if none succeeded",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "deployment",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show deployment logs",
+     "path": false
+    },
+    {
+     "name": "build",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show build logs",
+     "path": false
+    },
+    {
+     "name": "http",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show HTTP request logs",
+     "path": false
+    },
+    {
+     "name": "network",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show network flow logs",
+     "path": false
+    },
+    {
+     "name": "dns",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show DNS query logs",
+     "path": false
+    },
+    {
+     "name": "filter",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs using Railway's query syntax For deploy/build logs: Text search:   \"error message\", \"user signup\" Level filter:  @level:error, @level:warn, @level:info For HTTP logs (--http), all filterable fields: String:  @method, @path, @host, @requestId, @clientUa, @srcIp, @edgeRegion, @upstreamAddress, @upstreamProto, @downstreamProto, @responseDetails, @deploymentId, @deploymentInstanceId Numeric: @httpStatus, @totalDuration, @responseTime, @upstreamRqDuration, @txBytes, @rxBytes, @upstreamErrors For network flow logs (--network), all filterable fields: String:  @protocol, @direction, @peer, @peer_kind, @status, @drop_cause, @src, @dst, @host Numeric: @port Boolean: @dropped For DNS logs (--dns), all filterable fields: String:  @qname, @domain, @qtype, @rcode, @zone, @status Numeric operators: > >= < <= .. (range, e.g. @httpStatus:200..299) Logical operators: AND, OR, - (negation), parentheses for grouping Examples: @httpStatus:>=400 @totalDuration:>1000 -@method:OPTIONS @httpStatus:>=400 AND @path:/api (@method:GET OR @method:POST) AND @httpStatus:500 @protocol:tcp @direction:egress @peer_kind:internet @port:443",
+     "path": false
+    },
+    {
+     "name": "method",
+     "kind": "choice",
+     "choices": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "PATCH",
+      "HEAD",
+      "OPTIONS"
+     ],
+     "many": false,
+     "description": "Filter HTTP logs by request method (requires --http)",
+     "path": false
+    },
+    {
+     "name": "status",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP logs by status code, network flow logs by status (ok, dropped), or DNS logs by resolution status (ok, failed)",
+     "path": false
+    },
+    {
+     "name": "path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP logs by request path (requires --http)",
+     "path": true
+    },
+    {
+     "name": "request-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP logs by request ID (requires --http)",
+     "path": false
+    },
+    {
+     "name": "protocol",
+     "kind": "choice",
+     "choices": [
+      "tcp",
+      "udp",
+      "icmp",
+      "icmpv6",
+      "unknown"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by layer 4 protocol",
+     "path": false
+    },
+    {
+     "name": "direction",
+     "kind": "choice",
+     "choices": [
+      "ingress",
+      "egress"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by traffic direction",
+     "path": false
+    },
+    {
+     "name": "peer",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by peer service name/ID or a well-known peer (internet, dns, edge-proxy)",
+     "path": false
+    },
+    {
+     "name": "peer-kind",
+     "kind": "choice",
+     "choices": [
+      "service",
+      "internet",
+      "edge_proxy",
+      "local_dns",
+      "unknown"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by peer kind",
+     "path": false
+    },
+    {
+     "name": "dropped",
+     "kind": "choice",
+     "choices": [
+      "true",
+      "false"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by whether packets were dropped",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by source or destination port",
+     "path": false
+    },
+    {
+     "name": "src",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by source IP",
+     "path": false
+    },
+    {
+     "name": "dst",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by destination IP",
+     "path": false
+    },
+    {
+     "name": "host",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by source or destination IP",
+     "path": false
+    },
+    {
+     "name": "drop-cause",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by drop cause",
+     "path": false
+    },
+    {
+     "name": "domain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by domain, including its subdomains",
+     "path": false
+    },
+    {
+     "name": "qname",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by the exact name looked up",
+     "path": false
+    },
+    {
+     "name": "qtype",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by record type (e.g. A, AAAA, CNAME, TXT)",
+     "path": false
+    },
+    {
+     "name": "rcode",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by response code (e.g. NOERROR, NXDOMAIN, SERVFAIL)",
+     "path": false
+    },
+    {
+     "name": "zone",
+     "kind": "choice",
+     "choices": [
+      "internal",
+      "external"
+     ],
+     "many": false,
+     "description": "Filter DNS logs by lookup zone",
+     "path": false
+    },
+    {
+     "name": "latest",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Always show logs from the latest deployment, even if it failed or is still building",
+     "path": false
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Show logs since a specific time (disables streaming). Accepts relative times (e.g., 30s, 5m, 2h, 1d, 1w) or ISO 8601 timestamps (e.g., 2024-01-15T10:30:00Z)",
+     "path": false
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Show logs until a specific time (disables streaming). Same formats as --since",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway metrics",
+   "words": [
+    "metrics"
+   ],
+   "area": "Observability",
+   "risk": "read",
+   "description": "View resource and HTTP metrics for a Railway service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show metrics for all services in the project",
+     "path": false
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Time window start. Accepts relative (1h, 6h, 1d, 7d) or ISO 8601. Default: 1h [default: 1h]",
+     "path": false
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Time window end. Same formats as --since. Default: now",
+     "path": false
+    },
+    {
+     "name": "cpu",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show only CPU metrics",
+     "path": false
+    },
+    {
+     "name": "memory",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show only memory metrics",
+     "path": false
+    },
+    {
+     "name": "network",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show only public network traffic (egress/ingress)",
+     "path": false
+    },
+    {
+     "name": "volume",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show only volume/disk metrics",
+     "path": false
+    },
+    {
+     "name": "http",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show only HTTP metrics",
+     "path": false
+    },
+    {
+     "name": "raw",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Output raw time-series data points instead of summaries",
+     "path": false
+    },
+    {
+     "name": "method",
+     "kind": "choice",
+     "choices": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "PATCH",
+      "HEAD",
+      "OPTIONS"
+     ],
+     "many": false,
+     "description": "Filter HTTP metrics by request method (requires --http)",
+     "path": false
+    },
+    {
+     "name": "path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP metrics by request path (requires --http)",
+     "path": true
+    }
+   ]
+  },
+  {
+   "name": "railway mysql ha convert",
+   "words": [
+    "mysql",
+    "ha",
+    "convert"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Convert a standalone service into an HA cluster.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of replicas (excluding the primary); omit to keep the template default",
+     "path": false
+    },
+    {
+     "name": "coordinators",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of coordinator/consensus nodes (e.g. etcd), for clusters that have a coordinator tier; must be odd",
+     "path": false
+    },
+    {
+     "name": "edge",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of edge/load-balancer replicas (e.g. HAProxy); omit to keep the template default",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql ha revert",
+   "words": [
+    "mysql",
+    "ha",
+    "revert"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Revert an HA cluster back to a standalone service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "remove-orphans",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Also delete role-stamped services in this environment that run this engine's cluster images but have no cluster parent left (debris from a revert that died mid-sweep). Separate from --yes on purpose: an earlier revert clears the parent links before it deletes, so nothing on these services still ties them to the root you named -- image lineage narrows the match to this engine, but two clusters of the same engine in one environment remain indistinguishable.",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql ha scale",
+   "words": [
+    "mysql",
+    "ha",
+    "scale"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Scale cluster replicas, coordinators, or edge nodes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target replica count",
+     "path": false
+    },
+    {
+     "name": "coordinators",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target coordinator/consensus node count (must stay odd)",
+     "path": false
+    },
+    {
+     "name": "edge",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target edge/load-balancer replica count",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql ha status",
+   "words": [
+    "mysql",
+    "ha",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show HA cluster status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway mysql ha switchover",
+   "words": [
+    "mysql",
+    "ha",
+    "switchover"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Promote a replica to primary (brief downtime).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "to",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Service name or ID of the node to promote",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql history",
+   "words": [
+    "mysql",
+    "history"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show the local audit trail of MySQL operations.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum entries to show (newest last) [default: 50]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql pitr backup create",
+   "words": [
+    "mysql",
+    "pitr",
+    "backup",
+    "create"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Create an on-demand backup.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional name/label for the backup (defaults to \"Manual\")",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql pitr backup delete",
+   "words": [
+    "mysql",
+    "pitr",
+    "backup",
+    "delete"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Delete one or more backups.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "ids",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "Backup ID(s) to delete",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr backup list",
+   "words": [
+    "mysql",
+    "pitr",
+    "backup",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List backups.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr backup lock",
+   "words": [
+    "mysql",
+    "pitr",
+    "backup",
+    "lock"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Remove a backup's expiration (keep it indefinitely).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Backup ID",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr backup restore",
+   "words": [
+    "mysql",
+    "pitr",
+    "backup",
+    "restore"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Restore from a backup.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Backup ID to restore from",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr cancel",
+   "words": [
+    "mysql",
+    "pitr",
+    "cancel"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Cancel a stuck HA PITR enable/disable workflow (HA clusters only).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr clear",
+   "words": [
+    "mysql",
+    "pitr",
+    "clear"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Clear a completed HA PITR workflow's progress snapshot (HA clusters only).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr disable",
+   "words": [
+    "mysql",
+    "pitr",
+    "disable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Disable point-in-time recovery.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys -- it applies on the next deploy (standalone only; HA disable always applies live)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql pitr enable",
+   "words": [
+    "mysql",
+    "pitr",
+    "enable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Enable point-in-time recovery.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys -- it applies on the next deploy (standalone only; HA enable always applies live)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql pitr progress",
+   "words": [
+    "mysql",
+    "pitr",
+    "progress"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Show HA PITR enable/disable workflow progress (HA clusters only).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr restore",
+   "words": [
+    "mysql",
+    "pitr",
+    "restore"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Restore to a point in time into a new service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "at",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Point in time to restore to: RFC3339 (2026-07-20T12:00:00Z), \"YYYY-MM-DD HH:MM:SS\" (local timezone), or a relative offset back from now (30m, 2h, 1d)",
+     "path": false
+    },
+    {
+     "name": "new-service-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name for the new restored service (defaults to \"<source>-restored-YYYYMMDD-HHMM\")",
+     "path": false
+    },
+    {
+     "name": "source-repo-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Restore from a specific archive sub-prefix (multi-history picker)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql pitr schedule list",
+   "words": [
+    "mysql",
+    "pitr",
+    "schedule",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List the configured backup schedule(s).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway mysql pitr schedule set",
+   "words": [
+    "mysql",
+    "pitr",
+    "schedule",
+    "set"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Set the automatic backup schedule (any combination).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "daily",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keep a daily backup",
+     "path": false
+    },
+    {
+     "name": "weekly",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keep a weekly backup",
+     "path": false
+    },
+    {
+     "name": "monthly",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keep a monthly backup",
+     "path": false
+    },
+    {
+     "name": "none",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove every automatic backup schedule (existing backups are kept)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway mysql pitr status",
+   "words": [
+    "mysql",
+    "pitr",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show PITR status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network ipv6 disable",
+   "words": [
+    "outbound-network",
+    "ipv6",
+    "disable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Stage disabling Outbound IPv6.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network ipv6 enable",
+   "words": [
+    "outbound-network",
+    "ipv6",
+    "enable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Stage enabling Outbound IPv6.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network ipv6 status",
+   "words": [
+    "outbound-network",
+    "ipv6",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show Outbound IPv6 status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network static-ip disable",
+   "words": [
+    "outbound-network",
+    "static-ip",
+    "disable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Disable Static Outbound IPs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network static-ip enable",
+   "words": [
+    "outbound-network",
+    "static-ip",
+    "enable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Enable Static Outbound IPs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network static-ip status",
+   "words": [
+    "outbound-network",
+    "static-ip",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show Static Outbound IP status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway outbound-network status",
+   "words": [
+    "outbound-network",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show outbound networking status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres ha convert",
+   "words": [
+    "postgres",
+    "ha",
+    "convert"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Convert a standalone service into an HA cluster.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of replicas (excluding the primary); omit to keep the template default",
+     "path": false
+    },
+    {
+     "name": "coordinators",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of coordinator/consensus nodes (e.g. etcd), for clusters that have a coordinator tier; must be odd",
+     "path": false
+    },
+    {
+     "name": "edge",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of edge/load-balancer replicas (e.g. HAProxy); omit to keep the template default",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres ha revert",
+   "words": [
+    "postgres",
+    "ha",
+    "revert"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Revert an HA cluster back to a standalone service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "remove-orphans",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Also delete role-stamped services in this environment that run this engine's cluster images but have no cluster parent left (debris from a revert that died mid-sweep). Separate from --yes on purpose: an earlier revert clears the parent links before it deletes, so nothing on these services still ties them to the root you named -- image lineage narrows the match to this engine, but two clusters of the same engine in one environment remain indistinguishable.",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres ha scale",
+   "words": [
+    "postgres",
+    "ha",
+    "scale"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Scale cluster replicas, coordinators, or edge nodes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target replica count",
+     "path": false
+    },
+    {
+     "name": "coordinators",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target coordinator/consensus node count (must stay odd)",
+     "path": false
+    },
+    {
+     "name": "edge",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target edge/load-balancer replica count",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres ha status",
+   "words": [
+    "postgres",
+    "ha",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show HA cluster status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres ha switchover",
+   "words": [
+    "postgres",
+    "ha",
+    "switchover"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Promote a replica to primary (brief downtime).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "to",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Service name or ID of the node to promote",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres history",
+   "words": [
+    "postgres",
+    "history"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show the local audit trail of Postgres operations.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum entries to show (newest last) [default: 50]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pgbouncer add",
+   "words": [
+    "postgres",
+    "pgbouncer",
+    "add"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Add PgBouncer in front of the database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "pool-mode",
+     "kind": "choice",
+     "choices": [
+      "transaction",
+      "session",
+      "statement"
+     ],
+     "many": false,
+     "description": "Pooling mode [default: transaction]",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pgbouncer configure",
+   "words": [
+    "postgres",
+    "pgbouncer",
+    "configure"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Configure pool mode and connection knobs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "pool-mode",
+     "kind": "choice",
+     "choices": [
+      "transaction",
+      "session",
+      "statement"
+     ],
+     "many": false,
+     "description": "Pooling mode",
+     "path": false
+    },
+    {
+     "name": "max-client-conn",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum client connections PgBouncer accepts",
+     "path": false
+    },
+    {
+     "name": "default-pool-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Default pool size per user/database pair",
+     "path": false
+    },
+    {
+     "name": "max-prepared-statements",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum prepared statements per connection (0 disables; ignored outside transaction mode)",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pgbouncer remove",
+   "words": [
+    "postgres",
+    "pgbouncer",
+    "remove"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Remove PgBouncer.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pgbouncer scale",
+   "words": [
+    "postgres",
+    "pgbouncer",
+    "scale"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Scale PgBouncer replicas.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target replica count",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pgbouncer status",
+   "words": [
+    "postgres",
+    "pgbouncer",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show PgBouncer status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr backup create",
+   "words": [
+    "postgres",
+    "pitr",
+    "backup",
+    "create"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Create an on-demand backup.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional name/label for the backup (defaults to \"Manual\")",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pitr backup delete",
+   "words": [
+    "postgres",
+    "pitr",
+    "backup",
+    "delete"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Delete one or more backups.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "ids",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "description": "Backup ID(s) to delete",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr backup list",
+   "words": [
+    "postgres",
+    "pitr",
+    "backup",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List backups.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr backup lock",
+   "words": [
+    "postgres",
+    "pitr",
+    "backup",
+    "lock"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Remove a backup's expiration (keep it indefinitely).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Backup ID",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr backup restore",
+   "words": [
+    "postgres",
+    "pitr",
+    "backup",
+    "restore"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Restore from a backup.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Backup ID to restore from",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr cancel",
+   "words": [
+    "postgres",
+    "pitr",
+    "cancel"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Cancel a stuck HA PITR enable/disable workflow (HA clusters only).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr clear",
+   "words": [
+    "postgres",
+    "pitr",
+    "clear"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Clear a completed HA PITR workflow's progress snapshot (HA clusters only).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr disable",
+   "words": [
+    "postgres",
+    "pitr",
+    "disable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Disable point-in-time recovery.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys -- it applies on the next deploy (standalone only; HA disable always applies live)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pitr enable",
+   "words": [
+    "postgres",
+    "pitr",
+    "enable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Enable point-in-time recovery.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys -- it applies on the next deploy (standalone only; HA enable always applies live)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pitr progress",
+   "words": [
+    "postgres",
+    "pitr",
+    "progress"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Show HA PITR enable/disable workflow progress (HA clusters only).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr restore",
+   "words": [
+    "postgres",
+    "pitr",
+    "restore"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Restore to a point in time into a new service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "at",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Point in time to restore to: RFC3339 (2026-07-20T12:00:00Z), \"YYYY-MM-DD HH:MM:SS\" (local timezone), or a relative offset back from now (30m, 2h, 1d)",
+     "path": false
+    },
+    {
+     "name": "new-service-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name for the new restored service (defaults to \"<source>-restored-YYYYMMDD-HHMM\")",
+     "path": false
+    },
+    {
+     "name": "source-repo-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Restore from a specific archive sub-prefix (multi-history picker)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pitr schedule list",
+   "words": [
+    "postgres",
+    "pitr",
+    "schedule",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List the configured backup schedule(s).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway postgres pitr schedule set",
+   "words": [
+    "postgres",
+    "pitr",
+    "schedule",
+    "set"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Set the automatic backup schedule (any combination).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "daily",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keep a daily backup",
+     "path": false
+    },
+    {
+     "name": "weekly",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keep a weekly backup",
+     "path": false
+    },
+    {
+     "name": "monthly",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keep a monthly backup",
+     "path": false
+    },
+    {
+     "name": "none",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove every automatic backup schedule (existing backups are kept)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway postgres pitr status",
+   "words": [
+    "postgres",
+    "pitr",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show PITR status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway private-network status",
+   "words": [
+    "private-network",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show private networking status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "network",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Private network name, ID, or DNS name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway private-network update",
+   "words": [
+    "private-network",
+    "update"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Update the private networking endpoint name.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Endpoint name prefix, without the .internal suffix",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "network",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Private network name, ID, or DNS name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway redis ha convert",
+   "words": [
+    "redis",
+    "ha",
+    "convert"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Convert a standalone service into an HA cluster.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of replicas (excluding the primary); omit to keep the template default",
+     "path": false
+    },
+    {
+     "name": "coordinators",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of coordinator/consensus nodes (e.g. etcd), for clusters that have a coordinator tier; must be odd",
+     "path": false
+    },
+    {
+     "name": "edge",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Number of edge/load-balancer replicas (e.g. HAProxy); omit to keep the template default",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway redis ha revert",
+   "words": [
+    "redis",
+    "ha",
+    "revert"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Revert an HA cluster back to a standalone service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "remove-orphans",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Also delete role-stamped services in this environment that run this engine's cluster images but have no cluster parent left (debris from a revert that died mid-sweep). Separate from --yes on purpose: an earlier revert clears the parent links before it deletes, so nothing on these services still ties them to the root you named -- image lineage narrows the match to this engine, but two clusters of the same engine in one environment remain indistinguishable.",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway redis ha scale",
+   "words": [
+    "redis",
+    "ha",
+    "scale"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Scale cluster replicas, coordinators, or edge nodes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "replicas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target replica count",
+     "path": false
+    },
+    {
+     "name": "coordinators",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target coordinator/consensus node count (must stay odd)",
+     "path": false
+    },
+    {
+     "name": "edge",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Target edge/load-balancer replica count",
+     "path": false
+    },
+    {
+     "name": "no-deploy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Commit the config change without triggering deploys (applies on the next deploy)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway redis ha status",
+   "words": [
+    "redis",
+    "ha",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show HA cluster status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway redis ha switchover",
+   "words": [
+    "redis",
+    "ha",
+    "switchover"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Promote a replica to primary (brief downtime).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "to",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Service name or ID of the node to promote",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway redis history",
+   "words": [
+    "redis",
+    "history"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show the local audit trail of Redis operations.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum entries to show (newest last) [default: 50]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox checkpoint create",
+   "words": [
+    "sandbox",
+    "checkpoint",
+    "create"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Capture a sandbox's current disk into a named checkpoint.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Name for the checkpoint, usable with `railway sandbox create --checkpoint <name>` (64-character hex names are reserved for template hashes)",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Source sandbox ID (defaults to the active sandbox)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox checkpoint delete",
+   "words": [
+    "sandbox",
+    "checkpoint",
+    "delete"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Delete a checkpoint and its underlying disk snapshot.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Checkpoint name to delete",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway sandbox checkpoint list",
+   "words": [
+    "sandbox",
+    "checkpoint",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List named checkpoints in the environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway sandbox checkpoint rename",
+   "words": [
+    "sandbox",
+    "checkpoint",
+    "rename"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Rename a checkpoint.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Current checkpoint name",
+     "path": false
+    },
+    {
+     "name": "new_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "New checkpoint name",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway sandbox create",
+   "words": [
+    "sandbox",
+    "create"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Create a sandbox and remember it as the active sandbox.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "idle-timeout-minutes",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Minutes the sandbox may sit idle before it is auto-destroyed",
+     "path": false
+    },
+    {
+     "name": "variable",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set a variable on the sandbox (repeatable, comma-separable). Values may reference other variables \u2014 `DB_URL=postgres.DATABASE_URL` or the full `${{postgres.DATABASE_URL}}` form \u2014 resolved server-side at create time",
+     "path": false
+    },
+    {
+     "name": "env-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Load variables from a .env file (repeatable). `--variable` flags override file entries with the same key",
+     "path": false
+    },
+    {
+     "name": "template",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Create from a built template, by local name or template id (see `railway sandbox template build`)",
+     "path": false
+    },
+    {
+     "name": "checkpoint",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Create from a named checkpoint (see `railway sandbox checkpoint create`). Checkpoints are stored server-side, so this works from any machine",
+     "path": false
+    },
+    {
+     "name": "private-network",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Join the environment's private network (default: isolated, public egress only). Needed to reach internal hosts like `postgres.railway.internal`",
+     "path": false
+    },
+    {
+     "name": "domain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Publish an HTTP domain on a port, optionally with a prefix (repeatable). Requires --private-network",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox destroy",
+   "words": [
+    "sandbox",
+    "destroy"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Destroy a sandbox (defaults to the active sandbox).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "target",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Sandbox ID to destroy (defaults to the active sandbox)",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sandbox ID (alternative to the positional argument)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox fork",
+   "words": [
+    "sandbox",
+    "fork"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Fork an existing sandbox into a new one and make it active.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "target",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Source sandbox ID to fork (defaults to the active sandbox)",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Source sandbox ID (alternative to the positional argument)",
+     "path": false
+    },
+    {
+     "name": "idle-timeout-minutes",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Minutes the new sandbox may sit idle before it is auto-destroyed",
+     "path": false
+    },
+    {
+     "name": "variable",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set a variable on the fork (repeatable, comma-separable). The fork does not inherit the source's variables; values may reference other variables \u2014 `DB_URL=postgres.DATABASE_URL` or the full `${{postgres.DATABASE_URL}}` form \u2014 resolved server-side at fork time",
+     "path": false
+    },
+    {
+     "name": "env-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Load variables from a .env file (repeatable). `--variable` flags override file entries with the same key",
+     "path": false
+    },
+    {
+     "name": "private-network",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Join the environment's private network (default: isolated, public egress only). The fork does not inherit the source's network mode",
+     "path": false
+    },
+    {
+     "name": "domain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Publish an HTTP domain on a port, optionally with a prefix (repeatable). Requires --private-network; forks do not inherit source domains",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox list",
+   "words": [
+    "sandbox",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List sandboxes in the environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include destroyed sandboxes (hidden by default)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox template build",
+   "words": [
+    "sandbox",
+    "template",
+    "build"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Build a template from shell instructions.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "command",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Shell instruction to run while building (repeatable, runs in order; each step must exit 0 within 10 minutes)",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Local name for the template, usable with `railway sandbox create --template <name>`",
+     "path": false
+    },
+    {
+     "name": "base-image-digest",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Base image digest to build on (defaults to the standard sandbox image)",
+     "path": false
+    },
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait for the build to finish (polls until READY or FAILED)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway sandbox template list",
+   "words": [
+    "sandbox",
+    "template",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List templates this CLI has built.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway sandbox template status",
+   "words": [
+    "sandbox",
+    "template",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show the build status of a template.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id_or_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Template id or local name",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway status",
+   "words": [
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show information about a Railway project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway tcp-proxy create",
+   "words": [
+    "tcp-proxy",
+    "create"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Create a TCP proxy for an application port.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Application port to expose through the TCP proxy",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway tcp-proxy delete",
+   "words": [
+    "tcp-proxy",
+    "delete"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Delete a TCP proxy.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "proxy",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "TCP proxy ID, domain, endpoint, proxy port, or application port",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway tcp-proxy list",
+   "words": [
+    "tcp-proxy",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List TCP proxies for a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway tcp-proxy status",
+   "words": [
+    "tcp-proxy",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show status for a TCP proxy.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "proxy",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "TCP proxy ID, domain, endpoint, proxy port, or application port",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway templates create",
+   "words": [
+    "templates",
+    "create"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Create an unpublished template from a project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway trace disable",
+   "words": [
+    "trace",
+    "disable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Turn tracing off for a service in the environment, or for every service with --all.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "auto-instrument",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Also switch auto-instrumentation (eBPF/OBI) the same way",
+     "path": false
+    },
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Change every service in the environment instead of one",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway trace enable",
+   "words": [
+    "trace",
+    "enable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Turn tracing on for a service in the environment, or for every service with --all.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "auto-instrument",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Also switch auto-instrumentation (eBPF/OBI) the same way",
+     "path": false
+    },
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Change every service in the environment instead of one",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway trace get",
+   "words": [
+    "trace",
+    "get"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show the spans of one trace as a tree.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "trace_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "W3C trace id, 32 hex characters",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "max-spans",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Max spans to return, oldest first (default 1000, max 2000)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway trace list",
+   "words": [
+    "trace",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List traces, newest first.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "List traces of every service in the environment",
+     "path": false
+    },
+    {
+     "name": "filter",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter expression over spans, e.g. '@status:error @http.route:/api/users @duration:>500'",
+     "path": false
+    },
+    {
+     "name": "errors",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Only traces with an error span (adds @status:error to the filter)",
+     "path": false
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Start of the time window: relative (30m, 2h, 1d) or ISO 8601 [default: 1h]",
+     "path": false
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "End of the time window, same formats as --since (default: now)",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Max traces to return (1 to 500) [default: 100]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway trace status",
+   "words": [
+    "trace",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show tracing settings and when spans were last exported.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show every service in the environment",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway usage projects",
+   "words": [
+    "usage",
+    "projects"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Show usage by project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "period",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Billing period: current, previous, or YYYY-MM",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of projects to return",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway variable delete",
+   "words": [
+    "variable",
+    "delete"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Delete a variable.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "key",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "The variable key to delete",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "railway waf under-attack disable",
+   "words": [
+    "waf",
+    "under-attack",
+    "disable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Disable Under Attack Mode.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway waf under-attack enable",
+   "words": [
+    "waf",
+    "under-attack",
+    "enable"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Enable Under Attack Mode.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "duration",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Duration: forever, 1h, 3h, 12h, 24h, or matching seconds [default: forever]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway waf under-attack status",
+   "words": [
+    "waf",
+    "under-attack",
+    "status"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Show Under Attack Mode status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway cron list",
+   "words": [
+    "cron",
+    "list"
+   ],
+   "area": "Services",
+   "risk": "read",
+   "description": "List recent runs of a cron service with status, start time and duration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of runs to show (default: 20, max: 1000) [default: 20]",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway cron run",
+   "words": [
+    "cron",
+    "run"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Trigger an off-schedule run of a cron service now.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway service delete",
+   "words": [
+    "service",
+    "delete"
+   ],
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Delete a service from an environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway service list",
+   "words": [
+    "service",
+    "list"
+   ],
+   "area": "Services",
+   "risk": "read",
+   "description": "List services in the current environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway service logs",
+   "words": [
+    "service",
+    "logs"
+   ],
+   "area": "Services",
+   "risk": "read",
+   "description": "View logs from a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [
+    "--lines=500"
+   ],
+   "args": [
+    {
+     "name": "deployment_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Deployment ID to view logs from. Defaults to most recent successful deployment, or latest deployment if none succeeded",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "deployment",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show deployment logs",
+     "path": false
+    },
+    {
+     "name": "build",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show build logs",
+     "path": false
+    },
+    {
+     "name": "http",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show HTTP request logs",
+     "path": false
+    },
+    {
+     "name": "network",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show network flow logs",
+     "path": false
+    },
+    {
+     "name": "dns",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show DNS query logs",
+     "path": false
+    },
+    {
+     "name": "filter",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter logs using Railway's query syntax For deploy/build logs: Text search:   \"error message\", \"user signup\" Level filter:  @level:error, @level:warn, @level:info For HTTP logs (--http), all filterable fields: String:  @method, @path, @host, @requestId, @clientUa, @srcIp, @edgeRegion, @upstreamAddress, @upstreamProto, @downstreamProto, @responseDetails, @deploymentId, @deploymentInstanceId Numeric: @httpStatus, @totalDuration, @responseTime, @upstreamRqDuration, @txBytes, @rxBytes, @upstreamErrors For network flow logs (--network), all filterable fields: String:  @protocol, @direction, @peer, @peer_kind, @status, @drop_cause, @src, @dst, @host Numeric: @port Boolean: @dropped For DNS logs (--dns), all filterable fields: String:  @qname, @domain, @qtype, @rcode, @zone, @status Numeric operators: > >= < <= .. (range, e.g. @httpStatus:200..299) Logical operators: AND, OR, - (negation), parentheses for grouping Examples: @httpStatus:>=400 @totalDuration:>1000 -@method:OPTIONS @httpStatus:>=400 AND @path:/api (@method:GET OR @method:POST) AND @httpStatus:500 @protocol:tcp @direction:egress @peer_kind:internet @port:443",
+     "path": false
+    },
+    {
+     "name": "method",
+     "kind": "choice",
+     "choices": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "PATCH",
+      "HEAD",
+      "OPTIONS"
+     ],
+     "many": false,
+     "description": "Filter HTTP logs by request method (requires --http)",
+     "path": false
+    },
+    {
+     "name": "status",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP logs by status code, network flow logs by status (ok, dropped), or DNS logs by resolution status (ok, failed)",
+     "path": false
+    },
+    {
+     "name": "path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP logs by request path (requires --http)",
+     "path": true
+    },
+    {
+     "name": "request-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter HTTP logs by request ID (requires --http)",
+     "path": false
+    },
+    {
+     "name": "protocol",
+     "kind": "choice",
+     "choices": [
+      "tcp",
+      "udp",
+      "icmp",
+      "icmpv6",
+      "unknown"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by layer 4 protocol",
+     "path": false
+    },
+    {
+     "name": "direction",
+     "kind": "choice",
+     "choices": [
+      "ingress",
+      "egress"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by traffic direction",
+     "path": false
+    },
+    {
+     "name": "peer",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by peer service name/ID or a well-known peer (internet, dns, edge-proxy)",
+     "path": false
+    },
+    {
+     "name": "peer-kind",
+     "kind": "choice",
+     "choices": [
+      "service",
+      "internet",
+      "edge_proxy",
+      "local_dns",
+      "unknown"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by peer kind",
+     "path": false
+    },
+    {
+     "name": "dropped",
+     "kind": "choice",
+     "choices": [
+      "true",
+      "false"
+     ],
+     "many": false,
+     "description": "Filter network flow logs by whether packets were dropped",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by source or destination port",
+     "path": false
+    },
+    {
+     "name": "src",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by source IP",
+     "path": false
+    },
+    {
+     "name": "dst",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by destination IP",
+     "path": false
+    },
+    {
+     "name": "host",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by source or destination IP",
+     "path": false
+    },
+    {
+     "name": "drop-cause",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter network flow logs by drop cause",
+     "path": false
+    },
+    {
+     "name": "domain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by domain, including its subdomains",
+     "path": false
+    },
+    {
+     "name": "qname",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by the exact name looked up",
+     "path": false
+    },
+    {
+     "name": "qtype",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by record type (e.g. A, AAAA, CNAME, TXT)",
+     "path": false
+    },
+    {
+     "name": "rcode",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Filter DNS logs by response code (e.g. NOERROR, NXDOMAIN, SERVFAIL)",
+     "path": false
+    },
+    {
+     "name": "zone",
+     "kind": "choice",
+     "choices": [
+      "internal",
+      "external"
+     ],
+     "many": false,
+     "description": "Filter DNS logs by lookup zone",
+     "path": false
+    },
+    {
+     "name": "latest",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Always show logs from the latest deployment, even if it failed or is still building",
+     "path": false
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Show logs since a specific time (disables streaming). Accepts relative times (e.g., 30s, 5m, 2h, 1d, 1w) or ISO 8601 timestamps (e.g., 2024-01-15T10:30:00Z)",
+     "path": false
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Show logs until a specific time (disables streaming). Same formats as --since",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway service redeploy",
+   "words": [
+    "service",
+    "redeploy"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Redeploy the latest deployment of a service By default the existing build or image is redeployed as-is.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "from-source",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Pull and deploy the latest commit or image from the configured source, instead of redeploying the existing deployment",
+     "path": false
+    },
+    {
+     "name": "commit",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Deploy a specific commit from the connected repository once, without pinning it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway service restart",
+   "words": [
+    "service",
+    "restart"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Restart the latest deployment of a service.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway service scale",
+   "words": [
+    "service",
+    "scale"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Scale a service across regions.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway service source connect",
+   "words": [
+    "service",
+    "source",
+    "connect"
+   ],
+   "area": "Services",
+   "risk": "change",
+   "description": "Connect a service to a GitHub repo or Docker image.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "repo",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "GitHub repo to connect, in owner/repo format",
+     "path": false
+    },
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch to deploy from when connecting a GitHub repo",
+     "path": false
+    },
+    {
+     "name": "image",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Docker image to connect, e.g. nginx:latest",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway service source disconnect",
+   "words": [
+    "service",
+    "source",
+    "disconnect"
+   ],
+   "area": "Services",
+   "risk": "destroy",
+   "description": "Disconnect the service from its current source.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway service status",
+   "words": [
+    "service",
+    "status"
+   ],
+   "area": "Services",
+   "risk": "read",
+   "description": "Show deployment status for services.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project",
+    "service",
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "railway bucket create",
+   "words": [
+    "bucket",
+    "create"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Create a new bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Optional bucket name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "region",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Bucket region: sjc (US West), iad (US East), ams (EU West), sin (Asia Pacific)",
+     "path": false
+    },
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Bucket name or ID",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway bucket delete",
+   "words": [
+    "bucket",
+    "delete"
+   ],
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Delete a bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": true,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Bucket name or ID",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway bucket info",
+   "words": [
+    "bucket",
+    "info"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "Show bucket details.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Bucket name or ID",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway bucket list",
+   "words": [
+    "bucket",
+    "list"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "List buckets.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Bucket name or ID",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "railway bucket rename",
+   "words": [
+    "bucket",
+    "rename"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Rename a bucket.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "environment"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "New bucket name",
+     "path": false
+    },
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Bucket name or ID",
+     "path": false
+    }
+   ]
+  }
+ ]
+}

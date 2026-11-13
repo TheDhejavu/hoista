@@ -1,0 +1,35 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.body p {
+  margin: 0;
+}
+
+.body > a {
+  align-self: flex-start;
+  font-size: var(--text-sm);
+}
+
+.request {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 14px;
+  background: var(--bg-muted);
+  padding: 12px 14px;
+  font-size: var(--text-md);
+  color: var(--text);
+}
+
+.request b {
+  font-weight: var(--weight-medium);
+}
+
+.done {
+  color: var(--text);
+}

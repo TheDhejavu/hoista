@@ -1,0 +1,48 @@
+---
+title: "Remote runtime"
+description: "How a remote keeps provider tokens away from the process agents talk to."
+---
+
+On a remote, the part of Hoista that agents talk to never holds your provider tokens. A separate process, the credential keeper, keeps them in a sealed file and adds them to requests on the way out. A compromised agent-facing process can still send requests through the keeper. It can't take the tokens anywhere.
+
+## What you should do
+
+1. Seal `HOISTA_SEALED_KEY` at your provider. Railway setup tries to do this for you and prints the steps if it can't. Fly.io secrets are write-only already. Hoista doesn't check later whether the variable is still sealed.
+2. Protect your provider account with two-factor sign-in, and keep few people on it. Anyone who can read the sealing key and copy the volume can open the tokens.
+3. Serve the remote only over HTTPS. Passkeys need it.
+4. Keep the keeper's socket and folder private. Don't expose them through a reverse proxy.
+
+## Three processes
+
+| Process | Runs as | Does |
+| --- | --- | --- |
+| Supervisor | `root` | Starts the other two and gives the sealing key to the keeper |
+| Gateway | `hoista` | Serves MCP, OAuth, the owner pages, projects and the operation journal |
+| Credential keeper | `hoista-keeper` | Holds the sealed file and adds tokens to provider requests |
+
+The server image creates both users, and only `hoista-keeper` can read the sealed file. The gateway's environment never gets the sealing key or a 1Password service account token. Started without root or without those users, all three run as one user and Hoista says so in its log. File permissions then no longer protect the keeper's data.
+
+## How a provider request works
+
+1. The gateway holds a handle for each account, never the token.
+2. It sends the request to the keeper over a Unix socket.
+3. The keeper accepts connections only from the gateway's user ID. It refuses any address that isn't the provider's own HTTPS API, and any request that already carries an `Authorization` header.
+4. The keeper adds the token and sends the request without following redirects.
+
+Fly.io operations that need `flyctl` are refused on a remote for now, because the server image doesn't include it. When it does, only the keeper will run `flyctl` with the token, limited to the subcommands Hoista's adapter uses.
+
+## What the keeper doesn't cover
+
+- **What a request does.** The keeper doesn't check approvals. A compromised gateway can ask for any change the token allows.
+- **The moment a token arrives.** Connecting an account, finishing a provider's sign-in or importing a transfer passes the token through the gateway once.
+- **Provider responses.** These return to the gateway and can contain sensitive values.
+
+Some features don't work on a remote yet: live Railway log tails, Cloudflare uploads with several parts, and Fly.io operations that need `flyctl`, which the server image doesn't include.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Self-host Hoista" icon="server" href="/guides/self-host">Run it on a Mac mini or a server.</Card>
+<Card title="Threat model and limits" icon="triangle-exclamation" href="/security/limits">What Hoista can’t protect against.</Card>
+</CardGroup>

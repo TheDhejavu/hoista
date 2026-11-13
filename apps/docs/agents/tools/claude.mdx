@@ -1,0 +1,52 @@
+---
+title: "Claude"
+description: "Connect Claude on the web, desktop or mobile to your Hoista."
+---
+
+Claude runs in the cloud, so it needs Hoista at an HTTPS address it can reach. Either:
+
+- **Hoista on your computer, through a tunnel or proxy** pointed at port 8788. See [From your computer](/agents/tools/chatgpt#from-your-computer) on the ChatGPT page; the steps are the same.
+- **Hoista on a server:** a [remote](/guides/remote) or a [self-hosted Hoista](/guides/self-host). **Agents → Connect an agent** in the desktop app shows its address.
+
+Your Hoista URL is that address followed by `/mcp`, for example `https://hoista.example.com/mcp`.
+
+Custom connectors work on Free, Pro, Max, Team and Enterprise. Once added, the connector works in Claude on the web, the desktop app and mobile.
+
+## Add Hoista
+
+**On Free, Pro and Max:**
+
+1. Go to **Customize → Connectors** and choose **Add custom connector**.
+2. Name it **Hoista** and paste your Hoista URL.
+3. Choose **Add**.
+
+**On Team and Enterprise**, an owner adds it once in **Organization settings → Connectors → Add → Custom**. Each member then goes to **Customize → Connectors**, finds Hoista and chooses **Connect**.
+
+## Approve it
+
+When Claude connects, Hoista asks you to allow it. On a server, its sign-in page opens: sign in with your passkey. On your computer, a page opens there instead, and Hoista asks for Touch ID or your password. Choose what Claude may do and which projects it can reach, then choose **Authorize**.
+
+Claude connects over HTTP, where Hoista can't ask you questions in the chat, so Hoista offers it only **View only** or **Full access**. **Ask for approval** needs the tool to ask you. Start with **View only**, and widen it later in [Agent permissions](/agents/permissions).
+
+## Use it in a chat
+
+In a chat, open the **+** menu, then **Connectors**, and make sure Hoista is on.
+
+## Check it works
+
+Ask Claude: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+Using Claude Code on your computer? It connects differently: see [Claude Code](/agents/tools/claude-code).
+
+## If it doesn't connect
+
+- **Claude can't reach the URL:** open it in a browser. You should see your Hoista's sign-in page.
+- **To remove it:** in **Customize → Connectors**, open Hoista's menu and choose **Remove**, then revoke the agent in **Agents** or with `hoist agents revoke`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="ChatGPT" icon="message" href="/agents/tools/chatgpt">Includes reaching Hoista through a tunnel.</Card>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+</CardGroup>

@@ -1,0 +1,216 @@
+---
+title: "Projects"
+description: "hoist commands for projects."
+---
+
+A project is one app and the resources it runs on: services, databases, buckets and domains, on one or more providers. Commands that take `[PROJECT]` use the project linked to the folder you're in when you leave it out, and in a terminal let you pick one.
+
+## `hoist projects`
+
+List projects in the current environment.
+
+```bash
+hoist projects
+hoist projects --all -e production --json
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--all` | List projects in every environment. |
+
+## `hoist projects rename <PROJECT> <NAME>`
+
+Rename a project in Hoista. Nothing changes at the provider.
+
+```bash
+hoist projects rename my-app storefront
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<PROJECT>` | Project name or id. |
+| `<NAME>` | The new name: lowercase letters, digits and hyphens. |
+
+## `hoist projects move [PROJECT]`
+
+Move a project to another environment.
+
+```bash
+hoist projects move my-app --to production
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+| `--to <ENVIRONMENT>` | The environment to move it to. |
+
+## `hoist projects merge [PROJECT]`
+
+Merge a watched project into another one: its resources move there.
+
+```bash
+hoist projects merge my-app-db --into my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | The project to merge away. |
+| `--into <PROJECT>` | The project that keeps the resources. |
+
+## `hoist projects manage [PROJECT]`
+
+Let Hoista deploy and change a project.
+
+```bash
+hoist projects manage my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+
+## `hoist projects watch [PROJECT]`
+
+Only watch a project: Hoista shows it but doesn't change it.
+
+```bash
+hoist projects watch my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+
+## `hoist projects remove [PROJECT]`
+
+Stop watching a project. It keeps running at its provider.
+
+```bash
+hoist projects remove my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+
+## `hoist projects delete [PROJECT]`
+
+Delete a project at its providers, after saving copies of its databases.
+
+<Warning>This deletes at the provider. Hoista saves a copy of each database to this computer first unless you pass `--skip-backup`, and asks you to type the project's name.</Warning>
+
+```bash
+hoist projects delete my-app --dry-run
+hoist projects delete my-app
+
+# In a script: confirm by name, and only if nothing changed since the dry run
+hoist projects delete my-app --yes --confirm my-app --fingerprint 3f9a...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+| `--dry-run` | Show what would be deleted, and delete nothing. |
+| `--confirm <NAME>` | The name, typed to confirm, for scripts. |
+| `--fingerprint <HASH>` | Delete only if what would be deleted still matches this fingerprint from --dry-run. |
+| `--skip-backup` | Don't save copies of the project's databases first. |
+
+## `hoist status [PROJECT]`
+
+Show a project: its resources, status and last deploy.
+
+```bash
+hoist status my-app
+hoist status          # the project linked to this folder
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. Default: the project linked to this folder. |
+
+## `hoist import [RESOURCES]...`
+
+Bring projects you already run on your providers into Hoista.
+
+```bash
+hoist import                                   # pick from a list
+hoist import --list
+hoist import 6f1c... 9b2e... --new my-app
+hoist import 6f1c... --project my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCES]...` | Resource ids to bring in. In a terminal, pick them from a list instead. |
+| `--project <PROJECT>` | Add them to this existing project. |
+| `--new <NAME>` | Make a new project with this name. |
+| `--manage` | Let Hoista deploy and change the new project. Default: watch only. |
+| `--list` | List what Hoista found on your providers and hasn't brought in, and stop. |
+| `--hidden` | With --list: list the ones you hid. |
+
+## `hoist import hide <RESOURCE>`
+
+Hide something found so it stops being offered.
+
+```bash
+hoist import hide 6f1c...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<RESOURCE>` | Resource id from hoist import --list. |
+
+## `hoist import unhide <RESOURCE>`
+
+Offer something you hid again.
+
+```bash
+hoist import unhide 6f1c...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<RESOURCE>` | Resource id from hoist import --list --hidden. |
+
+## `hoist link [PROJECT]`
+
+Link a project to a folder or a GitHub repository.
+
+```bash
+hoist link my-app                         # this folder
+hoist link my-app --folder ~/code/my-app
+hoist link my-app --repo sam/my-app --branch main
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+| `--folder <PATH>` | The folder with the project's code. Default: this folder. |
+| `--repo <OWNER/NAME>` | Link a GitHub repository instead, as OWNER/NAME. |
+| `--branch <BRANCH>` | With --repo: the branch to deploy. Default: the repository's default branch. |
+| `--account <ACCOUNT>` | With --repo: the GitHub account in Hoista that can read it. |
+
+## `hoist map [PROJECT]`
+
+Show how a project's resources connect.
+
+```bash
+hoist map my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROJECT]` | Project name or id. |
+
+## `hoist map refresh [RESOURCE]`
+
+Read a resource's connections from its provider again.
+
+```bash
+hoist map refresh api --project my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[RESOURCE]` | Resource name or id. |
+| `--project <PROJECT>` | The resource's project, when naming it by name. |

@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT usage.day,usage.resource_id,usage.data FROM usage JOIN resources ON resources.id = usage.resource_id WHERE resources.project_id = ? AND usage.day >= ? AND (usage.day > ? OR (usage.day = ? AND usage.resource_id > ?)) ORDER BY usage.day,usage.resource_id LIMIT 101",
+  "describe": {
+    "columns": [
+      {
+        "name": "day",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "resource_id",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "data",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "ae7c9457fcc77fd4219f4f803bd286d960bb5607d6685491870449de22bc371f"
+}

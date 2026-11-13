@@ -1,0 +1,67 @@
+name: Live provider acceptance
+on:
+  workflow_dispatch:
+    inputs:
+      disposable_resources:
+        description: 'Create and delete billable resources in dedicated test accounts'
+        type: boolean
+        required: true
+        default: false
+      flyctl_version:
+        description: 'Exact reviewed flyctl version (no latest or wildcards)'
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: live-provider-acceptance
+  cancel-in-progress: false
+jobs:
+  live:
+    if: inputs.disposable_resources && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    environment: live-acceptance
+    timeout-minutes: 60
+    env:
+      SQLX_OFFLINE: 'true'
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate exact tool version
+        env:
+          LIVE_FLYCTL_VERSION: ${{ inputs.flyctl_version }}
+        run: |
+          python3 - <<'PY'
+          import os, re
+          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', os.environ['LIVE_FLYCTL_VERSION']), 'Use an exact reviewed flyctl version'
+          PY
+      - name: Linux keychain build dependencies
+        run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config
+      - name: Install pinned compiler
+        run: rustup toolchain install 1.97.0 --profile minimal
+      - uses: superfly/flyctl-actions/setup-flyctl@1.5
+        with:
+          version: ${{ inputs.flyctl_version }}
+      - name: Compile and run offline harness guards
+        run: cargo test -p hoista-server --features live --test live --locked
+      - name: Disposable live acceptance
+        env:
+          HOISTA_LIVE_CONFIRM: create-and-delete-disposable-resources
+          HOISTA_LIVE_CLOUDFLARE_ACCOUNT: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          HOISTA_LIVE_FLY_ORG: ${{ vars.FLY_ORG }}
+          HOISTA_LIVE_NEON_ORG: ${{ vars.NEON_ORG_ID }}
+          HOISTA_LIVE_CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          HOISTA_LIVE_FLY_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          HOISTA_LIVE_NEON_TOKEN: ${{ secrets.NEON_API_KEY }}
+          HOISTA_LIVE_JOURNAL_DIR: ${{ github.workspace }}/target/live-acceptance
+        run: cargo test -p hoista-server --features live --test live --locked -- --ignored --test-threads=1
+      - name: Retain resource cleanup journal
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-acceptance-journal-${{ github.run_id }}
+          path: target/live-acceptance/*.jsonl
+          if-no-files-found: ignore
+          retention-days: 14

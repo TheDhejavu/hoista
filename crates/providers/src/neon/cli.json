@@ -1,0 +1,6196 @@
+{
+ "cli": "neon",
+ "version": "8.23.1",
+ "source": "neon 8.23.1 --help",
+ "commands": [
+  {
+   "name": "neon branches add-compute",
+   "words": [
+    "branches",
+    "add-compute"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Add a compute to a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "type",
+     "kind": "choice",
+     "choices": [
+      "read_only",
+      "read_write"
+     ],
+     "many": false,
+     "description": "Type of compute to add",
+     "path": false
+    },
+    {
+     "name": "cu",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The number of Compute Units. Could be a fixed size (e.g. \"2\") or a range delimited by a dash (e.g. \"0.5-3\").",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Optional name of the compute",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon branches create",
+   "words": [
+    "branches",
+    "create"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The branch name",
+     "path": false
+    },
+    {
+     "name": "parent",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Parent branch name or id or timestamp or LSN. Defaults to the default branch",
+     "path": false
+    },
+    {
+     "name": "compute",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Create a branch with or without a compute. By default branch is created with a read-write compute. To create a branch without compute use --no-compute",
+     "path": false
+    },
+    {
+     "name": "type",
+     "kind": "choice",
+     "choices": [
+      "read_only",
+      "read_write"
+     ],
+     "many": false,
+     "description": "Type of compute to add",
+     "path": false
+    },
+    {
+     "name": "suspend-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Duration of inactivity in seconds after which the compute endpoint is automatically suspended. The value `0` means use the global default. The value `-1` means never suspend. The default value is `300` seconds (5 minutes). The maximum value is `604800` seconds (1 week).",
+     "path": false
+    },
+    {
+     "name": "cu",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The number of Compute Units. Could be a fixed size (e.g. \"2\") or a range delimited by a dash (e.g. \"0.5-3\").",
+     "path": false
+    },
+    {
+     "name": "psql",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Connect to a new branch via psql",
+     "path": false
+    },
+    {
+     "name": "schema-only",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Create a schema-only branch. Requires exactly one read-write compute.",
+     "path": false
+    },
+    {
+     "name": "expires-at",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set an expiration date for the branch. Accepts a date string (e.g., 2024-12-31T23:59:59Z).",
+     "path": false
+    },
+    {
+     "name": "protected",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether the branch is protected. Protected branches (and their computes) cannot be deleted, archived, or reset, and block deletion of the project. Can be gated by `protected_branches_only` in the IP allowlist. Paid plans only.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon branches delete",
+   "words": [
+    "branches",
+    "delete"
+   ],
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Delete a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon branches get",
+   "words": [
+    "branches",
+    "get"
+   ],
+   "area": "Branches",
+   "risk": "read",
+   "description": "Get a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon branches list",
+   "words": [
+    "branches",
+    "list"
+   ],
+   "area": "Branches",
+   "risk": "read",
+   "description": "List branches.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "neon branches rename",
+   "words": [
+    "branches",
+    "rename"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Rename a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    },
+    {
+     "name": "new_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "new-name",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon branches reset",
+   "words": [
+    "branches",
+    "reset"
+   ],
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Reset a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "parent",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Reset to a parent branch",
+     "path": false
+    },
+    {
+     "name": "preserve-under-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name under which to preserve the old branch",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon branches restore",
+   "words": [
+    "branches",
+    "restore"
+   ],
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Restores a branch to a specific point in time <source> can be: ^self, ^parent, or <source-branch-id|name>.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "target_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "target-id|name",
+     "path": false
+    },
+    {
+     "name": "source",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "source>[@(timestamp|lsn)",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "preserve-under-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name under which to preserve the old branch",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon branches schema-diff",
+   "words": [
+    "branches",
+    "schema-diff"
+   ],
+   "area": "Branches",
+   "risk": "read",
+   "description": "Compare the latest schemas of any two branches, or compare a branch to its own or another branch's history.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "base_branch",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "base-branch",
+     "path": false
+    },
+    {
+     "name": "compare_source",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "compare-source[@(timestamp|lsn)",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": ", --db  Name of the database for which the schema comparison is performed",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon branches set-default",
+   "words": [
+    "branches",
+    "set-default"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Set a branch as default.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon branches set-expiration",
+   "words": [
+    "branches",
+    "set-expiration"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Set an expiration date for the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id|name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "expires-at",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set a expiration date for the branch. If omitted, expiration will be removed. Format: 2024-12-31T23:59:59Z",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon diff",
+   "words": [
+    "diff"
+   ],
+   "area": "Branches",
+   "risk": "read",
+   "description": "Show a git-style schema diff between the current branch and another branch.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "compare_branch",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "compare-branch",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The branch to review (the '+++' side). Defaults to the branch pinned in the local context (.neon).",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": ", --db  Limit the diff to a single database. Defaults to every database on the current branch.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon config apply",
+   "words": [
+    "config",
+    "apply"
+   ],
+   "area": "Config",
+   "risk": "destroy",
+   "description": "Apply a neon.ts policy to the branch.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a neon.ts policy (defaults to the neon.ts next to .neon, or in cwd without one)",
+     "path": true
+    },
+    {
+     "name": "env",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a .env file to load into the environment before evaluating neon.ts so Function env values resolve from it. Existing env vars are not overridden. Function env values that read process.env must be set in this file or the environment.",
+     "path": false
+    },
+    {
+     "name": "update-existing",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Override branch settings that differ from neon.ts without asking",
+     "path": false
+    },
+    {
+     "name": "allow-protected",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Apply to a branch marked protected on Neon without asking",
+     "path": false
+    },
+    {
+     "name": "yes",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Answer yes to every confirmation: --update-existing and --allow-protected",
+     "path": false
+    },
+    {
+     "name": "env-pull",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Pull the branch's Neon env vars (DATABASE_URL, \u2026) into a local .env after a successful apply. On by default; use --no-env-pull to skip (e.g. when injecting env at runtime with `neon-env run` / `neon dev`).",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon config plan",
+   "words": [
+    "config",
+    "plan"
+   ],
+   "area": "Config",
+   "risk": "read",
+   "description": "Show what `config apply` would change (dry run).",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a neon.ts policy (defaults to the neon.ts next to .neon, or in cwd without one)",
+     "path": true
+    },
+    {
+     "name": "env",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a .env file to load into the environment before evaluating neon.ts so Function env values resolve from it. Existing env vars are not overridden. Function env values that read process.env must be set in this file or the environment.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon config status",
+   "words": [
+    "config",
+    "status"
+   ],
+   "area": "Config",
+   "risk": "read",
+   "description": "Show the branch's live Neon state.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "config-json",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print only the branch's live config as neon.ts-shaped JSON (services + branch tuning + preview), to stdout. Useful for scripting or copying into a neon.ts.",
+     "path": false
+    },
+    {
+     "name": "current-branch",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print only the linked branch name from the local .neon file (no network). Exits non-zero when no branch is pinned.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon deploy",
+   "words": [
+    "deploy"
+   ],
+   "area": "Config",
+   "risk": "destroy",
+   "description": "Apply a neon.ts policy to a branch (alias for `config apply`).",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a neon.ts policy (defaults to the neon.ts next to .neon, or in cwd without one)",
+     "path": true
+    },
+    {
+     "name": "env",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a .env file to load into the environment before evaluating neon.ts so Function env values resolve from it. Existing env vars are not overridden. Function env values that read process.env must be set in this file or the environment.",
+     "path": false
+    },
+    {
+     "name": "update-existing",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Override branch settings that differ from neon.ts without asking",
+     "path": false
+    },
+    {
+     "name": "allow-protected",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Apply to a branch marked protected on Neon without asking",
+     "path": false
+    },
+    {
+     "name": "yes",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Answer yes to every confirmation: --update-existing and --allow-protected",
+     "path": false
+    },
+    {
+     "name": "env-pull",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Pull the branch's Neon env vars (DATABASE_URL, \u2026) into a local .env after a successful apply. On by default; use --no-env-pull to skip (e.g. when injecting env at runtime with `neon-env run` / `neon dev`).",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon status",
+   "words": [
+    "status"
+   ],
+   "area": "Config",
+   "risk": "read",
+   "description": "Show the branch's live Neon state (alias of `config status`).",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "config-json",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print only the branch's live config as neon.ts-shaped JSON (services + branch tuning + preview), to stdout. Useful for scripting or copying into a neon.ts.",
+     "path": false
+    },
+    {
+     "name": "current-branch",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print only the linked branch name from the local .neon file (no network). Exits non-zero when no branch is pinned.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon data-api create",
+   "words": [
+    "data-api",
+    "create"
+   ],
+   "area": "Data API",
+   "risk": "change",
+   "description": "Provision the Neon Data API for a database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    },
+    {
+     "name": "auth-provider",
+     "kind": "choice",
+     "choices": [
+      "neon_auth",
+      "external"
+     ],
+     "many": false,
+     "description": "Authentication provider",
+     "path": false
+    },
+    {
+     "name": "jwks-url",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL that lists the JWKS (used with external auth)",
+     "path": false
+    },
+    {
+     "name": "provider-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name of the auth provider (e.g. Clerk, Stytch, Auth0)",
+     "path": false
+    },
+    {
+     "name": "jwt-audience",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Expected JWT audience claim",
+     "path": false
+    },
+    {
+     "name": "add-default-grants",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Grant all permissions on tables in the public schema to authenticated users",
+     "path": false
+    },
+    {
+     "name": "skip-auth-schema",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skip creating the auth schema and RLS functions",
+     "path": false
+    },
+    {
+     "name": "db-aggregates-enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable aggregate functions in queries",
+     "path": false
+    },
+    {
+     "name": "db-anon-role",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database role used for anonymous (unauthenticated) requests",
+     "path": false
+    },
+    {
+     "name": "db-extra-search-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Extra schemas appended to the search path",
+     "path": false
+    },
+    {
+     "name": "db-max-rows",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of rows returned by a single request",
+     "path": false
+    },
+    {
+     "name": "db-schemas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma-separated list of schemas exposed via the Data API",
+     "path": false
+    },
+    {
+     "name": "jwt-role-claim-key",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "JWT claim path used to extract the role",
+     "path": false
+    },
+    {
+     "name": "jwt-cache-max-lifetime",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum JWT cache lifetime in seconds",
+     "path": false
+    },
+    {
+     "name": "openapi-mode",
+     "kind": "choice",
+     "choices": [
+      "ignore-privileges",
+      "disabled"
+     ],
+     "many": false,
+     "description": "OpenAPI mode",
+     "path": false
+    },
+    {
+     "name": "server-cors-allowed-origins",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "CORS allowed origins",
+     "path": false
+    },
+    {
+     "name": "server-timing-enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable Server-Timing response headers",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon data-api delete",
+   "words": [
+    "data-api",
+    "delete"
+   ],
+   "area": "Data API",
+   "risk": "destroy",
+   "description": "Tear down the Neon Data API for a database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon data-api get",
+   "words": [
+    "data-api",
+    "get"
+   ],
+   "area": "Data API",
+   "risk": "read",
+   "description": "Show the Neon Data API status and settings.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon data-api refresh-schema",
+   "words": [
+    "data-api",
+    "refresh-schema"
+   ],
+   "area": "Data API",
+   "risk": "change",
+   "description": "Refresh the Data API schema cache without changing settings.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon data-api update",
+   "words": [
+    "data-api",
+    "update"
+   ],
+   "area": "Data API",
+   "risk": "change",
+   "description": "Update Neon Data API settings (merges with current settings by default).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    },
+    {
+     "name": "replace",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Replace settings with only the flags provided. Omitted settings revert to server defaults.",
+     "path": false
+    },
+    {
+     "name": "db-aggregates-enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable aggregate functions in queries",
+     "path": false
+    },
+    {
+     "name": "db-anon-role",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database role used for anonymous (unauthenticated) requests",
+     "path": false
+    },
+    {
+     "name": "db-extra-search-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Extra schemas appended to the search path",
+     "path": false
+    },
+    {
+     "name": "db-max-rows",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of rows returned by a single request",
+     "path": false
+    },
+    {
+     "name": "db-schemas",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma-separated list of schemas exposed via the Data API",
+     "path": false
+    },
+    {
+     "name": "jwt-role-claim-key",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "JWT claim path used to extract the role",
+     "path": false
+    },
+    {
+     "name": "jwt-cache-max-lifetime",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum JWT cache lifetime in seconds",
+     "path": false
+    },
+    {
+     "name": "openapi-mode",
+     "kind": "choice",
+     "choices": [
+      "ignore-privileges",
+      "disabled"
+     ],
+     "many": false,
+     "description": "OpenAPI mode",
+     "path": false
+    },
+    {
+     "name": "server-cors-allowed-origins",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "CORS allowed origins",
+     "path": false
+    },
+    {
+     "name": "server-timing-enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable Server-Timing response headers",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon databases create",
+   "words": [
+    "databases",
+    "create"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Create a database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    },
+    {
+     "name": "owner-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Owner name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon databases delete",
+   "words": [
+    "databases",
+    "delete"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Delete a database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "database",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "database",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon databases list",
+   "words": [
+    "databases",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List databases.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres computes delete",
+   "words": [
+    "postgres",
+    "computes",
+    "delete"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Delete a compute.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait until the change is applied. Use --no-wait to return as soon as the API accepts it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres computes get",
+   "words": [
+    "postgres",
+    "computes",
+    "get"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "Get a compute.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon postgres computes list",
+   "words": [
+    "postgres",
+    "computes",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List computes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "all-branches",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "List every compute in the project, ignoring --branch and the branch .neon pins",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres computes restart",
+   "words": [
+    "postgres",
+    "computes",
+    "restart"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Restart a compute.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait until the change is applied. Use --no-wait to return as soon as the API accepts it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres computes start",
+   "words": [
+    "postgres",
+    "computes",
+    "start"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Start a compute.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait until the change is applied. Use --no-wait to return as soon as the API accepts it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres computes suspend",
+   "words": [
+    "postgres",
+    "computes",
+    "suspend"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Suspend a compute.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait until the change is applied. Use --no-wait to return as soon as the API accepts it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres computes update",
+   "words": [
+    "postgres",
+    "computes",
+    "update"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Update a compute's size, scale-to-zero timeout, name, or connection access.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "cu",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The number of Compute Units. Could be a fixed size (e.g. \"2\") or a range delimited by a dash (e.g. \"0.5-3\").",
+     "path": false
+    },
+    {
+     "name": "suspend-timeout",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Scale-to-zero idle timeout, in seconds, before the compute suspends. `0` uses the plan default; `-1` disables scale-to-zero (never suspends). Minimum is plan-dependent (Scale: 60); maximum 604800 (one week). Free cannot change it; Launch can only enable or disable; Scale can set any value.",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name of the compute",
+     "path": false
+    },
+    {
+     "name": "disabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Restrict connections to the compute. Disabling schedules a suspend. Use --disabled=false to allow connections again.",
+     "path": false
+    },
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait until the change is applied. Use --no-wait to return as soon as the API accepts it",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres databases create",
+   "words": [
+    "postgres",
+    "databases",
+    "create"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Create a database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name",
+     "path": false
+    },
+    {
+     "name": "owner-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Owner name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres databases delete",
+   "words": [
+    "postgres",
+    "databases",
+    "delete"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Delete a database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "database",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "database",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres databases list",
+   "words": [
+    "postgres",
+    "databases",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List databases.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres roles create",
+   "words": [
+    "postgres",
+    "roles",
+    "create"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Create a role.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name",
+     "path": false
+    },
+    {
+     "name": "no-login",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Create a passwordless role that cannot login",
+     "path": false
+    },
+    {
+     "name": "access",
+     "kind": "choice",
+     "choices": [
+      "admin",
+      "read_only",
+      "read_write"
+     ],
+     "many": false,
+     "description": "admin joins neon_superuser. read_only grants SELECT; read_write adds INSERT, UPDATE, DELETE. Scoped roles are created with SQL as the database owner and cover tables that owner owns, now and later",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database a read_only or read_write role is scoped to. Defaults to the branch's only database",
+     "path": false
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Schema a read_only or read_write role can use. Repeat for more. Defaults to public",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres roles delete",
+   "words": [
+    "postgres",
+    "roles",
+    "delete"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Delete a role.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "role",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "role",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres roles get",
+   "words": [
+    "postgres",
+    "roles",
+    "get"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "Get a role.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "role",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "role",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon postgres roles list",
+   "words": [
+    "postgres",
+    "roles",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List roles.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon roles create",
+   "words": [
+    "roles",
+    "create"
+   ],
+   "area": "Databases",
+   "risk": "change",
+   "description": "Create a role.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name",
+     "path": false
+    },
+    {
+     "name": "no-login",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Create a passwordless role that cannot login",
+     "path": false
+    },
+    {
+     "name": "access",
+     "kind": "choice",
+     "choices": [
+      "admin",
+      "read_only",
+      "read_write"
+     ],
+     "many": false,
+     "description": "admin joins neon_superuser. read_only grants SELECT; read_write adds INSERT, UPDATE, DELETE. Scoped roles are created with SQL as the database owner and cover tables that owner owns, now and later",
+     "path": false
+    },
+    {
+     "name": "database",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database a read_only or read_write role is scoped to. Defaults to the branch's only database",
+     "path": false
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Schema a read_only or read_write role can use. Repeat for more. Defaults to public",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon roles delete",
+   "words": [
+    "roles",
+    "delete"
+   ],
+   "area": "Databases",
+   "risk": "destroy",
+   "description": "Delete a role.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "role",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "role",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon roles get",
+   "words": [
+    "roles",
+    "get"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "Get a role.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "role",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "role",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon roles list",
+   "words": [
+    "roles",
+    "list"
+   ],
+   "area": "Databases",
+   "risk": "read",
+   "description": "List roles.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions delete",
+   "words": [
+    "functions",
+    "delete"
+   ],
+   "area": "Functions",
+   "risk": "destroy",
+   "description": "Delete a function on the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "slug",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "slug",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions deploy",
+   "words": [
+    "functions",
+    "deploy"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Deploy a function from a local directory.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "slug",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "slug",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "src",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Function source: a directory containing index.ts, index.js, or index.mjs (first file match is the entry), or a path to the entry file",
+     "path": false
+    },
+    {
+     "name": "runtime",
+     "kind": "choice",
+     "choices": [
+      "nodejs24"
+     ],
+     "many": false,
+     "description": "Function runtime",
+     "path": false
+    },
+    {
+     "name": "env",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Environment variable as KEY=VALUE (repeatable)",
+     "path": false
+    },
+    {
+     "name": "wait",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Wait for the deployment to finish building",
+     "path": false
+    },
+    {
+     "name": "bundle",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Bundle --src with esbuild. Use --no-bundle to zip a prebuilt directory (root must contain index.mjs or index.js) or a file of that name.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions domains",
+   "words": [
+    "functions",
+    "domains"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Manage custom domains on the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions domains delete",
+   "words": [
+    "functions",
+    "domains",
+    "delete"
+   ],
+   "area": "Functions",
+   "risk": "destroy",
+   "description": "Delete a custom domain from the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "domain",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions domains list",
+   "words": [
+    "functions",
+    "domains",
+    "list"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "List custom domains on the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions domains register",
+   "words": [
+    "functions",
+    "domains",
+    "register"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Point a domain you already own at a function on the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "domain",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "slug",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Function slug this domain should point at",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions get",
+   "words": [
+    "functions",
+    "get"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Show a function's details.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "slug",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "slug",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "list-env-variables",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "List the environment variable names of the active deployment",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon functions list",
+   "words": [
+    "functions",
+    "list"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "List functions on the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers create",
+   "words": [
+    "triggers",
+    "create"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Create a trigger that invokes a function on a cron schedule or when an object is created.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "function-slug",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Slug of the function to invoke",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Trigger name (unique per branch)",
+     "path": false
+    },
+    {
+     "name": "cron",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Five-field UTC cron expression, e.g. '*/15 * * * *'",
+     "path": false
+    },
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Object-storage bucket to watch (storage_object_created)",
+     "path": false
+    },
+    {
+     "name": "prefix",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Object-key prefix to match (requires --bucket on create)",
+     "path": false
+    },
+    {
+     "name": "function-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path the invocation is sent to (default '/')",
+     "path": false
+    },
+    {
+     "name": "enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether the trigger runs (default true)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers delete",
+   "words": [
+    "triggers",
+    "delete"
+   ],
+   "area": "Functions",
+   "risk": "destroy",
+   "description": "Delete a trigger.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers disable",
+   "words": [
+    "triggers",
+    "disable"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Disable a trigger without deleting it.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers enable",
+   "words": [
+    "triggers",
+    "enable"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Enable a trigger.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers get",
+   "words": [
+    "triggers",
+    "get"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Show a trigger.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers list",
+   "words": [
+    "triggers",
+    "list"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "List triggers on the branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon triggers update",
+   "words": [
+    "triggers",
+    "update"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Update a trigger.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "function-slug",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Slug of the function to invoke",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Trigger name (unique per branch)",
+     "path": false
+    },
+    {
+     "name": "cron",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Five-field UTC cron expression",
+     "path": false
+    },
+    {
+     "name": "bucket",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Object-storage bucket to watch (storage_object_created)",
+     "path": false
+    },
+    {
+     "name": "prefix",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Object-key prefix to match",
+     "path": false
+    },
+    {
+     "name": "function-path",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path the invocation is sent to",
+     "path": false
+    },
+    {
+     "name": "enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether the trigger runs",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db bloat",
+   "words": [
+    "inspect",
+    "db",
+    "bloat"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Estimated table/index bloat (statistical estimate, no extension needed).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db calls",
+   "words": [
+    "inspect",
+    "db",
+    "calls"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Most frequently called queries (needs pg_stat_statements).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db index-sizes",
+   "words": [
+    "inspect",
+    "db",
+    "index-sizes"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Size of each index, largest first (pg_relation_size).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db lfc-hit-rate",
+   "words": [
+    "inspect",
+    "db",
+    "lfc-hit-rate"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Local File Cache hit rate (compute-wide, needs neon extension).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db locks",
+   "words": [
+    "inspect",
+    "db",
+    "locks"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Locks held with the acquiring query and its age (pg_locks + pg_stat_activity).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db long-running-queries",
+   "words": [
+    "inspect",
+    "db",
+    "long-running-queries"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Queries running longer than 5 minutes (pg_stat_activity).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db outliers",
+   "words": [
+    "inspect",
+    "db",
+    "outliers"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Queries taking the most cumulative execution time (needs pg_stat_statements).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db replication-slots",
+   "words": [
+    "inspect",
+    "db",
+    "replication-slots"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Replication slots (compute-wide): kind, status, client, restart/confirmed-flush LSNs, and lag (pg_replication_slots + pg_stat_replication).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db seq-scans",
+   "words": [
+    "inspect",
+    "db",
+    "seq-scans"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Number of sequential scans recorded against each table (pg_stat_user_tables).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db stalled-queries",
+   "words": [
+    "inspect",
+    "db",
+    "stalled-queries"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Active queries running longer than 30 seconds with parallel workers, waits, and blockers, oldest group first (compute-wide).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db subscriptions",
+   "words": [
+    "inspect",
+    "db",
+    "subscriptions"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Per-table logical replication progress on this subscriber (pg_subscription_rel).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db table-sizes",
+   "words": [
+    "inspect",
+    "db",
+    "table-sizes"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Size of each table (including TOAST), largest first (pg_table_size).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db unused-indexes",
+   "words": [
+    "inspect",
+    "db",
+    "unused-indexes"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Non-unique indexes with few scans \u2014 candidates for removal (pg_stat_user_indexes).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db vacuum-stats",
+   "words": [
+    "inspect",
+    "db",
+    "vacuum-stats"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Autovacuum status per table: last (auto)vacuum, dead tuples, threshold.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon inspect db working-set",
+   "words": [
+    "inspect",
+    "db",
+    "working-set"
+   ],
+   "area": "Inspect",
+   "risk": "read",
+   "description": "Estimated working set vs LFC size (compute-wide, needs neon extension).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database to inspect. Omit to cover every database the API lists for the branch. Ranking and row limits stay per database. One failing database fails the whole run. Compute-wide checks run once against the first listed database. Ignored with --db-url.",
+     "path": false
+    },
+    {
+     "name": "role-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Role name. Defaults to neondb_owner, else the only role besides the Data API and Neon Auth roles",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon logs field-values",
+   "words": [
+    "logs",
+    "field-values"
+   ],
+   "area": "Logs",
+   "risk": "read",
+   "description": "List the distinct values observed for a log field.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "field",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "field",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Length of the window, ending at --end-time or now. Defaults to 6h; the maximum window is 7d. Mutually exclusive with --start-time.",
+     "path": false
+    },
+    {
+     "name": "start-time",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Inclusive start of the window (RFC 3339, e.g. 2025-01-01T00:00:00Z). The maximum window is 7d. Mutually exclusive with --since.",
+     "path": false
+    },
+    {
+     "name": "end-time",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Exclusive end of the window (RFC 3339). Defaults to the current time.",
+     "path": false
+    },
+    {
+     "name": "source",
+     "kind": "choice",
+     "choices": [
+      "function",
+      "storage",
+      "pg_endpoint"
+     ],
+     "many": false,
+     "description": "Only consider records emitted by this service",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of distinct values to return (1-1000)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon logs fields",
+   "words": [
+    "logs",
+    "fields"
+   ],
+   "area": "Logs",
+   "risk": "read",
+   "description": "List the log fields whose values can be discovered on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon logs query",
+   "words": [
+    "logs",
+    "query"
+   ],
+   "area": "Logs",
+   "risk": "read",
+   "description": "Query log records on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Length of the window, ending at --end-time or now. Defaults to 1h; the maximum window is 7d. Mutually exclusive with --start-time.",
+     "path": false
+    },
+    {
+     "name": "start-time",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Inclusive start of the window (RFC 3339, e.g. 2025-01-01T00:00:00Z). The maximum window is 7d. Mutually exclusive with --since.",
+     "path": false
+    },
+    {
+     "name": "end-time",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Exclusive end of the window (RFC 3339). Defaults to the current time.",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of records to return per page (1-1000)",
+     "path": false
+    },
+    {
+     "name": "cursor",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Pagination cursor returned as next_cursor by a previous call. Repeat the same time range and filters.",
+     "path": false
+    },
+    {
+     "name": "sort-order",
+     "kind": "choice",
+     "choices": [
+      "asc",
+      "desc"
+     ],
+     "many": false,
+     "description": "Order records by timestamp. Defaults to desc (newest first).",
+     "path": false
+    },
+    {
+     "name": "source",
+     "kind": "choice",
+     "choices": [
+      "function",
+      "storage",
+      "pg_endpoint"
+     ],
+     "many": false,
+     "description": "Only records emitted by this service",
+     "path": false
+    },
+    {
+     "name": "service-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Match the OpenTelemetry service.name resource attribute exactly",
+     "path": false
+    },
+    {
+     "name": "scope-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Match the OpenTelemetry instrumentation scope name exactly",
+     "path": false
+    },
+    {
+     "name": "minimum-severity",
+     "kind": "choice",
+     "choices": [
+      "trace",
+      "debug",
+      "info",
+      "warn",
+      "error",
+      "fatal"
+     ],
+     "many": false,
+     "description": "Only records at or above this severity. Combines with --severity-text. If Neon reports that this filter is unsupported, use --severity-text instead.",
+     "path": false
+    },
+    {
+     "name": "severity-text",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Match the OpenTelemetry severity text exactly. Run `neon logs field-values severity_text` to discover the values present.",
+     "path": false
+    },
+    {
+     "name": "body-contains",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Match the case-sensitive rendered message. Structured bodies are rendered as compact JSON.",
+     "path": false
+    },
+    {
+     "name": "trace-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Match records carrying this trace ID (32 lowercase hex digits)",
+     "path": false
+    },
+    {
+     "name": "logql",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Raw LogQL expression (stream selectors and line filters only). Replaces the structured filters; the window, --limit, --sort-order and --cursor still apply.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config email-password get",
+   "words": [
+    "neon-auth",
+    "config",
+    "email-password",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get email and password config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config email-password update",
+   "words": [
+    "neon-auth",
+    "config",
+    "email-password",
+    "update"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update email and password config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable email and password authentication",
+     "path": false
+    },
+    {
+     "name": "email-verification-method",
+     "kind": "choice",
+     "choices": [
+      "link",
+      "otp"
+     ],
+     "many": false,
+     "description": "Email verification method",
+     "path": false
+    },
+    {
+     "name": "require-email-verification",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Require email verification before users can sign in",
+     "path": false
+    },
+    {
+     "name": "auto-sign-in-after-verification",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Auto sign in users after verifying their email",
+     "path": false
+    },
+    {
+     "name": "send-verification-email-on-sign-up",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Send verification email on sign up",
+     "path": false
+    },
+    {
+     "name": "send-verification-email-on-sign-in",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Send verification email on sign in",
+     "path": false
+    },
+    {
+     "name": "disable-sign-up",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Disable new user sign ups",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config email-provider get",
+   "words": [
+    "neon-auth",
+    "config",
+    "email-provider",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get email provider config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config email-provider test",
+   "words": [
+    "neon-auth",
+    "config",
+    "email-provider",
+    "test"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Send a test message through the saved custom SMTP provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "recipient-email",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Email address to deliver the test message to",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config email-provider update",
+   "words": [
+    "neon-auth",
+    "config",
+    "email-provider",
+    "update"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update email provider config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "type",
+     "kind": "choice",
+     "choices": [
+      "standard",
+      "shared"
+     ],
+     "many": false,
+     "description": "Email provider type",
+     "path": false
+    },
+    {
+     "name": "host",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "SMTP host (required for standard)",
+     "path": false
+    },
+    {
+     "name": "port",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "SMTP port (required for standard)",
+     "path": false
+    },
+    {
+     "name": "username",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "SMTP username (required for standard)",
+     "path": false
+    },
+    {
+     "name": "sender-email",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sender email address",
+     "path": false
+    },
+    {
+     "name": "sender-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Sender display name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config oauth-server get",
+   "words": [
+    "neon-auth",
+    "config",
+    "oauth-server",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get OAuth server config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config oauth-server resource list",
+   "words": [
+    "neon-auth",
+    "config",
+    "oauth-server",
+    "resource",
+    "list"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "List protected resources.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config oauth-server update",
+   "words": [
+    "neon-auth",
+    "config",
+    "oauth-server",
+    "update"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update OAuth server config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable the OAuth server. Use --no-enabled or --enabled false to disable",
+     "path": false
+    },
+    {
+     "name": "login-page",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL of the page authorization requests redirect to for sign-in",
+     "path": false
+    },
+    {
+     "name": "consent-page",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL of the page authorization requests redirect to for consent",
+     "path": false
+    },
+    {
+     "name": "resources",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Protected resource URLs that clients can be linked to; replaces the stored list. Use `resource add|remove` for incremental changes",
+     "path": false
+    },
+    {
+     "name": "mcp-resource",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "MCP server URL that MCP clients are linked to. Defaults to the stored value when another --mcp-* flag is given. To remove the MCP configuration, use --no-mcp",
+     "path": false
+    },
+    {
+     "name": "mcp",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Remove the MCP configuration (only --no-mcp is accepted)",
+     "path": false
+    },
+    {
+     "name": "mcp-client-id-metadata-documents",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Allow MCP clients to identify themselves with a Client ID Metadata Document (CIMD) URL. Use --no-mcp-client-id-metadata-documents to disallow",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config organization get",
+   "words": [
+    "neon-auth",
+    "config",
+    "organization",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get organization plugin config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config organization update",
+   "words": [
+    "neon-auth",
+    "config",
+    "organization",
+    "update"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update organization plugin config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable the organization plugin",
+     "path": false
+    },
+    {
+     "name": "limit",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of organizations a user can create",
+     "path": false
+    },
+    {
+     "name": "creator-role",
+     "kind": "choice",
+     "choices": [
+      "admin",
+      "owner"
+     ],
+     "many": false,
+     "description": "Role assigned to organization creator",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config webhook get",
+   "words": [
+    "neon-auth",
+    "config",
+    "webhook",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get webhook config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth config webhook update",
+   "words": [
+    "neon-auth",
+    "config",
+    "webhook",
+    "update"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update webhook config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "enabled",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Enable webhooks",
+     "path": false
+    },
+    {
+     "name": "enabled-events",
+     "kind": "choice",
+     "choices": [
+      "user.before_create",
+      "user.created",
+      "send.otp",
+      "send.magic_link"
+     ],
+     "many": true,
+     "description": "Events to enable",
+     "path": false
+    },
+    {
+     "name": "timeout",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Webhook timeout in seconds (1-10)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth disable",
+   "words": [
+    "neon-auth",
+    "disable"
+   ],
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Disable Neon Auth on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "delete-data",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Permanently delete all Neon Auth data and schema from the database",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth domain add",
+   "words": [
+    "neon-auth",
+    "domain",
+    "add"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Add a trusted domain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "domain",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth domain allow-localhost disable",
+   "words": [
+    "neon-auth",
+    "domain",
+    "allow-localhost",
+    "disable"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Restrict localhost connections.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth domain allow-localhost enable",
+   "words": [
+    "neon-auth",
+    "domain",
+    "allow-localhost",
+    "enable"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Allow localhost connections.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth domain allow-localhost get",
+   "words": [
+    "neon-auth",
+    "domain",
+    "allow-localhost",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get localhost connection setting.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth domain delete",
+   "words": [
+    "neon-auth",
+    "domain",
+    "delete"
+   ],
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Delete a trusted domain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "domain",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "domain",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth domain list",
+   "words": [
+    "neon-auth",
+    "domain",
+    "list"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "List trusted domains.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth enable",
+   "words": [
+    "neon-auth",
+    "enable"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Enable Neon Auth on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "database-name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Database name to use for auth data",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth oauth-provider add",
+   "words": [
+    "neon-auth",
+    "oauth-provider",
+    "add"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Add an OAuth provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "provider-id",
+     "kind": "choice",
+     "choices": [
+      "google",
+      "github",
+      "vercel",
+      "microsoft",
+      "apple"
+     ],
+     "many": false,
+     "description": "OAuth provider ID. Supported values: google, github, vercel, microsoft, apple",
+     "path": false
+    },
+    {
+     "name": "oauth-client-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "OAuth client ID from your provider app. For apple, the Services ID. Omit to use Neon's shared OAuth app, where one exists; microsoft and apple always need your own credentials.",
+     "path": false
+    },
+    {
+     "name": "microsoft-tenant-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Tenant ID for the microsoft provider: common, organizations, consumers, a tenant GUID, or a domain",
+     "path": false
+    },
+    {
+     "name": "apple-team-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Apple Developer Team ID (apple only)",
+     "path": false
+    },
+    {
+     "name": "apple-key-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Key ID of the Sign in with Apple private key (apple only). Sent together with a new apple client secret, and only with one",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth oauth-provider delete",
+   "words": [
+    "neon-auth",
+    "oauth-provider",
+    "delete"
+   ],
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Delete an OAuth provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "provider-id",
+     "kind": "choice",
+     "choices": [
+      "google",
+      "github",
+      "vercel",
+      "microsoft",
+      "apple"
+     ],
+     "many": false,
+     "description": "OAuth provider ID. Supported values: google, github, vercel, microsoft, apple",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth oauth-provider list",
+   "words": [
+    "neon-auth",
+    "oauth-provider",
+    "list"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "List OAuth providers.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth oauth-provider update",
+   "words": [
+    "neon-auth",
+    "oauth-provider",
+    "update"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update an OAuth provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "provider-id",
+     "kind": "choice",
+     "choices": [
+      "google",
+      "github",
+      "vercel",
+      "microsoft",
+      "apple"
+     ],
+     "many": false,
+     "description": "OAuth provider ID. Supported values: google, github, vercel, microsoft, apple",
+     "path": false
+    },
+    {
+     "name": "oauth-client-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "OAuth client ID from your provider app. For apple, the Services ID. Omit to use Neon's shared OAuth app, where one exists; microsoft and apple always need your own credentials.",
+     "path": false
+    },
+    {
+     "name": "microsoft-tenant-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Tenant ID for the microsoft provider: common, organizations, consumers, a tenant GUID, or a domain",
+     "path": false
+    },
+    {
+     "name": "apple-team-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Apple Developer Team ID (apple only)",
+     "path": false
+    },
+    {
+     "name": "apple-key-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Key ID of the Sign in with Apple private key (apple only). Sent together with a new apple client secret, and only with one",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth plugins get",
+   "words": [
+    "neon-auth",
+    "plugins",
+    "get"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get a specific plugin configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "plugin_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "plugin-name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth plugins list",
+   "words": [
+    "neon-auth",
+    "plugins",
+    "list"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "List all plugin configurations.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth status",
+   "words": [
+    "neon-auth",
+    "status"
+   ],
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Get Neon Auth status for a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth user create",
+   "words": [
+    "neon-auth",
+    "user",
+    "create"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Create an auth user.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "email",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "User email address",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "User display name (defaults to email if not provided)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth user delete",
+   "words": [
+    "neon-auth",
+    "user",
+    "delete"
+   ],
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Delete an auth user.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "user_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "user-id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon neon-auth user set-role",
+   "words": [
+    "neon-auth",
+    "user",
+    "set-role"
+   ],
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Set roles for an auth user.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "user_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "user-id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "roles",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Roles to assign",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon ip-allow add",
+   "words": [
+    "ip-allow",
+    "add"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Add IP addresses to the IP allowlist.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "ips",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "ips...",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "protected-only",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "If true, the list will be applied only to protected branches.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon ip-allow list",
+   "words": [
+    "ip-allow",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List the IP allowlist.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "neon ip-allow remove",
+   "words": [
+    "ip-allow",
+    "remove"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Remove IP addresses from the IP allowlist.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "ips",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "ips...",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon ip-allow reset",
+   "words": [
+    "ip-allow",
+    "reset"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Reset the IP allowlist.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "ips",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "ips...",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon vpc endpoint",
+   "words": [
+    "vpc",
+    "endpoint"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Manage VPC endpoints.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "region-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The region ID. Possible values: aws-us-west-2, aws-ap-southeast-1, aws-ap-southeast-2, aws-eu-central-1, aws-us-east-2, aws-us-east-1, azure-eastus2",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon vpc endpoint assign",
+   "words": [
+    "vpc",
+    "endpoint",
+    "assign"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Add or update a VPC endpoint for this organization.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "region-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The region ID. Possible values: aws-us-west-2, aws-ap-southeast-1, aws-ap-southeast-2, aws-eu-central-1, aws-us-east-2, aws-us-east-1, azure-eastus2",
+     "path": false
+    },
+    {
+     "name": "label",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "An optional descriptive label for the VPC endpoint",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon vpc endpoint list",
+   "words": [
+    "vpc",
+    "endpoint",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List configured VPC endpoints for this organization.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "region-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The region ID. Possible values: aws-us-west-2, aws-ap-southeast-1, aws-ap-southeast-2, aws-eu-central-1, aws-us-east-2, aws-us-east-1, azure-eastus2",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon vpc endpoint remove",
+   "words": [
+    "vpc",
+    "endpoint",
+    "remove"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Remove a VPC endpoint from this organization.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "region-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The region ID. Possible values: aws-us-west-2, aws-ap-southeast-1, aws-ap-southeast-2, aws-eu-central-1, aws-us-east-2, aws-us-east-1, azure-eastus2",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon vpc endpoint status",
+   "words": [
+    "vpc",
+    "endpoint",
+    "status"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Get the status of a VPC endpoint for this organization.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "region-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The region ID. Possible values: aws-us-west-2, aws-ap-southeast-1, aws-ap-southeast-2, aws-eu-central-1, aws-us-east-2, aws-us-east-1, azure-eastus2",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon vpc project",
+   "words": [
+    "vpc",
+    "project"
+   ],
+   "area": "Networking",
+   "risk": "change",
+   "description": "Manage project-level VPC endpoint restrictions.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "neon vpc project list",
+   "words": [
+    "vpc",
+    "project",
+    "list"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "List VPC endpoint restrictions for this project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "neon vpc project remove",
+   "words": [
+    "vpc",
+    "project",
+    "remove"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Remove a VPC endpoint restriction from this project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon vpc project restrict",
+   "words": [
+    "vpc",
+    "project",
+    "restrict"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Configure or update a VPC endpoint restriction for this project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "label",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "An optional descriptive label for the VPC endpoint restriction",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon operations get",
+   "words": [
+    "operations",
+    "get"
+   ],
+   "area": "Operations",
+   "risk": "read",
+   "description": "Get an operation.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon operations list",
+   "words": [
+    "operations",
+    "list"
+   ],
+   "area": "Operations",
+   "risk": "read",
+   "description": "List operations.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "neon orgs get",
+   "words": [
+    "orgs",
+    "get"
+   ],
+   "area": "Organization",
+   "risk": "read",
+   "description": "Show an organization.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon projects list",
+   "words": [
+    "projects",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List projects.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "org-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "recoverable-only",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "List only deleted projects within their deletion grace period",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon realtime disable",
+   "words": [
+    "realtime",
+    "disable"
+   ],
+   "area": "Realtime",
+   "risk": "change",
+   "description": "Disable Realtime on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon realtime enable",
+   "words": [
+    "realtime",
+    "enable"
+   ],
+   "area": "Realtime",
+   "risk": "change",
+   "description": "Enable Realtime on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "allowed-origin",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "description": "Allowed browser origin (repeatable). \"*\" allows every origin",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon snapshots create",
+   "words": [
+    "snapshots",
+    "create"
+   ],
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Create a snapshot from a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch id or name to snapshot. Defaults to the branch in your context, or the project's default branch.",
+     "path": false
+    },
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "A name for the snapshot",
+     "path": false
+    },
+    {
+     "name": "timestamp",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Take the snapshot at this point in time (RFC 3339, e.g. 2025-01-01T00:00:00Z). Must fall within the branch's restore window. Mutually exclusive with --lsn.",
+     "path": false
+    },
+    {
+     "name": "lsn",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Take the snapshot at this LSN (e.g. 0/1F3C8A0). Must fall within the branch's restore window. Mutually exclusive with --timestamp.",
+     "path": false
+    },
+    {
+     "name": "expires-at",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "When the snapshot is automatically deleted (RFC 3339, e.g. 2025-12-31T23:59:59Z). Omit to keep it indefinitely.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon snapshots delete",
+   "words": [
+    "snapshots",
+    "delete"
+   ],
+   "area": "Snapshots",
+   "risk": "destroy",
+   "description": "Delete a snapshot by id or name.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon snapshots finalize",
+   "words": [
+    "snapshots",
+    "finalize"
+   ],
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Finalize a previewed snapshot restore (swap the restored branch in).",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "branch",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "branch",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name to give the replaced (old) branch. Auto-generated when omitted.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon snapshots get",
+   "words": [
+    "snapshots",
+    "get"
+   ],
+   "area": "Snapshots",
+   "risk": "read",
+   "description": "Get a snapshot by id or name.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "neon snapshots list",
+   "words": [
+    "snapshots",
+    "list"
+   ],
+   "area": "Snapshots",
+   "risk": "read",
+   "description": "List snapshots in the project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "neon snapshots restore",
+   "words": [
+    "snapshots",
+    "restore"
+   ],
+   "area": "Snapshots",
+   "risk": "destroy",
+   "description": "Restore a snapshot into a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Name for the newly restored branch. Auto-generated when omitted.",
+     "path": false
+    },
+    {
+     "name": "target-branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch id or name to restore the snapshot onto. Defaults to the snapshot's source branch. Recommended when you intend to finalize (replace an existing branch).",
+     "path": false
+    },
+    {
+     "name": "finalize",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Finalize the restore immediately: move computes onto the restored branch and swap it in for the target. Without this, the restore is left un-finalized so you can inspect it first, then run `snapshots finalize <branch>`.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon snapshots schedule get",
+   "words": [
+    "snapshots",
+    "schedule",
+    "get"
+   ],
+   "area": "Snapshots",
+   "risk": "read",
+   "description": "Get a branch's automatic snapshot schedule.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch id or name. Defaults to the branch in your context, or the project's default branch.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon snapshots schedule set",
+   "words": [
+    "snapshots",
+    "schedule",
+    "set"
+   ],
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Set a branch's automatic snapshot schedule.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch id or name. Defaults to the branch in your context, or the project's default branch.",
+     "path": false
+    },
+    {
+     "name": "frequency",
+     "kind": "choice",
+     "choices": [
+      "daily",
+      "weekly",
+      "monthly"
+     ],
+     "many": false,
+     "description": "How often to take snapshots. Builds a single-entry schedule together with --hour/--day/--month/--retention.",
+     "path": false
+    },
+    {
+     "name": "hour",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Hour of the day (0-23) to take the snapshot (used with --frequency).",
+     "path": false
+    },
+    {
+     "name": "day",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Day of the week/month (1-31) to take the snapshot (used with --frequency).",
+     "path": false
+    },
+    {
+     "name": "month",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Month of the year (1-12) to take the snapshot (used with --frequency).",
+     "path": false
+    },
+    {
+     "name": "retention",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "How long to keep each snapshot, in seconds (min 3600). Omit to keep indefinitely.",
+     "path": false
+    },
+    {
+     "name": "schedule",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Full schedule as JSON, for multi-entry schedules, e.g. ''. Overrides the single-entry flags.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon snapshots update",
+   "words": [
+    "snapshots",
+    "update"
+   ],
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Update a snapshot's name or expiration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "id",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Rename the snapshot",
+     "path": false
+    },
+    {
+     "name": "expires-at",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Set when the snapshot expires (RFC 3339). Mutually exclusive with --clear-expiration.",
+     "path": false
+    },
+    {
+     "name": "clear-expiration",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Clear the expiration so the snapshot is kept indefinitely.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon buckets create",
+   "words": [
+    "buckets",
+    "create"
+   ],
+   "area": "Storage",
+   "risk": "change",
+   "description": "Create a bucket on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    },
+    {
+     "name": "access-level",
+     "kind": "choice",
+     "choices": [
+      "private",
+      "public_read"
+     ],
+     "many": false,
+     "description": "The visibility of the bucket",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon buckets delete",
+   "words": [
+    "buckets",
+    "delete"
+   ],
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Delete a bucket from a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "name",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "neon buckets list",
+   "words": [
+    "buckets",
+    "list"
+   ],
+   "area": "Storage",
+   "risk": "read",
+   "description": "List the buckets on a branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "project-id"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Branch ID or name",
+     "path": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO custom_domains(id,project_id,resource_id,hostname,data) VALUES(?,?,?,?,?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "12a28b993fe04293e85e3ff1064b1a3655763ec9a8d91e34f94d10485167f6a4"
+}

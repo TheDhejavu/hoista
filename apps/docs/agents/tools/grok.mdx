@@ -1,0 +1,42 @@
+---
+title: "Grok"
+description: "Connect Grok to your Hoista with a custom connector."
+---
+
+Grok runs in the cloud, so it needs Hoista at an HTTPS address it can reach. Either:
+
+- **Hoista on your computer, through a tunnel or proxy** pointed at port 8788. See [From your computer](/agents/tools/chatgpt#from-your-computer) on the ChatGPT page; the steps are the same.
+- **Hoista on a server:** a [remote](/guides/remote) or a [self-hosted Hoista](/guides/self-host). **Agents → Connect an agent** in the desktop app shows its address.
+
+Your Hoista URL is that address followed by `/mcp`, for example `https://hoista.example.com/mcp`.
+
+## Add Hoista
+
+1. Go to [grok.com/connectors](https://grok.com/connectors).
+2. Choose **New Connector**, then **Custom**.
+3. Paste your Hoista URL and finish signing in.
+
+On Grok Business and Enterprise, a team admin has to add the connector in xAI's console before members can use it.
+
+## Approve it
+
+When Grok connects, Hoista asks you to allow it. On a server, its sign-in page opens: sign in with your passkey. On your computer, a page opens there instead, and Hoista asks for Touch ID or your password. Choose what Grok may do and which projects it can reach, then choose **Authorize**.
+
+Grok connects over HTTP, where Hoista can't ask you questions in the chat, so Hoista offers it only **View only** or **Full access**. **Ask for approval** needs the tool to ask you. Start with **View only**, and widen it later in [Agent permissions](/agents/permissions).
+
+## Check it works
+
+Ask Grok: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+## If it doesn't connect
+
+- **Grok can't reach the URL:** it must be reachable from the internet. Open it in a browser; you should see your Hoista's sign-in page.
+- **To remove it:** remove the connector at grok.com/connectors, then revoke the agent in **Agents** or with `hoist agents revoke`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="ChatGPT" icon="message" href="/agents/tools/chatgpt">Includes reaching Hoista through a tunnel.</Card>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+</CardGroup>

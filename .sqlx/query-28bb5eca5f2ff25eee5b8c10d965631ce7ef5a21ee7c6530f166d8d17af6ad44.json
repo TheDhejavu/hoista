@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE transfer_restores SET status='abandoned' WHERE id=? AND status='staging'",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "28bb5eca5f2ff25eee5b8c10d965631ce7ef5a21ee7c6530f166d8d17af6ad44"
+}

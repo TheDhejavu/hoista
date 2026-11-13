@@ -1,0 +1,331 @@
+/* Drawings of other sites stay light in both themes, as they look in a browser. */
+.browser {
+  overflow: hidden;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px #e6e6e6,
+    0 24px 60px -30px rgb(0 0 0 / 35%);
+  color: #111111;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 40px;
+  border-bottom: 1px solid #e8e8e8;
+  background: #f4f4f4;
+  padding: 0 14px;
+}
+
+.lights {
+  display: flex;
+  gap: 6px;
+}
+
+.lights i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #dadada;
+}
+
+.arrows {
+  font-size: var(--text-lg);
+  color: #9a9a9a;
+}
+
+.address {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  max-width: 520px;
+  height: 26px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px #e4e4e4;
+  font-size: var(--text-sm);
+  color: #555555;
+}
+
+.spacer {
+  width: 60px;
+}
+
+.page {
+  position: relative;
+  height: 430px;
+  overflow: hidden;
+}
+
+.pin {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #111111;
+  box-shadow: 0 0 0 3px #ffffff;
+  font-size: var(--text-sm);
+  color: #ffffff;
+}
+
+.bar,
+.barLight {
+  display: block;
+  border-radius: 4px;
+  background: #e9e9e9;
+}
+
+.barLight {
+  background: #eeeeee;
+}
+
+.header,
+.headerTall {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 18px;
+}
+
+.header {
+  height: 48px;
+}
+
+.headerTall {
+  height: 52px;
+  padding: 0 22px;
+}
+
+.headerLinks {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.header .headerLinks {
+  margin-left: 24px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #e4e4e4;
+}
+
+.signup {
+  width: 340px;
+  margin: 44px auto 0;
+  text-align: center;
+}
+
+.signupTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.signupLine {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto 18px;
+}
+
+.option,
+.primaryOption {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-size: var(--text-md);
+}
+
+.option {
+  box-shadow: inset 0 0 0 1px #e2e2e2;
+}
+
+.primaryOption {
+  box-shadow:
+    0 0 0 2px #111111,
+    0 0 0 6px rgb(17 17 17 / 10%);
+  color: #ffffff;
+}
+
+.pinRight {
+  top: 7px;
+  right: -40px;
+}
+
+.inbox {
+  position: relative;
+  margin-top: 22px;
+  font-size: var(--text-sm);
+  color: #9a9a9a;
+}
+
+.pinInbox {
+  top: -5px;
+  right: -30px;
+}
+
+.tokenLayout {
+  display: flex;
+  height: 382px;
+}
+
+.side {
+  position: relative;
+  box-sizing: border-box;
+  width: 180px;
+  border-right: 1px solid #f0f0f0;
+  background: #fafafa;
+  padding: 14px 10px;
+  font-size: var(--text-sm);
+}
+
+.sideItem,
+.sideOn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+
+.sideOn {
+  background: #efefef;
+}
+
+.pinSide {
+  top: 2px;
+  right: -14px;
+}
+
+.tokenMain {
+  flex: 1;
+  padding: 22px 26px;
+}
+
+.tokenTitle {
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+}
+
+.tokenLine {
+  margin-top: 8px;
+}
+
+.form {
+  position: relative;
+  margin-top: 18px;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  padding: 6px 16px 14px 28px;
+}
+
+.pinForm {
+  top: 14px;
+  left: -13px;
+}
+
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-top: 1px solid #f2f2f2;
+  padding: 9px 0;
+}
+
+.formRow:first-of-type {
+  border-top: none;
+}
+
+.formLabel {
+  width: 110px;
+  font-size: var(--text-sm);
+  color: #777777;
+}
+
+.field,
+.fieldOn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  height: 32px;
+  border-radius: 9px;
+  box-shadow: inset 0 0 0 1px #e2e2e2;
+  padding: 0 12px;
+  font-size: var(--text-sm);
+}
+
+.fieldOn {
+  box-shadow:
+    0 0 0 2px #111111,
+    0 0 0 6px rgb(17 17 17 / 10%);
+}
+
+.formFoot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.create {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  border-radius: 9px;
+  padding: 0 16px;
+  font-size: var(--text-sm);
+  color: #ffffff;
+  box-shadow:
+    0 0 0 2px #111111,
+    0 0 0 6px rgb(17 17 17 / 10%);
+}
+
+.pinCreate {
+  top: -13px;
+  right: -13px;
+}
+
+.token {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  margin-top: 14px;
+  border-radius: 9px;
+  background: #f6f6f6;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.token span {
+  flex: 1;
+}
+
+.token b {
+  font-family: inherit;
+  font-weight: var(--weight-medium);
+}
+
+.fitPage {
+  position: relative;
+}

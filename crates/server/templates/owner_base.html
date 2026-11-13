@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{# A page of the server's own sign-in, with the passkey script. `next` is where
+   it goes once the step is done. #}
+{% block body_attrs %} data-next="{{ next }}"{% endblock %}
+{% block scripts %}
+<script>{% include "assets/owner.js" %}</script>
+{% endblock %}

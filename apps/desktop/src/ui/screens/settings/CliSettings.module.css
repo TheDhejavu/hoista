@@ -1,0 +1,44 @@
+.copy {
+  flex: 2 1 360px;
+  min-width: 0;
+}
+
+.path {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  word-break: break-all;
+}
+
+.pathNote {
+  display: block;
+  margin-top: 2px;
+}
+
+.commands {
+  margin: 0;
+}
+
+.command {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding: 13px 20px;
+}
+
+.command:first-child {
+  border-top: none;
+}
+
+.command dt code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.command dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}

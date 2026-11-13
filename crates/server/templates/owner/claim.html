@@ -1,0 +1,9 @@
+{% extends "owner_base.html" %}
+{% import "parts.html" as parts %}
+{% block content %}
+{% call parts::hoista() %}{% endcall %}
+<div class="card"><h1>Set up this Hoista</h1><p class="sub">Enter the claim code from this server's log, then make a passkey: your fingerprint, face or device PIN. You'll sign in with it from now on.{% if for_app %} Then you'll allow the Hoista app.{% endif %}</p>
+<div class="field"><label for="code">Claim code</label><input id="code" autocomplete="one-time-code" placeholder="ABCD-EFGH-JKLM"></div>
+<button class="go" id="claim">Make a passkey</button><p class="note" id="said" role="status"></p>
+<p class="step-note">Only the person who runs the server can read its log, so only you can set it up.</p></div>
+{% endblock %}

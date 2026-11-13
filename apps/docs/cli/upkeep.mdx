@@ -1,0 +1,217 @@
+---
+title: "Safety and upkeep"
+description: "hoist commands for safety and upkeep."
+---
+
+Backups, changes Hoista didn't hear back about, webhooks, settings and your profile.
+
+## `hoist backups`
+
+Backups of Hoista's state, and moving it to another computer.
+
+```bash
+hoist backups
+```
+
+## `hoist backups now`
+
+Save a backup now.
+
+```bash
+hoist backups now
+```
+
+## `hoist backups restore <NAME>`
+
+Restore a backup into a fresh Hoista.
+
+```bash
+hoist backups restore backup-2026-11-08T0200
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<NAME>` | The backup's name from hoist backups. |
+
+## `hoist backups export <FILE>`
+
+Save everything, sign-ins included, in one encrypted file to move to another computer.
+
+```bash
+hoist backups export ~/hoista.hoista
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<FILE>` | The file to write. It is never overwritten. |
+| `--passphrase-stdin` | Read the passphrase from stdin. |
+
+## `hoist backups import <FILE>`
+
+Bring in a file from hoist backups export.
+
+```bash
+hoist backups import ~/hoista.hoista --check
+hoist backups import ~/hoista.hoista
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<FILE>` | The file. |
+| `--check` | Only check it opens and show what's in it. |
+| `--passphrase-stdin` | Read the passphrase from stdin. |
+
+## `hoist backups recovery`
+
+Imports that stopped partway, after a crash.
+
+```bash
+hoist backups recovery
+```
+
+## `hoist backups abandon <ID>`
+
+Give up an import that stopped partway.
+
+```bash
+hoist backups abandon 7d2f...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<ID>` | Its id from hoist backups recovery. |
+
+## `hoist operations`
+
+Provider operations Hoista started, and checking unclear ones.
+
+```bash
+hoist operations
+```
+
+## `hoist operations check <ID>`
+
+Say whether an operation whose result was lost happened at the provider.
+
+```bash
+hoist operations check 7d2f... --happened
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<ID>` | Operation id from hoist operations. |
+| `--happened` | It happened. |
+| `--did-not-happen` | It didn't happen. |
+
+## `hoist webhooks`
+
+Webhooks Hoista calls when things happen.
+
+```bash
+hoist webhooks
+```
+
+## `hoist webhooks add <URL>`
+
+Add a webhook. Its signing secret is shown once.
+
+```bash
+hoist webhooks add https://example.com/hoista --events deploy.failed,deploy.live -p my-app
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<URL>` | The HTTPS address to call. |
+| `--events <EVENTS>` | Only these events, comma-separated, such as deploy.failed. Default: every event. |
+| `-p, --project <PROJECT>` | Only events about this project. |
+
+## `hoist webhooks remove <ID>`
+
+Remove a webhook.
+
+```bash
+hoist webhooks remove 5a1e...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<ID>` | Webhook id. |
+
+## `hoist webhooks rotate <ID>`
+
+Give a webhook a new signing secret; the old one stops working now.
+
+```bash
+hoist webhooks rotate 5a1e...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<ID>` | Webhook id. |
+
+## `hoist webhooks deliveries <ID>`
+
+Recent calls to a webhook and how they went.
+
+```bash
+hoist webhooks deliveries 5a1e...
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<ID>` | Webhook id. |
+
+## `hoist settings`
+
+Hoista's settings.
+
+```bash
+hoist settings
+```
+
+## `hoist settings get <KEY>`
+
+Print one setting.
+
+```bash
+hoist settings get backup_keep
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<KEY>` | The setting, such as backup_keep. |
+
+## `hoist settings set <KEY> <VALUE>`
+
+Change one setting.
+
+```bash
+hoist settings set backup_keep 30
+hoist settings set agents_enabled false
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `<KEY>` | The setting, such as backup_keep. |
+| `<VALUE>` | Its new value. |
+
+## `hoist profile`
+
+Your name and initials, shown on what you do.
+
+```bash
+hoist profile
+```
+
+## `hoist profile set --name <NAME> --initials <INITIALS>`
+
+Set your name and initials.
+
+```bash
+hoist profile set --name "Sam Rivera" --initials SR
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `--name <NAME>` | Your name. |
+| `--initials <INITIALS>` | Up to three initials. |

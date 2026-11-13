@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT retired FROM environment_admission_keys WHERE reference = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "retired",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "0c06bf89d1456c11d9aa422b7f5941be44b55b69426b89c218e8390cc180eeb1"
+}

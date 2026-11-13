@@ -1,0 +1,49 @@
+.problem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 14px;
+  background: var(--bad-tint);
+  padding: 14px 16px;
+  font-size: var(--text-md);
+  line-height: 1.45;
+}
+
+.statusValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 10px;
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+/* An app row that opens the app: the whole row is the button. */
+.projectRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--line);
+  background: none;
+  padding: 13px 20px;
+  font: inherit;
+  font-size: var(--text-lg);
+  color: var(--text);
+  text-align: left;
+}
+
+.projectRow:hover {
+  background: var(--bg-muted);
+}
+
+.projectRow svg {
+  color: var(--text-4);
+}
+
+.plainValue {
+  font-size: var(--text-md);
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}

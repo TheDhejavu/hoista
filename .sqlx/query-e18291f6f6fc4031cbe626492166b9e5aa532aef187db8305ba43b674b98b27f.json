@@ -1,0 +1,38 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT version, status, cancel_requested, data FROM deploys WHERE project_id = ? AND version < ? ORDER BY version DESC LIMIT 101",
+  "describe": {
+    "columns": [
+      {
+        "name": "version",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "status",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "cancel_requested",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "data",
+        "ordinal": 3,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "e18291f6f6fc4031cbe626492166b9e5aa532aef187db8305ba43b674b98b27f"
+}

@@ -1,0 +1,124 @@
+.card {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+.name {
+  flex: 1;
+  font-size: var(--text-xl);
+}
+
+.facts {
+  margin: 0;
+}
+
+.fact {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 9px 0;
+}
+
+.fact dt {
+  flex: 0 0 92px;
+  color: var(--text-2);
+}
+
+.fact dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.actions > * {
+  width: 100%;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--pill);
+  padding: 0 9px;
+  font-size: var(--text-sm);
+}
+
+.pillBad {
+  background: var(--bad-tint);
+  color: var(--bad-ink);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.warn {
+  background: var(--warn);
+}
+
+.neutral,
+.off {
+  background: var(--text-4);
+}
+
+/* Asked when nothing on the map connects to the selected resource. */
+.ask {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--pill);
+}
+
+.askTitle {
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.askWhy {
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}

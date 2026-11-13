@@ -1,0 +1,117 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid color-mix(in srgb, var(--bad) 30%, transparent);
+  border-radius: 16px;
+  background: var(--bad-tint);
+  padding: 14px 18px 14px 16px;
+}
+
+.bannerIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line-strong);
+  color: var(--bad);
+}
+
+.bannerText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bannerText b {
+  font-weight: var(--weight-medium);
+}
+
+.bannerText > span {
+  color: var(--text-2);
+}
+
+.bannerText :global(.mono) {
+  font-size: var(--text-sm);
+}
+
+.deployRow {
+  min-height: 55px;
+}
+
+.deployText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.deployMeta {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+  padding: 16px;
+}
+
+.keyName {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--text-sm);
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  padding: 0 13px;
+  color: var(--text);
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.hint {
+  margin: 8px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.formActions button {
+  height: 36px;
+  font-size: var(--text-md);
+}
+
+/* The right column: the fix, when there is one, above the recent deploys. */
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}

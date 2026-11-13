@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT project_id FROM resources WHERE id=?",
+  "describe": {
+    "columns": [
+      {
+        "name": "project_id",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "915459b50ee91d52ead258e5fa4963dbf8f97e9cfbec9c26c9cd3d42d29db3a4"
+}

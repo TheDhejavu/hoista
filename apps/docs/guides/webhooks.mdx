@@ -1,0 +1,65 @@
+---
+title: "Webhooks"
+description: "Send signed events to a receiver you run, such as a background agent."
+---
+
+A webhook sends Hoista events to an HTTPS address you control. Use one to wake a background agent when a deployment finishes or an approval is waiting, without keeping a chat open.
+
+## Add a webhook
+
+In Desktop, open **Settings → Webhooks** and choose **Add a webhook**. Enter the **Address**, choose which events to **Send** and which project it's **For**, then choose **Add webhook**. Copy the signing secret right away. Hoista shows it only once.
+
+From the CLI:
+
+```bash
+hoist webhooks add https://agent.example.com/hoista --events deploy.*,approval.created --project PROJECT_ID
+hoist webhooks
+```
+
+Name single events such as `deploy.succeeded`, or a family such as `deploy.*`. Leave out `--events` to get every event. A webhook receives events from the moment you add it.
+
+The address must be public HTTPS. Hoista won't send to this computer, a private network or a link-local address, and it doesn't follow redirects. It looks up the address again before every delivery.
+
+## Verify each delivery
+
+Each delivery is a `POST` with a JSON body and these headers:
+
+| Header | Meaning |
+| --- | --- |
+| `Hoista-Event-Id` | The event's ID. It stays the same on every retry. |
+| `Hoista-Delivery-Id` | This delivery's ID. |
+| `Hoista-Signature` | `t=UNIX_SECONDS,v1=HEX_SIGNATURE` |
+
+In your receiver:
+
+1. Split `Hoista-Signature` into `t` and `v1`.
+2. Compute the HMAC-SHA256 of `t`, a dot and the raw request body, using the secret, as hex. Compare it with `v1` in constant time.
+3. Reject the delivery if `t` is more than five minutes from now.
+4. Skip it if you've already handled that `Hoista-Event-Id`.
+5. Return a 2xx status within 10 seconds.
+
+Verify against the raw body before you parse the JSON.
+
+## Retries and failures
+
+If a delivery doesn't get a 2xx response, Hoista tries again after 30 seconds, 2 minutes, 10 minutes, 1 hour and 6 hours. After that it marks the delivery as failed. In Desktop, choose **Deliveries** on a webhook to see each attempt.
+
+```bash
+hoist webhooks deliveries WEBHOOK_ID
+hoist webhooks rotate WEBHOOK_ID
+hoist webhooks remove WEBHOOK_ID
+```
+
+In Desktop, the ⋮ menu on a webhook has **New secret** and **Remove**. Rotating creates a new secret and the old one stops working at once, so update your receiver at the same time. Removing a webhook also deletes its delivery history.
+
+## What an event allows
+
+An event only tells your receiver that something happened. To act on it, the agent connects through the [MCP server](/agents/connect) with its own access, and the normal [approvals](/security/approvals) apply. Only you can add, rotate or remove webhooks. Agents can't.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Connect an agent" icon="plug" href="/agents/connect">Every tool, and how each connects.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Data protection" icon="database" href="/security/data-protection">What Hoista stores and where.</Card>
+</CardGroup>

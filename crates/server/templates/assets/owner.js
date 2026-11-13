@@ -1,0 +1,16 @@
+const b=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')+'==='.slice((s.length+3)%4)),c=>c.charCodeAt(0));
+const s=a=>btoa(String.fromCharCode(...new Uint8Array(a))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const say=t=>{document.getElementById('said').textContent=t};
+async function post(p,v){const r=await fetch(p,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(v)});const j=await r.json().catch(()=>({message:'Something went wrong.'}));if(!r.ok)throw new Error(j.message||'Something went wrong.');return j}
+async function make(o,name){const c=await navigator.credentials.create({publicKey:{challenge:b(o.challenge),rp:o.rp,user:{id:b(o.user.id),name:o.user.name,displayName:o.user.displayName},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-8}],authenticatorSelection:{residentKey:'preferred',userVerification:'required'},attestation:'none',excludeCredentials:(o.exclude||[]).map(id=>({type:'public-key',id:b(id)}))}});
+ const r=c.response;await post('/owner/register',{challenge:o.challenge,registration:{id:s(c.rawId),client_data:s(r.clientDataJSON),authenticator_data:s(r.getAuthenticatorData()),public_key:s(r.getPublicKey()),alg:r.getPublicKeyAlgorithm(),name}})}
+async function signIn(){const o=await post('/owner/sign-in/options',{});const c=await navigator.credentials.get({publicKey:{challenge:b(o.challenge),rpId:o.rp_id,userVerification:'required',allowCredentials:o.allow.map(id=>({type:'public-key',id:b(id)}))}});
+ const r=c.response;await post('/owner/sign-in',{challenge:o.challenge,assertion:{id:s(c.rawId),client_data:s(r.clientDataJSON),authenticator_data:s(r.authenticatorData),signature:s(r.signature)}})}
+const deviceName=()=>{const u=navigator.userAgent;const os=/iPhone/.test(u)?'iPhone':/iPad/.test(u)?'iPad':/Android/.test(u)?'Android':/Mac/.test(u)?'Mac':/Windows/.test(u)?'Windows':/Linux/.test(u)?'Linux':'this device';const br=/Edg\//.test(u)?'Edge':/Firefox\//.test(u)?'Firefox':/Chrome\//.test(u)?'Chrome':/Safari\//.test(u)?'Safari':'';return br?`${br} on ${os}`:os};
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent);b.textContent='Copied';setTimeout(()=>{b.textContent='Copy'},1500)}catch{b.textContent='Select and copy'}}));
+function wire(id,work,busy){const btn=document.getElementById(id);if(!btn)return;btn.addEventListener('click',async e=>{e.preventDefault();const was=btn.textContent;btn.disabled=true;btn.textContent=busy;say('');try{await work();location.href=document.body.dataset.next||'/'}catch(err){say(err.message||String(err));btn.disabled=false;btn.textContent=was}})}
+{const h=new URLSearchParams(location.hash.slice(1));const c=h.get('code');const el=document.getElementById('code');if(c&&el){el.value=c;history.replaceState(null,'',location.pathname+location.search)}}
+wire('claim',async()=>{const o=await post('/owner/claim',{code:document.getElementById('code').value});await make(o,deviceName())},'Waiting for your passkey');
+wire('signin',signIn,'Waiting for your passkey');
+wire('add',async()=>{const o=await post('/owner/add',{});await make(o,deviceName())},'Waiting for your passkey');
+wire('signout',async()=>{await post('/owner/sign-out',{})},'Signing out');

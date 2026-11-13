@@ -1,0 +1,332 @@
+.mascot {
+  display: block;
+  flex: none;
+  overflow: visible;
+  color: var(--mascot-ink, var(--brand));
+}
+
+.mascot * {
+  transform-box: fill-box;
+}
+
+/* Standing: a slow breath, with a glance and a blink. */
+.breathe {
+  transform-origin: 50% 100%;
+  animation: breathe 3.2s ease-in-out infinite;
+}
+
+.mascot[data-mood='idle'] .eyes {
+  transform-origin: 50% 50%;
+  animation: look 3.2s ease-in-out infinite;
+}
+
+/* Loading: squash on landing, stretch on take-off. */
+.hop {
+  transform-origin: 50% 100%;
+  animation: hop 0.9s cubic-bezier(0.33, 0, 0.4, 1) infinite;
+}
+
+/* Deploying: lifted on the hook, swaying from where the rope starts. */
+.swing {
+  transform-box: view-box;
+  transform-origin: 50px -20px;
+  animation: swing 2.4s ease-in-out infinite;
+}
+
+.rise {
+  animation: rise 2.4s ease-in-out infinite alternate;
+}
+
+/* Done: one jump, sparks from the hands. */
+.jump {
+  animation: jump 1.4s cubic-bezier(0.3, 0, 0.4, 1) infinite;
+}
+
+.sparks {
+  transform-origin: 50% 50%;
+  animation: spark 1.4s ease-out infinite;
+}
+
+/* Empty: pops up over the line, looks around, ducks. */
+.peek {
+  animation: peek 3.2s cubic-bezier(0.4, 0, 0.3, 1) infinite;
+}
+
+.mascot[data-mood='empty'] .eyes {
+  animation: glance 3.2s ease-in-out infinite;
+}
+
+/* Hello: the right arm waves from the shoulder. */
+.wave {
+  transform-box: view-box;
+  transform-origin: 81px 66px;
+  animation: wave 1.8s ease-in-out infinite;
+}
+
+/* Asleep: z's drift up and fade. */
+.z {
+  opacity: 0;
+  animation: drift 2.6s ease-out infinite;
+}
+
+.later {
+  animation-delay: 1.3s;
+}
+
+/* Failed: the bar slips, then a shake. */
+.drop {
+  transform-origin: 50% 50%;
+  animation: drop 2.6s cubic-bezier(0.5, 0, 0.8, 0.4) infinite;
+}
+
+.shake {
+  animation: shake 2.6s ease-in-out infinite;
+}
+
+.still *,
+.still {
+  animation: none !important;
+}
+
+.still .z {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot,
+  .mascot * {
+    animation: none !important;
+  }
+
+  .mascot .z {
+    opacity: 1;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+
+  50% {
+    transform: scale(1.02, 0.98);
+  }
+}
+
+@keyframes look {
+  0%,
+  30% {
+    transform: translateX(0) scaleY(1);
+  }
+
+  40%,
+  60% {
+    transform: translateX(2.5px) scaleY(1);
+  }
+
+  70%,
+  90% {
+    transform: translateX(0) scaleY(1);
+  }
+
+  94% {
+    transform: translateX(0) scaleY(0.1);
+  }
+
+  98%,
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+}
+
+@keyframes hop {
+  0% {
+    transform: translateY(0) scale(1.1, 0.9);
+  }
+
+  20% {
+    transform: translateY(0) scale(0.94, 1.06);
+  }
+
+  50% {
+    transform: translateY(-18px) scale(1, 1);
+  }
+
+  78% {
+    transform: translateY(0) scale(1, 1);
+  }
+
+  90%,
+  100% {
+    transform: translateY(0) scale(1.1, 0.9);
+  }
+}
+
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(10px);
+  }
+
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes jump {
+  0%,
+  45%,
+  100% {
+    transform: translateY(0);
+  }
+
+  22% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes spark {
+  0%,
+  12% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  26% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  48%,
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes peek {
+  0%,
+  12% {
+    transform: translateY(36px);
+  }
+
+  32%,
+  76% {
+    transform: translateY(0);
+  }
+
+  96%,
+  100% {
+    transform: translateY(36px);
+  }
+}
+
+@keyframes glance {
+  0%,
+  40% {
+    transform: translateX(0);
+  }
+
+  48%,
+  56% {
+    transform: translateX(-3px);
+  }
+
+  64%,
+  72% {
+    transform: translateX(3px);
+  }
+
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+
+  15%,
+  45% {
+    transform: rotate(18deg);
+  }
+
+  30% {
+    transform: rotate(-4deg);
+  }
+}
+
+@keyframes drift {
+  0% {
+    opacity: 0;
+    transform: translate(0, 6px);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(7px, -16px);
+  }
+}
+
+@keyframes drop {
+  0%,
+  40% {
+    transform: translateY(0) rotate(0);
+  }
+
+  52%,
+  100% {
+    transform: translateY(80px) rotate(14deg);
+  }
+}
+
+@keyframes shake {
+  0%,
+  52%,
+  100% {
+    transform: translateX(0);
+  }
+
+  58% {
+    transform: translateX(-5px);
+  }
+
+  64% {
+    transform: translateX(5px);
+  }
+
+  70% {
+    transform: translateX(-4px);
+  }
+
+  76% {
+    transform: translateX(4px);
+  }
+
+  82% {
+    transform: translateX(-2px);
+  }
+
+  88% {
+    transform: translateX(0);
+  }
+}

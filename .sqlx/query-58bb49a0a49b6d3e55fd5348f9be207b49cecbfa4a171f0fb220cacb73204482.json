@@ -1,0 +1,38 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT data, version, status, cancel_requested FROM deploys WHERE project_id = ? AND EXISTS (SELECT 1 FROM json_each(deploys.data, '$.releases') WHERE json_extract(value, '$.resource_id') = ?) ORDER BY version DESC LIMIT 1",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "version",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "status",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "cancel_requested",
+        "ordinal": 3,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "58bb49a0a49b6d3e55fd5348f9be207b49cecbfa4a171f0fb220cacb73204482"
+}

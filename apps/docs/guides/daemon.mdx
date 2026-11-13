@@ -1,0 +1,51 @@
+---
+title: "Keep Hoista running"
+description: "The hoistd daemon and starting it when you sign in."
+---
+
+Hoista's engine is a background process called the daemon (`hoistd`). Desktop, the CLI (`hoist`) and your agents all talk to it. Agents can reach Hoista only while the daemon is running.
+
+## Start it when you sign in
+
+In Desktop, open **Settings → General** and set **Open at login** to **In the menu bar**. Hoista starts with your session and stays in the menu bar when you close its window.
+
+To run the daemon without Desktop, install it as a per-user service:
+
+```bash
+hoist service install --dry-run
+hoist service install
+hoist service status
+```
+
+`--dry-run` prints the service definition so you can read it before installing. The service uses launchd on macOS, a systemd user service on Linux and Task Scheduler on Windows. It runs as you, from the `hoistd` next to your `hoist` binary. Install both in a location that won't move.
+
+To restart or remove the service:
+
+```bash
+hoist service restart
+hoist service uninstall
+```
+
+Uninstalling the service stops Hoista starting with your session. Your projects keep running at their providers.
+
+## Check and restart the daemon
+
+```bash
+hoist start
+hoist daemon status
+hoist daemon restart
+```
+
+Every `hoist` command starts the daemon if it isn't running. `hoist daemon restart` lets running work finish before the new process takes over. Restart after you change tool locations with `hoist tools configure`. If something still looks wrong, run `hoist doctor` and see [Supported platforms](/getting-started/support#when-something-breaks).
+
+## When your computer is off
+
+The daemon runs on your computer. When the computer sleeps, shuts down or goes offline, agents can't reach Hoista. To keep Hoista reachable all the time, run it in your own cloud account as a [remote](/guides/remote).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Install Hoista" icon="download" href="/getting-started/install">Install the CLI, the daemon and Desktop.</Card>
+<Card title="Configuration" icon="gear" href="/reference/configuration">Files, settings and environment variables.</Card>
+</CardGroup>

@@ -1,0 +1,163 @@
+.card {
+  flex-shrink: 0;
+  align-self: flex-start;
+  width: 300px;
+  box-sizing: border-box;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 18px 18px 8px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+}
+
+.head h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+.count {
+  margin-left: auto;
+  color: var(--text-4);
+}
+
+.bars {
+  display: flex;
+  gap: 4px;
+  margin: 10px 0 6px;
+}
+
+.bars i {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--pill);
+}
+
+.bars .on {
+  background: var(--text);
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--line);
+  background: none;
+  padding: 12px 0;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+}
+
+.badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: var(--text-xs);
+}
+
+.done {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.now {
+  box-shadow: inset 0 0 0 1.5px var(--text);
+}
+
+.later {
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+  color: var(--text-4);
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--weight-medium);
+}
+
+.done + .text .title {
+  color: var(--text-4);
+  text-decoration: line-through;
+}
+
+.sub {
+  display: block;
+  overflow: hidden;
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.start {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--text);
+  padding: 0 12px;
+  font-size: var(--text-sm);
+  color: var(--bg);
+}
+
+/* The optional agent section under the steps. */
+.agent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--line);
+  padding: 14px 0 10px;
+}
+
+.agent .sub {
+  white-space: normal;
+}
+
+.optional {
+  font-size: var(--text-xs);
+  color: var(--text-4);
+}
+
+.agentActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.agentLink {
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.hide {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--line);
+  background: none;
+  padding: 10px 0;
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+  cursor: pointer;
+}

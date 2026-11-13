@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="en-l" viewBox="0 0 1280 576" width="1280" height="576" role="img" aria-labelledby="en-l-t en-l-d">
+<title id="en-l-t">Environments</title><desc id="en-l-d">Projects sit in one environment each, such as default or production. Provider accounts, agents, settings and billing are shared by every environment.</desc>
+<style>#en-l text{font-family:Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Arial, sans-serif;fill:#111111}#en-l .headline{font-size:30px;font-weight:600;letter-spacing:-0.75px}#en-l .h2{fill:#6b6b6b}#en-l .brand{font-size:19px;font-weight:600;letter-spacing:-0.2px}#en-l .col{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11px;fill:#9a9a9a;letter-spacing:0.08em}#en-l .eyebrow{font-size:12.5px;fill:#8f8f8f}#en-l .title{font-size:17px;font-weight:600;letter-spacing:-0.3px}#en-l .title-lg{font-size:20px;font-weight:600;letter-spacing:-0.4px}#en-l .detail{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12.5px;fill:#737373}#en-l .glyph{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:13px;font-weight:600;fill:#4a4a4a}#en-l .note{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#888888}#en-l .note-h{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;font-weight:600;fill:#111111;letter-spacing:0.06em}#en-l .zl{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:11.5px;fill:#8a8a8a}#en-l .pill-t{font-family:'Geist Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;font-size:12px;fill:#555555}#en-l .sheet{fill:#ffffff;stroke:#e4e4e7}#en-l .card{fill:#ffffff;stroke:#e3e3e3}#en-l .hoistd{fill:#ffffff;stroke:#111111;stroke-width:1.4}#en-l .ring{fill:none;stroke:rgba(0,0,0,0.04);stroke-width:8}#en-l .tile{fill:#f5f5f5;stroke:#e6e6e6}#en-l .chip{fill:#f0f0f0;stroke:#e2e2e2}#en-l .pill{fill:#ffffff;stroke:#e3e3e3}#en-l .zone{fill:#fafafa;stroke:#cfcfcf;stroke-dasharray:5 4}#en-l .dot{fill:#dcdcdc}#en-l .badge{fill:#111111}#en-l .ink{fill:#ffffff}#en-l .eye{fill:#111111}#en-l .ic{fill:none;stroke:#4a4a4a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#en-l .logo{fill:#7a7a7a}#en-l .link{fill:none;stroke:#c2c2c2;stroke-width:1.4;stroke-linejoin:round}#en-l .dash{stroke-dasharray:5 4}#en-l .head{fill:none;stroke:#9a9a9a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#en-l .rule{stroke:#e4e4e7;stroke-dasharray:4 4}</style>
+<defs><g id="en-l-mascot"><g fill="#ffffff"><rect x="25" y="6" width="50" height="12" rx="6"/><rect x="8" y="24" width="22" height="58" rx="11"/><rect x="70" y="24" width="22" height="58" rx="11"/><circle cx="50" cy="53" r="22"/><rect x="8" y="53" width="84" height="25" rx="6"/><rect x="8" y="58" width="30" height="36" rx="15"/><rect x="62" y="58" width="30" height="36" rx="15"/></g><g fill="#111111"><rect x="41" y="43" width="6.5" height="11" rx="3.25" transform="rotate(-10 44 48)"/><rect x="52.5" y="41" width="6.5" height="11" rx="3.25" transform="rotate(-10 56 46)"/></g></g><marker id="en-l-open" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M3.5 1.8 10.5 6 3.5 10.2" class="head"/></marker><filter id="en-l-lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.04"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.05"/></filter><filter id="en-l-lift2" x="-15%" y="-25%" width="130%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.10"/></filter></defs>
+<rect x="0.5" y="0.5" width="1279" height="575" rx="20" class="sheet"/>
+<rect x="48" y="112" width="600" height="196" rx="16" class="zone"/>
+<text x="68" y="138" class="zl">environment · default</text>
+<rect x="48" y="332" width="600" height="196" rx="16" class="zone"/>
+<text x="68" y="358" class="zl">environment · production</text>
+<rect x="780" y="112" width="452" height="416" rx="16" class="zone"/>
+<text x="800" y="138" class="zl">the same in every environment</text>
+<path d="M648 210 L714 210 L714 430 L648 430" class="link"/>
+<path d="M714 320 L777 320" class="link" marker-end="url(#en-l-open)"/>
+<rect x="68" y="164" width="270" height="106" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="88" y="184" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(96 192)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
+<text x="136" y="197" class="eyebrow">Project</text>
+<text x="136" y="220" class="title">moodboard</text>
+<text x="136" y="246" class="detail">Cloudflare · Neon</text>
+<rect x="358" y="164" width="270" height="106" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="378" y="184" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(386 192)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
+<text x="426" y="197" class="eyebrow">Project</text>
+<text x="426" y="220" class="title">waitlist-v2</text>
+<text x="426" y="246" class="detail">Cloudflare</text>
+<rect x="68" y="384" width="270" height="106" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="88" y="404" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(96 412)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
+<text x="136" y="417" class="eyebrow">Project</text>
+<text x="136" y="440" class="title">portfolio-api</text>
+<text x="136" y="466" class="detail">Railway · Supabase</text>
+<rect x="358" y="384" width="270" height="106" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="378" y="404" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(386 412)"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></g>
+<text x="426" y="417" class="eyebrow">Project</text>
+<text x="426" y="440" class="title">cron-worker</text>
+<text x="426" y="466" class="detail">Railway</text>
+<rect x="800" y="160" width="412" height="106" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="820" y="180" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(828 188)"><path d="M5 13.5V2.8M2.6 5.2 5 2.8l2.4 2.4M11 2.5v10.7M8.6 10.8l2.4 2.4 2.4-2.4"/></g>
+<text x="868" y="193" class="eyebrow">Connected once</text>
+<text x="868" y="216" class="title">Your accounts</text>
+<text x="868" y="242" class="detail">Cloudflare · Neon · Railway · Supabase</text>
+<rect x="800" y="282" width="412" height="111" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="820" y="302" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(828 310)"><path d="M8 2.2 9.3 6.7 13.8 8 9.3 9.3 8 13.8 6.7 9.3 2.2 8 6.7 6.7z"/></g>
+<text x="868" y="324" class="title">Agents and settings</text>
+<text x="868" y="350" class="detail">an agent can be limited to</text>
+<text x="868" y="369" class="detail">some environments</text>
+<rect x="800" y="411" width="412" height="92" rx="12" class="card" filter="url(#en-l-lift)"/>
+<rect x="820" y="431" width="32" height="32" rx="8" class="tile"/>
+<g class="ic" transform="translate(828 439)"><path d="M10.8 5.1C10.3 4.1 9.3 3.6 8 3.6c-1.6 0-2.7.8-2.7 2 0 2.9 5.5 1.5 5.5 4.6 0 1.3-1.2 2.2-2.8 2.2-1.4 0-2.4-.6-2.9-1.6M8 2v12"/></g>
+<text x="868" y="453" class="title">Billing</text>
+<text x="868" y="479" class="detail">per account, not per project</text>
+<rect x="48.0" y="38" width="201.9" height="44" rx="10" class="chip"/>
+<text x="59.0" y="70" class="headline">Environments</text>
+<rect x="1103.7" y="46.0" width="26" height="26" rx="7.0" class="badge"/><g transform="translate(1106.38 48.66) scale(0.2068)"><use href="#en-l-mascot"/></g>
+<text x="1139.7" y="65" class="brand">hoista.dev</text>
+<rect x="688.6" y="308" width="50.8" height="24" rx="7" class="pill"/><text x="714" y="324.2" class="pill-t" text-anchor="middle">uses</text>
+</svg>

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO oauth_clients(id,data) SELECT ?,? WHERE (SELECT count(*) FROM oauth_clients) < 1000",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "ca1cde41c83a5ac94d2c1982395409e1d7b5b0285c3c9d101bdc17d2d472130a"
+}

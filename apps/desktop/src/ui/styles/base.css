@@ -1,0 +1,179 @@
+/* Page-wide defaults. Component styles live next to each component. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-system);
+  font-size: var(--text-md);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  /* Like a native project, labels and buttons aren't selectable; content that people copy is. */
+  user-select: none;
+}
+
+/* On macOS the window is translucent, so the sidebar shows the desktop through it. */
+html[data-os='darwin'] body {
+  background: transparent;
+}
+
+input,
+textarea,
+pre,
+code,
+.mono,
+.selectable {
+  user-select: text;
+}
+
+a {
+  color: inherit;
+}
+
+/* Desktop apps show the arrow over buttons, not a hand, and nothing drags out as an image. */
+button,
+select,
+summary {
+  cursor: default;
+}
+
+img,
+svg,
+a {
+  -webkit-user-drag: none;
+}
+
+/* Title bars drag the window on macOS; controls inside them must stay clickable. */
+a,
+button,
+input,
+select,
+textarea,
+[role='menu'] {
+  -webkit-app-region: no-drag;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  outline-offset: 2px;
+}
+
+/* Focus rings are for the keyboard. After a click (or when focus comes back
+   to a tab or button once a dialog closes), the browser can still decide to
+   show one; while the mouse is in use, it doesn't. Text fields keep theirs. */
+html[data-input='pointer'] :focus-visible:not(input, textarea, select, [contenteditable]) {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: var(--line-strong);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Weights, as native apps use them: text is regular; names, headers and
+   bold words inside a sentence are medium; only large titles and figures
+   are semibold. Browsers make headings, <b> and table headers bold (700)
+   unless told otherwise. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong {
+  font-weight: var(--weight-medium);
+}
+
+th {
+  font-weight: inherit;
+}
+
+/* Numbers that line up in columns. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Shared motion. Screens and floating things use these; see tokens.css for timing. */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Fields whose choices say what they are ("All statuses", "Sort by cost"): labels stay for screen readers only. */
+.quiet-labels label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Read by screen readers, not shown. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

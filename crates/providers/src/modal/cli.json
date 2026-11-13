@@ -1,0 +1,2764 @@
+{
+ "cli": "modal",
+ "version": "1.6.3",
+ "source": "modal 1.6.3 command tree",
+ "commands": [
+  {
+   "name": "modal app history",
+   "words": [
+    "app",
+    "history"
+   ],
+   "area": "Apps",
+   "risk": "read",
+   "description": "Show an App's deployment history.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "App identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal app info",
+   "words": [
+    "app",
+    "info"
+   ],
+   "area": "Apps",
+   "risk": "read",
+   "description": "Show an App's lifecycle, Functions, and Servers.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "App identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal app list",
+   "words": [
+    "app",
+    "list"
+   ],
+   "area": "Apps",
+   "risk": "read",
+   "description": "List Apps that are running, deployed or recently stopped.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show at most N results."
+    }
+   ]
+  },
+  {
+   "name": "modal app logs",
+   "words": [
+    "app",
+    "logs"
+   ],
+   "area": "Apps",
+   "risk": "read",
+   "description": "Fetch or stream App logs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "App identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range; accepts same argument types as --since."
+    },
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show only the last N log entries."
+    },
+    {
+     "name": "search",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by search text."
+    },
+    {
+     "name": "function",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by Function ID (fu-*)."
+    },
+    {
+     "name": "function-call",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by FunctionCall ID (fc-*)."
+    },
+    {
+     "name": "container",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by Container ID (ta-*)."
+    },
+    {
+     "name": "source",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by source: 'stdout', 'stderr', or 'system'."
+    },
+    {
+     "name": "timestamps",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its timestamp."
+    },
+    {
+     "name": "show-function-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Function ID."
+    },
+    {
+     "name": "show-function-call-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its FunctionCall ID."
+    },
+    {
+     "name": "show-container-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Container ID."
+    }
+   ]
+  },
+  {
+   "name": "modal app rollback",
+   "words": [
+    "app",
+    "rollback"
+   ],
+   "area": "Apps",
+   "risk": "change",
+   "description": "Redeploy a previous version of an App.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "App identifier."
+    },
+    {
+     "name": "version",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "path": false,
+     "description": "Version."
+    }
+   ],
+   "flags": [
+    {
+     "name": "strategy",
+     "kind": "choice",
+     "choices": [
+      "rolling",
+      "recreate"
+     ],
+     "many": false,
+     "path": false,
+     "description": "Strategy for rollback."
+    }
+   ]
+  },
+  {
+   "name": "modal app rollover",
+   "words": [
+    "app",
+    "rollover"
+   ],
+   "area": "Apps",
+   "risk": "change",
+   "description": "Redeploy an App to get new containers without code changes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "App identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "strategy",
+     "kind": "choice",
+     "choices": [
+      "rolling",
+      "recreate"
+     ],
+     "many": false,
+     "path": false,
+     "description": "Strategy for rollover."
+    }
+   ]
+  },
+  {
+   "name": "modal app stop",
+   "words": [
+    "app",
+    "stop"
+   ],
+   "area": "Apps",
+   "risk": "destroy",
+   "description": "Permanently stop an App and terminate its running containers.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "App identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal deploy",
+   "words": [
+    "deploy"
+   ],
+   "area": "Apps",
+   "risk": "change",
+   "description": "Deploy a Modal application. Redeploys an app Hoista watches; for a first deploy use create_project_at_host with folder.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "app_ref",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": true,
+     "description": "App ref."
+    }
+   ],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Name of the deployment."
+    },
+    {
+     "name": "tag",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Tag the deployment with a version."
+    },
+    {
+     "name": "timestamps",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show timestamps for each log line."
+    },
+    {
+     "name": "strategy",
+     "kind": "choice",
+     "choices": [
+      "rolling",
+      "recreate"
+     ],
+     "many": false,
+     "path": false,
+     "description": "Deployment strategy."
+    },
+    {
+     "name": "staged",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": ""
+    }
+   ]
+  },
+  {
+   "name": "modal billing rates",
+   "words": [
+    "billing",
+    "rates"
+   ],
+   "area": "Billing",
+   "risk": "read",
+   "description": "Return current pricing rates.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal billing report",
+   "words": [
+    "billing",
+    "report"
+   ],
+   "area": "Billing",
+   "risk": "read",
+   "description": "Generate a billing report for the workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "start",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start date."
+    },
+    {
+     "name": "end",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End date."
+    },
+    {
+     "name": "for",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Convenience range: today, yesterday, this week, last week, this month, last month."
+    },
+    {
+     "name": "resolution",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Time resolution: 'd' (daily) or 'h' (hourly)."
+    },
+    {
+     "name": "tz",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Timezone for date interpretation: 'local', offset (5, -4, +05:30), or IANA name."
+    },
+    {
+     "name": "tag-names",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Comma-separated list of tag names to include."
+    },
+    {
+     "name": "show-resources",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Further break down usage by resource type."
+    }
+   ]
+  },
+  {
+   "name": "modal billing summary",
+   "words": [
+    "billing",
+    "summary"
+   ],
+   "area": "Billing",
+   "risk": "read",
+   "description": "Generate a billing summary for the workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "for",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "What cycle to show a summary for."
+    }
+   ]
+  },
+  {
+   "name": "modal container list",
+   "words": [
+    "container",
+    "list"
+   ],
+   "area": "Containers",
+   "risk": "read",
+   "description": "List all containers that are currently running.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "app-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "List containers running for a specific App."
+    }
+   ]
+  },
+  {
+   "name": "modal container logs",
+   "words": [
+    "container",
+    "logs"
+   ],
+   "area": "Containers",
+   "risk": "read",
+   "description": "Fetch or stream logs for a specific container.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "container_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Container id."
+    }
+   ],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show all logs for the container."
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range; accepts same argument types as --since."
+    },
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show only the last N log entries."
+    },
+    {
+     "name": "search",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by search text."
+    },
+    {
+     "name": "source",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by source: 'stdout', 'stderr', or 'system'."
+    },
+    {
+     "name": "timestamps",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its timestamp."
+    }
+   ]
+  },
+  {
+   "name": "modal container stop",
+   "words": [
+    "container",
+    "stop"
+   ],
+   "area": "Containers",
+   "risk": "destroy",
+   "description": "Terminate a running container.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "container_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Container id."
+    }
+   ],
+   "flags": [
+    {
+     "name": "graceful",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Let the container finish its current inputs before exiting, instead of cancelling them."
+    }
+   ]
+  },
+  {
+   "name": "modal dict clear",
+   "words": [
+    "dict",
+    "clear"
+   ],
+   "area": "Dicts",
+   "risk": "destroy",
+   "description": "Clear the contents of a named Dict by deleting all of its data.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal dict create",
+   "words": [
+    "dict",
+    "create"
+   ],
+   "area": "Dicts",
+   "risk": "change",
+   "description": "Create a named Dict object.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal dict delete",
+   "words": [
+    "dict",
+    "delete"
+   ],
+   "area": "Dicts",
+   "risk": "destroy",
+   "description": "Delete a named Dict and all of its data.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "allow-missing",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Don't error if the Dict doesn't exist."
+    }
+   ]
+  },
+  {
+   "name": "modal dict get",
+   "words": [
+    "dict",
+    "get"
+   ],
+   "area": "Dicts",
+   "risk": "read",
+   "description": "Print the value for a specific key.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    },
+    {
+     "name": "key",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Key."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal dict items",
+   "words": [
+    "dict",
+    "items"
+   ],
+   "area": "Dicts",
+   "risk": "read",
+   "description": "Print the contents of a Dict.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    },
+    {
+     "name": "n",
+     "many": false,
+     "kind": "integer",
+     "required": false,
+     "path": false,
+     "description": "N."
+    }
+   ],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Ignore N and print all entries in the Dict (may be slow)."
+    },
+    {
+     "name": "repr",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Display items using `repr()` to see more details."
+    }
+   ]
+  },
+  {
+   "name": "modal dict list",
+   "words": [
+    "dict",
+    "list"
+   ],
+   "area": "Dicts",
+   "risk": "read",
+   "description": "List all named Dicts.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal endpoint info",
+   "words": [
+    "endpoint",
+    "info"
+   ],
+   "area": "Endpoints",
+   "risk": "read",
+   "description": "Show details about an Endpoint, such as the model, URL, and status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "endpoint_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Endpoint identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal endpoint list",
+   "words": [
+    "endpoint",
+    "list"
+   ],
+   "area": "Endpoints",
+   "risk": "read",
+   "description": "List Endpoints that are provisioning or running in an environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal endpoint logs",
+   "words": [
+    "endpoint",
+    "logs"
+   ],
+   "area": "Endpoints",
+   "risk": "read",
+   "description": "Fetch or stream logs for a dedicated Endpoint.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "endpoint_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Endpoint identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range; accepts the same argument types as --since."
+    },
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show only the last N log entries."
+    },
+    {
+     "name": "search",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by search text."
+    },
+    {
+     "name": "container",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by Container ID (ta-*)."
+    },
+    {
+     "name": "source",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by source: 'stdout', 'stderr', or 'system'."
+    },
+    {
+     "name": "timestamps",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its timestamp."
+    },
+    {
+     "name": "show-server-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Server ID."
+    },
+    {
+     "name": "show-container-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Container ID."
+    }
+   ]
+  },
+  {
+   "name": "modal endpoint stats",
+   "words": [
+    "endpoint",
+    "stats"
+   ],
+   "area": "Endpoints",
+   "risk": "read",
+   "description": "Show aggregate Server statistics for a dedicated Endpoint.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "endpoint_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Endpoint identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range."
+    },
+    {
+     "name": "container-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Compute the stats only for this container."
+    }
+   ]
+  },
+  {
+   "name": "modal endpoint stop",
+   "words": [
+    "endpoint",
+    "stop"
+   ],
+   "area": "Endpoints",
+   "risk": "destroy",
+   "description": "Permanently stop an Endpoint and terminate any running containers.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "endpoint_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Endpoint identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal environment list",
+   "words": [
+    "environment",
+    "list"
+   ],
+   "area": "Environments",
+   "risk": "read",
+   "description": "List all Environments in the current Workspace.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal function autoscaler settings",
+   "words": [
+    "function",
+    "autoscaler",
+    "settings"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Show the current Autoscaling settings for the provided Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal function autoscaler update",
+   "words": [
+    "function",
+    "autoscaler",
+    "update"
+   ],
+   "area": "Functions",
+   "risk": "change",
+   "description": "Update the current Autoscaling settings for the provided Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "max-containers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Maximum concurrent containers."
+    },
+    {
+     "name": "min-containers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Minimum number of containers to keep running."
+    },
+    {
+     "name": "buffer-containers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Extra containers to keep warm beyond current demand."
+    },
+    {
+     "name": "scaledown-window",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Maximum duration (in seconds) idle containers wait before scaling down."
+    }
+   ]
+  },
+  {
+   "name": "modal function calls",
+   "words": [
+    "function",
+    "calls"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Show recent inputs for a Modal Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show up to the last N Function inputs."
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Fetch inputs enqueued at or after this time (e.g."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Fetch inputs enqueued before this time (e.g."
+    },
+    {
+     "name": "all-variants",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Include inputs from the base Function and all its variants."
+    },
+    {
+     "name": "show-function-call-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Include the Function Call ID in table output."
+    }
+   ]
+  },
+  {
+   "name": "modal function info",
+   "words": [
+    "function",
+    "info"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Show information about a given Modal Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal function logs",
+   "words": [
+    "function",
+    "logs"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Fetch or stream Function logs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_ref",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function ref."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range; accepts same argument types as --since."
+    },
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show only the last N log entries."
+    },
+    {
+     "name": "search",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by search text."
+    },
+    {
+     "name": "function-call",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by FunctionCall ID (fc-*)."
+    },
+    {
+     "name": "container",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by Container ID (ta-*)."
+    },
+    {
+     "name": "source",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by source: 'stdout', 'stderr', or 'system'."
+    },
+    {
+     "name": "timestamps",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its timestamp."
+    },
+    {
+     "name": "show-function-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Function ID."
+    },
+    {
+     "name": "show-function-call-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its FunctionCall ID."
+    },
+    {
+     "name": "show-container-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Container ID."
+    },
+    {
+     "name": "all-variants",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Include logs from the base and all its variants."
+    }
+   ]
+  },
+  {
+   "name": "modal function metrics",
+   "words": [
+    "function",
+    "metrics"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Preview and export metrics for a Modal Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start time: ISO 8601 or relative duration (e.g."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End time; same syntax as --since."
+    },
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "path": false,
+     "description": "Metric group; repeat to select multiple."
+    },
+    {
+     "name": "bucket-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Bucket width: 1m, 2m, 3m, 4m, 5m, 6m, 10m, 12m, 15m, 20m, 30m, 1h, 2h, 3h, 4h, 8h, 12h, 1d."
+    },
+    {
+     "name": "all-variants",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Aggregate the root Function and its variants."
+    }
+   ]
+  },
+  {
+   "name": "modal function stats",
+   "words": [
+    "function",
+    "stats"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "Show aggregate statistics for a Modal Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range."
+    },
+    {
+     "name": "all-variants",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Aggregate the base Function and its variants."
+    },
+    {
+     "name": "container",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Compute the stats only for this container."
+    }
+   ]
+  },
+  {
+   "name": "modal function variants",
+   "words": [
+    "function",
+    "variants"
+   ],
+   "area": "Functions",
+   "risk": "read",
+   "description": "List the variants of a Modal Function.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_ref",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Function ref."
+    }
+   ],
+   "flags": [
+    {
+     "name": "limit",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show at most N variants, those running the most containers first."
+    }
+   ]
+  },
+  {
+   "name": "modal image logs",
+   "words": [
+    "image",
+    "logs"
+   ],
+   "area": "Images",
+   "risk": "read",
+   "description": "Fetch build logs for an Image.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "image_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Image id."
+    }
+   ],
+   "flags": [
+    {
+     "name": "layers",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Fetch logs from the last N build layers."
+    },
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Fetch logs from all available build layers."
+    }
+   ]
+  },
+  {
+   "name": "modal image names list",
+   "words": [
+    "image",
+    "names",
+    "list"
+   ],
+   "area": "Images",
+   "risk": "read",
+   "description": "List named Images.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "prefix",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Only include named image tags that start with this prefix."
+    }
+   ]
+  },
+  {
+   "name": "modal queue clear",
+   "words": [
+    "queue",
+    "clear"
+   ],
+   "area": "Queues",
+   "risk": "destroy",
+   "description": "Clear the contents of a Queue by removing all of its data.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "partition",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Name of the partition to use, otherwise use the default (anonymous) partition."
+    },
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Clear the contents of all partitions."
+    }
+   ]
+  },
+  {
+   "name": "modal queue create",
+   "words": [
+    "queue",
+    "create"
+   ],
+   "area": "Queues",
+   "risk": "change",
+   "description": "Create a named Queue.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal queue delete",
+   "words": [
+    "queue",
+    "delete"
+   ],
+   "area": "Queues",
+   "risk": "destroy",
+   "description": "Delete a named Queue and all of its data.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "allow-missing",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Don't error if the Queue doesn't exist."
+    }
+   ]
+  },
+  {
+   "name": "modal queue len",
+   "words": [
+    "queue",
+    "len"
+   ],
+   "area": "Queues",
+   "risk": "read",
+   "description": "Print the length of the queue or one of its partitions.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "partition",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Name of the partition to use, otherwise use the default (anonymous) partition."
+    },
+    {
+     "name": "total",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Compute the sum of the queue lengths across all partitions."
+    }
+   ]
+  },
+  {
+   "name": "modal queue list",
+   "words": [
+    "queue",
+    "list"
+   ],
+   "area": "Queues",
+   "risk": "read",
+   "description": "List all named Queues.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal queue peek",
+   "words": [
+    "queue",
+    "peek"
+   ],
+   "area": "Queues",
+   "risk": "read",
+   "description": "Print the next N items without removing them.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    },
+    {
+     "name": "n",
+     "many": false,
+     "kind": "integer",
+     "required": false,
+     "path": false,
+     "description": "N."
+    }
+   ],
+   "flags": [
+    {
+     "name": "partition",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Name of the partition to use, otherwise use the default (anonymous) partition."
+    }
+   ]
+  },
+  {
+   "name": "modal secret delete",
+   "words": [
+    "secret",
+    "delete"
+   ],
+   "area": "Secrets",
+   "risk": "destroy",
+   "description": "Delete a named Secret.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "allow-missing",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Don't error if the Secret doesn't exist."
+    }
+   ]
+  },
+  {
+   "name": "modal secret list",
+   "words": [
+    "secret",
+    "list"
+   ],
+   "area": "Secrets",
+   "risk": "read",
+   "description": "List your published secrets.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal server autoscaler settings",
+   "words": [
+    "server",
+    "autoscaler",
+    "settings"
+   ],
+   "area": "Servers",
+   "risk": "read",
+   "description": "Show the current Autoscaling settings for the provided Server.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "server_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Server identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal server autoscaler update",
+   "words": [
+    "server",
+    "autoscaler",
+    "update"
+   ],
+   "area": "Servers",
+   "risk": "change",
+   "description": "Update the current Autoscaling settings for the provided Server.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "server_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Server identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "max-containers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Maximum concurrent containers."
+    },
+    {
+     "name": "min-containers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Minimum number of containers to keep running."
+    },
+    {
+     "name": "buffer-containers",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Extra containers to keep warm beyond current demand."
+    },
+    {
+     "name": "scaledown-window",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Maximum duration (in seconds) idle containers wait before scaling down."
+    },
+    {
+     "name": "scaleup-window",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Seconds of sustained demand required before scaling up new containers."
+    },
+    {
+     "name": "target-concurrency",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Target number of concurrent requests per container."
+    }
+   ]
+  },
+  {
+   "name": "modal server info",
+   "words": [
+    "server",
+    "info"
+   ],
+   "area": "Servers",
+   "risk": "read",
+   "description": "Show information about a given Modal Server.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "server_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Server identifier."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal server logs",
+   "words": [
+    "server",
+    "logs"
+   ],
+   "area": "Servers",
+   "risk": "read",
+   "description": "Fetch or stream Server logs.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "server_ref",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Server ref."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range; accepts same argument types as --since."
+    },
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show only the last N log entries."
+    },
+    {
+     "name": "search",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by search text."
+    },
+    {
+     "name": "container",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by Container ID (ta-*)."
+    },
+    {
+     "name": "source",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Filter by source: 'stdout', 'stderr', or 'system'."
+    },
+    {
+     "name": "timestamps",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its timestamp."
+    },
+    {
+     "name": "show-server-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Server ID."
+    },
+    {
+     "name": "show-container-id",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Prefix each line with its Container ID."
+    }
+   ]
+  },
+  {
+   "name": "modal server metrics",
+   "words": [
+    "server",
+    "metrics"
+   ],
+   "area": "Servers",
+   "risk": "read",
+   "description": "Preview and export metrics for a Modal Server.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start time: ISO 8601 or relative duration (e.g."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End time; same syntax as --since."
+    },
+    {
+     "name": "group",
+     "kind": "string",
+     "choices": [],
+     "many": true,
+     "path": false,
+     "description": "Metric group; repeat to select multiple."
+    },
+    {
+     "name": "bucket-size",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Bucket width: 1m, 2m, 3m, 4m, 5m, 6m, 10m, 12m, 15m, 20m, 30m, 1h, 2h, 3h, 4h, 8h, 12h, 1d."
+    }
+   ]
+  },
+  {
+   "name": "modal server requests",
+   "words": [
+    "server",
+    "requests"
+   ],
+   "area": "Servers",
+   "risk": "read",
+   "description": "Show recent requests handled by a Modal Server.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "server_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Server identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "tail",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Show up to the last N Server requests."
+    },
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Fetch requests at or after this time (e.g."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Fetch requests before this time (e.g."
+    }
+   ]
+  },
+  {
+   "name": "modal server stats",
+   "words": [
+    "server",
+    "stats"
+   ],
+   "area": "Servers",
+   "risk": "read",
+   "description": "Show aggregate statistics for a Modal Server.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "server_identifier",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Server identifier."
+    }
+   ],
+   "flags": [
+    {
+     "name": "since",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Start of time range."
+    },
+    {
+     "name": "until",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "End of time range."
+    },
+    {
+     "name": "container-id",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Compute the stats only for this container."
+    }
+   ]
+  },
+  {
+   "name": "modal volume cp",
+   "words": [
+    "volume",
+    "cp"
+   ],
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Copy within a modal.Volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Volume name."
+    },
+    {
+     "name": "paths",
+     "many": true,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Paths."
+    }
+   ],
+   "flags": [
+    {
+     "name": "recursive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Copy directories recursively."
+    }
+   ]
+  },
+  {
+   "name": "modal volume create",
+   "words": [
+    "volume",
+    "create"
+   ],
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Create a named, persistent modal.Volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "version",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "VolumeFS version."
+    }
+   ]
+  },
+  {
+   "name": "modal volume delete",
+   "words": [
+    "volume",
+    "delete"
+   ],
+   "area": "Volumes",
+   "risk": "destroy",
+   "description": "Delete a named Volume and all of its data.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Name."
+    }
+   ],
+   "flags": [
+    {
+     "name": "allow-missing",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Don't error if the Volume doesn't exist."
+    }
+   ]
+  },
+  {
+   "name": "modal volume get",
+   "words": [
+    "volume",
+    "get"
+   ],
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Download files from a modal.Volume object.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Volume name."
+    },
+    {
+     "name": "remote_path",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Remote path."
+    },
+    {
+     "name": "local_destination",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "path": true,
+     "description": "Local destination."
+    }
+   ],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": ""
+    }
+   ]
+  },
+  {
+   "name": "modal volume list",
+   "words": [
+    "volume",
+    "list"
+   ],
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List the details of all modal.Volume volumes in an Environment.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "modal volume ls",
+   "words": [
+    "volume",
+    "ls"
+   ],
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List files and directories in a modal.Volume volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": true,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Volume name."
+    },
+    {
+     "name": "path",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "path": false,
+     "description": "Path."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal volume put",
+   "words": [
+    "volume",
+    "put"
+   ],
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Upload a file or directory to a modal.Volume.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Volume name."
+    },
+    {
+     "name": "local_path",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": true,
+     "description": "Local path."
+    },
+    {
+     "name": "remote_path",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "path": false,
+     "description": "Remote path."
+    }
+   ],
+   "flags": [
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Overwrite existing files."
+    }
+   ]
+  },
+  {
+   "name": "modal volume rename",
+   "words": [
+    "volume",
+    "rename"
+   ],
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Rename a modal.Volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": true,
+   "fixed": [],
+   "args": [
+    {
+     "name": "old_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Old name."
+    },
+    {
+     "name": "new_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "New name."
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "modal volume rm",
+   "words": [
+    "volume",
+    "rm"
+   ],
+   "area": "Volumes",
+   "risk": "destroy",
+   "description": "Delete a file or directory from a modal.Volume.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "env"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "volume_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Volume name."
+    },
+    {
+     "name": "remote_path",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "path": false,
+     "description": "Remote path."
+    }
+   ],
+   "flags": [
+    {
+     "name": "recursive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "path": false,
+     "description": "Delete directory recursively."
+    }
+   ]
+  }
+ ]
+}

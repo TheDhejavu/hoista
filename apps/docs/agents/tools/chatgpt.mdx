@@ -1,0 +1,65 @@
+---
+title: "ChatGPT"
+description: "Connect ChatGPT to your Hoista with a custom MCP app."
+---
+
+ChatGPT runs in the cloud, so it needs Hoista at an HTTPS address it can reach. Either:
+
+- **Hoista on your computer, through a tunnel or proxy.** Point one (Cloudflare Tunnel, ngrok, Tailscale Funnel, Caddy) at port 8788. See [From your computer](#from-your-computer) below.
+- **Hoista on a server:** a [remote](/guides/remote) or a [self-hosted Hoista](/guides/self-host). **Agents → Connect an agent** in the desktop app shows its address.
+
+Your Hoista URL is that address followed by `/mcp`, for example `https://hoista.example.com/mcp`.
+
+## From your computer
+
+Hoista on your computer serves MCP over HTTP at `http://127.0.0.1:8788`, and only there, so nothing outside your computer reaches it until you run a tunnel or proxy to it. For example:
+
+```bash
+cloudflared tunnel --url http://127.0.0.1:8788
+```
+
+Your Hoista URL is the tunnel's `https://` address followed by `/mcp`, such as `https://calm-words.trycloudflare.com/mcp`. Hoista learns the address from the first request from outside; after that, `hoist mcp http` and **Settings → Agents** show it. If your tunnel or proxy doesn't pass the address on, set it yourself with `hoist mcp http --url https://hoista.example.com`.
+
+Only sign-in and MCP are served there. ChatGPT signs in with OAuth, and you allow it on your computer: when it asks to connect, Hoista shows the request with a code to match (in the app, and on a page it opens in your browser), and asks for Touch ID or your password. Nobody can allow an agent from outside.
+
+Stop the tunnel and ChatGPT can't reach Hoista. A quick tunnel gets a new address each time it starts; to use a new one, run `hoist mcp http --forget` (or **Forget address** in Settings) and add ChatGPT again. A named tunnel keeps one address. To stop serving web agents altogether, run `hoist mcp http off`, or turn off **MCP over HTTP** in Settings.
+
+## Turn on Developer mode
+
+Click your profile picture, then **Settings → Security and login**, and turn on **Developer mode**.
+
+## Add Hoista
+
+1. Open **Plugins** and choose **Add**, then **Create MCP App**.
+2. Name it **Hoista**.
+3. Under **Connection**, keep **Server URL** and paste your Hoista URL.
+4. Set **Authentication** to **OAuth**.
+5. Tick **I understand and want to continue**, then choose **Create**.
+
+## Approve it
+
+When ChatGPT connects, Hoista asks you to allow it. On a server, its sign-in page opens: sign in with your passkey. On your computer, the request shows in Hoista (the Connect an agent window, or the banner on the Agents page) and on a page in your browser; allowing it asks for Touch ID or your password. Check the code matches the one ChatGPT shows, choose what ChatGPT may do and which projects it can reach, then choose **Authorize**.
+
+ChatGPT connects over HTTP, where Hoista can't ask you questions in the chat, so Hoista offers it only **View only** or **Full access**. **Ask for approval** needs the tool to ask you. Start with **View only**, and widen it later in [Agent permissions](/agents/permissions).
+
+## Use it in a chat
+
+In a new chat, open the **+** menu, choose **Developer mode** and select **Hoista**. Turning it on in settings alone isn't enough. ChatGPT asks you to confirm before it runs a tool that changes something.
+
+## Check it works
+
+Ask ChatGPT: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+## If it doesn't connect
+
+- **No Developer mode or Create MCP App:** your plan doesn't include it, or on Business an admin hasn't turned it on for you.
+- **ChatGPT can't reach the URL:** open it in a browser. You should see your Hoista's sign-in page. If not, check the remote (or your tunnel) is running and the HTTPS address works.
+- **To remove it:** delete the app in **Plugins**, then revoke the agent in **Agents** or with `hoist agents revoke`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Prompts" icon="message" href="/agents/prompts">Prompts to start with.</Card>
+</CardGroup>

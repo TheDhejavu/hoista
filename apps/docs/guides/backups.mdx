@@ -1,0 +1,76 @@
+---
+title: "Backups and recovery"
+description: "Back up Hoista, move it to a new computer and resolve changes with an unknown result."
+---
+
+Hoista backs up what it knows: projects, resources, accounts, links, domains and settings. A backup never includes account sign-ins, which stay in your OS credential store. It also doesn't include the data inside your databases or storage.
+
+## Automatic backups
+
+In **Settings → General**, set **Automatic backups** to every 6 hours, every day or every week. **Back up now** saves one immediately. Backups are kept in `~/.hoista/backups`, readable only by your user account, and Hoista keeps the newest few.
+
+```bash
+hoist backups
+hoist backups now
+```
+
+Copy backups to another disk from time to time. A backup on the same disk is lost with it.
+
+## Restore a backup
+
+```bash
+hoist backups restore BACKUP_NAME
+```
+
+You can restore only into an empty Hoista, so a restore never overwrites projects in use. Restored projects come back in **watching** mode. Switch the ones you want to **managed** again.
+
+## Move to a new computer
+
+In **Settings → General**, choose **Move to a new computer**, or use the CLI:
+
+```bash
+hoist backups export ./hoista.enc
+hoist backups import ./hoista.enc --check
+hoist backups import ./hoista.enc
+```
+
+The file is locked with a passphrase you choose. Unlike a backup, it includes your account sign-ins, so keep it and its passphrase apart. To pipe the passphrase from a password manager, add `--passphrase-stdin`. `--check` shows what's inside without importing it. Import needs an empty Hoista. Projects arrive in watching mode, and agents connect again from scratch.
+
+If an import stops partway, `hoist backups recovery` lists it and `hoist backups abandon RESTORE_ID` discards it.
+
+## Database data
+
+```bash
+hoist db export RESOURCE
+hoist db exports
+```
+
+`RESOURCE` is the database's name or ID; add `-p PROJECT` when you name it. This saves a Postgres archive with `pg_dump`. Keep your provider's own database backups as well. Rolling back a deployment doesn't undo a database migration.
+
+## When Hoista didn't hear back
+
+Hoista records every change before sending it to a provider. If the provider doesn't answer, or a change stops partway, the change is marked unclear. It may have happened. Until you answer, Hoista won't make the same change again, so nothing is created twice.
+
+In Desktop, the unclear change appears at the top of **Projects**. Choose **Answer**, check the provider, then choose **It happened** or **It didn't happen**.
+
+From the CLI:
+
+```bash
+hoist operations
+hoist operations check OPERATION_ID --happened
+hoist operations check OPERATION_ID --did-not-happen
+```
+
+Check the provider's dashboard before you answer. A request that timed out may still have completed there.
+
+A connected agent can answer too. When it's refused because of an unclear change, it reads the provider to see whether the change is there, then answers with `resolve_operation` and what it read as evidence. The evidence shows in **Activity**.
+
+A command that ran to the end and said why it failed is not unclear: Hoista marks it failed, and the same command can run again.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Data protection" icon="database" href="/security/data-protection">What Hoista stores and where.</Card>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Incident checklist" icon="circle-exclamation" href="/security/incident-response">What to do if something looks wrong.</Card>
+</CardGroup>

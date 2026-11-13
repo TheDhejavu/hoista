@@ -1,0 +1,45 @@
+---
+title: "GitHub"
+description: "Connect GitHub so projects can be linked to their repositories."
+icon: "/logos/github.svg"
+---
+
+GitHub is where a project's code lives. Nothing runs on GitHub. Hoista reads the repositories you allow, so a project can be linked to its code and your agents know which repository it builds from.
+
+## Connect
+
+GitHub connects with a fine-grained personal access token:
+
+1. Open [New fine-grained token](https://github.com/settings/personal-access-tokens/new): **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
+2. Choose **All repositories**. A token limited to chosen repositories never reaches repositories you create later.
+3. Give it read-only access to **Contents** and **Metadata**.
+4. Copy the token. It starts with `github_pat_`.
+5. In Desktop, open **Accounts**, choose GitHub and paste the token.
+
+From the CLI:
+
+```bash
+hoist accounts add github
+```
+
+Hoista asks for the token in a hidden prompt and finds the account from it. In scripts, use `hoist accounts add github --name NAME --token-stdin`, and add `--account <account>` if the token reaches more than one account.
+
+## What you can do
+
+- List the repositories the token reaches, with their visibility and last push.
+- Link a repository and branch to a project as its source, from the project's **Settings** tab.
+- Let agents find the repository for a project with the `list_repositories` and `link_repository` MCP tools.
+
+Providers build from GitHub themselves when you push. The **Used by** column on **Accounts** shows which repositories your projects deploy from.
+
+## Bring in existing resources
+
+GitHub has no running resources, so `hoist import --list` shows nothing from it. Bring in the project from the provider where it runs, then link its repository. See [Bring in an existing project](/guides/import-apps).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

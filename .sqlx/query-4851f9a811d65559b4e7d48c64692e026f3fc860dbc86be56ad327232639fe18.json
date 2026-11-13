@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT id FROM projects WHERE id != ? AND json_extract(data, '$.name') = ? AND coalesce(json_extract(data, '$.environment_id'), 'env_default') = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "4851f9a811d65559b4e7d48c64692e026f3fc860dbc86be56ad327232639fe18"
+}

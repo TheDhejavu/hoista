@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO secret_metadata (resource_id, name, data) VALUES (?, ?, ?) ON CONFLICT(resource_id, name) DO UPDATE SET data = excluded.data",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "8a8231df379d6e546adc22f8fe4fc2cf9eebf87cf529602986b3ec7074070b40"
+}

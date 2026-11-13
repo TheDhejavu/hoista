@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT count(*) AS count FROM environment_admission_keys WHERE active = 0 AND retired = 0",
+  "describe": {
+    "columns": [
+      {
+        "name": "count",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "f58f56c9d69aef83d5e981aafcaae9f77aa79b73d39af0715f4fbb1aa0494bf4"
+}

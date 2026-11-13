@@ -1,0 +1,93 @@
+---
+title: "Accounts and providers"
+description: "hoist commands for accounts and providers."
+---
+
+An account is one login at a provider, such as your Railway workspace. Hoista keeps its token in the system keychain (the Keychain on a Mac) and checks every token with the provider before keeping it.
+
+## `hoist providers`
+
+The providers Hoista works with.
+
+```bash
+hoist providers
+```
+
+## `hoist accounts`
+
+Connected provider accounts: add, check, rotate a token, remove.
+
+```bash
+hoist accounts
+```
+
+## `hoist accounts add [PROVIDER]`
+
+Connect a provider account. In a terminal, asks for anything not given.
+
+<Note>Railway lets you sign in on its own page instead of pasting a token, and so do Cloudflare and Vercel when your build of Hoista includes their sign-in app. On a remote, this computer listens for the provider's page coming back and passes it on.</Note>
+
+```bash
+hoist accounts add                    # pick the provider; sign in on its page or paste a token
+hoist accounts add railway
+op read op://Work/fly/token | hoist accounts add fly --token-stdin --name work-fly
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[PROVIDER]` | The provider: cloudflare, fly, railway, vercel, neon, supabase, render, resend, runpod, modal, github. |
+| `--account <ID>` | The provider's id for the account (account ID, team ID, organization slug). Found from the token when left out. |
+| `--name <NAME>` | What to call it in Hoista. Default: the provider's name for it. |
+| `--token-stdin` | Read the token from stdin instead of signing in or a hidden prompt. |
+
+## `hoist accounts check [ACCOUNT]`
+
+Check an account's token still works at its provider.
+
+```bash
+hoist accounts check work-fly
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[ACCOUNT]` | Account name or id. |
+
+## `hoist accounts refresh [ACCOUNT]`
+
+Look for projects on an account now.
+
+```bash
+hoist accounts refresh work-fly
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[ACCOUNT]` | Account name or id. |
+
+## `hoist accounts rotate [ACCOUNT]`
+
+Replace an account's token with a new one. The new token is checked first.
+
+<Note>The new token is checked with the provider first; the old one stays until it passes. Revoke the old token at the provider afterwards.</Note>
+
+```bash
+hoist accounts rotate work-fly
+op read op://Work/fly/new-token | hoist accounts rotate work-fly --token-stdin
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[ACCOUNT]` | Account name or id. |
+| `--token-stdin` | Read the new token from stdin. |
+
+## `hoist accounts remove [ACCOUNT]`
+
+Disconnect an account. What runs at the provider is untouched.
+
+```bash
+hoist accounts remove work-fly
+```
+
+| Argument or flag | What it does |
+| --- | --- |
+| `[ACCOUNT]` | Account name or id. |

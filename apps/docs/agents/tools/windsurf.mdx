@@ -1,0 +1,62 @@
+---
+title: "Windsurf"
+description: "Add Hoista as an MCP server in Windsurf."
+---
+
+Windsurf's Cascade starts Hoista's MCP server itself, over stdio. You need Hoista on this computer: run `hoist doctor` to check.
+
+## Add Hoista
+
+Print the settings to add:
+
+```bash
+hoist mcp config --name Windsurf
+```
+
+In Windsurf, open **Settings → Cascade → Manage MCPs** and choose **View raw config**. That opens `~/.codeium/windsurf/mcp_config.json` (on Windows, `%USERPROFILE%\.codeium\windsurf\mcp_config.json`). Add the `hoista` entry inside its `mcpServers` object:
+
+```json
+{
+  "mcpServers": {
+    "hoista": {
+      "command": "/Users/you/.local/bin/hoist",
+      "args": ["mcp", "--state-dir", "/Users/you/.hoista", "--name", "Windsurf"]
+    }
+  }
+}
+```
+
+Save, then choose **Refresh** in **Manage MCPs**: Windsurf doesn't reload the file by itself.
+
+## Approve it in Hoista
+
+When Windsurf starts Hoista, Hoista opens a page in your browser with a code. Check the code matches the one Windsurf shows, choose **What it may do** and allow it. If the page doesn't open, allow it in **Agents** in the desktop app, or from a terminal:
+
+```bash
+hoist agents requests
+hoist agents allow
+```
+
+Start with **View only** and widen it later in [Agent permissions](/agents/permissions).
+
+## Check it works
+
+Ask Windsurf: "What projects do I have on Hoista?" It should list your projects. If it doesn't, see [If it doesn't connect](#if-it-doesnt-connect).
+
+## Hoista on a remote
+
+Windsurf talks to Hoista on this computer. While a [remote](/guides/remote) is selected (`hoist remote use NAME`), `hoist mcp` won't start. To use the remote, add it to Windsurf as an HTTP MCP server at its own address: `hoist mcp config` prints the remote's `/mcp` URL. Windsurf then signs in with OAuth.
+
+## If it doesn't connect
+
+- Check the `command` path exists, and run `hoist doctor`.
+- Choose **Refresh** after every change to the file.
+- **To remove it:** delete the `hoista` entry, then revoke the agent in **Agents** or with `hoist agents revoke`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Prompts" icon="message" href="/agents/prompts">Prompts to start with.</Card>
+</CardGroup>

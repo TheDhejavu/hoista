@@ -1,0 +1,3133 @@
+{
+ "cli": "supabase",
+ "version": "3.0.0",
+ "source": "supabase 3.0.0 --help",
+ "commands": [
+  {
+   "name": "supabase sso add",
+   "words": [
+    "sso",
+    "add"
+   ],
+   "area": "Auth",
+   "risk": "change",
+   "description": "Add and configure a new connection to a SSO identity provider to your Supabase project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "type",
+     "kind": "choice",
+     "choices": [
+      "saml"
+     ],
+     "many": false,
+     "description": "Type of identity provider (according to supported protocol).",
+     "path": false
+    },
+    {
+     "name": "domains",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of email domains to associate with the added identity provider.",
+     "path": false
+    },
+    {
+     "name": "metadata-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "File containing a SAML 2.0 Metadata XML document describing the identity provider.",
+     "path": true
+    },
+    {
+     "name": "metadata-url",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL pointing to a SAML 2.0 Metadata XML document describing the identity provider.",
+     "path": false
+    },
+    {
+     "name": "skip-url-validation",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skip local validation of the SAML 2.0 Metadata URL (HTTPS requirement, live GET probe, and UTF-8 body decode). Use in air-gapped CI where the IDP is not reachable from the build agent.",
+     "path": false
+    },
+    {
+     "name": "attribute-mapping-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "File containing a JSON mapping between SAML attributes to custom JWT claims.",
+     "path": true
+    },
+    {
+     "name": "name-id-format",
+     "kind": "choice",
+     "choices": [
+      "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+      "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+      "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
+      "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+     ],
+     "many": false,
+     "description": "URI reference representing the classification of string-based identifier information.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase sso info",
+   "words": [
+    "sso",
+    "info"
+   ],
+   "area": "Auth",
+   "risk": "read",
+   "description": "Returns all of the important SSO information necessary for your project to be registered with a SAML 2.0 compatible identity provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase sso list",
+   "words": [
+    "sso",
+    "list"
+   ],
+   "area": "Auth",
+   "risk": "read",
+   "description": "List all SSO identity providers for a project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase sso remove",
+   "words": [
+    "sso",
+    "remove"
+   ],
+   "area": "Auth",
+   "risk": "destroy",
+   "description": "Remove a connection to an already added SSO identity provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "provider_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "The ID of the SSO identity provider to remove.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase sso show",
+   "words": [
+    "sso",
+    "show"
+   ],
+   "area": "Auth",
+   "risk": "read",
+   "description": "Provides the information about an established connection to an identity provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "provider_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "The ID of the SSO identity provider to show.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "metadata",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show SAML 2.0 XML Metadata only",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase sso update",
+   "words": [
+    "sso",
+    "update"
+   ],
+   "area": "Auth",
+   "risk": "change",
+   "description": "Update the configuration settings of a already added SSO identity provider.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "provider_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "The ID of the SSO identity provider to update.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "domains",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Replace domains with this comma separated list of email domains.",
+     "path": false
+    },
+    {
+     "name": "add-domains",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Add this comma separated list of email domains to the identity provider.",
+     "path": false
+    },
+    {
+     "name": "remove-domains",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Remove this comma separated list of email domains from the identity provider.",
+     "path": false
+    },
+    {
+     "name": "metadata-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "File containing a SAML 2.0 Metadata XML document describing the identity provider.",
+     "path": true
+    },
+    {
+     "name": "metadata-url",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL pointing to a SAML 2.0 Metadata XML document describing the identity provider.",
+     "path": false
+    },
+    {
+     "name": "skip-url-validation",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skip local validation of the SAML 2.0 Metadata URL (HTTPS requirement, live GET probe, and UTF-8 body decode). Use in air-gapped CI where the IDP is not reachable from the build agent.",
+     "path": false
+    },
+    {
+     "name": "attribute-mapping-file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "File containing a JSON mapping between SAML attributes to custom JWT claims.",
+     "path": true
+    },
+    {
+     "name": "name-id-format",
+     "kind": "choice",
+     "choices": [
+      "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+      "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+      "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
+      "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+     ],
+     "many": false,
+     "description": "URI reference representing the classification of string-based identifier information.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase branches create",
+   "words": [
+    "branches",
+    "create"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create a preview branch for the linked project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Name for the new branch.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "region",
+     "kind": "choice",
+     "choices": [
+      "ap-east-1",
+      "ap-northeast-1",
+      "ap-northeast-2",
+      "ap-south-1",
+      "ap-southeast-1",
+      "ap-southeast-2",
+      "ca-central-1",
+      "eu-central-1",
+      "eu-central-2",
+      "eu-north-1",
+      "eu-west-1",
+      "eu-west-2",
+      "eu-west-3",
+      "sa-east-1",
+      "us-east-1",
+      "us-east-2",
+      "us-west-1",
+      "us-west-2"
+     ],
+     "many": false,
+     "description": "Select a region to deploy the branch database.",
+     "path": false
+    },
+    {
+     "name": "size",
+     "kind": "choice",
+     "choices": [
+      "large",
+      "medium",
+      "micro",
+      "12xlarge",
+      "16xlarge",
+      "24xlarge",
+      "24xlarge_high_memory",
+      "24xlarge_optimized_cpu",
+      "24xlarge_optimized_memory",
+      "2xlarge",
+      "48xlarge",
+      "48xlarge_high_memory",
+      "48xlarge_optimized_cpu",
+      "48xlarge_optimized_memory",
+      "4xlarge",
+      "8xlarge",
+      "small",
+      "xlarge"
+     ],
+     "many": false,
+     "description": "Select a desired instance size for the branch database.",
+     "path": false
+    },
+    {
+     "name": "persistent",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether to create a persistent branch.",
+     "path": false
+    },
+    {
+     "name": "with-data",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether to clone production data to the branch database.",
+     "path": false
+    },
+    {
+     "name": "notify-url",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL to notify when branch is active healthy.",
+     "path": false
+    },
+    {
+     "name": "git-branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Associate a git branch with the new preview branch.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase branches delete",
+   "words": [
+    "branches",
+    "delete"
+   ],
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Delete a preview branch by its name or ID.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Branch name or ID to delete.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase branches get",
+   "words": [
+    "branches",
+    "get"
+   ],
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve details of the specified preview branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Branch name or ID.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase branches list",
+   "words": [
+    "branches",
+    "list"
+   ],
+   "area": "Branches",
+   "risk": "read",
+   "description": "List all preview branches of the linked project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase branches pause",
+   "words": [
+    "branches",
+    "pause"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Pause a preview branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Branch name or ID to pause.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase branches unpause",
+   "words": [
+    "branches",
+    "unpause"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Unpause a preview branch.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Branch name or ID to unpause.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase branches update",
+   "words": [
+    "branches",
+    "update"
+   ],
+   "area": "Branches",
+   "risk": "change",
+   "description": "Update a preview branch by its name or ID.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "target",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Branch name or ID to update.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "name",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Rename the preview branch.",
+     "path": false
+    },
+    {
+     "name": "git-branch",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Change the associated git branch.",
+     "path": false
+    },
+    {
+     "name": "persistent",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Switch between ephemeral and persistent branch.",
+     "path": false
+    },
+    {
+     "name": "status",
+     "kind": "choice",
+     "choices": [
+      "RUNNING_MIGRATIONS",
+      "MIGRATIONS_PASSED",
+      "MIGRATIONS_FAILED",
+      "FUNCTIONS_DEPLOYED",
+      "FUNCTIONS_FAILED"
+     ],
+     "many": false,
+     "description": "Override the current branch status.",
+     "path": false
+    },
+    {
+     "name": "notify-url",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "URL to notify when branch is active healthy.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db advisors",
+   "words": [
+    "db",
+    "advisors"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Checks database for security and performance issues.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "type",
+     "kind": "choice",
+     "choices": [
+      "all",
+      "security",
+      "performance"
+     ],
+     "many": false,
+     "description": "Type of advisors to check: all, security, performance.",
+     "path": false
+    },
+    {
+     "name": "level",
+     "kind": "choice",
+     "choices": [
+      "info",
+      "warn",
+      "error"
+     ],
+     "many": false,
+     "description": "Minimum issue level to display: info, warn, error.",
+     "path": false
+    },
+    {
+     "name": "fail-on",
+     "kind": "choice",
+     "choices": [
+      "none",
+      "info",
+      "warn",
+      "error"
+     ],
+     "many": false,
+     "description": "Issue level to exit with non-zero status: none, info, warn, error.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db diff",
+   "words": [
+    "db",
+    "diff"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Compares a shadow built from supabase/migrations with a live database (the local database by default, or the one --remote selects).",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "use-migra",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Use migra to generate schema diff.",
+     "path": false
+    },
+    {
+     "name": "use-pgadmin",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Use pgAdmin to generate schema diff.",
+     "path": false
+    },
+    {
+     "name": "use-pg-delta",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Use pg-delta to generate schema diff.",
+     "path": false
+    },
+    {
+     "name": "strict-coverage",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Fail when bundled pg-delta finds schema objects it cannot manage instead of leaving them unmanaged.",
+     "path": false
+    },
+    {
+     "name": "output",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Write flattened explicit diff SQL to a file for review; this is not a portable apply script.",
+     "path": true
+    },
+    {
+     "name": "file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "In normal mode, names and saves the complete schema diff as a new migration; it does not filter objects. Ignored with --from/--to.",
+     "path": true
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of schema to include.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db dump",
+   "words": [
+    "db",
+    "dump"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Dumps data or schemas from a database.",
+   "folder": false,
+   "dry_run": true,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "dry-run",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Prints the pg_dump script that would be executed.",
+     "path": false
+    },
+    {
+     "name": "data-only",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Dumps only data records.",
+     "path": false
+    },
+    {
+     "name": "use-copy",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Use copy statements in place of inserts.",
+     "path": false
+    },
+    {
+     "name": "exclude",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "List of schema.tables to exclude from data-only dump.",
+     "path": false
+    },
+    {
+     "name": "role-only",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Dumps only cluster roles.",
+     "path": false
+    },
+    {
+     "name": "keep-comments",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Keeps commented lines from pg_dump output.",
+     "path": false
+    },
+    {
+     "name": "file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "File path to save the dumped contents.",
+     "path": true
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of schema to include.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db lint",
+   "words": [
+    "db",
+    "lint"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Checks a database for typing error.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of schema to include.",
+     "path": false
+    },
+    {
+     "name": "level",
+     "kind": "choice",
+     "choices": [
+      "warning",
+      "error"
+     ],
+     "many": false,
+     "description": "Error level to emit.",
+     "path": false
+    },
+    {
+     "name": "fail-on",
+     "kind": "choice",
+     "choices": [
+      "none",
+      "warning",
+      "error"
+     ],
+     "many": false,
+     "description": "Error level to exit with non-zero status.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db pull",
+   "words": [
+    "db",
+    "pull"
+   ],
+   "area": "Database",
+   "risk": "change",
+   "description": "Migration mode compares supabase/migrations with the selected live database (the local database by default, or the one --remote selects), writes the complete difference as migration files, and records them in that database's migration history; a hosted database asks for confirmation first, or needs --yes in a non-interactive run.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "migration_name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Optional name for the migration file.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "declarative",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Replace the declarative schema tree from the selected database instead of creating a migration; migration history is not updated.",
+     "path": false
+    },
+    {
+     "name": "diff-engine",
+     "kind": "choice",
+     "choices": [
+      "migra",
+      "pg-delta"
+     ],
+     "many": false,
+     "description": "Diff engine to use for migration-style db pull.",
+     "path": false
+    },
+    {
+     "name": "strict-coverage",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Fail when bundled pg-delta finds schema objects it cannot manage instead of leaving them unmanaged.",
+     "path": false
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of schema to include.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db push",
+   "words": [
+    "db",
+    "push"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Push new migrations to a database.",
+   "folder": true,
+   "dry_run": true,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "include-all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include all migrations not found in the migration history table.",
+     "path": false
+    },
+    {
+     "name": "include-roles",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include custom roles from supabase/roles.sql.",
+     "path": false
+    },
+    {
+     "name": "include-seed",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include seed data from your config.",
+     "path": false
+    },
+    {
+     "name": "skip-vault",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skip updating vault secrets from config.toml.",
+     "path": false
+    },
+    {
+     "name": "dry-run",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print the migrations that would be applied, but don't actually apply them.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db query",
+   "words": [
+    "db",
+    "query"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Execute a SQL query against the database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "sql",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "SQL query to execute.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "file",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to a SQL file to execute.",
+     "path": true
+    },
+    {
+     "name": "read-only",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Runs the statement in a read-only transaction; a hosted target needs no confirmation.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db reset",
+   "words": [
+    "db",
+    "reset"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Resets a database to current migrations.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-seed",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Skip running the seed script after reset.",
+     "path": false
+    },
+    {
+     "name": "sql-paths",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Override [db.seed].sql_paths for this reset. May be repeated; each value accepts a SQL file path or glob pattern relative to the supabase directory and force-enables seeding.",
+     "path": true
+    },
+    {
+     "name": "version",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Reset up to the specified version.",
+     "path": false
+    },
+    {
+     "name": "last",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Reset up to the last n migration versions.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase db schema declarative generate",
+   "words": [
+    "db",
+    "schema",
+    "declarative",
+    "generate"
+   ],
+   "area": "Database",
+   "risk": "change",
+   "description": "Exports a live database into the complete declarative schema tree.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "no-cache",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Disable catalog cache and force fresh shadow database setup.",
+     "path": false
+    },
+    {
+     "name": "strict-coverage",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Fail when bundled pg-delta finds schema objects it cannot manage instead of leaving them unmanaged.",
+     "path": false
+    },
+    {
+     "name": "overwrite",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Overwrite declarative schema files without confirmation.",
+     "path": false
+    },
+    {
+     "name": "output-dir",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Write the generated declarative schema to this directory without changing the configured declarative schema path.",
+     "path": true
+    },
+    {
+     "name": "reset",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Reset local database before generating (local data will be lost).",
+     "path": false
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of schema to include.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase gen types",
+   "words": [
+    "gen",
+    "types"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Generate types from Postgres schema.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "language",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "lang",
+     "kind": "choice",
+     "choices": [
+      "typescript",
+      "go",
+      "python",
+      "swift",
+      "dart"
+     ],
+     "many": false,
+     "description": "Output language of the generated types. (default typescript)",
+     "path": false
+    },
+    {
+     "name": "schema",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Comma separated list of schema to include.",
+     "path": false
+    },
+    {
+     "name": "query-timeout",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Maximum timeout allowed for the database query. (default 15s)",
+     "path": false
+    },
+    {
+     "name": "swift-access-control",
+     "kind": "choice",
+     "choices": [
+      "internal",
+      "public"
+     ],
+     "many": false,
+     "description": "Access control for Swift generated types. (default internal)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase inspect db bloat",
+   "words": [
+    "inspect",
+    "db",
+    "bloat"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Estimates space allocated to a relation that is full of dead tuples.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db blocking",
+   "words": [
+    "inspect",
+    "db",
+    "blocking"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show queries that are holding locks and the queries that are waiting for them to be released.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db cache-hit",
+   "words": [
+    "inspect",
+    "db",
+    "cache-hit"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show cache hit rates for tables and indices.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db calls",
+   "words": [
+    "inspect",
+    "db",
+    "calls"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show queries from pg_stat_statements ordered by total times called.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db db-stats",
+   "words": [
+    "inspect",
+    "db",
+    "db-stats"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show stats such as cache hit rates, total sizes, and WAL size.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db index-sizes",
+   "words": [
+    "inspect",
+    "db",
+    "index-sizes"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show index sizes of individual indexes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db index-stats",
+   "words": [
+    "inspect",
+    "db",
+    "index-stats"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show combined index size, usage percent, scan counts, and unused status.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db index-usage",
+   "words": [
+    "inspect",
+    "db",
+    "index-usage"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show information about the efficiency of indexes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db locks",
+   "words": [
+    "inspect",
+    "db",
+    "locks"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show queries which have taken out an exclusive lock on a relation.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db long-running-queries",
+   "words": [
+    "inspect",
+    "db",
+    "long-running-queries"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show currently running queries running for longer than 5 minutes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db outliers",
+   "words": [
+    "inspect",
+    "db",
+    "outliers"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show queries from pg_stat_statements ordered by total execution time.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db replication-slots",
+   "words": [
+    "inspect",
+    "db",
+    "replication-slots"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show information about replication slots on the database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db role-configs",
+   "words": [
+    "inspect",
+    "db",
+    "role-configs"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show configuration settings for database roles when they have been modified.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db role-connections",
+   "words": [
+    "inspect",
+    "db",
+    "role-connections"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show number of active connections for all database roles.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db role-stats",
+   "words": [
+    "inspect",
+    "db",
+    "role-stats"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show information about roles on the database.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db seq-scans",
+   "words": [
+    "inspect",
+    "db",
+    "seq-scans"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show number of sequential scans recorded against all tables.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db table-record-counts",
+   "words": [
+    "inspect",
+    "db",
+    "table-record-counts"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show estimated number of rows per table.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db table-sizes",
+   "words": [
+    "inspect",
+    "db",
+    "table-sizes"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show table sizes of individual tables without their index sizes.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db table-stats",
+   "words": [
+    "inspect",
+    "db",
+    "table-stats"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show combined table size, index size, and estimated row count.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db traffic-profile",
+   "words": [
+    "inspect",
+    "db",
+    "traffic-profile"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show read/write activity ratio for tables based on block I/O operations.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db unused-indexes",
+   "words": [
+    "inspect",
+    "db",
+    "unused-indexes"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show indexes with low usage.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect db vacuum-stats",
+   "words": [
+    "inspect",
+    "db",
+    "vacuum-stats"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Show statistics related to vacuum operations per table.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase inspect report",
+   "words": [
+    "inspect",
+    "report"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Generate a CSV output for all inspect commands.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "output-dir",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to save CSV files in.",
+     "path": true
+    }
+   ]
+  },
+  {
+   "name": "supabase migration down",
+   "words": [
+    "migration",
+    "down"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Resets applied migrations up to the last n versions.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "last",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Reset up to the last n migration versions.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase migration fetch",
+   "words": [
+    "migration",
+    "fetch"
+   ],
+   "area": "Database",
+   "risk": "change",
+   "description": "Fetch migration files from history table.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase migration list",
+   "words": [
+    "migration",
+    "list"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "List local migration files and the migration history of the target database.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase migration repair",
+   "words": [
+    "migration",
+    "repair"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Repair the migration history table.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "version",
+     "many": true,
+     "kind": "string",
+     "required": false,
+     "description": "Migration version(s) to repair.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "status",
+     "kind": "choice",
+     "choices": [
+      "applied",
+      "reverted"
+     ],
+     "many": false,
+     "description": "Version status to update.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase migration squash",
+   "words": [
+    "migration",
+    "squash"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Squash migrations to a single file.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "version",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Squash up to the specified version.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase migration up",
+   "words": [
+    "migration",
+    "up"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Apply pending migrations to a database.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "include-all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Include all migrations not found in the migration history table.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase postgres-config delete",
+   "words": [
+    "postgres-config",
+    "delete"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Delete specific Postgres database config overrides.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Config keys to delete (comma-separated)",
+     "path": false
+    },
+    {
+     "name": "no-restart",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Do not restart the database after deleting config.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase postgres-config get",
+   "words": [
+    "postgres-config",
+    "get"
+   ],
+   "area": "Database",
+   "risk": "read",
+   "description": "Get the current Postgres database config overrides.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase postgres-config update",
+   "words": [
+    "postgres-config",
+    "update"
+   ],
+   "area": "Database",
+   "risk": "destroy",
+   "description": "Update Postgres database config.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "config",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Config overrides specified as a 'key=value' pair",
+     "path": false
+    },
+    {
+     "name": "replace-existing-overrides",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "If true, replaces all existing overrides with the ones provided. If false (default), merges existing overrides with the ones provided.",
+     "path": false
+    },
+    {
+     "name": "no-restart",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Do not restart the database after updating config.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase test db",
+   "words": [
+    "test",
+    "db"
+   ],
+   "area": "Database",
+   "risk": "change",
+   "description": "Tests a database with pgTAP.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "path",
+     "many": true,
+     "kind": "string",
+     "required": false,
+     "description": "Paths to test files or directories.",
+     "path": true
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase domains activate",
+   "words": [
+    "domains",
+    "activate"
+   ],
+   "area": "Domains",
+   "risk": "destroy",
+   "description": "Activates the custom hostname configuration for a project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase domains create",
+   "words": [
+    "domains",
+    "create"
+   ],
+   "area": "Domains",
+   "risk": "change",
+   "description": "Create a custom hostname for your Supabase project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "custom-hostname",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The custom hostname to use for your Supabase project.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase domains delete",
+   "words": [
+    "domains",
+    "delete"
+   ],
+   "area": "Domains",
+   "risk": "destroy",
+   "description": "Deletes the custom hostname config for your project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase domains get",
+   "words": [
+    "domains",
+    "get"
+   ],
+   "area": "Domains",
+   "risk": "read",
+   "description": "Retrieve the custom hostname config for your project, as stored in the Supabase platform.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase domains reverify",
+   "words": [
+    "domains",
+    "reverify"
+   ],
+   "area": "Domains",
+   "risk": "change",
+   "description": "Re-verify the custom hostname config for your project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase vanity-subdomains activate",
+   "words": [
+    "vanity-subdomains",
+    "activate"
+   ],
+   "area": "Domains",
+   "risk": "destroy",
+   "description": "Activate a vanity subdomain for your Supabase project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "desired-subdomain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The desired vanity subdomain to use for your Supabase project.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase vanity-subdomains check-availability",
+   "words": [
+    "vanity-subdomains",
+    "check-availability"
+   ],
+   "area": "Domains",
+   "risk": "read",
+   "description": "Checks if a desired subdomain is available for use.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "desired-subdomain",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "The desired vanity subdomain to use for your Supabase project.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase vanity-subdomains delete",
+   "words": [
+    "vanity-subdomains",
+    "delete"
+   ],
+   "area": "Domains",
+   "risk": "destroy",
+   "description": "Deletes the vanity subdomain for a project, and reverts to using the project ref for routing.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase vanity-subdomains get",
+   "words": [
+    "vanity-subdomains",
+    "get"
+   ],
+   "area": "Domains",
+   "risk": "read",
+   "description": "Get the current vanity subdomain.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase functions delete",
+   "words": [
+    "functions",
+    "delete"
+   ],
+   "area": "Edge functions",
+   "risk": "destroy",
+   "description": "Delete a Function from the linked Supabase project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_name",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Name of the Function to delete.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase functions deploy",
+   "words": [
+    "functions",
+    "deploy"
+   ],
+   "area": "Edge functions",
+   "risk": "change",
+   "description": "Deploy a Function to the linked Supabase project.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_name",
+     "many": true,
+     "kind": "string",
+     "required": false,
+     "description": "Names of Functions to deploy. Deploys all if omitted.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "no-verify-jwt",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Disable JWT verification for the Function.",
+     "path": false
+    },
+    {
+     "name": "use-api",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Bundle functions server-side without using Docker.",
+     "path": false
+    },
+    {
+     "name": "import-map",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Path to import map file.",
+     "path": true
+    },
+    {
+     "name": "prune",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Delete Functions that exist in Supabase project but not locally.",
+     "path": false
+    },
+    {
+     "name": "jobs",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of parallel jobs.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase functions download",
+   "words": [
+    "functions",
+    "download"
+   ],
+   "area": "Edge functions",
+   "risk": "change",
+   "description": "Download the source code for a Function from the linked Supabase project.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "function_name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Name of the Function to download. Downloads all if omitted.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "use-api",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Unbundle functions server-side without using Docker.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase functions list",
+   "words": [
+    "functions",
+    "list"
+   ],
+   "area": "Edge functions",
+   "risk": "read",
+   "description": "List all Functions in the linked Supabase project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase network-bans get",
+   "words": [
+    "network-bans",
+    "get"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Get the current network bans.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase network-bans remove",
+   "words": [
+    "network-bans",
+    "remove"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Remove a network ban.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "db-unban-ip",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "IP to allow DB connections from.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase network-restrictions get",
+   "words": [
+    "network-restrictions",
+    "get"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Get the current network restrictions.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase network-restrictions update",
+   "words": [
+    "network-restrictions",
+    "update"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Update network restrictions.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "db-allow-cidr",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "CIDR to allow DB connections from.",
+     "path": false
+    },
+    {
+     "name": "bypass-cidr-checks",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Bypass some of the CIDR validation checks.",
+     "path": false
+    },
+    {
+     "name": "append",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Append to existing restrictions instead of replacing them.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase ssl-enforcement get",
+   "words": [
+    "ssl-enforcement",
+    "get"
+   ],
+   "area": "Networking",
+   "risk": "read",
+   "description": "Get the current SSL enforcement configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase ssl-enforcement update",
+   "words": [
+    "ssl-enforcement",
+    "update"
+   ],
+   "area": "Networking",
+   "risk": "destroy",
+   "description": "Update SSL enforcement configuration.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "enable-db-ssl-enforcement",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether the DB should enable SSL enforcement for all external connections.",
+     "path": false
+    },
+    {
+     "name": "disable-db-ssl-enforcement",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Whether the DB should disable SSL enforcement for all external connections.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase config diff",
+   "words": [
+    "config",
+    "diff"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Shows configuration differences between supabase/config.toml and a remote project or branch.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "exit-code",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Exit with status 2 when any difference is found (errors keep exiting 1).",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase config pull",
+   "words": [
+    "config",
+    "pull"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Writes configuration from a remote project or branch into supabase/config.toml.",
+   "folder": true,
+   "dry_run": true,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "dry-run",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show what would be written without touching the config file.",
+     "path": false
+    },
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Write even when supabase/config.toml has uncommitted changes in git.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase config push",
+   "words": [
+    "config",
+    "push"
+   ],
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Pushes the properties your local config.toml declares to the linked project or one of its branches.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase notebooks pull",
+   "words": [
+    "notebooks",
+    "pull"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Write the linked Supabase project's notebooks into supabase/notebooks.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "notebook_id",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "UUID of the notebook to replace locally. Pulls only locally missing notebooks if omitted.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase notebooks push",
+   "words": [
+    "notebooks",
+    "push"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Write supabase/notebooks into the linked Supabase project.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "notebook_name",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Name of the notebook to push. Pushes all if omitted.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase pull",
+   "words": [
+    "pull"
+   ],
+   "area": "Project",
+   "risk": "change",
+   "description": "Refreshes local project state from a linked Supabase project or branch in one step: pulls config into supabase/config.toml, optionally fetches the remote migration history table, pulls the database schema into supabase/migrations (also updating that database's migration history), and downloads every Edge Function's source.",
+   "folder": true,
+   "dry_run": true,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "dry-run",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Show what would be pulled without writing or changing anything.",
+     "path": false
+    },
+    {
+     "name": "force",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Write even when supabase/config.toml (or config.json), supabase/migrations, or supabase/functions has uncommitted or untracked changes in git.",
+     "path": false
+    },
+    {
+     "name": "with-migration-history",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Fetch the remote migration history table into supabase/migrations, even when it already has files. Runs automatically when supabase/migrations is missing or empty.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase snippets download",
+   "words": [
+    "snippets",
+    "download"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "Download contents of the specified SQL snippet.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "snippet_id",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "ID of the SQL snippet to download.",
+     "path": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "name": "supabase snippets list",
+   "words": [
+    "snippets",
+    "list"
+   ],
+   "area": "Project",
+   "risk": "read",
+   "description": "List all SQL snippets of the linked project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase secrets list",
+   "words": [
+    "secrets",
+    "list"
+   ],
+   "area": "Secrets",
+   "risk": "read",
+   "description": "List all secrets in the linked project.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase secrets unset",
+   "words": [
+    "secrets",
+    "unset"
+   ],
+   "area": "Secrets",
+   "risk": "destroy",
+   "description": "Unset a secret(s) from the linked Supabase project.",
+   "folder": false,
+   "dry_run": true,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "name",
+     "many": true,
+     "kind": "string",
+     "required": false,
+     "description": "Secret names to unset.",
+     "path": false
+    }
+   ],
+   "flags": [
+    {
+     "name": "all",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Unset every secret except SUPABASE_ ones. Required when no names are given.",
+     "path": false
+    },
+    {
+     "name": "dry-run",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Print the secrets that would be unset without unsetting them.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase backups list",
+   "words": [
+    "backups",
+    "list"
+   ],
+   "area": "Storage and backups",
+   "risk": "read",
+   "description": "Lists available physical backups.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": []
+  },
+  {
+   "name": "supabase backups restore",
+   "words": [
+    "backups",
+    "restore"
+   ],
+   "area": "Storage and backups",
+   "risk": "destroy",
+   "description": "Restore to a specific timestamp using PITR.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [],
+   "flags": [
+    {
+     "name": "timestamp",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "The recovery time target in seconds since epoch.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase storage cp",
+   "words": [
+    "storage",
+    "cp"
+   ],
+   "area": "Storage and backups",
+   "risk": "change",
+   "description": "Copy objects from src to dst path.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "src",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Source path to copy from.",
+     "path": true
+    },
+    {
+     "name": "dst",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Destination path to copy to.",
+     "path": true
+    }
+   ],
+   "flags": [
+    {
+     "name": "recursive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Recursively copy a directory.",
+     "path": false
+    },
+    {
+     "name": "cache-control",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Custom Cache-Control header for HTTP upload. (default \"max-age=3600\")",
+     "path": false
+    },
+    {
+     "name": "content-type",
+     "kind": "string",
+     "choices": [],
+     "many": false,
+     "description": "Custom Content-Type header for HTTP upload. (default \"auto-detect\")",
+     "path": false
+    },
+    {
+     "name": "jobs",
+     "kind": "integer",
+     "choices": [],
+     "many": false,
+     "description": "Maximum number of parallel jobs. (default 1)",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase storage ls",
+   "words": [
+    "storage",
+    "ls"
+   ],
+   "area": "Storage and backups",
+   "risk": "read",
+   "description": "List objects by path prefix.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "path",
+     "many": false,
+     "kind": "string",
+     "required": false,
+     "description": "Storage path to list (e.g. ss:///bucket/docs).",
+     "path": true
+    }
+   ],
+   "flags": [
+    {
+     "name": "recursive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Recursively list a directory.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase storage mv",
+   "words": [
+    "storage",
+    "mv"
+   ],
+   "area": "Storage and backups",
+   "risk": "destroy",
+   "description": "Move objects from src to dst path.",
+   "folder": true,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "src",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Source path to move from.",
+     "path": true
+    },
+    {
+     "name": "dst",
+     "many": false,
+     "kind": "string",
+     "required": true,
+     "description": "Destination path to move to.",
+     "path": true
+    }
+   ],
+   "flags": [
+    {
+     "name": "recursive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Recursively move a directory.",
+     "path": false
+    }
+   ]
+  },
+  {
+   "name": "supabase storage rm",
+   "words": [
+    "storage",
+    "rm"
+   ],
+   "area": "Storage and backups",
+   "risk": "destroy",
+   "description": "Remove objects by file path.",
+   "folder": false,
+   "dry_run": false,
+   "targets": [
+    "remote"
+   ],
+   "json": false,
+   "yes": false,
+   "fixed": [],
+   "args": [
+    {
+     "name": "file",
+     "many": true,
+     "kind": "string",
+     "required": false,
+     "description": "File paths to remove.",
+     "path": true
+    }
+   ],
+   "flags": [
+    {
+     "name": "recursive",
+     "kind": "bool",
+     "choices": [],
+     "many": false,
+     "description": "Recursively remove a directory.",
+     "path": false
+    }
+   ]
+  }
+ ]
+}

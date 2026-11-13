@@ -1,0 +1,21 @@
+/*
+ * Screenshots and diagrams come in a light and a dark version; only the one
+ * matching the reader's theme shows. See apps/docs/README.md.
+ */
+.shot-light,
+.shot-dark {
+  width: 100%;
+  height: auto;
+}
+
+.shot-dark {
+  display: none;
+}
+
+html.dark .shot-light {
+  display: none;
+}
+
+html.dark .shot-dark {
+  display: block;
+}

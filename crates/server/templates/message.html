@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# Hoista's tile and one card: a heading, a sentence, and maybe a button. #}
+{% block content %}
+{% call parts::hoista() %}{% endcall %}
+<div class="card"><h1>{{ heading }}</h1><p class="sub">
+{%- for part in text %}{% match part %}
+{%- when Inline::Text(words) %}{{ words }}
+{%- when Inline::Code(code) %}<code>{{ code }}</code>
+{%- when Inline::Link(label, href) %}<a href="{{ href }}">{{ label }}</a>
+{%- endmatch %}{% endfor -%}
+</p>
+{%- if let Some((label, href)) = button %}<a class="go" href="{{ href }}">{{ label }}</a>{% endif -%}
+</div>
+{% endblock %}

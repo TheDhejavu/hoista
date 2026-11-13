@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT resource_id FROM ignored_resources ORDER BY resource_id LIMIT 10001",
+  "describe": {
+    "columns": [
+      {
+        "name": "resource_id",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "97eb95010fb7981540d4631563f7a6e48dc02f69dce04483d5483ab21f066e00"
+}

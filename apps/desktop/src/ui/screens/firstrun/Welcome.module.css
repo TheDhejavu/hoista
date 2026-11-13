@@ -1,0 +1,235 @@
+/* One centred column: Hoista and what circles it, what it is, and the way in. */
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 32px 80px;
+  text-align: center;
+  color: var(--text);
+  -webkit-app-region: drag;
+}
+
+.screen button {
+  -webkit-app-region: no-drag;
+}
+
+/* ---- The orbit ---- */
+
+.orbit {
+  --size: 420px;
+  position: relative;
+  flex-shrink: 0;
+  width: var(--size);
+  height: var(--size);
+}
+
+/* A soft glow and dot grid behind it, fading out at the edges. */
+.orbit::before {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(closest-side, color-mix(in srgb, #fb923c 14%, transparent), transparent),
+    radial-gradient(var(--grid-dot) 1px, transparent 1px) 0 0 / 22px 22px;
+  content: '';
+  mask-image: radial-gradient(closest-side, #000 35%, transparent);
+  pointer-events: none;
+}
+
+.outerTrack,
+.innerTrack {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.outerTrack {
+  inset: 6%;
+  border: 1px dashed var(--line-strong);
+}
+
+.innerTrack {
+  inset: 21%;
+  border: 1px solid var(--line);
+  background: radial-gradient(circle, var(--bg), color-mix(in srgb, var(--bg) 40%, transparent));
+}
+
+.outerRing,
+.innerRing {
+  position: absolute;
+  inset: 0;
+  animation: turn 90s linear infinite;
+}
+
+.innerRing {
+  animation-duration: 60s;
+  animation-direction: reverse;
+}
+
+.slot {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Each logo turns back as its ring turns, so it stays upright. */
+.chip {
+  position: absolute;
+  top: -21px;
+  left: -21px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  box-sizing: border-box;
+  border: 1px solid var(--card-line);
+  border-radius: 12px;
+  background: var(--bg-raised);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 8%);
+  animation: turn 90s linear infinite reverse;
+}
+
+.innerRing .chip {
+  animation-duration: 60s;
+  animation-direction: normal;
+}
+
+.hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 108px;
+  height: 108px;
+  border-radius: 30px;
+  background: var(--brand-tile);
+  box-shadow:
+    0 0 0 8px var(--bg),
+    0 20px 50px rgb(0 0 0 / 25%);
+  transform: translate(-50%, -50%);
+  --mascot-ink: var(--bg);
+}
+
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outerRing,
+  .innerRing,
+  .chip {
+    animation: none;
+  }
+}
+
+/* ---- What it is, and the way in ---- */
+
+.title {
+  margin: 20px 0 0;
+  font-size: 48px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.lede {
+  max-width: 580px;
+  margin: 14px 0 0;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* One line of short promises, ticked: not buttons, so no outline. */
+.promises {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 22px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.promises li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-md);
+  color: var(--text-2);
+}
+
+.promises svg {
+  color: var(--good);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 22px;
+  margin-top: 28px;
+}
+
+/* The other way in, as a link: one main button on this screen. */
+.moving {
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  padding: 6px 2px;
+  font: inherit;
+  font-size: var(--text-lg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.moving:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.note {
+  margin: 20px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+/* Shorter windows: a smaller orbit, so the buttons stay in view. */
+@media (max-height: 820px) {
+  .orbit {
+    --size: 340px;
+  }
+
+  .title {
+    margin-top: 12px;
+    font-size: 40px;
+  }
+}
+
+@media (max-height: 700px) {
+  .orbit {
+    --size: 260px;
+  }
+
+  .chip {
+    top: -17px;
+    left: -17px;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .hub {
+    width: 84px;
+    height: 84px;
+    border-radius: 24px;
+  }
+}

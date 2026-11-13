@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT links.data FROM links JOIN resources ON resources.id = links.from_resource WHERE resources.project_id = ? ORDER BY links.id LIMIT 1000",
+  "describe": {
+    "columns": [
+      {
+        "name": "data",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "e0c79936a857d67adade01444ddae936e20a0e955bed02d9b96f4bd7a75c282a"
+}

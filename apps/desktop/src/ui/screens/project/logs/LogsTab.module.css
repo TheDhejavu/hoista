@@ -1,0 +1,263 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.withPanel {
+  grid-template-columns: minmax(0, 1fr) 334px;
+}
+
+@media (max-width: 1100px) {
+  .withPanel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.search {
+  display: flex;
+  flex: 1 1 160px;
+  align-items: center;
+  gap: 8px;
+  max-width: 260px;
+  height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--bg-raised);
+  padding: 0 13px;
+  color: var(--text-4);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  border: none;
+  border-radius: 999px;
+  background: var(--pill);
+  padding: 0 11px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.liveOn {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-4);
+}
+
+.liveOn .liveDot {
+  background: var(--good);
+}
+
+.frame {
+  overflow-x: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+.table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.table th {
+  height: 36px;
+  background: var(--shot-side);
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+  text-align: left;
+}
+
+.table td {
+  height: 37px;
+  border-top: 1px solid var(--line);
+  padding: 0 14px;
+  color: var(--text-2);
+}
+
+.table tbody tr:hover td {
+  background: var(--bg-hover);
+}
+
+.openRow td {
+  background: var(--bg-soft);
+}
+
+.openRow td:first-child {
+  box-shadow: inset 2px 0 0 var(--text);
+}
+
+/* A cell's own colour: a log level, or text that matters more or less. */
+.table td.strong {
+  color: var(--text);
+}
+
+.table td.faint {
+  color: var(--text-3);
+}
+
+.table td.info {
+  color: var(--text);
+}
+
+.table td.warn {
+  color: var(--warn);
+}
+
+.table td.error {
+  color: var(--bad);
+}
+
+.chevron {
+  width: 20px;
+  color: var(--text-3);
+}
+
+.empty {
+  margin: 0;
+  padding: 24px;
+  color: var(--text-2);
+}
+
+.panel {
+  /* Stays in view while the lines scroll under it. */
+  position: sticky;
+  top: 16px;
+  align-self: start;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 16px;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-xl);
+}
+
+.panelHead b {
+  font-weight: var(--weight-medium);
+}
+
+/* The full line, readable at any length: monospace, wrapped, scrolls when long. */
+.lineText {
+  max-height: 220px;
+  margin: 12px 0 4px;
+  overflow: auto;
+  border-radius: 8px;
+  background: var(--pill);
+  padding: 10px 12px;
+  font: 12.5px/1.55 var(--font-mono);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-4);
+}
+
+.errorDot {
+  background: var(--bad);
+}
+
+.warnDot {
+  background: var(--warn);
+}
+
+.infoDot {
+  background: var(--good);
+}
+
+.facts {
+  margin: 0;
+}
+
+.facts div {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0;
+}
+
+.facts dt {
+  flex: 0 0 82px;
+  color: var(--text-2);
+}
+
+.facts dd {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.hint {
+  margin: 14px 0 0;
+  border-radius: 14px;
+  background: var(--bg-soft);
+  padding: 12px 14px;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.fix {
+  margin-top: 12px;
+}
+
+/* The fix button fills the panel. */
+.fix button {
+  width: 100%;
+}

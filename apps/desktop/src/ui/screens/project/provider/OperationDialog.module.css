@@ -1,0 +1,82 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldHint {
+  margin-top: -2px;
+  font-size: var(--text-sm);
+  color: var(--text-4);
+}
+
+.fieldLabel {
+  font-size: var(--text-sm);
+}
+
+.input {
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.json {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.choices legend {
+  margin-bottom: 4px;
+  font-size: var(--text-sm);
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+}
+
+.choice input,
+.form input[type='checkbox'] {
+  accent-color: var(--text);
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--bad-tint);
+  color: var(--bad-ink);
+  font-size: var(--text-sm);
+}
+
+.problem {
+  margin: 0;
+  color: var(--bad);
+  font-size: var(--text-sm);
+}

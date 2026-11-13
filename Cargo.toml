@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["bin/hoist", "crates/engine"]
+members = ["bin/hoist", "bin/hoista-demo", "bin/hoistd", "crates/app", "crates/domain", "crates/providers", "crates/server", "crates/store", "crates/system"]
 
 [workspace.package]
 version = "0.1.0"
@@ -11,7 +11,68 @@ repository = "https://github.com/TheDhejavu/hoista"
 publish = false
 
 [workspace.dependencies]
-hoista-engine = { path = "crates/engine" }
+hoista-app = { path = "crates/app", version = "0.1.0" }
+hoista-domain = { path = "crates/domain", version = "0.1.0" }
+hoista-providers = { path = "crates/providers", version = "0.1.0" }
+hoista-server = { path = "crates/server", version = "0.1.0" }
+hoista-store = { path = "crates/store", version = "0.1.0" }
+hoista-system = { path = "crates/system", version = "0.1.0" }
+
+anyhow = "1"
+async-stream = "0.3"
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "tokio", "query", "form"] }
+chrono = { version = "0.4", default-features = false, features = ["clock", "serde"] }
+dirs = "6"
+keyring = { version = "3.6", features = ["windows-native", "sync-secret-service", "crypto-rust"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "multipart", "stream", "http2"] }
+schemars = "1"
+prost = "0.13"
+prost-reflect = { version = "0.14", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sqlx = { version = "0.8.6", default-features = false, features = ["runtime-tokio", "sqlite", "macros", "migrate"] }
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal", "time", "sync", "process", "io-util", "io-std", "fs"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+tracing = "0.1"
+tracing-appender = "0.2"
+tracing-subscriber = { version = "0.3", features = ["json"] }
+ts-rs = { version = "11", features = ["no-serde-warnings"] }
+uuid = { version = "1", features = ["v4"] }
+zeroize = "1"
+tempfile = "3"
+tower = { version = "0.5", features = ["util"] }
+
+interprocess = { version = "2.4", features = ["tokio"] }
+widestring = "1"
+askama = { version = "0.16", default-features = false, features = ["derive", "std"] }
+sha2 = "0.10"
+hyper = { version = "1", features = ["client", "http1"] }
+hyper-util = { version = "0.1", features = ["tokio"] }
+http = "1"
+http-body-util = "0.1"
+
+async-trait = "0.1"
+regex = "1"
+base64 = "0.22"
+walkdir = "2"
+tar = "0.4"
+flate2 = "1"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+ignore = "0.4"
+toml = "0.9"
+
+dotenvy = "0.15"
+mime_guess = "2"
+hmac = "0.12"
+argon2 = { version = "0.5.3", default-features = false, features = ["alloc", "zeroize"] }
+chacha20poly1305 = { version = "0.10.1", default-features = false, features = ["alloc", "getrandom"] }
+subtle = "2"
+url = "2"
+percent-encoding = "2"
+tokio-tungstenite = { version = "0.28", features = ["rustls-tls-webpki-roots"] }
+nix = { version = "0.29", default-features = false, features = ["signal", "process", "user", "fs"] }
+futures-util = { version = "0.3", features = ["sink"] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

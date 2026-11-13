@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT id,resource_id,hostname FROM custom_domains WHERE hostname = ? OR id = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "resource_id",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "hostname",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "ad48c73b5068e02c6b9e29c336605b95f26047955e95f4f0e7b2a61cb88b4935"
+}

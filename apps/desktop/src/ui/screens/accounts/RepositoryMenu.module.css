@@ -1,0 +1,23 @@
+.fields {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 6px 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: var(--text-md);
+}
+
+.summary span:nth-child(odd) {
+  color: var(--text-3);
+}
+
+.muted {
+  color: var(--text-2);
+}

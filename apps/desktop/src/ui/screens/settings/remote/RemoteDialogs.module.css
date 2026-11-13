@@ -1,0 +1,134 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-muted);
+  padding: 12px 14px;
+}
+
+.facts dt {
+  margin-bottom: 3px;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-3);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.hint {
+  margin-top: -6px;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--text-3);
+}
+
+.label {
+  font-size: var(--text-sm);
+}
+
+.ready {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--good-line, var(--line));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--good) 6%, var(--bg-raised));
+  padding: 14px;
+}
+
+.ready .hint {
+  margin-top: 0;
+}
+
+.seal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--warn-line, var(--line));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--warn) 6%, var(--bg-raised));
+  padding: 14px;
+}
+
+.seal .hint {
+  margin-top: 0;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progressItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-sm);
+}
+
+.progressIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+}
+
+.done {
+  color: var(--text);
+}
+
+.done .progressIcon {
+  border-color: var(--good);
+  background: var(--good);
+  color: var(--bg-raised);
+}
+
+.doing {
+  color: var(--text);
+}
+
+.doing .progressIcon {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.todo {
+  color: var(--text-3);
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

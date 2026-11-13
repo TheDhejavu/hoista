@@ -1,0 +1,298 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Hoista",
+  "description": "Connect your hosting accounts once. Manage your projects from Desktop, the CLI or your agents.",
+  "banner": {
+    "content": "**Hoista is in beta.** It works, but expect rough edges. Found one? [Tell us on GitHub](https://github.com/TheDhejavu/hoista/issues).",
+    "dismissible": true
+  },
+  "colors": {
+    "primary": "#111111",
+    "light": "#EDEDED",
+    "dark": "#111111"
+  },
+  "favicon": "/assets/favicon.svg",
+  "logo": {
+    "light": "/assets/logo-light.svg",
+    "dark": "/assets/logo-dark.svg"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Start",
+            "pages": [
+              "index",
+              "getting-started/install",
+              "getting-started/quickstart",
+              "getting-started/concepts"
+            ]
+          },
+          {
+            "group": "Use Hoista",
+            "pages": [
+              "guides/desktop",
+              "guides/accounts",
+              "guides/import-apps",
+              "guides/deploy",
+              "guides/logs",
+              "guides/environment",
+              "guides/environments",
+              "guides/billing",
+              "guides/resources",
+              "examples/failed-deployment"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "agents/connect",
+              "agents/permissions",
+              "agents/prompts"
+            ]
+          },
+          {
+            "group": "Agent setup",
+            "pages": [
+              "agents/tools/claude-code",
+              "agents/tools/codex",
+              "agents/tools/cursor",
+              "agents/tools/windsurf",
+              "agents/tools/vscode",
+              "agents/tools/chatgpt",
+              "agents/tools/claude",
+              "agents/tools/grok",
+              "agents/tools/gemini",
+              "agents/tools/hermes"
+            ]
+          },
+          {
+            "group": "Keep it running",
+            "pages": [
+              "guides/daemon",
+              "guides/remote",
+              "guides/self-host",
+              "guides/backups",
+              "guides/webhooks"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "security/overview",
+              "security/credentials",
+              "security/approvals",
+              "security/remote-runtime",
+              "security/builds",
+              "security/data-protection",
+              "security/limits",
+              "security/incident-response"
+            ]
+          },
+          {
+            "group": "Help",
+            "pages": [
+              "getting-started/support"
+            ]
+          }
+        ],
+        "icon": "book-open"
+      },
+      {
+        "tab": "Providers",
+        "icon": "server",
+        "groups": [
+          {
+            "group": "Providers",
+            "pages": [
+              "providers/overview"
+            ]
+          },
+          {
+            "group": "Hosting providers",
+            "pages": [
+              "providers/cloudflare",
+              "providers/vercel",
+              "providers/railway",
+              "providers/fly",
+              "providers/render"
+            ]
+          },
+          {
+            "group": "Database providers",
+            "pages": [
+              "providers/neon",
+              "providers/supabase"
+            ]
+          },
+          {
+            "group": "GPU providers",
+            "pages": [
+              "providers/runpod",
+              "providers/modal"
+            ]
+          },
+          {
+            "group": "Email providers",
+            "pages": [
+              "providers/resend"
+            ]
+          },
+          {
+            "group": "Git providers",
+            "pages": [
+              "providers/github"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "CLI",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": [
+              "cli/overview"
+            ]
+          },
+          {
+            "group": "Commands",
+            "pages": [
+              "cli/projects",
+              "cli/resources",
+              "cli/deploying",
+              "cli/variables",
+              "cli/watching",
+              "cli/accounts",
+              "cli/environments",
+              "cli/remotes",
+              "cli/agents",
+              "cli/upkeep",
+              "cli/this-computer"
+            ]
+          }
+        ],
+        "icon": "terminal"
+      },
+      {
+        "tab": "Reference",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Agents",
+            "pages": [
+              "reference/mcp",
+              "reference/mcp-tools"
+            ]
+          },
+          {
+            "group": "Engine",
+            "pages": [
+              "reference/api",
+              "reference/configuration"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Website",
+        "href": "https://hoista.dev"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/TheDhejavu/hoista"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/TheDhejavu/hoista"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view"
+    ]
+  },
+  "appearance": {
+    "default": "system",
+    "strict": false
+  },
+  "redirects": [
+    {
+      "source": "/guides/settings",
+      "destination": "/guides/desktop"
+    },
+    {
+      "source": "/reference/diagram-briefs",
+      "destination": "/getting-started/concepts"
+    },
+    {
+      "source": "/getting-started/architecture",
+      "destination": "/getting-started/concepts"
+    },
+    {
+      "source": "/guides/activity",
+      "destination": "/guides/logs"
+    },
+    {
+      "source": "/guides/databases",
+      "destination": "/guides/resources"
+    },
+    {
+      "source": "/guides/deletion",
+      "destination": "/guides/resources"
+    },
+    {
+      "source": "/guides/remote-access",
+      "destination": "/guides/remote"
+    },
+    {
+      "source": "/guides/operations",
+      "destination": "/guides/backups"
+    },
+    {
+      "source": "/guides/recovery",
+      "destination": "/guides/backups"
+    },
+    {
+      "source": "/examples/existing-app",
+      "destination": "/guides/import-apps"
+    },
+    {
+      "source": "/examples/cli-only",
+      "destination": "/cli/overview"
+    },
+    {
+      "source": "/security/threat-model",
+      "destination": "/security/limits"
+    },
+    {
+      "source": "/security/onepassword",
+      "destination": "/security/credentials"
+    },
+    {
+      "source": "/security/authentication",
+      "destination": "/security/approvals"
+    },
+    {
+      "source": "/guides/plans",
+      "destination": "/guides/deploy"
+    },
+    {
+      "source": "/reference/cli",
+      "destination": "/cli/overview"
+    }
+  ],
+  "fonts": {
+    "family": "Inter"
+  }
+}

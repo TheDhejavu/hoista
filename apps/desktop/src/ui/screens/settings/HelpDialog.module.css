@@ -1,0 +1,52 @@
+.columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.intro {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--text);
+  text-align: left;
+  text-decoration: underline;
+  cursor: default;
+}
+
+.muted {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+.saved {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--good);
+}

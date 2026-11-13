@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE approvals SET decision = ? WHERE id = ? AND decision = 'pending' AND expires_at > ?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "dc1acc71f698acd3af918a307a98dfe533d3541c199d7f480063d221cf401ff1"
+}

@@ -1,0 +1,291 @@
+.head {
+  margin-bottom: 2px;
+}
+
+.trail {
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.trail a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.trail a:hover {
+  color: var(--text);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.titleRow h1 {
+  margin: 0;
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.03em;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.sub {
+  margin: 4px 0 0;
+  color: var(--text-2);
+}
+
+.commit {
+  margin: 10px 0 8px;
+  max-width: 720px;
+}
+
+.commitSubject {
+  margin: 0;
+  color: var(--text);
+}
+
+.commitBody {
+  margin: 6px 0 0;
+  font-family: inherit;
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.commitToggle {
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.commitToggle:hover {
+  text-decoration: underline;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--pill);
+  padding: 0 9px;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.pillBad {
+  background: var(--bad-tint);
+  color: var(--bad-ink);
+}
+
+.pillWarn {
+  background: color-mix(in srgb, var(--warn) 16%, transparent);
+  color: var(--warn);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.warn {
+  background: var(--warn);
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  border-radius: 14px;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line);
+  padding: 12px;
+}
+
+.chipName {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+}
+
+.mark {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--bg);
+}
+
+.chipState {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-4);
+}
+
+.waiting {
+  background: var(--shot-side);
+}
+
+.waiting .chipName {
+  color: var(--text-4);
+}
+
+.waiting .mark {
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+.running {
+  box-shadow: inset 0 0 0 2px var(--warn);
+}
+
+.running .mark {
+  background: var(--warn);
+}
+
+.failed {
+  box-shadow: inset 0 0 0 2px var(--bad);
+}
+
+.failed .mark {
+  background: var(--bad);
+}
+
+/* Dark in both themes, like a terminal. */
+.terminal {
+  overflow: auto;
+  border-radius: 16px;
+  background: #111111;
+  padding: 16px 18px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.9;
+  color: #e5e5e5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .terminal {
+    background: #151515;
+    box-shadow: inset 0 0 0 1px #262626;
+  }
+}
+
+:root[data-theme='dark'] .terminal {
+  background: #151515;
+  box-shadow: inset 0 0 0 1px #262626;
+}
+
+.line {
+  display: flex;
+  gap: 14px;
+}
+
+.time {
+  flex-shrink: 0;
+  width: 44px;
+  color: #6b6b6b;
+}
+
+.logOk {
+  color: #86efac;
+}
+
+.logWarn {
+  color: #fcd34d;
+}
+
+.logError {
+  color: #fca5a5;
+}
+
+.stopped .mark {
+  background: var(--text-4);
+}
+
+.outLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 2px 0 8px;
+  font-size: var(--text-md);
+}
+
+/* While a deploy loads: its page's shape, with placeholders. */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fade var(--duration) var(--ease-out) 300ms both;
+}
+
+.subSkeleton {
+  margin-top: 10px;
+}
+
+.chipSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .skeletonColumns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.skeletonCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 18px;
+}

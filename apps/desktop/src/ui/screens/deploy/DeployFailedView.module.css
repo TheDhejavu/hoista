@@ -1,0 +1,113 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  padding: 18px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+}
+
+.explain {
+  margin: 6px 0 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.explain :global(.mono) {
+  color: var(--text);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: var(--text-sm);
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  padding: 0 13px;
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.then {
+  color: var(--text-2);
+}
+
+.ask {
+  border: none;
+  border-radius: 16px;
+  background: var(--bg-soft);
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+}
+
+.ask:hover {
+  background: var(--bg-muted);
+}
+
+.ask b {
+  font-weight: var(--weight-medium);
+}
+
+/* Kept for the stopped view. */
+.what {
+  margin: 6px 0 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}

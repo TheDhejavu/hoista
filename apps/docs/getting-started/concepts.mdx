@@ -1,0 +1,55 @@
+---
+title: "How Hoista works"
+description: "Accounts, projects, resources and the daemon that connects them."
+---
+
+import ProjectResources from '/snippets/diagrams/project-resources.mdx';
+import WatchingManaged from '/snippets/diagrams/watching-managed.mdx';
+import HoistaArchitecture from '/snippets/diagrams/hoista-architecture.mdx';
+
+Hoista is a control plane. Your providers are where your code and data run. Hoista sits beside them: it keeps the record of what you run and where, and sends the commands to deploy, roll back, change settings or delete. It never runs your workloads itself.
+
+## Accounts, projects and resources
+
+An **account** is a connection to one provider account, workspace or team. When you connect it, Hoista discovers what it can reach there.
+
+A **resource** is one thing at a provider, such as a Railway service, a Cloudflare Worker or a Neon project.
+
+A **project** groups the resources that make up one app. Each resource belongs to one project.
+
+<ProjectResources />
+
+## Watching and managed
+
+Projects you import start in **watching** mode. The provider keeps building and running the project its own way. Hoista reads its status, deploys, logs and metrics. Where the provider supports it, you can ask the provider to redeploy, restart or roll back from Hoista.
+
+A **managed** project deploys from a source you link in Hoista: a local folder or a GitHub repository. Hoista plans and starts its deployments. See [bring in a project](/guides/import-apps) to change modes.
+
+<WatchingManaged />
+
+## The daemon
+
+`hoistd` is the daemon that runs the control plane. It stores your projects, settings and activity, checks what each agent may do, and calls each provider's API. Desktop, the CLI and agents are all clients of the same daemon, so they see the same state.
+
+<HoistaArchitecture />
+
+## Local or remote
+
+| | On your computer | In your own cloud (a **remote**) |
+| --- | --- | --- |
+| State | SQLite on your computer | SQLite on the remote's persistent volume |
+| Provider credentials | OS credential store | A separate credential keeper |
+| Agents connect through | `hoist mcp` over stdio, or MCP over HTTP on `127.0.0.1:8788` through a [tunnel or proxy](/agents/tools/chatgpt#from-your-computer) | HTTPS MCP with OAuth |
+| Available | While your computer is on | Also while your computer is off |
+
+The CLI starts the local daemon when it needs it, and Desktop can be closed. Moving to a remote is a [state transfer](/guides/remote). Changing the address alone does not copy anything.
+
+Agents sign in to Hoista with their own credentials and never receive your provider tokens. See [security](/security/overview) and [credential storage](/security/credentials).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Quickstart" icon="rocket" href="/getting-started/quickstart">Connect a provider and add your first project.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Import projects and switch them to managed.</Card>
+<Card title="Security" icon="shield" href="/security/overview">Where tokens live and what agents can do.</Card>
+</CardGroup>

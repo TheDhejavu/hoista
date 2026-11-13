@@ -1,0 +1,123 @@
+{
+  "id": "wrangler",
+  "name": "Cloudflare",
+  "api": {
+    "kind": "rest",
+    "base": "",
+    "operations": "api_ops.json"
+  },
+  "cli": {
+    "name": "wrangler",
+    "version": "4.151.3",
+    "npm": {
+      "package": "wrangler",
+      "version": "4.151.3",
+      "bin": "bin/wrangler.js",
+      "node": 22,
+      "lockfile": "package-lock.json"
+    },
+    "token": "CLOUDFLARE_API_TOKEN",
+    "variables": {
+      "WRANGLER_SEND_METRICS": "false",
+      "CLOUDFLARE_AUTH_USE_KEYRING": "false",
+      "DO_NOT_TRACK": "1"
+    },
+    "always": [],
+    "confirmed": [],
+    "targets": {
+      "name": "worker"
+    },
+    "target_variables": {
+      "CLOUDFLARE_ACCOUNT_ID": "account"
+    },
+    "json_flag": "json",
+    "yes_flag": "yes",
+    "commands": "cli.json"
+  },
+  "actions": [
+    {
+      "label": "Deployments",
+      "on": "web",
+      "run": "workerDeploymentsListDeployments",
+      "description": "The Worker's recent deployments, newest first."
+    },
+    {
+      "label": "Versions",
+      "on": "web",
+      "run": "workerVersionsListVersions",
+      "description": "The Worker's uploaded versions."
+    },
+    {
+      "label": "Settings",
+      "on": "web",
+      "run": "workerScriptGetSettings",
+      "description": "The Worker's bindings, compatibility date and limits. Secret values aren't shown."
+    },
+    {
+      "label": "Cron triggers",
+      "on": "web",
+      "run": "workerCronTriggerGetCronTriggers",
+      "description": "When the Worker runs on a schedule."
+    },
+    {
+      "label": "Bucket details",
+      "on": "bucket",
+      "run": "r2GetBucket",
+      "description": "Where the bucket is kept and when it was made."
+    },
+    {
+      "label": "Public access",
+      "on": "bucket",
+      "run": "r2GetBucketPublicPolicy",
+      "description": "Whether the bucket has a public r2.dev address."
+    },
+    {
+      "label": "Custom domains",
+      "on": "bucket",
+      "run": "r2ListCustomDomains",
+      "description": "Domains that serve the bucket's files."
+    },
+    {
+      "label": "CORS",
+      "on": "bucket",
+      "run": "r2GetBucketCorsPolicy",
+      "description": "Which sites may load the bucket's files."
+    },
+    {
+      "label": "DNS records",
+      "on": "domain",
+      "run": "dnsRecordsForAZoneListDnsRecords",
+      "description": "Every DNS record on the domain."
+    },
+    {
+      "label": "Domain details",
+      "on": "domain",
+      "run": "zones0Get",
+      "description": "The domain's status and name servers."
+    },
+    {
+      "label": "Worker routes",
+      "on": "domain",
+      "run": "workerRoutesListRoutes",
+      "description": "Which Workers serve which paths on the domain."
+    },
+    {
+      "label": "Certificates",
+      "on": "domain",
+      "run": "certificatePacksListCertificatePacks",
+      "description": "The domain's TLS certificates."
+    },
+    {
+      "label": "D1 databases",
+      "on": null,
+      "run": "d1ListDatabases",
+      "description": "Every D1 database in the account."
+    },
+    {
+      "label": "R2 buckets",
+      "on": null,
+      "run": "r2ListBuckets",
+      "description": "Every R2 bucket in the account."
+    }
+  ]
+}

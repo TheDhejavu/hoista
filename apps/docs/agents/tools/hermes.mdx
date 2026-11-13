@@ -1,0 +1,58 @@
+---
+title: "Hermes Agent"
+description: "Connect Hermes Agent to Hoista and give it a daily job."
+---
+
+[Hermes Agent](https://hermes-agent.nousresearch.com) runs on its own schedule, so it can look after your projects between your own sessions. It connects to Hoista one of two ways:
+
+- **Hermes on this computer:** it starts `hoist mcp` itself, like a coding tool.
+- **Hermes on a server or in the cloud:** it uses your Hoista URL, ending in `/mcp`. That can be Hoista on your computer [through a tunnel or proxy](/agents/tools/chatgpt#from-your-computer), a [remote](/guides/remote) or a [self-hosted Hoista](/guides/self-host). Hermes runs on a schedule, so a remote suits it best: it keeps working while your computer is off.
+
+## Add Hoista
+
+In Hermes' `config.yaml`, add Hoista under `mcp_servers`. On this computer:
+
+```yaml
+mcp_servers:
+  hoista:
+    command: "/Users/you/.local/bin/hoist"
+    args: ["mcp", "--name", "Hermes"]
+```
+
+Use the path `command -v hoist` prints. With a Hoista URL:
+
+```yaml
+mcp_servers:
+  hoista:
+    url: "https://hoista.example.com/mcp"
+    auth: oauth
+```
+
+Then run `/reload-mcp` in Hermes, and `hermes mcp test hoista` to check it connects.
+
+## Approve it
+
+On this computer, Hoista opens a page in your browser with a code; if it doesn't, allow the request in **Agents** or run `hoist agents allow`. With a Hoista URL, Hermes opens Hoista's sign-in page: sign in (with your passkey on a remote), choose what it may do and choose **Authorize**. On a server with no browser, `hermes mcp login hoista --flow device` gives you a link to open on another device.
+
+Hermes works unattended, so keep its access narrow: limit it to the projects it looks after, and use **View only** or **Ask for approval** unless you want it to change things without you. See [Agent permissions](/agents/permissions).
+
+## Give it a daily job
+
+Set up a Hermes cron job with a prompt such as:
+
+> Each morning, ask Hoista what needs attention, fix what you can, and message me about the rest.
+
+See Hermes' own guide to scheduled jobs for how to create one.
+
+## If it doesn't connect
+
+- Run `hermes mcp test hoista` and `hoist doctor`.
+- After changing `config.yaml`, run `/reload-mcp`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Your remote" icon="cloud" href="/guides/remote">Hoista in your own cloud account.</Card>
+<Card title="Webhooks" icon="bell" href="/guides/webhooks">Send events to a background agent.</Card>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+</CardGroup>

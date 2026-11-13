@@ -1,0 +1,5353 @@
+{
+ "source": "neon OpenAPI spec",
+ "operations": [
+  {
+   "name": "getProjectBranchAiGateway",
+   "area": "AI Gateway",
+   "risk": "read",
+   "description": "Get branch AI Gateway endpoint",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/ai_gateway",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "countProjectBranches",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve number of branches",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/count",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "search",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranch",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create branch",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoints",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Compute endpoints to create together with the branch. If omitted, the branch is created without any compute endpoint. Endpoints can be added to the branch separately after creation.",
+      "items": {
+       "type": "object",
+       "required": [
+        "type"
+       ]
+      }
+     }
+    },
+    {
+     "name": "branch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Optional configuration for the new branch, for example `name`, `parent_id` (fork from a branch), `parent_lsn` or `parent_timestamp` (point-in-time branching), and `protected`.",
+      "properties": {
+       "parent_id": {
+        "type": "string",
+        "description": "The `branch_id` of the parent branch. If omitted or empty, the branch will be created from the project's default branch.\n"
+       },
+       "name": {
+        "type": "string",
+        "description": "The branch name\n"
+       },
+       "parent_lsn": {
+        "type": "string",
+        "description": "A Log Sequence Number (LSN) on the parent branch. The branch will be created with data from this LSN.\n"
+       },
+       "parent_timestamp": {
+        "type": "string",
+        "description": "A timestamp identifying a point in time on the parent branch. The branch will be created with data starting from this point in time. RFC 3339 format.\n",
+        "format": "date-time"
+       },
+       "protected": {
+        "type": "boolean",
+        "description": "Whether the branch is protected. Protected branches (and their computes) cannot be deleted, archived, or reset, and block deletion of the project. Can be gated by `protected_branches_only` in the IP allowlist. Paid plans only.\n",
+        "default": false
+       },
+       "realtime": {
+        "type": "object"
+       },
+       "archived": {
+        "type": "boolean",
+        "description": "Whether to create the branch in the archived state. When omitted, the branch is created as a normal (non-archived) branch.\n"
+       },
+       "init_source": {
+        "type": "string",
+        "description": "Source of initialization for the branch. `parent-data` copies schema and data from the parent branch. `parent-schema` copies schema only from the parent branch. `schema-only` creates a new root branch containing schema only, using `parent_id` as the source; optionally, `parent_lsn` or `parent_timestamp` can narrow the source point. `import` initializes the branch from an external import."
+       },
+       "expires_at": {
+        "type": "string",
+        "description": "The timestamp when the branch is scheduled to expire and be automatically deleted. Must be set by the client following the [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6) format with precision up to seconds (such as 2025-06-09T18:02:16Z). Deletion is performed by a background job and may not occur exactly at the specified time.\n\nAccess to this feature is currently limited ",
+        "format": "date-time"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranchAnonymized",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create anonymized branch",
+   "method": "POST",
+   "path": "/projects/{project_id}/branch_anonymized",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "annotation_value",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "A free-form map of string key-value pairs for attaching metadata to a resource (for example, a git commit reference). Maximum 50 entries."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranchDatabase",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create database",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/databases",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration for the new Postgres database.",
+      "required": [
+       "name",
+       "owner_name"
+      ],
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "Name of the database to create.\n"
+       },
+       "owner_name": {
+        "type": "string",
+        "description": "The name of the role that owns the database\n"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranchRole",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Create role",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/roles",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "role",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Properties of the role to create.",
+      "required": [
+       "name"
+      ],
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "The role name. Cannot exceed 63 bytes in length.\n"
+       },
+       "no_login": {
+        "type": "boolean",
+        "description": "Whether to create a role that cannot login.\n"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Delete branch",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchDatabase",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Delete database",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/databases/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchRole",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Delete role",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/roles/{role_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "role_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "finalizeRestoreBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Finalize branch restore from snapshot",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/finalize_restore",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name for the replaced branch. If omitted, a unique name is generated."
+     }
+    }
+   ]
+  },
+  {
+   "name": "getAnonymizedBranchStatus",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve anonymized branch status",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/anonymized_status",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMaskingRules",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve masking rules",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/masking_rules",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranch",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve branch details",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchDatabase",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve database details",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/databases/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchRole",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve role details",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/roles/{role_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "role_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchSchema",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Retrieve database schema",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/schema",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "db_name",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "lsn",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timestamp",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "format",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchSchemaComparison",
+   "area": "Branches",
+   "risk": "read",
+   "description": "Compare database schema",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/compare_schema",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "base_branch_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "db_name",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "lsn",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timestamp",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "base_lsn",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "base_timestamp",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchDatabases",
+   "area": "Branches",
+   "risk": "read",
+   "description": "List databases",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/databases",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchEndpoints",
+   "area": "Branches",
+   "risk": "read",
+   "description": "List branch endpoints",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/endpoints",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchRoles",
+   "area": "Branches",
+   "risk": "read",
+   "description": "List roles",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/roles",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranches",
+   "area": "Branches",
+   "risk": "read",
+   "description": "List branches",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "search",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sort_by",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "name",
+       "created_at",
+       "updated_at"
+      ],
+      "default": "updated_at"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sort_order",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "asc",
+       "desc"
+      ],
+      "default": "desc"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000
+     }
+    },
+    {
+     "name": "include_deleted",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "default": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "restoreProjectBranch",
+   "area": "Branches",
+   "risk": "destroy",
+   "description": "Restore branch to a historical state",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/restore",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "source_branch_id",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The `branch_id` of the restore source branch.\nIf `source_timestamp` and `source_lsn` are omitted, the branch will be restored to head.\nIf `source_branch_id` is equal to the branch's id, `source_timestamp` or `source_lsn` is required.\n"
+     }
+    },
+    {
+     "name": "source_lsn",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A Postgres LSN (for example, `0/1A2B3C4`) on the source branch to restore from.\nMutually exclusive with `source_timestamp`. Omit both to restore to head.\n"
+     }
+    },
+    {
+     "name": "source_timestamp",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A point in time on the source branch to restore from, in RFC 3339 format. When omitted alongside `source_lsn`, the branch is restored to the latest available state of the source branch.\n",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "preserve_under_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name under which to save the current branch state before restoring. Required when the branch has children or when `source_branch_id` equals the branch being restored; in those cases all existing child branches are moved to the newly created branch. If omitted and not required, the previous state is not preserved.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "setDefaultProjectBranch",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Set branch as default",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/set_as_default",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "startAnonymization",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Start anonymization",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/anonymize",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateMaskingRules",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Update masking rules",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/masking_rules",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "masking_rules",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "List of masking rules to apply to the branch.\nThis will replace all existing masking rules for the branch.\n",
+      "items": {
+       "type": "object",
+       "required": [
+        "database_name",
+        "schema_name",
+        "table_name",
+        "column_name"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectBranch",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Update branch",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Branch attributes to update. Supply only the fields you want to change, for example `name` or `protected`.",
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "New display name for the branch."
+       },
+       "protected": {
+        "type": "boolean",
+        "description": "Whether the branch is protected. Protected branches (and their computes) cannot be deleted, archived, or reset, and block deletion of the project. Can be gated by `protected_branches_only` in the IP allowlist. Paid plans only.\n"
+       },
+       "expires_at": {
+        "type": "string",
+        "description": "The timestamp when the branch is scheduled to expire and be automatically deleted. Must be set by the client following the [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6) format with precision up to seconds (such as 2025-06-09T18:02:16Z). Deletion is performed by a background job and may not occur exactly at the specified time. If this field is set to null, the expiration ",
+        "format": "date-time",
+        "nullable": true
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectBranchDatabase",
+   "area": "Branches",
+   "risk": "change",
+   "description": "Update database",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/databases/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Properties to update on the database.",
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "Name of the database to update.\n"
+       },
+       "owner_name": {
+        "type": "string",
+        "description": "The name of the role that owns the database\n"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectEndpoint",
+   "area": "Compute",
+   "risk": "change",
+   "description": "Create compute endpoint",
+   "method": "POST",
+   "path": "/projects/{project_id}/endpoints",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration for the compute endpoint to create.",
+      "required": [
+       "branch_id",
+       "type"
+      ],
+      "properties": {
+       "branch_id": {
+        "type": "string",
+        "description": "The ID of the branch the compute endpoint will be associated with\n"
+       },
+       "region_id": {
+        "type": "string",
+        "description": "The region where the compute endpoint will be created. Only the project's `region_id` is permitted.\n"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "read_only",
+         "read_write"
+        ],
+        "description": "Compute endpoint type. `read_write`: the primary read-write endpoint (one per branch). `read_only`: a read replica endpoint (multiple allowed per branch)."
+       },
+       "settings": {
+        "type": "object",
+        "description": "A collection of settings for a compute endpoint"
+       },
+       "autoscaling_limit_min_cu": {
+        "type": "number",
+        "minimum": 0.25
+       },
+       "autoscaling_limit_max_cu": {
+        "type": "number",
+        "minimum": 0.25
+       },
+       "provisioner": {
+        "type": "string",
+        "description": ""
+       },
+       "pooler_enabled": {
+        "type": "boolean",
+        "description": "Deprecated. To enable connection pooling, append `-pooler` to the endpoint ID in the connection string.\nSee [How to use connection pooling](https://neon.com/docs/connect/connection-pooling#how-to-use-connection-pooling)\n"
+       },
+       "pooler_mode": {
+        "type": "string",
+        "enum": [
+         "transaction"
+        ],
+        "description": "Deprecated. The connection pooler mode. Neon supports PgBouncer in `transaction` mode only. Removal scheduled for June 20, 2026.\n"
+       },
+       "disabled": {
+        "type": "boolean",
+        "description": "Whether to restrict connections to the compute endpoint.\nEnabling this option schedules a suspend compute operation.\nA disabled compute endpoint cannot be enabled by a connection or\nconsole action. However, the compute endpoint is periodically\nenabled by check_availability operations.\n"
+       },
+       "passwordless_access": {
+        "type": "boolean",
+        "description": "NOT YET IMPLEMENTED. Whether to permit passwordless access to the compute endpoint.\n"
+       },
+       "suspend_timeout_seconds": {
+        "type": "integer",
+        "description": "Duration of inactivity in seconds after which the compute endpoint is\nautomatically suspended. The value `0` means use the default value.\nThe value `-1` means never suspend. The default value is `300` seconds (5 minutes).\nThe minimum value is `60` seconds (1 minute).\nThe maximum value is `604800` seconds (1 week). For more information, see\n[Scale to zero configuration](https://neon.com/docs/manage",
+        "format": "int64",
+        "minimum": -1,
+        "maximum": 604800
+       },
+       "name": {
+        "type": "string",
+        "description": "Optional name of the compute endpoint\n"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectEndpoint",
+   "area": "Compute",
+   "risk": "destroy",
+   "description": "Delete compute endpoint",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/endpoints/{endpoint_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectEndpoint",
+   "area": "Compute",
+   "risk": "read",
+   "description": "Retrieve compute endpoint details",
+   "method": "GET",
+   "path": "/projects/{project_id}/endpoints/{endpoint_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectEndpoints",
+   "area": "Compute",
+   "risk": "read",
+   "description": "List compute endpoints",
+   "method": "GET",
+   "path": "/projects/{project_id}/endpoints",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restartProjectEndpoint",
+   "area": "Compute",
+   "risk": "change",
+   "description": "Restart compute endpoint",
+   "method": "POST",
+   "path": "/projects/{project_id}/endpoints/{endpoint_id}/restart",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "startProjectEndpoint",
+   "area": "Compute",
+   "risk": "change",
+   "description": "Start compute endpoint",
+   "method": "POST",
+   "path": "/projects/{project_id}/endpoints/{endpoint_id}/start",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "suspendProjectEndpoint",
+   "area": "Compute",
+   "risk": "destroy",
+   "description": "Suspend compute endpoint",
+   "method": "POST",
+   "path": "/projects/{project_id}/endpoints/{endpoint_id}/suspend",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectEndpoint",
+   "area": "Compute",
+   "risk": "change",
+   "description": "Update compute endpoint",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/endpoints/{endpoint_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "endpoint",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Parameters for the compute endpoint update.",
+      "properties": {
+       "branch_id": {
+        "type": "string",
+        "description": "Deprecated. The destination branch ID; must not have an existing read-write endpoint.\n"
+       },
+       "autoscaling_limit_min_cu": {
+        "type": "number",
+        "minimum": 0.25
+       },
+       "autoscaling_limit_max_cu": {
+        "type": "number",
+        "minimum": 0.25
+       },
+       "provisioner": {
+        "type": "string",
+        "description": ""
+       },
+       "settings": {
+        "type": "object",
+        "description": "A collection of settings for a compute endpoint"
+       },
+       "pooler_enabled": {
+        "type": "boolean",
+        "description": "Deprecated. To enable connection pooling, append `-pooler` to the endpoint ID in the connection string.\nSee [How to use connection pooling](https://neon.com/docs/connect/connection-pooling#how-to-use-connection-pooling)\n"
+       },
+       "pooler_mode": {
+        "type": "string",
+        "enum": [
+         "transaction"
+        ],
+        "description": "Deprecated. The connection pooler mode. Neon supports PgBouncer in `transaction` mode only. Removal scheduled for June 20, 2026.\n"
+       },
+       "disabled": {
+        "type": "boolean",
+        "description": "Whether to restrict connections to the compute endpoint.\nEnabling this option schedules a suspend compute operation.\nA disabled compute endpoint cannot be enabled by a connection or\nconsole action. However, the compute endpoint is periodically\nenabled by check_availability operations.\n"
+       },
+       "passwordless_access": {
+        "type": "boolean",
+        "description": "NOT YET IMPLEMENTED. Whether to permit passwordless access to the compute endpoint.\n"
+       },
+       "suspend_timeout_seconds": {
+        "type": "integer",
+        "description": "Duration of inactivity in seconds after which the compute endpoint is\nautomatically suspended. The value `0` means use the default value.\nThe value `-1` means never suspend. The default value is `300` seconds (5 minutes).\nThe minimum value is `60` seconds (1 minute).\nThe maximum value is `604800` seconds (1 week). For more information, see\n[Scale to zero configuration](https://neon.com/docs/manage",
+        "format": "int64",
+        "minimum": -1,
+        "maximum": 604800
+       },
+       "name": {
+        "type": "string",
+        "description": "Optional name of the compute endpoint\n"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranchDataAPI",
+   "area": "Data API",
+   "risk": "change",
+   "description": "Create Neon Data API",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/data-api/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auth_provider",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "neon_auth",
+       "external"
+      ],
+      "description": "Authentication provider for the Neon Data API. `neon_auth`: use Neon's built-in managed authentication (no JWKS configuration required). `external`: use an external JWT provider, which requires `jwks_url`. When omitted, no auth provider is configured (existing setup is kept)."
+     }
+    },
+    {
+     "name": "jwks_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "URL of the JWKS endpoint used to verify JWTs for this Data API. Required when configuring JWT-based authentication; omit when using a non-JWT auth provider.",
+      "format": "uri"
+     }
+    },
+    {
+     "name": "provider_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Display name for the authentication provider. Accepted values include \"Clerk\", \"Stytch\", and \"Auth0\", but any non-empty string is valid. Optional field."
+     }
+    },
+    {
+     "name": "jwt_audience",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Expected `aud` claim in incoming JWTs. When set, tokens with a different audience are rejected; tokens with no audience are still accepted. Omit to skip audience validation.\n"
+     }
+    },
+    {
+     "name": "add_default_grants",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Grant all permissions to the tables in the public schema to authenticated users",
+      "default": false
+     }
+    },
+    {
+     "name": "skip_auth_schema",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Skip creating the auth schema and RLS functions",
+      "default": false
+     }
+    },
+    {
+     "name": "settings",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration settings for the Neon Data API",
+      "properties": {
+       "db_aggregates_enabled": {
+        "type": "boolean",
+        "description": "Enable aggregates feature",
+        "default": true
+       },
+       "db_anon_role": {
+        "type": "string",
+        "description": "Database role to use for anonymous requests",
+        "default": "anonymous"
+       },
+       "db_extra_search_path": {
+        "type": "string",
+        "description": "Extra schemas to add to the search path"
+       },
+       "db_max_rows": {
+        "type": "integer",
+        "description": "Hard limit on the number of rows returned in a single Data API response. No limit when unset."
+       },
+       "db_schemas": {
+        "type": "array",
+        "description": "List of schemas to expose via the API. Default: [\"public\"]",
+        "items": {
+         "type": "string"
+        }
+       },
+       "jwt_role_claim_key": {
+        "type": "string",
+        "description": "JWT claim key to use for role extraction",
+        "default": ".role"
+       },
+       "jwt_cache_max_lifetime": {
+        "type": "integer",
+        "description": "Maximum lifetime of the Data API's JWT cache, in seconds."
+       },
+       "openapi_mode": {
+        "type": "string",
+        "description": "OpenAPI specification mode (ignore-privileges, disabled)",
+        "default": "disabled"
+       },
+       "server_cors_allowed_origins": {
+        "type": "string",
+        "description": "CORS allowed origins"
+       },
+       "server_timing_enabled": {
+        "type": "boolean",
+        "description": "When enabled, the Data API adds `Server-Timing` headers to each response showing database execution and internal processing time. Default: disabled."
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchDataAPI",
+   "area": "Data API",
+   "risk": "destroy",
+   "description": "Delete Neon Data API",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/data-api/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchDataAPI",
+   "area": "Data API",
+   "risk": "read",
+   "description": "Retrieve Neon Data API configuration",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/data-api/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectBranchDataAPI",
+   "area": "Data API",
+   "risk": "change",
+   "description": "Update Neon Data API",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/data-api/{database_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "settings",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration settings for the Neon Data API",
+      "properties": {
+       "db_aggregates_enabled": {
+        "type": "boolean",
+        "description": "Enable aggregates feature",
+        "default": true
+       },
+       "db_anon_role": {
+        "type": "string",
+        "description": "Database role to use for anonymous requests",
+        "default": "anonymous"
+       },
+       "db_extra_search_path": {
+        "type": "string",
+        "description": "Extra schemas to add to the search path"
+       },
+       "db_max_rows": {
+        "type": "integer",
+        "description": "Hard limit on the number of rows returned in a single Data API response. No limit when unset."
+       },
+       "db_schemas": {
+        "type": "array",
+        "description": "List of schemas to expose via the API. Default: [\"public\"]",
+        "items": {
+         "type": "string"
+        }
+       },
+       "jwt_role_claim_key": {
+        "type": "string",
+        "description": "JWT claim key to use for role extraction",
+        "default": ".role"
+       },
+       "jwt_cache_max_lifetime": {
+        "type": "integer",
+        "description": "Maximum lifetime of the Data API's JWT cache, in seconds."
+       },
+       "openapi_mode": {
+        "type": "string",
+        "description": "OpenAPI specification mode (ignore-privileges, disabled)",
+        "default": "disabled"
+       },
+       "server_cors_allowed_origins": {
+        "type": "string",
+        "description": "CORS allowed origins"
+       },
+       "server_timing_enabled": {
+        "type": "boolean",
+        "description": "When enabled, the Data API adds `Server-Timing` headers to each response showing database execution and internal processing time. Default: disabled."
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranchTrigger",
+   "area": "Functions",
+   "risk": "change",
+   "description": "Create a trigger",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/triggers",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Trigger creation payload discriminated by `type`. The supported trigger\ntypes are `schedule` and `storage_object_created`.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchCustomDomain",
+   "area": "Functions",
+   "risk": "destroy",
+   "description": "Delete a custom domain from a branch",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/custom-domains/{domain}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "domain",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchFunction",
+   "area": "Functions",
+   "risk": "destroy",
+   "description": "Delete a function on the branch",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/functions/{slug}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "slug",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchTrigger",
+   "area": "Functions",
+   "risk": "destroy",
+   "description": "Delete a trigger",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "trigger_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Opaque, server-minted project-wide trigger identifier."
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchFunction",
+   "area": "Functions",
+   "risk": "read",
+   "description": "Get function details",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/functions/{slug}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "slug",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchTrigger",
+   "area": "Functions",
+   "risk": "read",
+   "description": "Get a trigger",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "trigger_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Opaque, server-minted project-wide trigger identifier."
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchCustomDomains",
+   "area": "Functions",
+   "risk": "read",
+   "description": "List the custom domains on a branch",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/custom-domains",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchFunctions",
+   "area": "Functions",
+   "risk": "read",
+   "description": "List functions on the branch",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/functions",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchTriggers",
+   "area": "Functions",
+   "risk": "read",
+   "description": "List triggers on the branch",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/triggers",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "registerProjectBranchCustomDomain",
+   "area": "Functions",
+   "risk": "change",
+   "description": "Register a custom domain on a branch",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/custom-domains",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "domain",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The custom domain to register (for example `dashboard.acme.com`).\nCase-insensitive; normalized to lowercase (a trailing root dot is\nstripped, so the 254-char bound admits a fully-qualified name whose\nnormalized form is 253 chars). Neon-managed and internal hostnames are\nrejected.\n"
+     }
+    },
+    {
+     "name": "entity_type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The kind of branch entity to point the domain at. v1 supports only\n`function`; any other value is rejected with `invalid_entity_type`.\n"
+     }
+    },
+    {
+     "name": "entity_id",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The target entity's identifier within the branch. For `function` this\nis the function slug (which must already exist on the branch).\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectBranchFunction",
+   "area": "Functions",
+   "risk": "change",
+   "description": "Update a function",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/functions/{slug}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "slug",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New display name for the function. `null` clears the display\nname; the function's `name` then falls back to its slug. Leading\nand trailing whitespace is trimmed; a whitespace-only name is\nrejected.\n",
+      "nullable": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProjectBranchTrigger",
+   "area": "Functions",
+   "risk": "change",
+   "description": "Update a trigger",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "trigger_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Opaque, server-minted project-wide trigger identifier."
+     }
+    },
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Partial trigger update discriminated by `type`. The supported trigger\ntypes are `schedule` and `storage_object_created`.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchLogFieldValues",
+   "area": "Logs",
+   "risk": "read",
+   "description": "List branch log field values",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/logs/fields/{field_name}/values",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "field_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "since",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "A length of time as a count and a unit, for example `30m`, `6h`, or\n`7d`. Valid units are `ms`, `s`, `m`, `h`, and `d`.\n"
+     }
+    },
+    {
+     "name": "start_time",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "end_time",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "source",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "function",
+       "storage",
+       "pg_endpoint"
+      ],
+      "description": "The Neon service that emitted the log record."
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000,
+      "default": 100
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchLogFields",
+   "area": "Logs",
+   "risk": "read",
+   "description": "List branch log fields",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/logs/fields",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "queryProjectBranchLogs",
+   "area": "Logs",
+   "risk": "change",
+   "description": "Query branch logs",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/logs/query",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "since",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "Length of the query window, ending at `end_time` or at the current\ntime when `end_time` is omitted. Mutually exclusive with\n`start_time`. Prefer this over computing absolute bounds when the\ncaller only means \"the last hour\".\n",
+      "type": "string"
+     }
+    },
+    {
+     "name": "start_time",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Inclusive beginning of the query window. Mutually exclusive with\n`since`. Defaults to one hour before `end_time`, or one hour before\nthe current time when both bounds are omitted.\n",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "end_time",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Exclusive end of the query window. Defaults to the current time.",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Maximum number of log records to return per page.",
+      "minimum": 1,
+      "maximum": 1000,
+      "default": 100
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Opaque pagination cursor returned as `next_cursor` by a previous\ncall. Resume the query after the last record of the previous page,\nrepeating the time range and every filter unchanged.\n"
+     }
+    },
+    {
+     "name": "sort_order",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "asc",
+       "desc"
+      ],
+      "description": "Order matching records by timestamp. `desc`, the default, returns\nthe newest records first.\n",
+      "default": "desc"
+     }
+    },
+    {
+     "name": "source",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "function",
+       "storage",
+       "pg_endpoint"
+      ],
+      "description": "The Neon service that emitted the log record."
+     }
+    },
+    {
+     "name": "service_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Match the OpenTelemetry `service.name` resource attribute exactly."
+     }
+    },
+    {
+     "name": "scope_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Match the OpenTelemetry instrumentation scope name exactly."
+     }
+    },
+    {
+     "name": "minimum_severity",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "trace",
+       "debug",
+       "info",
+       "warn",
+       "error",
+       "fatal"
+      ],
+      "description": "An OpenTelemetry severity level. A minimum severity includes every\nhigher level in this order: `trace`, `debug`, `info`, `warn`, `error`,\n`fatal`.\n"
+     }
+    },
+    {
+     "name": "severity_text",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Match the OpenTelemetry severity text exactly."
+     }
+    },
+    {
+     "name": "body_contains",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Match records whose rendered `message` contains this case-sensitive\nsubstring.\n\nRecords with a structured body are matched against their JSON\nrendering, so the substring meets JSON syntax rather than prose: a\nbare key name such as `operation` matches every record carrying that\nkey, and `http_status: 200` matches none, because the rendering\ncontains `\"http_status\":200` with no space.\n"
+     }
+    },
+    {
+     "name": "trace_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Match records associated with this OpenTelemetry trace ID. W3C Trace\nContext defines a trace ID as 32 lowercase hex digits, and that is\nwhat is stored, so an uppercase value is rejected rather than\nsilently matching nothing.\n"
+     }
+    },
+    {
+     "name": "logql",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Escape hatch for selections the structured filters cannot express: a\nraw LogQL expression, evaluated against this branch's log stream.\n\nOnly stream selectors and line filters are accepted \u2014 no\naggregations and no parser stages. Supplying this alongside any\nstructured filter is rejected with `conflicting_filters` rather than\nsilently ignoring one of them. `limit`, `sort_order`, and the time\nwindow "
+     }
+    }
+   ]
+  },
+  {
+   "name": "addBranchNeonAuthTrustedDomain",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Add domain to redirect_uri whitelist",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/domains",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "domain",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "URI to add to the redirect URI allowlist for the auth provider.",
+      "format": "uri"
+     }
+    },
+    {
+     "name": "auth_provider",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "mock",
+       "stack",
+       "better_auth"
+      ],
+      "description": "Authentication provider integrated with this Neon Auth configuration. `better_auth` integrates with Better Auth (the current, recommended provider). `stack` integrates with Stack Auth (deprecated). `mock` is a simulated provider for local development and testing only."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createBranchNeonAuthNewUser",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Create new auth user",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/users",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "email",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email address of the new Neon Auth user to create.",
+      "format": "email"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Display name for the new user. Optional. Pair with the required email field when creating a new user."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createNeonAuth",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Enable Neon Auth for the branch",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auth_provider",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "mock",
+       "stack",
+       "better_auth"
+      ],
+      "description": "Authentication provider integrated with this Neon Auth configuration. `better_auth` integrates with Better Auth (the current, recommended provider). `stack` integrates with Stack Auth (deprecated). `mock` is a simulated provider for local development and testing only."
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the database to enable Neon Auth on. When omitted, the integration uses the project's default database."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteBranchNeonAuthTrustedDomain",
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Delete domain from redirect_uri whitelist",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/domains",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auth_provider",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "mock",
+       "stack",
+       "better_auth"
+      ],
+      "description": "Authentication provider integrated with this Neon Auth configuration. `better_auth` integrates with Better Auth (the current, recommended provider). `stack` integrates with Stack Auth (deprecated). `mock` is a simulated provider for local development and testing only."
+     }
+    },
+    {
+     "name": "domains",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Domain names to remove from the redirect URI whitelist for the specified auth provider.",
+      "items": {
+       "type": "object",
+       "required": [
+        "domain"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteBranchNeonAuthUser",
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Delete auth user",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/users/{auth_user_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auth_user_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "disableNeonAuth",
+   "area": "Neon Auth",
+   "risk": "destroy",
+   "description": "Disable Neon Auth for the branch",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "delete_data",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If true, deletes the `neon_auth` schema from the database",
+      "default": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNeonAuth",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Retrieve Neon Auth details for the branch",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNeonAuthAllowLocalhost",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Retrieve localhost allow setting",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/allow_localhost",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNeonAuthEmailProvider",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Retrieve email provider configuration",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/email_provider",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNeonAuthPhoneNumberPlugin",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Retrieve phone number plugin configuration",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/plugins/phone-number",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNeonAuthPluginConfigs",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Retrieve Neon Auth plugin configurations",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/plugins",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNeonAuthWebhookConfig",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "Retrieve Neon Auth webhook configuration",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/webhooks",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listBranchNeonAuthTrustedDomains",
+   "area": "Neon Auth",
+   "risk": "read",
+   "description": "List domains in redirect_uri whitelist",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/domains",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "sendNeonAuthEmailProviderTest",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Send test email using the saved email provider",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/email_provider/test",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "recipient_email",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The email address to send the test email to.",
+      "format": "email"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthAllowLocalhost",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update localhost allow setting",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/allow_localhost",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "allow_localhost",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether to allow localhost connections"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthConfig",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update auth configuration",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/config",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The application name used in auth emails and communications."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthEmailProvider",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update email provider configuration",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/email_provider",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "body",
+     "in": "body_root",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthMagicLinkPlugin",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update magic link plugin configuration",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/plugins/magic-link",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether to enable the magic link plugin."
+     }
+    },
+    {
+     "name": "expires_in",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Minutes until the magic link expires.",
+      "format": "int32",
+      "minimum": 5,
+      "maximum": 1440
+     }
+    },
+    {
+     "name": "disable_sign_up",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "When true, sign-up via magic link is disabled."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthOrganizationPlugin",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update organization plugin configuration",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/plugins/organization",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Controls whether the organization plugin is active for the organization."
+     }
+    },
+    {
+     "name": "organization_limit",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Maximum organizations a user can belong to (created or joined). At the limit, the user cannot create or join more.",
+      "format": "int32",
+      "minimum": 1
+     }
+    },
+    {
+     "name": "membership_limit",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Maximum members per organization.",
+      "format": "int32",
+      "minimum": 1
+     }
+    },
+    {
+     "name": "creator_role",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "admin",
+       "owner"
+      ],
+      "description": "Role of the organization's creator. `owner`: full control, including deleting the org and transferring ownership. `admin`: manage members and settings only."
+     }
+    },
+    {
+     "name": "send_invitation_email",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "When true, invited users receive an email containing an accept link. Requires that the invited user has a verified email address."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthPhoneNumberPlugin",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update phone number plugin configuration",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/plugins/phone-number",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether the phone number plugin is enabled."
+     }
+    },
+    {
+     "name": "otp_expires_in",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Time in seconds before the OTP expires",
+      "minimum": 60,
+      "maximum": 600
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthUserRole",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update auth user role",
+   "method": "PUT",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/users/{auth_user_id}/role",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auth_user_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "roles",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Roles to assign to the user in the Neon Auth (Better Auth) directory. `user` and `admin` are the built-in roles; custom role strings are also supported.",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateNeonAuthWebhookConfig",
+   "area": "Neon Auth",
+   "risk": "change",
+   "description": "Update Neon Auth webhook configuration",
+   "method": "PUT",
+   "path": "/projects/{project_id}/branches/{branch_id}/auth/webhooks",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "enabled",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Whether the webhook is active."
+     }
+    },
+    {
+     "name": "webhook_url",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Destination URL that receives webhook event payloads."
+     }
+    },
+    {
+     "name": "enabled_events",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Event types that trigger this webhook. Covers user lifecycle, email/OTP delivery, organization invitations, and phone verification events; see the enum for exact values.",
+      "items": {
+       "type": "string",
+       "enum": [
+        "user.before_create",
+        "user.created",
+        "send.otp",
+        "send.magic_link",
+        "organization.invitation.created",
+        "organization.invitation.accepted",
+        "phone_number.verified"
+       ]
+      }
+     }
+    },
+    {
+     "name": "timeout_seconds",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Maximum time, in seconds, to wait for a response from the webhook endpoint.",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectOperation",
+   "area": "Operations",
+   "risk": "read",
+   "description": "Retrieve operation details",
+   "method": "GET",
+   "path": "/projects/{project_id}/operations/{operation_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "operation_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "uuid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectOperations",
+   "area": "Operations",
+   "risk": "read",
+   "description": "List operations",
+   "method": "GET",
+   "path": "/projects/{project_id}/operations",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+     }
+    },
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "assignOrganizationVPCEndpoint",
+   "area": "Organization",
+   "risk": "change",
+   "description": "Assign or update VPC endpoint",
+   "method": "POST",
+   "path": "/organizations/{org_id}/vpc/region/{region_id}/vpc_endpoints/{vpc_endpoint_id}",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "region_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vpc_endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Human-readable name for the VPC endpoint assignment, used to identify it within the organization."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteOrganizationSpendingLimit",
+   "area": "Organization",
+   "risk": "destroy",
+   "description": "Remove organization spending limit",
+   "method": "DELETE",
+   "path": "/organizations/{org_id}/billing/spending_limit",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteOrganizationVPCEndpoint",
+   "area": "Organization",
+   "risk": "destroy",
+   "description": "Delete VPC endpoint",
+   "method": "DELETE",
+   "path": "/organizations/{org_id}/vpc/region/{region_id}/vpc_endpoints/{vpc_endpoint_id}",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "region_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vpc_endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getOrganization",
+   "area": "Organization",
+   "risk": "read",
+   "description": "Retrieve organization details",
+   "method": "GET",
+   "path": "/organizations/{org_id}",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getOrganizationSpendingLimit",
+   "area": "Organization",
+   "risk": "read",
+   "description": "Retrieve organization spending limit",
+   "method": "GET",
+   "path": "/organizations/{org_id}/billing/spending_limit",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getOrganizationVPCEndpointDetails",
+   "area": "Organization",
+   "risk": "read",
+   "description": "Retrieve VPC endpoint details",
+   "method": "GET",
+   "path": "/organizations/{org_id}/vpc/region/{region_id}/vpc_endpoints/{vpc_endpoint_id}",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "region_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vpc_endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listOrganizationVPCEndpoints",
+   "area": "Organization",
+   "risk": "read",
+   "description": "List VPC endpoints",
+   "method": "GET",
+   "path": "/organizations/{org_id}/vpc/region/{region_id}/vpc_endpoints",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "region_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listOrganizationVPCEndpointsAllRegions",
+   "area": "Organization",
+   "risk": "read",
+   "description": "List VPC endpoints across all regions",
+   "method": "GET",
+   "path": "/organizations/{org_id}/vpc/vpc_endpoints",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "setOrganizationSpendingLimit",
+   "area": "Organization",
+   "risk": "change",
+   "description": "Set organization spending limit",
+   "method": "PUT",
+   "path": "/organizations/{org_id}/billing/spending_limit",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "spending_limit_cents",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Monthly spending cap in cents. Must be positive. To remove a\npreviously configured limit, send a DELETE request to the\nspending_limit endpoint \u2014 `0` and `null` are rejected here.\nThe cap is alert-only: notifications fire at 80% and 100%, but\ncomputes are not suspended. Setting a cap below the period's\nalready-accrued spend is permitted and will trigger the\nover-limit notification on the next worke",
+      "format": "int64",
+      "minimum": 1
+     }
+    }
+   ]
+  },
+  {
+   "name": "assignProjectVPCEndpoint",
+   "area": "Project",
+   "risk": "change",
+   "description": "Set VPC endpoint restriction",
+   "method": "POST",
+   "path": "/projects/{project_id}/vpc_endpoints/{vpc_endpoint_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vpc_endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Human-readable name for the VPC endpoint assignment, used to identify it within the organization."
+     }
+    }
+   ]
+  },
+  {
+   "name": "countProjects",
+   "area": "Project",
+   "risk": "read",
+   "description": "Retrieve projects count",
+   "method": "GET",
+   "path": "/projects/count",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "query",
+     "required": false,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectVPCEndpoint",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Delete VPC endpoint restriction",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/vpc_endpoints/{vpc_endpoint_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "vpc_endpoint_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getActiveRegions",
+   "area": "Project",
+   "risk": "read",
+   "description": "List supported regions",
+   "method": "GET",
+   "path": "/regions",
+   "args": [
+    {
+     "name": "org_id",
+     "in": "query",
+     "required": false,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getAvailablePreloadLibraries",
+   "area": "Project",
+   "risk": "read",
+   "description": "List available shared preload libraries",
+   "method": "GET",
+   "path": "/projects/{project_id}/available_preload_libraries",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProject",
+   "area": "Project",
+   "risk": "read",
+   "description": "Retrieve project details",
+   "method": "GET",
+   "path": "/projects/{project_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectAdvisorSecurityIssues",
+   "area": "Project",
+   "risk": "read",
+   "description": "Get advisor issues",
+   "method": "GET",
+   "path": "/projects/{project_id}/advisors",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "category",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SECURITY",
+       "PERFORMANCE"
+      ],
+      "description": "Category of an advisor issue"
+     }
+    },
+    {
+     "name": "min_severity",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "INFO",
+       "WARN",
+       "ERROR"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "grantPermissionToProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Grant project access",
+   "method": "POST",
+   "path": "/projects/{project_id}/permissions",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "email",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Email address of the user to grant project access to.",
+      "format": "email"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectPermissions",
+   "area": "Project",
+   "risk": "read",
+   "description": "List project access",
+   "method": "GET",
+   "path": "/projects/{project_id}/permissions",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectVPCEndpoints",
+   "area": "Project",
+   "risk": "read",
+   "description": "List VPC endpoint restrictions",
+   "method": "GET",
+   "path": "/projects/{project_id}/vpc_endpoints",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjects",
+   "area": "Project",
+   "risk": "read",
+   "description": "List projects",
+   "method": "GET",
+   "path": "/projects",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 400,
+      "default": 10
+     }
+    },
+    {
+     "name": "search",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "org_id",
+     "in": "query",
+     "required": false,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 30000
+     }
+    },
+    {
+     "name": "recoverable",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "default": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "listSharedProjects",
+   "area": "Project",
+   "risk": "read",
+   "description": "List shared projects",
+   "method": "GET",
+   "path": "/projects/shared",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 400,
+      "default": 10
+     }
+    },
+    {
+     "name": "search",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 30000
+     }
+    }
+   ]
+  },
+  {
+   "name": "recoverProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Recover a deleted project",
+   "method": "POST",
+   "path": "/projects/{project_id}/recover",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "revokePermissionFromProject",
+   "area": "Project",
+   "risk": "destroy",
+   "description": "Revoke project access",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/permissions/{permission_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "permission_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateProject",
+   "area": "Project",
+   "risk": "change",
+   "description": "Update project",
+   "method": "PATCH",
+   "path": "/projects/{project_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "project",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "settings": {
+        "type": "object"
+       },
+       "name": {
+        "type": "string",
+        "description": "The project name"
+       },
+       "default_endpoint_settings": {
+        "type": "object",
+        "description": "A collection of settings for a Neon endpoint"
+       },
+       "history_retention_seconds": {
+        "type": "integer",
+        "description": "History window (point-in-time restore range) for all branches, in seconds. `0` disables it. Default 1 day (Free: 6 hours). Maximum depends on plan: Free 6 hours (21600), Launch 7 days (604800), Scale 30 days (2592000).\n",
+        "format": "int32",
+        "minimum": 0,
+        "maximum": 2592000
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "disableProjectBranchRealtime",
+   "area": "Realtime",
+   "risk": "destroy",
+   "description": "Disable Realtime",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/realtime",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "enableProjectBranchRealtime",
+   "area": "Realtime",
+   "risk": "change",
+   "description": "Enable Realtime",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/realtime",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "allowed_origins",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "The browser origins allowed to connect, each `http` or `https` with a host and optional port\nand no path. An empty list, or `*` alone, allows any origin. Omitted keeps the current or\ninherited value.\n",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchRealtime",
+   "area": "Realtime",
+   "risk": "read",
+   "description": "Retrieve Realtime state",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/realtime",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createSnapshot",
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Create snapshot",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/snapshot",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "lsn",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timestamp",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "expires_at",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteSnapshot",
+   "area": "Snapshots",
+   "risk": "destroy",
+   "description": "Delete snapshot",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/snapshots/{snapshot_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "snapshot_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getSnapshotSchedule",
+   "area": "Snapshots",
+   "risk": "read",
+   "description": "Retrieve backup schedule",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/backup_schedule",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listSnapshots",
+   "area": "Snapshots",
+   "risk": "read",
+   "description": "List project snapshots",
+   "method": "GET",
+   "path": "/projects/{project_id}/snapshots",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "restoreSnapshot",
+   "area": "Snapshots",
+   "risk": "destroy",
+   "description": "Restore snapshot",
+   "method": "POST",
+   "path": "/projects/{project_id}/snapshots/{snapshot_id}/restore",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "snapshot_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "target_branch_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID of the branch to restore the snapshot into. Defaults to the snapshot's source branch (`snapshot.source_branch_id`); fails if that cannot be determined.\n"
+     }
+    },
+    {
+     "name": "finalize_restore",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Set to `true` to finalize the restore operation immediately.\nThis will complete the restore and move any associated computes to the new branch,\nsimilar to the `finalizeRestoreBranch` operation.\nDefaults to `false` to allow previewing the restored snapshot data first.\n",
+      "default": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "setSnapshotSchedule",
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Update backup schedule",
+   "method": "PUT",
+   "path": "/projects/{project_id}/branches/{branch_id}/backup_schedule",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "schedule",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "List of schedule entries defining the backup frequency. At least one entry is required.",
+      "items": {
+       "type": "object",
+       "required": [
+        "frequency"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateSnapshot",
+   "area": "Snapshots",
+   "risk": "change",
+   "description": "Update snapshot",
+   "method": "PATCH",
+   "path": "/projects/{project_id}/snapshots/{snapshot_id}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "snapshot_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "snapshot",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Fields to update on the snapshot. Updatable fields include `name` and `expires_at`.",
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "Human-readable label for the snapshot."
+       },
+       "expires_at": {
+        "type": "string",
+        "description": "The date and time when the snapshot will expire.\n\nOmit to leave the current expiration unchanged. Send `null` to\nclear the expiration so the snapshot never expires. A future\ntimestamp sets the absolute expiration.\n",
+        "format": "date-time",
+        "nullable": true
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createProjectBranchBucket",
+   "area": "Storage",
+   "risk": "change",
+   "description": "Create a bucket on the branch",
+   "method": "POST",
+   "path": "/projects/{project_id}/branches/{branch_id}/buckets",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The bucket name."
+     }
+    },
+    {
+     "name": "access_level",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "private",
+       "public_read"
+      ],
+      "description": "Access level for the bucket. Defaults to `private`. Set to `public_read`\nto allow anonymous `GetObject`/`HeadObject` on objects in this bucket.\n",
+      "default": "private"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchBucket",
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Delete a bucket on the branch",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/buckets/{bucket_name}",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucket_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteProjectBranchBucketObjectsByPrefix",
+   "area": "Storage",
+   "risk": "destroy",
+   "description": "Delete every object under a key prefix (folder) in a bucket",
+   "method": "DELETE",
+   "path": "/projects/{project_id}/branches/{branch_id}/buckets/{bucket_name}/objects-by-prefix",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "bucket_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "prefix",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getProjectBranchStorage",
+   "area": "Storage",
+   "risk": "read",
+   "description": "Get branch object storage state",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/storage",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listProjectBranchBuckets",
+   "area": "Storage",
+   "risk": "read",
+   "description": "List buckets on the branch",
+   "method": "GET",
+   "path": "/projects/{project_id}/branches/{branch_id}/buckets",
+   "args": [
+    {
+     "name": "project_id",
+     "in": "path",
+     "required": true,
+     "context": "project",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "branch_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getConsumptionHistoryPerBranchV2",
+   "area": "Usage",
+   "risk": "read",
+   "description": "Retrieve branch consumption metrics",
+   "method": "GET",
+   "path": "/consumption_history/v2/branches",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000,
+      "default": 100
+     }
+    },
+    {
+     "name": "project_ids",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "branch_ids",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "from",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "to",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "granularity",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hourly",
+       "daily",
+       "monthly"
+      ]
+     }
+    },
+    {
+     "name": "org_id",
+     "in": "query",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "metrics",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getConsumptionHistoryPerProject",
+   "area": "Usage",
+   "risk": "read",
+   "description": "Retrieve project consumption metrics (legacy plans)",
+   "method": "GET",
+   "path": "/consumption_history/projects",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 10
+     }
+    },
+    {
+     "name": "project_ids",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "from",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "to",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "granularity",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hourly",
+       "daily",
+       "monthly"
+      ]
+     }
+    },
+    {
+     "name": "org_id",
+     "in": "query",
+     "required": false,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include_v1_metrics",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "metrics",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getConsumptionHistoryPerProjectV2",
+   "area": "Usage",
+   "risk": "read",
+   "description": "Retrieve project consumption metrics",
+   "method": "GET",
+   "path": "/consumption_history/v2/projects",
+   "args": [
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 10
+     }
+    },
+    {
+     "name": "project_ids",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "from",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "to",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    {
+     "name": "granularity",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "hourly",
+       "daily",
+       "monthly"
+      ]
+     }
+    },
+    {
+     "name": "org_id",
+     "in": "query",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "metrics",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

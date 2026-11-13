@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO usage (resource_id, day, data) VALUES (?, ?, ?) ON CONFLICT(resource_id, day) DO UPDATE SET data = excluded.data",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "0eb0c9443366a85599ebd6109a4b55a1632f3122ce3efe40ad6bdffd7d1a34bc"
+}

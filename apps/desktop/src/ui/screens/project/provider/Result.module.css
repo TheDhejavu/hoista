@@ -1,0 +1,87 @@
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table th {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-soft);
+  color: var(--text-2);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  max-width: 260px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.object {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.fact dt {
+  color: var(--text-3);
+  font-size: var(--text-xs);
+}
+
+.fact dd {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nested summary {
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.nested > :not(summary) {
+  margin-top: 8px;
+  padding-left: 12px;
+}
+
+.plain {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.menuCol {
+  width: 44px;
+  text-align: right;
+}
+
+.table td.menuCol {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}

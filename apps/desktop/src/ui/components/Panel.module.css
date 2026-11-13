@@ -1,0 +1,23 @@
+.panel {
+  min-width: 0;
+  border: 1px solid var(--card-line);
+  box-shadow: var(--card-lift);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raised);
+}
+
+.padded {
+  padding: 12px 14px;
+}
+
+.good {
+  border-color: var(--good-line);
+}
+
+.warn {
+  border-color: var(--warn-line);
+}
+
+.bad {
+  border-color: var(--bad-line);
+}

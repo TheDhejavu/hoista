@@ -1,0 +1,93 @@
+---
+title: "Connect your agent"
+description: "Connect a coding tool or chat app to Hoista's MCP server."
+---
+
+import AgentConnect from '/snippets/diagrams/agent-connect.mdx';
+
+
+Hoista's MCP server gives an agent the same projects and tools you use in Desktop and the CLI. Each agent connects with its own identity and access. Your provider credentials stay in Hoista and never go into the agent's configuration.
+
+<AgentConnect />
+
+| Your agent | How it connects | Needs |
+| --- | --- | --- |
+| Coding tool on this computer, such as Claude Code, Cursor or Codex | Runs `hoist mcp` over stdio | Hoista on this computer |
+| Chat app or cloud agent, such as ChatGPT or Claude | Your Hoista URL, over HTTPS with OAuth | Hoista on this computer [through a tunnel or proxy](/agents/tools/chatgpt#from-your-computer), or a [remote](/guides/remote) |
+
+## Step-by-step for your tool
+
+<CardGroup cols={2}>
+<Card title="Claude Code" icon="terminal" href="/agents/tools/claude-code">One command, on this computer.</Card>
+<Card title="Codex" icon="terminal" href="/agents/tools/codex">CLI and IDE extension, on this computer.</Card>
+<Card title="Cursor" icon="code" href="/agents/tools/cursor">An MCP server in Cursor's settings.</Card>
+<Card title="Windsurf" icon="code" href="/agents/tools/windsurf">An MCP server in Cascade's settings.</Card>
+<Card title="VS Code (Copilot)" icon="code" href="/agents/tools/vscode">An MCP server for Copilot's agent mode.</Card>
+<Card title="ChatGPT" icon="message" href="/agents/tools/chatgpt">A custom MCP app, from your computer or a remote.</Card>
+<Card title="Claude" icon="message" href="/agents/tools/claude">A custom connector, from your computer or a remote.</Card>
+<Card title="Grok" icon="message" href="/agents/tools/grok">A custom connector, from your computer or a remote.</Card>
+<Card title="Gemini" icon="message" href="/agents/tools/gemini">A custom app, from your computer or a remote.</Card>
+<Card title="Hermes Agent" icon="clock" href="/agents/tools/hermes">On this computer or a server, on a schedule.</Card>
+</CardGroup>
+
+## Connect from Desktop
+
+1. Open **Agents** and choose **Connect an agent**.
+2. Under **Which agent do you use?**, pick your tool.
+3. Follow the steps it shows. A coding tool gets a command to run or an MCP server to add. A chat app gets your Hoista URL to paste into its connector settings.
+4. Approve it:
+   - **A chat app or web agent** signs in through your browser. On Hoista's page there, choose **What it may do** and **Authorize**, then confirm with your passkey on a remote, or Touch ID or your password on this computer. The page then sends you back to the app. If you closed it, the Hoista app shows the request and can open the page again.
+   - **A coding tool on this computer** shows up in the Hoista app, under **Agents** or as a card. Check its code matches, choose what it may do and allow it.
+5. Ask the agent "what projects do I have on Hoista?"
+
+A chat app runs in the cloud, so it needs Hoista at an HTTPS address. Hoista on your computer serves MCP over HTTP on `127.0.0.1:8788`, and only there. Point a tunnel or proxy at it, as in [From your computer](/agents/tools/chatgpt#from-your-computer), or use a remote. Only a remote keeps working while your computer is off.
+
+## Connect from the CLI
+
+Add Hoista to your tool:
+
+<CodeGroup>
+```bash Claude Code
+claude mcp add --scope user hoista -- hoist mcp
+```
+
+```bash Codex
+codex mcp add hoista -- "$(command -v hoist)" mcp
+```
+
+```bash Cursor
+hoist mcp config --name Cursor
+```
+
+```bash Windsurf
+hoist mcp config --name Windsurf
+```
+
+```bash Other tools
+hoist mcp config --name MyCodingTool
+```
+</CodeGroup>
+
+For Cursor, Windsurf and other tools, `hoist mcp config` prints the configuration to add to the tool's MCP settings. VS Code needs a different shape; see [VS Code](/agents/tools/vscode). The configuration uses the full path to `hoist` and holds no token. With a [remote](/guides/remote) in use, it prints the remote's `/mcp` address instead. Then approve the request:
+
+```bash
+hoist agents requests
+hoist agents allow REQUEST_ID --access view
+hoist agents
+```
+
+In a terminal, `hoist agents allow` without an ID lets you pick the request. `--access` takes `view` (View only), `ask` (Ask for approval) or `full` (Full access), and `--projects my-app,api` limits it to some projects. To turn a request down, run `hoist agents deny REQUEST_ID`. Start with `view` and widen it later in [permissions](/agents/permissions).
+
+To install Hoista's skills for Claude Code or Codex, run `hoist skills install`.
+
+## After it connects
+
+The agent reuses its credential, and the daemon checks its access on every request. If you revoke or let the access expire, the agent must connect again. A new tool is a new agent. Your provider accounts stay connected.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Agent permissions" icon="user-shield" href="/agents/permissions">Change or narrow what an agent can do.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Hoista asks you before an agent acts.</Card>
+<Card title="Webhooks" icon="bell" href="/guides/webhooks">Send events to a background agent.</Card>
+</CardGroup>

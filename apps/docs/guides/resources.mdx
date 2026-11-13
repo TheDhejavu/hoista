@@ -1,0 +1,70 @@
+---
+title: "Manage resources"
+description: "Restart, stop, pause, export and delete individual resources."
+---
+
+A resource is one part of a project, such as a service, a Worker or a database. Open it from the project's **Map** or **Overview**. Its page shows its numbers, what uses it, recent provider events and its settings. The actions you see depend on the provider.
+
+## Restart, stop, pause and resume
+
+On a resource's page, use **Redeploy**, or open the menu for **Restart** and **Stop**. Stopping makes the provider stop the running version, and it serves nothing until you redeploy or restart it. **Everything on** the provider opens the provider's own controls for it.
+
+```bash
+hoist resources my-app
+hoist resources show RESOURCE -p my-app
+hoist resources redeploy RESOURCE -p my-app
+hoist resources restart RESOURCE -p my-app
+hoist resources stop RESOURCE -p my-app
+hoist resources pause RESOURCE -p my-app
+hoist resources resume RESOURCE -p my-app
+```
+
+`RESOURCE` is the resource's name or ID. Pass `-p` when you use its name. In a terminal, leave it out to pick from a list. `hoist resources run RESOURCE -p my-app` lists the provider's own operations for it, such as a backup or a scale change; run one with `-o NAME`.
+
+Pause and resume work only on managed resources whose provider supports them, such as Fly Machines. A paused resource can still be billed for its storage.
+
+If you are not sure an action finished, check the resource at the provider and in `hoist operations` before you repeat it. An error does not prove that nothing changed. See [operation outcomes](/guides/backups).
+
+## Databases
+
+```bash
+hoist db show RESOURCE
+hoist db operations RESOURCE
+hoist db export RESOURCE
+hoist db exports
+```
+
+Export a database before a risky change. If the export request times out, check `hoist db exports` before you ask for another one. Whether an export can run depends on the provider, the tools installed and the token's permissions. Check the archive's contents and how you would restore it before you rely on it.
+
+| What | Covers |
+| --- | --- |
+| Hoista [backup](/guides/backups) | Your projects, settings and other Hoista records |
+| Database export or provider backup | The database contents |
+| Deployment rollback | Which app version is live. It does not reverse migrations. |
+
+## Delete at the provider
+
+Deleting removes the resource at the provider, with everything in it. It cannot be undone.
+
+In Desktop, open the resource's menu and choose **Delete on** the provider. Type the resource's name to confirm. The option shows only where the provider lets Hoista delete.
+
+From the CLI, preview first with `--dry-run`. The preview is read-only and returns the target, its database impact and a fingerprint.
+
+```bash
+hoist resources delete RESOURCE -p my-app --dry-run
+hoist resources delete RESOURCE -p my-app
+```
+
+Without `--dry-run`, Hoista asks you to type the resource's name. Scripts pass `--yes --confirm EXACT_NAME`, and can add `--fingerprint REVIEWED_HASH` so the delete runs only if the target still matches the preview. Use `hoist projects delete my-app` the same way to delete a whole project. Both save a copy of the databases first; for a project, `--skip-backup` skips that.
+
+If a deletion is interrupted, it may have partly finished. Check the resources and `hoist db exports`. Do not take a fresh preview and delete again just to clear the error.
+
+Removing a resource from a project, hiding it, or disconnecting its account changes only Hoista. Only deletion removes it at the provider.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Backups and outcomes" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear operations.</Card>
+<Card title="A failed deployment" icon="triangle-exclamation" href="/examples/failed-deployment">Investigate before you change anything.</Card>
+<Card title="Plan and deploy" icon="cloud-arrow-up" href="/guides/deploy">Redeploy or roll back.</Card>
+</CardGroup>

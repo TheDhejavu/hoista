@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM oauth_clients WHERE id NOT IN (SELECT json_extract(data,'$.client_id') FROM oauth_pending) AND id NOT IN (SELECT json_extract(data,'$.client_id') FROM oauth_grants)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": []
+  },
+  "hash": "be7ba9d7a15d4ec378f21fd164de1151cb9a72327ba1ffd9f39be4ac7cd581d6"
+}

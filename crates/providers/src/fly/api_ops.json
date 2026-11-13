@@ -1,0 +1,2985 @@
+{
+ "source": "fly OpenAPI spec",
+ "operations": [
+  {
+   "name": "appsList",
+   "area": "Apps",
+   "risk": "read",
+   "description": "List Apps",
+   "method": "GET",
+   "path": "/v1/apps",
+   "args": [
+    {
+     "name": "org_slug",
+     "in": "query",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "app_role",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appsShow",
+   "area": "Apps",
+   "risk": "read",
+   "description": "Get App",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesAcmeCreate",
+   "area": "Certificates",
+   "risk": "change",
+   "description": "Request ACME certificate",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/certificates/acme",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "hostname",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesAcmeDelete",
+   "area": "Certificates",
+   "risk": "destroy",
+   "description": "Remove ACME certificates",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/certificates/{hostname}/acme",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "hostname",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesCheck",
+   "area": "Certificates",
+   "risk": "change",
+   "description": "Check DNS and re-validate certificate",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/certificates/{hostname}/check",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "hostname",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesCustomDelete",
+   "area": "Certificates",
+   "risk": "destroy",
+   "description": "Remove custom certificate",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/certificates/{hostname}/custom",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "hostname",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesDelete",
+   "area": "Certificates",
+   "risk": "destroy",
+   "description": "Remove certificate",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/certificates/{hostname}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "hostname",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesList",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "List certificates for app",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/certificates",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "filter",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "appCertificatesShow",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "Get certificate details",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/certificates/{hostname}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "hostname",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesCordon",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Cordon Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/cordon",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesCreate",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Create Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "config",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "An object defining the Machine configuration"
+     }
+    },
+    {
+     "name": "lease_ttl",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Unique name for this Machine. If omitted, one is generated for you"
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
+     }
+    },
+    {
+     "name": "skip_launch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "skip_service_registration",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesCreateLease",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Create Lease",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/lease",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "ttl",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "seconds lease will be valid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesDelete",
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Destroy Machine",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "force",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesDeleteMetadata",
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Delete Metadata",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/metadata/{key}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "key",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesGetMemory",
+   "area": "Machines",
+   "risk": "read",
+   "description": "Get Machine Memory",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/memory",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesGetMetadataKey",
+   "area": "Machines",
+   "risk": "read",
+   "description": "Get Metadata Value",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/metadata/{key}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "key",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesList",
+   "area": "Machines",
+   "risk": "read",
+   "description": "List Machines",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include_deleted",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "include_leases",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "region",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "state",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "summary",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "metadata.{key}",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesListEvents",
+   "area": "Machines",
+   "risk": "read",
+   "description": "List Events",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/events",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesListProcesses",
+   "area": "Machines",
+   "risk": "read",
+   "description": "List Processes",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/ps",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sort_by",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "order",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesListVersions",
+   "area": "Machines",
+   "risk": "read",
+   "description": "List Versions",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/versions",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesReclaimMemory",
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Reclaim Machine Memory",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/memory/reclaim",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "amount_mb",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesReleaseLease",
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Release Lease",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/lease",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesRestart",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Restart Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/restart",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "signal",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SIGHUP",
+       "SIGINT",
+       "SIGQUIT",
+       "SIGKILL",
+       "SIGUSR1",
+       "SIGUSR2",
+       "SIGTERM"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesSetMemoryLimit",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Set Machine Memory Limit",
+   "method": "PUT",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/memory",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit_mb",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesShow",
+   "area": "Machines",
+   "risk": "read",
+   "description": "Get Machine",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "version",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include_leases",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesShowLease",
+   "area": "Machines",
+   "risk": "read",
+   "description": "Get Lease",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/lease",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesShowMetadata",
+   "area": "Machines",
+   "risk": "read",
+   "description": "Get Metadata",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/metadata",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesSignal",
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Signal Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/signal",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "signal",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SIGABRT",
+       "SIGALRM",
+       "SIGFPE",
+       "SIGHUP",
+       "SIGILL",
+       "SIGINT",
+       "SIGKILL",
+       "SIGPIPE",
+       "SIGQUIT",
+       "SIGSEGV",
+       "SIGTERM",
+       "SIGTRAP",
+       "SIGUSR1",
+       "SIGUSR2"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesStart",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Start Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/start",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesStop",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Stop Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/stop",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "signal",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "SIGHUP",
+       "SIGINT",
+       "SIGQUIT",
+       "SIGKILL",
+       "SIGUSR1",
+       "SIGUSR2",
+       "SIGTERM"
+      ]
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesSuspend",
+   "area": "Machines",
+   "risk": "destroy",
+   "description": "Suspend Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/suspend",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesUncordon",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Uncordon Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/uncordon",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesUpdate",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Update Machine",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "config",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "An object defining the Machine configuration"
+     }
+    },
+    {
+     "name": "current_version",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "CurrentVersion is an optional optimistic-concurrency guard: the Machine's\n`version`, as returned by create, get or a previous update. When set\nand it is no longer the Machine's current version, the update is rejected\nwith 409 Conflict and nothing changes. Omit it to update unconditionally."
+     }
+    },
+    {
+     "name": "lease_ttl",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Unique name for this Machine. If omitted, one is generated for you"
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
+     }
+    },
+    {
+     "name": "skip_launch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "skip_service_registration",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesUpdateMetadata",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Update Metadata (set/remove multiple keys)",
+   "method": "PATCH",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/metadata",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_version",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "metadata",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object"
+     }
+    },
+    {
+     "name": "updated_at",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesUpsertMetadata",
+   "area": "Machines",
+   "risk": "change",
+   "description": "Upsert Metadata Key",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/metadata/{key}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "key",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "updated_at",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "value",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesWait",
+   "area": "Machines",
+   "risk": "read",
+   "description": "Wait for State",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/machines/{machine_id}/wait",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "machine_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "version",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "instance_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "from_event_id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "timeout",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "state",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "started",
+       "stopped",
+       "suspended",
+       "destroyed",
+       "failed",
+       "settled"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresAttachmentsCreate",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Attach Cluster to App",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/attachments",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "app_name",
+     "in": "body",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string",
+      "description": "Name of the Fly app to attach."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresAttachmentsDelete",
+   "area": "Managed Postgres",
+   "risk": "destroy",
+   "description": "Detach Cluster from App",
+   "method": "DELETE",
+   "path": "/v1/postgres/{postgres_cluster_id}/attachments/{app_name}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresBackupsCreate",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Create Backup",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/backups",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "full",
+       "incr",
+       "diff"
+      ],
+      "description": "Backup type."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresBackupsList",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Backups",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}/backups",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresCreate",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Create Postgres Cluster",
+   "method": "POST",
+   "path": "/v1/postgres",
+   "args": [
+    {
+     "name": "disk_size_gb",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Disk size in gigabytes.",
+      "minimum": 10,
+      "maximum": 1000
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name for the cluster. A name is generated when omitted."
+     }
+    },
+    {
+     "name": "org_slug",
+     "in": "body",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string",
+      "description": "Slug of the organization that will own the cluster, or \"personal\" for the caller's personal organization."
+     }
+    },
+    {
+     "name": "pg_major_version",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "16",
+       "17"
+      ],
+      "description": "Postgres major version."
+     }
+    },
+    {
+     "name": "plan",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "basic",
+       "starter",
+       "launch",
+       "scale",
+       "Performance"
+      ],
+      "description": "Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively."
+     }
+    },
+    {
+     "name": "pool_mode",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "session",
+       "transaction"
+      ],
+      "description": "Connection pooler mode."
+     }
+    },
+    {
+     "name": "postgis_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Enable PostGIS support, required to later enable PostGIS extensions."
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Fly region code where the cluster's primary runs."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresDatabasesCreate",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Create Database",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/databases",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the database to create. Must start and end with an alphanumeric\ncharacter and may contain hyphens and underscores, up to 63 characters."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresDatabasesDelete",
+   "area": "Managed Postgres",
+   "risk": "destroy",
+   "description": "Drop Database",
+   "method": "DELETE",
+   "path": "/v1/postgres/{postgres_cluster_id}/databases/{database_name}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresDatabasesList",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Databases",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}/databases",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresDelete",
+   "area": "Managed Postgres",
+   "risk": "destroy",
+   "description": "Delete Postgres Cluster",
+   "method": "DELETE",
+   "path": "/v1/postgres/{postgres_cluster_id}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresExtensionsDisable",
+   "area": "Managed Postgres",
+   "risk": "destroy",
+   "description": "Disable Extension",
+   "method": "DELETE",
+   "path": "/v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "extension_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "force",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresExtensionsEnable",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Enable Extension",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "create_schema",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Create the schema first if it does not exist."
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Extension to enable."
+     }
+    },
+    {
+     "name": "schema",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Schema to install the extension into. Defaults to the database's default schema."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresExtensionsList",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Extensions",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database_name",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresFork",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Fork Cluster to New Cluster",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/fork",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name for the forked cluster. Defaults to the source name with a -fork suffix."
+     }
+    },
+    {
+     "name": "plan",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "basic",
+       "starter",
+       "launch",
+       "scale",
+       "Performance"
+      ],
+      "description": "Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresList",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Postgres Clusters",
+   "method": "GET",
+   "path": "/v1/postgres",
+   "args": [
+    {
+     "name": "org_slug",
+     "in": "query",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include_deleted",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresPlansList",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Postgres Plans",
+   "method": "GET",
+   "path": "/v1/postgres/plans",
+   "args": [
+    {
+     "name": "org_slug",
+     "in": "query",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresQueriesActive",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Active Queries",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}/queries/active",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "database",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresQueriesSlow",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Slow Queries",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}/queries/slow",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "range",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 604800,
+      "default": 3600
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresRestore",
+   "area": "Managed Postgres",
+   "risk": "destroy",
+   "description": "Restore Backup or Point in Time to New Cluster",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/restore",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "backup_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Backup label to restore from, as returned by the backups list. Mutually exclusive with pitr_time."
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name for the restored cluster. Defaults to a generated name derived from the source cluster and backup/point in time when omitted or blank."
+     }
+    },
+    {
+     "name": "pitr_time",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresShow",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "Get Postgres Cluster",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresUsersCreate",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Create User",
+   "method": "POST",
+   "path": "/v1/postgres/{postgres_cluster_id}/users",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "role",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "schema_admin",
+       "writer",
+       "reader"
+      ],
+      "description": "Role to grant the user."
+     }
+    },
+    {
+     "name": "username",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name for the new user. Must start and end with a lowercase alphanumeric\ncharacter and may contain hyphens and underscores, up to 63 characters."
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresUsersDelete",
+   "area": "Managed Postgres",
+   "risk": "destroy",
+   "description": "Delete User",
+   "method": "DELETE",
+   "path": "/v1/postgres/{postgres_cluster_id}/users/{username}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "username",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresUsersList",
+   "area": "Managed Postgres",
+   "risk": "read",
+   "description": "List Users",
+   "method": "GET",
+   "path": "/v1/postgres/{postgres_cluster_id}/users",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "postgresUsersUpdateRole",
+   "area": "Managed Postgres",
+   "risk": "change",
+   "description": "Update User Role",
+   "method": "PATCH",
+   "path": "/v1/postgres/{postgres_cluster_id}/users/{username}",
+   "args": [
+    {
+     "name": "postgres_cluster_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "username",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "role",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "schema_admin",
+       "writer",
+       "reader"
+      ],
+      "description": "New role for the user."
+     }
+    }
+   ]
+  },
+  {
+   "name": "machinesOrgList",
+   "area": "Organization",
+   "risk": "read",
+   "description": "List All Machines",
+   "method": "GET",
+   "path": "/v1/orgs/{org_slug}/machines",
+   "args": [
+    {
+     "name": "org_slug",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include_deleted",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "region",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "state",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "summary",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "updated_after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesOrgList",
+   "area": "Organization",
+   "risk": "read",
+   "description": "List All Volumes",
+   "method": "GET",
+   "path": "/v1/orgs/{org_slug}/volumes",
+   "args": [
+    {
+     "name": "org_slug",
+     "in": "path",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "include_deleted",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "region",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "state",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "summary",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "updated_after",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "platformPlacementsPost",
+   "area": "Platform",
+   "risk": "read",
+   "description": "Get Placements",
+   "method": "POST",
+   "path": "/v1/platform/placements",
+   "args": [
+    {
+     "name": "compute",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Resource requirements for the Machine to simulate. Defaults to a performance-1x machine"
+     }
+    },
+    {
+     "name": "count",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Number of machines to simulate placement.\nDefaults to 0, which returns the org-specific limit for each region."
+     }
+    },
+    {
+     "name": "org_slug",
+     "in": "body",
+     "required": true,
+     "context": "org",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Region expression for placement as a comma-delimited set of regions or aliases.\nDefaults to \"[region],any\", to prefer the API endpoint's local region with any other region as fallback."
+     }
+    },
+    {
+     "name": "volume_name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_size_bytes",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "weights",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Optional weights to override default placement preferences."
+     }
+    }
+   ]
+  },
+  {
+   "name": "platformRegionsGet",
+   "area": "Platform",
+   "risk": "read",
+   "description": "Get Regions",
+   "method": "GET",
+   "path": "/v1/platform/regions",
+   "args": []
+  },
+  {
+   "name": "createVolumeSnapshot",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Create Snapshot",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/volumes/{volume_id}/snapshots",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumeDelete",
+   "area": "Volumes",
+   "risk": "destroy",
+   "description": "Destroy Volume",
+   "method": "DELETE",
+   "path": "/v1/apps/{app_name}/volumes/{volume_id}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesCreate",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Create Volume",
+   "method": "POST",
+   "path": "/v1/apps/{app_name}/volumes",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auto_backup_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "enable scheduled automatic snapshots. Defaults to `true`"
+     }
+    },
+    {
+     "name": "compute",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "cpu_kind": {
+        "type": "string"
+       },
+       "cpus": {
+        "type": "integer"
+       },
+       "gpu_kind": {
+        "type": "string"
+       },
+       "gpus": {
+        "type": "integer"
+       },
+       "host_dedication_id": {
+        "type": "string"
+       },
+       "kernel_args": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "max_memory_mb": {
+        "type": "integer"
+       },
+       "memory_mb": {
+        "type": "integer"
+       },
+       "persist_rootfs": {
+        "type": "string",
+        "enum": [
+         "never",
+         "always",
+         "restart"
+        ],
+        "description": "Deprecated: use MachineConfig.Rootfs instead"
+       },
+       "required_host_features": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "compute_image",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "encrypted",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "fstype",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "region",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "require_unique_zone",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "size_gb",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "snapshot_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "restore from snapshot"
+     }
+    },
+    {
+     "name": "snapshot_retention",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    },
+    {
+     "name": "source_volume_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "fork from remote volume"
+     }
+    },
+    {
+     "name": "unique_zone_app_wide",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesExtend",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Extend Volume",
+   "method": "PUT",
+   "path": "/v1/apps/{app_name}/volumes/{volume_id}/extend",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "size_gb",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesGetById",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "Get Volume",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/volumes/{volume_id}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesList",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List Volumes",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/volumes",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "summary",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "cursor",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "limit",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesListSnapshots",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List Snapshots",
+   "method": "GET",
+   "path": "/v1/apps/{app_name}/volumes/{volume_id}/snapshots",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "volumesUpdate",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Update Volume",
+   "method": "PUT",
+   "path": "/v1/apps/{app_name}/volumes/{volume_id}",
+   "args": [
+    {
+     "name": "app_name",
+     "in": "path",
+     "required": true,
+     "context": "app",
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "volume_id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "auto_backup_enabled",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "snapshot_retention",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer"
+     }
+    }
+   ]
+  }
+ ]
+}

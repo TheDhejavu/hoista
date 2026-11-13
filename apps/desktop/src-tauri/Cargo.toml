@@ -1,0 +1,55 @@
+[package]
+name = "hoista-desktop"
+version = "0.1.0"
+description = "Hoista Desktop: the window and menu bar app for Hoista"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/TheDhejavu/hoista"
+publish = false
+
+# Its own workspace: building it needs the system webview's libraries, which
+# the engine's workspace and its CI don't.
+[workspace]
+
+[lib]
+name = "hoista_desktop"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7", features = [] }
+
+[dependencies]
+base64 = "0.22"
+bytes = "1"
+futures-util = { version = "0.3", default-features = false }
+gethostname = "1"
+percent-encoding = "2"
+http-body-util = "0.1"
+hyper = { version = "1", features = ["client", "server", "http1"] }
+hyper-util = { version = "0.1", features = ["tokio"] }
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service", "crypto-rust"] }
+rand = "0.9"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "stream"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+tauri = { version = "2.12", features = ["tray-icon", "image-png", "macos-private-api"] }
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-dialog = "2.8"
+tauri-plugin-notification = "2"
+tauri-plugin-opener = "2.7"
+tauri-plugin-window-state = "2"
+time = { version = "0.3", features = ["formatting"] }
+tokio = { version = "1", features = ["macros", "net", "process", "rt-multi-thread", "sync", "time"] }
+url = "2"
+uuid = { version = "1", features = ["v4"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["io-util"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

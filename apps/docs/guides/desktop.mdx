@@ -1,0 +1,98 @@
+---
+title: "Use Hoista Desktop"
+description: "Find your way around Desktop and its settings."
+---
+
+Desktop is the Hoista app for your projects, providers, agents and settings. It uses the same daemon as the CLI. Closing the window does not stop the daemon, so the CLI and agents keep working.
+
+## The window
+
+<Frame caption="Projects, the first screen. The sidebar holds the main sections, your recent projects with their status, and the environment switcher.">
+  <img className="shot-light" src="/assets/screens/projects-light.webp" alt="The Projects screen, with the sidebar on the left and project cards on the right" />
+  <img className="shot-dark" src="/assets/screens/projects-dark.webp" alt="The Projects screen, with the sidebar on the left and project cards on the right" />
+</Frame>
+
+| Item | What it shows |
+| --- | --- |
+| **Projects** | Your projects, problems that need you, and **Found on your providers** |
+| **Deploys** | Every deploy across your projects, newest first |
+| **Agents** | Connected agents, their access and their activity |
+| **Accounts** | Connected provider accounts and providers you can still connect |
+| **Billing** | What each provider has billed you this period. See [billing](/guides/billing). |
+
+Your recent projects are listed under these items. The switcher under the search box picks the [environment](/guides/environments) the window shows.
+
+## Search and shortcuts
+
+Press **⌘K** to search for a project, a page or an action. In a project, it also offers to copy its `hoist` commands and its project ID.
+
+<Frame caption="⌘K in the moodboard project: its tabs come first, then everything else that matches what you type.">
+  <img className="shot-light" src="/assets/screens/palette-light.webp" alt="The search box open over a project, listing that project's tabs" />
+  <img className="shot-dark" src="/assets/screens/palette-dark.webp" alt="The search box open over a project, listing that project's tabs" />
+</Frame>
+
+Hoista answers the usual desktop shortcuts. On Linux, use Ctrl instead of ⌘. Press **⌘/** to see them all in the app; the menu bar lists them too.
+
+| Shortcut | Does |
+| --- | --- |
+| ⌘K | Search for a project, a page or an action |
+| ⌘1 to ⌘5 | Projects, Deploys, Agents, Accounts, Billing |
+| ⌘[ and ⌘] | Back and forward |
+| ⌘R | Refresh what's on screen |
+| ⌘N | Deploy something with your agent |
+| ⌘, | Settings |
+
+Right-click copies text and links, as in any app.
+
+## A project
+
+Open a project to see its tabs.
+
+<Frame caption="A project's Overview. The tabs along the top hold everything else about it.">
+  <img className="shot-light" src="/assets/screens/project-overview-light.webp" alt="The moodboard project's Overview tab" />
+  <img className="shot-dark" src="/assets/screens/project-overview-dark.webp" alt="The moodboard project's Overview tab" />
+</Frame>
+
+| Tab | Use it to |
+| --- | --- |
+| Overview | Check status, recent activity and usage |
+| Map | See the project's resources and how they connect |
+| Deploys | Follow deploys, redeploy or roll back |
+| Logs and Metrics | Read [logs and metrics](/guides/logs) from the provider |
+| Variables and Domains | Manage [variables and domains](/guides/environment) |
+| The provider's name, such as **Railway** | Use the provider's own controls, such as Railway's operations. A project on several providers has one **Providers** tab instead |
+| Settings | Rename, link a source, move to another environment, stop watching or delete |
+
+Open a resource from the Map or Overview to [restart, stop or delete it](/guides/resources).
+
+## Settings
+
+Open **Settings** from the profile menu, or press **⌘,**. Most changes save as you make them.
+
+<Frame caption="Settings → General. The sections on the left are listed below.">
+  <img className="shot-light" src="/assets/screens/settings-light.webp" alt="Settings open on General, with the theme choice at the top" />
+  <img className="shot-dark" src="/assets/screens/settings-dark.webp" alt="Settings open on General, with the theme choice at the top" />
+</Frame>
+
+| Section | Controls |
+| --- | --- |
+| General | Profile, appearance, startup, notifications and how long to keep history |
+| Agents | Connected agents, how they reach Hoista, and connection requests |
+| Vault | Credential storage |
+| Safety | Build isolation and cutting off every agent at once |
+| Webhooks | Destinations, signing secrets and delivery history |
+| Instances | This computer and your remotes: add, sign in, switch and remove |
+| Command line | Whether the `hoist` command is set up |
+| Updates | Installed version and new releases |
+
+<Warning>Safety settings change how the daemon works. Read [build isolation](/security/builds) before you allow builds without it.</Warning>
+
+When an agent asks to do something sensitive, Desktop shows the request with its target. See [approvals](/security/approvals).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Quickstart" icon="rocket" href="/getting-started/quickstart">Connect a provider and add your first project.</Card>
+<Card title="Logs and metrics" icon="chart-line" href="/guides/logs">Read what the provider reports.</Card>
+<Card title="Approvals" icon="user-check" href="/security/approvals">What Desktop asks you before an agent acts.</Card>
+</CardGroup>

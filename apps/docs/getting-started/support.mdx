@@ -1,0 +1,46 @@
+---
+title: "Supported platforms"
+description: "Operating systems, providers and where to start when something breaks."
+---
+
+What Hoista runs on, which providers it works with, and what to do when something breaks.
+
+## Operating systems
+
+| | macOS | Linux | Windows |
+| --- | --- | --- | --- |
+| CLI and daemon | Yes | Yes | Yes |
+| Desktop app | Apple silicon and Intel | AppImage and `.deb` | Not yet |
+| Start at sign-in | launchd | systemd user service | Task Scheduler |
+| Isolated local builds | System sandbox | Needs bubblewrap (`bwrap`) | Not available |
+| Confirm it's you | Touch ID or your password | polkit password prompt | Windows Hello |
+
+Without build isolation, Hoista stops local builds unless you allow them in **Settings → Safety**. See [Build isolation](/security/builds). Install steps are in [Install](/getting-started/install).
+
+## Providers
+
+Hoista works with Cloudflare, Fly.io, Railway, Vercel, Neon, Supabase, Render, Resend, Runpod, Modal and GitHub. What you can do depends on the provider, your plan and your token's permissions. Run `hoist providers` to see what your installed version supports, or read [Providers](/providers/overview).
+
+## Remotes
+
+`hoist remote create` and **Settings → Instances** can set up a [remote](/guides/remote) in a Railway or Fly.io account. You can also run one with Docker on your own computer or server.
+
+## When something breaks
+
+```bash
+hoist doctor
+hoist diagnostics
+hoist diagnostics --save
+```
+
+`hoist doctor` checks Hoista's local state, the credential store and your connected accounts. `hoist diagnostics` builds a troubleshooting report without tokens or secret values. In Desktop, the same report is under **Settings → General → Diagnostic report**. Read the report before you share it.
+
+For a deployment that failed, follow [Investigate a failed deployment](/examples/failed-deployment). For a change whose result Hoista doesn't know, see [Backups and recovery](/guides/backups#when-hoista-didnt-hear-back).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Install Hoista" icon="download" href="/getting-started/install">Install the CLI, the daemon and Desktop.</Card>
+<Card title="A failed deployment" icon="triangle-exclamation" href="/examples/failed-deployment">Find where it failed and fix it.</Card>
+<Card title="Backups and recovery" icon="life-ring" href="/guides/backups">Back up Hoista and settle unclear changes.</Card>
+</CardGroup>

@@ -1,0 +1,54 @@
+---
+title: "Billing"
+description: "See what every connected provider has billed you this period."
+---
+
+**Billing** in the Desktop sidebar collects what each connected provider reports about money and usage. Hoista never estimates cost. Every number comes from the provider, and the provider's own invoice is final.
+
+<Frame caption="Billing for Sam’s accounts. Cloudflare and Railway report a bill, Neon reports plan usage, and the rest link to their own billing pages.">
+  <img className="shot-light" src="/assets/screens/billing-light.webp" alt="The Billing screen with the period total, per-account bills, Neon plan usage and providers that only link to billing" />
+  <img className="shot-dark" src="/assets/screens/billing-dark.webp" alt="The Billing screen with the period total, per-account bills, Neon plan usage and providers that only link to billing" />
+</Frame>
+
+## What the page shows
+
+| Section | What it shows |
+| --- | --- |
+| **Billed so far this period** | The total across providers that share a bill through their API, and which providers it covers |
+| **Next period ends** | The earliest end of a billing period that a provider reported |
+| **Limits** | Whether any provider is over a spend limit or alert you set there, and how close the nearest one is |
+| **Billed this period** | One row per account with the amount, its limit, the billing period and **Open billing ↗** |
+| **Plan usage** | For providers that share usage but not a bill, such as Resend emails and Neon compute hours, against the plan's limit where there is one |
+| **On the provider only** | Providers that don't share billing through their API, with a link to their billing page |
+
+## What each provider shares
+
+| Provider | On Billing |
+| --- | --- |
+| Railway, Runpod, Modal | What the provider has billed this period, and limits where set |
+| Cloudflare | What it has billed this period, for self-serve accounts. The API token needs **Billing Read**. |
+| Vercel | What it has billed the team this period |
+| Resend, Neon | Plan usage (Neon on paid plans) |
+| Fly.io, Render, Supabase, GitHub | A link to the provider's billing page |
+
+Billing covers every account whichever [environment](/guides/environments) you are viewing, because providers bill per account. Hoista does not split a bill across projects.
+
+## From the CLI
+
+```bash
+hoist billing
+```
+
+It prints the same numbers as a table, or JSON with `--json`.
+
+## From an agent
+
+Agents read the same numbers with the `get_bills` tool. For per-day measurements of a project, see [metrics and usage](/guides/logs).
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Logs and metrics" icon="chart-line" href="/guides/logs">Per-day usage for a project.</Card>
+<Card title="Providers" icon="server" href="/providers/overview">What each provider shares.</Card>
+<Card title="Environments" icon="layer-group" href="/guides/environments">Billing is the same in every one.</Card>
+</CardGroup>

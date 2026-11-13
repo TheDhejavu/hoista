@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% import "parts.html" as parts %}
+{# The Hoista app on a computer asks to manage this server. #}
+{% block content %}
+<div class="pair"><span class="tile">{% include "icons/app.svg" %}</span>{% call parts::to_hoista(false) %}{% endcall %}</div>
+<div class="card" id="connect" data-fields="{{ fields }}"><h1>Hoista on {{ name }}</h1><p class="sub">wants to use your Hoista</p>
+<ul class="perms"><li class="perm">{% include "icons/tick.svg" %}<span><b>Everything you can do here</b>: see and change your projects, providers and agents, from the app on that computer</span></li></ul>
+<p class="step-note">You can remove it any time under Signed-in computers, on this Hoista's page.</p>
+<button class="go" id="allow" type="button">Allow</button>
+<p class="note" id="said" role="status"></p>
+<div class="foot"><span>{{ host }}</span><a class="cancel" href="{{ deny }}">Cancel</a></div></div>
+{% endblock %}
+{% block scripts %}
+<script>{% include "assets/connect_app.js" %}</script>
+{% endblock %}
