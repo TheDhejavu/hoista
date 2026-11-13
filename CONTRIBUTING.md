@@ -71,7 +71,7 @@ Versions follow [Semantic Versioning](https://semver.org). A beta is a pre-relea
 To release:
 
 1. Set the version in `Cargo.toml` (the workspace and its `hoista-*` dependencies), `apps/desktop/package.json`, `apps/desktop/src-tauri/Cargo.toml` and `apps/desktop/src-tauri/tauri.conf.json`, and update both `Cargo.lock` files and `package-lock.json`.
-2. Add the version's section to [CHANGELOG.md](CHANGELOG.md) and to [the docs changelog](apps/docs/changelog.mdx). The release workflow uses the CHANGELOG.md section as the release notes and stops if it's missing.
+2. Add the version's section to [CHANGELOG.md](CHANGELOG.md), then run `python3 scripts/release/docs_changelog.py` to add it to [the docs' Changelog page](apps/docs/changelog.mdx). The release workflow stops if either is missing it, and uses the CHANGELOG.md section as the release notes.
 3. Point the install commands and download links at the new tag: README.md, `apps/webpage` (`index.html`, `main.js`, `llms.txt`) and `apps/docs/getting-started/install.mdx`.
 4. Merge to `main`, then tag that commit and push the tag (or publish a pre-release for the new tag from the Releases page, which creates the tag):
 

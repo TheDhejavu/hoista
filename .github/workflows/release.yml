@@ -5,7 +5,20 @@ on:
 permissions:
   contents: read
 jobs:
+  # Every release needs its entry in CHANGELOG.md and on the docs' Changelog
+  # page; check before spending time on builds.
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: CHANGELOG.md and the docs' Changelog page have this release
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python3 scripts/release/notes.py "$RELEASE_TAG" > /dev/null
+          python3 scripts/release/docs_changelog.py --check
   build:
+    needs: changelog
     strategy:
       fail-fast: false
       matrix:
@@ -54,6 +67,7 @@ jobs:
           path: release/*
           if-no-files-found: error
   desktop:
+    needs: changelog
     strategy:
       fail-fast: false
       matrix:

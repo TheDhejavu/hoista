@@ -95,7 +95,8 @@
           {
             "group": "Help",
             "pages": [
-              "getting-started/support"
+              "getting-started/support",
+              "changelog"
             ]
           }
         ],

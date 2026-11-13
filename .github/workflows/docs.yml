@@ -3,12 +3,16 @@ on:
   pull_request:
     paths:
       - 'apps/docs/**'
+      - 'CHANGELOG.md'
+      - 'scripts/release/**'
       - 'package.json'
       - '.github/workflows/docs.yml'
   push:
     branches: [main]
     paths:
       - 'apps/docs/**'
+      - 'CHANGELOG.md'
+      - 'scripts/release/**'
       - 'package.json'
       - '.github/workflows/docs.yml'
 permissions:
@@ -21,4 +25,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Changelog page matches CHANGELOG.md
+        run: python3 scripts/release/docs_changelog.py --check
       - run: npm run docs:validate
