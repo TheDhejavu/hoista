@@ -1,8 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="apps/docs/assets/logo-dark.svg">
-    <img src="apps/docs/assets/logo-light.svg" alt="Hoista" height="64">
-  </picture>
+  <img src="apps/docs/assets/logo-banner.svg" alt="Hoista" height="96">
 </p>
 
 <p align="center"><strong>The open-source control plane for your infrastructure, built for AI agents.</strong></p>
