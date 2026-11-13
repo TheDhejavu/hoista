@@ -256,6 +256,8 @@ mod tests {
         }
     }
 
+    // The paths in this test are Unix paths.
+    #[cfg(unix)]
     #[test]
     fn tools_inside_home_bring_their_install_folder() {
         let home = Path::new("/home/sam");

@@ -330,7 +330,7 @@ fn checked_in_contracts_match_the_rust_api_types() {
     }
 
     assert_eq!(
-        include_str!("../../../docs/backend/api/types.ts"),
+        include_str!("../../../docs/backend/api/types.ts").replace("\r\n", "\n"),
         contracts::typescript()
     );
     let saved: serde_json::Value =

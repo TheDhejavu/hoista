@@ -32,7 +32,9 @@ fn every_tool_a_skill_names_exists_and_skills_follow_the_format() {
             continue;
         }
         let name = folder.file_name().unwrap().to_string_lossy().to_string();
-        let text = std::fs::read_to_string(folder.join("SKILL.md")).expect("SKILL.md");
+        let text = std::fs::read_to_string(folder.join("SKILL.md"))
+            .expect("SKILL.md")
+            .replace("\r\n", "\n");
         let head = text
             .strip_prefix("---\n")
             .and_then(|rest| rest.split_once("\n---\n"))
