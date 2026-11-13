@@ -1,6 +1,6 @@
 # Installs Hoista's hoist and hoistd on Windows from a signed GitHub release:
 #
-#   .\install.ps1 -Version v0.1.0
+#   .\install.ps1 -Version v0.1.0-beta.1
 #
 # The release is checked with cosign before anything is copied, so cosign 3
 # has to be installed first. -NoService skips starting Hoista at login.
@@ -18,7 +18,7 @@ $Notices = @('LICENSE', 'THIRD-PARTY-NOTICES.txt', 'DEPENDENCIES.json')
 $ReleaseFiles = $Programs + $Notices
 
 if ($Version -notmatch '^v[0-9][A-Za-z0-9.-]*$') {
-    throw 'Give a release version such as v0.1.0.'
+    throw 'Give a release version such as v0.1.0-beta.1.'
 }
 if (-not (Get-Command cosign -ErrorAction SilentlyContinue)) {
     throw 'Install cosign 3 first. Hoista checks every release signature before installing it.'

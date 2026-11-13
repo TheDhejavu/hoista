@@ -3,7 +3,7 @@
 # hoist and hoistd in ~/.local/bin (or the folder you give). By default
 # Hoista then starts at login; --no-service installs the programs only.
 #
-#   sh install.sh v0.1.0 [destination] [--start-at-login | --no-service]
+#   sh install.sh v0.1.0-beta.1 [destination] [--start-at-login | --no-service]
 #
 # Needs cosign 3: an unsigned or altered release is never installed.
 set -eu
@@ -18,7 +18,7 @@ fail() {
 
 # Arguments
 [ "$#" -le 3 ] || fail 'Too many arguments.'
-version=${1:?Give the release to install, for example v0.1.0}
+version=${1:?Give the release to install, for example v0.1.0-beta.1}
 destination=${2:-"$HOME/.local/bin"}
 service_mode=${3:---start-at-login}
 

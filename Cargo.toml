@@ -3,7 +3,7 @@ resolver = "3"
 members = ["bin/hoist", "bin/hoista-demo", "bin/hoistd", "crates/app", "crates/domain", "crates/providers", "crates/server", "crates/store", "crates/system"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.0-beta.1"
 edition = "2024"
 rust-version = "1.97"
 license = "MIT"
@@ -11,12 +11,12 @@ repository = "https://github.com/TheDhejavu/hoista"
 publish = false
 
 [workspace.dependencies]
-hoista-app = { path = "crates/app", version = "0.1.0" }
-hoista-domain = { path = "crates/domain", version = "0.1.0" }
-hoista-providers = { path = "crates/providers", version = "0.1.0" }
-hoista-server = { path = "crates/server", version = "0.1.0" }
-hoista-store = { path = "crates/store", version = "0.1.0" }
-hoista-system = { path = "crates/system", version = "0.1.0" }
+hoista-app = { path = "crates/app", version = "0.1.0-beta.1" }
+hoista-domain = { path = "crates/domain", version = "0.1.0-beta.1" }
+hoista-providers = { path = "crates/providers", version = "0.1.0-beta.1" }
+hoista-server = { path = "crates/server", version = "0.1.0-beta.1" }
+hoista-store = { path = "crates/store", version = "0.1.0-beta.1" }
+hoista-system = { path = "crates/system", version = "0.1.0-beta.1" }
 
 anyhow = "1"
 async-stream = "0.3"

@@ -137,7 +137,7 @@ const STEPS = [
   {
     title: '~/moodboard — zsh',
     lines: [
-      ['command', 'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0'],
+      ['command', 'curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1'],
       ['output', 'Verified OK'],
       ['output', 'Installed Hoista to /Users/sam/.local/bin. Add this directory to PATH.'],
       ['output', 'Hoista will start at login and restart after exit.'],

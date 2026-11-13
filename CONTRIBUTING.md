@@ -63,3 +63,21 @@ npm run docs:validate
 ```
 
 The desktop app's Rust side is checked on its own: see [apps/desktop](apps/desktop/README.md#checks).
+
+## Releases
+
+Versions follow [Semantic Versioning](https://semver.org). A beta is a pre-release of the next version: `0.1.0-beta.1`, then `0.1.0-beta.2`, until `0.1.0` itself.
+
+To release:
+
+1. Set the version in `Cargo.toml` (the workspace and its `hoista-*` dependencies), `apps/desktop/package.json`, `apps/desktop/src-tauri/Cargo.toml` and `apps/desktop/src-tauri/tauri.conf.json`, and update both `Cargo.lock` files and `package-lock.json`.
+2. Add the version's section to [CHANGELOG.md](CHANGELOG.md) and to [the docs changelog](apps/docs/changelog.mdx). The release workflow uses the CHANGELOG.md section as the release notes and stops if it's missing.
+3. Point the install commands and download links at the new tag: README.md, `apps/webpage` (`index.html`, `main.js`, `llms.txt`) and `apps/docs/getting-started/install.mdx`.
+4. Merge to `main`, then tag that commit and push the tag:
+
+   ```sh
+   git tag -a v0.1.0-beta.1 -m "Hoista 0.1.0 Beta 1"
+   git push origin v0.1.0-beta.1
+   ```
+
+The [release workflow](.github/workflows/release.yml) checks and builds the CLI, the engine and Desktop for every platform, signs each file with Sigstore, and opens a draft GitHub release. A tag with a suffix such as `-beta.1` becomes a pre-release, which GitHub keeps off `/releases/latest`. Check the draft's files and notes, then publish it.
