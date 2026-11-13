@@ -6,7 +6,7 @@ hoista.dev: plain HTML, CSS and JavaScript with no build step. The docs are sepa
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `index.html`    | The page. Brand logos and the mascot are drawn once in the `<svg class="sprite">` at the top of `<body>` and placed with `<use href="#logo-railway">` |
 | `styles.css`    | Colours for light and dark (`data-theme` on `<html>`), then each section in page order, then the tablet and phone changes                             |
-| `main.js`       | The light/dark switch (remembered per visitor), the copy buttons, the two menus and the terminal recording                                            |
+| `main.js`       | The light/dark switch (remembered per visitor), the copy buttons, the two menus, the terminal recording and the downloads for this computer           |
 | `assets/shots/` | Screenshots of Hoista Desktop, each in a light copy (`name.webp`) and a dark one (`name-dark.webp`)                                                   |
 | `llms.txt`      | A plain-text summary of Hoista for AI tools (llmstxt.org format)                                                                                      |
 | `skills/`       | Hoista's skills as plain markdown, the same as `skills/` at the repository root, linked from `llms.txt`                                               |

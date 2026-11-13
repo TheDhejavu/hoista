@@ -1,5 +1,6 @@
-// hoista.dev: the theme switch, the copy buttons, the two menus and the
-// terminal recording. No dependencies. Each part is set up at the bottom.
+// hoista.dev: the theme switch, the copy buttons, the two menus, the
+// terminal recording and the downloads for this computer. No dependencies.
+// Each part is set up at the bottom.
 
 const THEME_KEY = 'hoista-theme';
 const COPIED_FOR_MS = 3500;
@@ -380,6 +381,89 @@ function setUpTerminal() {
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Downloads: say what the page detected under the buttons and point at the
+ * right installer. Only Chromium browsers can tell an Intel Mac from an
+ * Apple Silicon one; elsewhere a Mac gets Apple Silicon, with Intel offered.
+ * ------------------------------------------------------------------------ */
+
+const WINDOWS_INSTALL = 'https://docs.hoista.dev/getting-started/install#windows';
+
+async function setUpDownloads() {
+  const note = document.querySelector('.detected');
+  const intel = document.querySelector('[data-mac-other]');
+  const { system, chip } = await detectComputer();
+
+  if (system === 'macOS' && chip === 'x86') {
+    useIntelBuild();
+    say('Detected a Mac with an Intel chip.');
+  } else if (system === 'macOS' && chip === 'arm') {
+    say('Detected a Mac with Apple Silicon.');
+  } else if (system === 'macOS') {
+    say('Detected a Mac. On an Intel Mac? ', link(intel.href, 'Get the Intel version'), '.');
+  } else if (system === 'Linux') {
+    const appImage = document.querySelector('[data-linux="appimage"]').href;
+    const deb = document.querySelector('[data-linux="deb"]').href;
+    say('Detected Linux. Get the ', link(appImage, 'AppImage'), ' or the ', link(deb, '.deb'), '.');
+  } else if (system === 'Windows') {
+    say(
+      'Detected Windows. Desktop for Windows is coming soon; until then, ',
+      link(WINDOWS_INSTALL, 'install the CLI'),
+      '.',
+    );
+  } else if (system === 'iOS' || system === 'Android') {
+    say('Hoista runs on a computer. Open this page on a Mac or Linux PC to download it.');
+  }
+
+  function say(...parts) {
+    note.replaceChildren(...parts);
+    note.hidden = false;
+  }
+
+  function link(href, text) {
+    const anchor = element('a', null, text);
+    anchor.href = href;
+    return anchor;
+  }
+
+  // The buttons take the Intel build, and the menu offers Apple Silicon instead.
+  function useIntelBuild() {
+    const appleSilicon = document.querySelector('[data-mac-download]').href;
+    for (const button of document.querySelectorAll('[data-mac-download]')) {
+      button.href = intel.href;
+      button.querySelector('.mac-chip').textContent = 'Intel';
+    }
+    intel.href = appleSilicon;
+    intel.querySelector('strong').textContent = 'macOS Apple Silicon';
+    intel.querySelector('strong + span').textContent = 'M1 and later · .dmg';
+    document.querySelector('[data-mac-other-chip]').textContent = 'Apple Silicon';
+  }
+}
+
+async function detectComputer() {
+  const agent = navigator.userAgent;
+  let system = navigator.userAgentData?.platform;
+  if (!system) {
+    if (/iPhone|iPad|iPod/.test(agent)) system = 'iOS';
+    else if (/Android/.test(agent)) system = 'Android';
+    // iPads ask for the desktop site and say Macintosh; only they have touch.
+    else if (/Macintosh/.test(agent)) system = navigator.maxTouchPoints > 1 ? 'iOS' : 'macOS';
+    else if (/Windows/.test(agent)) system = 'Windows';
+    else if (/Linux/.test(agent)) system = 'Linux';
+  }
+
+  let chip;
+  if (system === 'macOS' && navigator.userAgentData) {
+    try {
+      const values = await navigator.userAgentData.getHighEntropyValues(['architecture']);
+      chip = values.architecture;
+    } catch {
+      // The browser can refuse; the Mac then gets the default build.
+    }
+  }
+  return { system, chip };
+}
+
 function element(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -391,3 +475,4 @@ setUpThemeSwitch();
 setUpCopyButtons();
 setUpMenus();
 setUpTerminal();
+setUpDownloads();

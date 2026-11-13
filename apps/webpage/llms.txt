@@ -14,7 +14,7 @@ Key facts:
 
 ## Install
 
-Current release: Hoista 0.1.0 Beta 1 (`v0.1.0-beta.1`), a public beta. Release notes: https://docs.hoista.dev/changelog. Downloads: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1.
+Current release: Hoista 0.1.0 Beta 1 (`v0.1.0-beta.1`), a public beta. Release notes and downloads: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1.
 
 - [Download for macOS](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1): also Linux.
 - Command line: `curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.1` (needs cosign)

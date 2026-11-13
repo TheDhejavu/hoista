@@ -749,6 +749,26 @@ section {
   font-size: 13.5px;
 }
 
+/* Which Mac a download button is for, beside its label. */
+.mac-chip {
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+/* What the page detected about this computer, under the download buttons. */
+.detected {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+.detected a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .other-downloads {
   position: relative;
   z-index: 4;
@@ -2250,20 +2270,23 @@ a.download-option:hover {
 
   .term,
   .agent-card .term {
-    height: auto;
-    min-height: 50px;
-    padding: 7px 8px 7px 14px;
+    height: 50px;
+    padding: 0 7px 0 14px;
     gap: 8px;
-    font-size: 12px;
+    font-size: 12.5px;
   }
 
+  /* A command stays on one line, as it would be typed; swipe it sideways. */
   .term .command {
     flex: 1;
-    overflow: visible;
-    white-space: normal;
-    overflow-wrap: anywhere;
+    overflow-x: auto;
+    scrollbar-width: none;
     text-overflow: clip;
-    line-height: 1.6;
+    mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+  }
+
+  .term .command::-webkit-scrollbar {
+    display: none;
   }
 
   .copy {
@@ -2384,6 +2407,10 @@ a.download-option:hover {
   .download-options {
     justify-content: flex-start;
     gap: 0 14px;
+  }
+
+  .detected {
+    text-align: left;
   }
 
   .download-license {

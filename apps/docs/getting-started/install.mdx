@@ -62,28 +62,12 @@ The app is in `apps/desktop/src-tauri/target/release/bundle/`. On Linux, ask for
 
 ## Desktop app
 
-Download Desktop from the [v0.1.0-beta.1 release](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1). Use only the files listed on the release page.
+Download Desktop from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
 
 | System | Package |
 | --- | --- |
-| macOS, Apple Silicon | `Hoista_0.1.0-beta.1_aarch64.dmg` |
-| macOS, Intel | `Hoista_0.1.0-beta.1_x64.dmg` |
+| macOS | Apple Silicon and Intel |
 | Linux | AppImage and Debian package |
-
-Each file has a `.sigstore.json` signature beside it. To check one before opening it:
-
-```bash
-cosign verify-blob --bundle Hoista_0.1.0-beta.1_aarch64.dmg.sigstore.json \
-  --certificate-identity "https://github.com/TheDhejavu/hoista/.github/workflows/release.yml@refs/tags/v0.1.0-beta.1" \
-  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-  Hoista_0.1.0-beta.1_aarch64.dmg
-```
-
-During the beta, the macOS app is not signed with an Apple Developer ID or notarized, so macOS refuses to open it the first time. After moving Hoista to Applications, clear the download flag once:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Hoista.app
-```
 
 Desktop uses the same daemon as the CLI, so install the CLI and daemon too.
 

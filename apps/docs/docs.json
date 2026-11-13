@@ -4,7 +4,7 @@
   "name": "Hoista",
   "description": "Connect your hosting accounts once. Manage your projects from Desktop, the CLI or your agents.",
   "banner": {
-    "content": "**Hoista 0.1.0 Beta 1 is out.** It works, but expect rough edges. [Release notes](/changelog) · [Report an issue](https://github.com/TheDhejavu/hoista/issues)",
+    "content": "**Hoista is in beta.** It works, but expect rough edges. Found one? [Tell us on GitHub](https://github.com/TheDhejavu/hoista/issues).",
     "dismissible": true
   },
   "colors": {
@@ -95,8 +95,7 @@
           {
             "group": "Help",
             "pages": [
-              "getting-started/support",
-              "changelog"
+              "getting-started/support"
             ]
           }
         ],
