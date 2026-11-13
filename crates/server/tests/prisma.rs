@@ -83,6 +83,8 @@ fn inspection_rejects_schema_parent_symlinks() {
     assert!(detect(dir.path()).is_err());
 }
 
+// Local builds and migrations run in isolation, which Windows does not have yet.
+#[cfg(unix)]
 #[tokio::test]
 async fn migration_cli_uses_direct_environment_and_never_reset_or_seed() {
     let dir = tempfile::tempdir().expect("directory");
