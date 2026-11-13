@@ -1,10 +1,13 @@
 //! Prisma: picking production migrations and running its CLI in isolation,
 //! with no external accounts.
 
+use hoista_server::infrastructure::inspection::detect;
+// Only the migration test uses these, and it runs on Unix only.
+#[cfg(unix)]
 use hoista_server::{
     application::ports::build::BuildService,
     domain::{Secret, model::*},
-    infrastructure::{build::LocalBuilder, inspection::detect},
+    infrastructure::build::LocalBuilder,
 };
 use std::path::Path;
 fn source(root: &Path) {
