@@ -3734,6 +3734,9 @@ async fn deployment_metadata_is_exposed_through_http_and_agent_tools() {
     store.close().await;
 }
 
+// Local builds run in isolation, which Windows does not have yet: there the build is refused
+// before a snapshot is taken.
+#[cfg(unix)]
 #[tokio::test]
 async fn failed_local_build_keeps_snapshot_identity_in_durable_history() {
     let dir = tempfile::tempdir().expect("directory");
