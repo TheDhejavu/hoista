@@ -1436,8 +1436,10 @@ async fn generated_auth_is_memory_only_and_redeploy_does_not_rotate_it() {
     store.close().await;
     for entry in walkdir::WalkDir::new(paths.root()) {
         let entry = entry.expect("entry");
-        if entry.file_type().is_file() {
-            let bytes = std::fs::read(entry.path()).expect("read state");
+        // The daemon's lock file stays locked while it runs; Windows refuses to read it.
+        if entry.file_type().is_file() && entry.path().extension() != Some("lock".as_ref()) {
+            let bytes = std::fs::read(entry.path())
+                .unwrap_or_else(|error| panic!("read {}: {error}", entry.path().display()));
             assert!(
                 !bytes
                     .windows(generated.len())
@@ -3802,7 +3804,7 @@ async fn failed_local_build_keeps_snapshot_identity_in_durable_history() {
     let provenance = failed
         .provenance
         .as_ref()
-        .expect("completed snapshot retained after output failure");
+        .unwrap_or_else(|| panic!("completed snapshot retained after output failure: {failed:?}"));
     assert_eq!(provenance.snapshot_files, 1);
     assert_eq!(provenance.snapshot_sha256.len(), 64);
     assert_eq!(provider.released.load(Ordering::SeqCst), 0);
