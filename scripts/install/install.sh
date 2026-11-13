@@ -96,6 +96,19 @@ for document in LICENSE THIRD-PARTY-NOTICES.txt DEPENDENCIES.json; do
 done
 printf 'Installed Hoista to %s. Add this directory to PATH.\n' "$destination"
 
+# A daemon from the previous install keeps running its old code, and the new
+# hoist and Desktop refuse to talk to a daemon of another version. Stop it;
+# the login service or the next hoist command starts the new one.
+if pgrep -f "$destination/hoistd" >/dev/null 2>&1; then
+  echo 'Stopping the previous version of the Hoista engine.'
+  pkill -f "$destination/hoistd" >/dev/null 2>&1 || true
+  waited=0
+  while pgrep -f "$destination/hoistd" >/dev/null 2>&1 && [ "$waited" -lt 20 ]; do
+    sleep 1
+    waited=$((waited + 1))
+  done
+fi
+
 install_desktop() {
   [ "$(uname -s)" = Darwin ] || fail '--desktop is only for macOS. Linux packages are on the releases page.'
   command -v hdiutil >/dev/null 2>&1 || fail 'hdiutil is missing; cannot open the Desktop disk image.'
