@@ -17,8 +17,8 @@ curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0
 ```bash From source
 git clone https://github.com/TheDhejavu/hoista.git
 cd hoista
-cargo build --locked -p hoist -p hoistd
-export PATH="$PWD/target/debug:$PATH"
+cargo install --locked --path bin/hoist
+cargo install --locked --path bin/hoistd
 ```
 </CodeGroup>
 
@@ -49,14 +49,16 @@ There is no Desktop app for Windows; the CLI and daemon are all you need.
 
 ## From source
 
-You need the Rust toolchain pinned in `rust-toolchain.toml`. Keep `hoist` and `hoistd` in the same directory: the CLI starts the daemon from there when it needs it. Put the binaries in their final directory before you run `hoist service install`. The login service records their path, so moving them later breaks it.
+You need [Rust](https://rustup.rs); rustup installs the version pinned in `rust-toolchain.toml`. `cargo install` builds `hoist` and `hoistd` in release mode and puts both in `~/.cargo/bin`. Keep them in the same folder: the CLI starts the daemon from there. Run `hoist service install` after they're in place to start Hoista at login. The login service records their path, so moving them later breaks it.
 
-To run Desktop from source, you also need Node.js 22 or later:
+To build Desktop from source, you also need Node.js 22 or later. On Linux, install the system webview's libraries first: `libwebkit2gtk-4.1-dev`, `libayatana-appindicator3-dev` and `librsvg2-dev` on Debian and Ubuntu.
 
 ```bash
-npm install
-npm run desktop
+npm ci
+npm run desktop:build
 ```
+
+The app is in `apps/desktop/src-tauri/target/release/bundle/`. On Linux, ask for a package with `npm run desktop:build -- --bundles deb,appimage`.
 
 ## Desktop app
 

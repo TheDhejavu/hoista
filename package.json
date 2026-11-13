@@ -8,10 +8,12 @@
   ],
   "scripts": {
     "desktop": "npm --workspace @hoista/desktop run dev",
+    "desktop:build": "npm --workspace @hoista/desktop run build --",
     "desktop:check": "npm --workspace @hoista/desktop run check",
     "demo": "scripts/dev.sh --demo",
     "docs:dev": "cd apps/docs && npm exec --yes --package=mint@4.2.1203 -- mint dev --port 3001 --no-open",
-    "docs:validate": "cd apps/docs && npm exec --yes --package=mint@4.2.1203 -- mint validate"
+    "docs:validate": "cd apps/docs && npm exec --yes --package=mint@4.2.1203 -- mint validate",
+    "webpage:dev": "python3 -m http.server 3000 --bind 127.0.0.1 --directory apps/webpage"
   },
   "engines": {
     "node": ">=22"

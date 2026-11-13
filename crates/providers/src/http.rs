@@ -870,13 +870,10 @@ fn response_evidence(
 }
 
 /// A refusal in the provider's own words, short: GraphQL's `errors[].message`,
-/// a problem document's `detail` with its field `errors` (Runpod), or a REST
-/// provider's `{"message": …}` or Fly's `{"error": …}`. Providers with a `success`
-/// envelope (Cloudflare) say it their own way and are read elsewhere.
+/// a problem document's `detail` with its field `errors` (Runpod), a REST
+/// provider's `{"message": …}`, Fly's `{"error": …}`, or Cloudflare's
+/// `errors[]` with the more exact reasons in each one's `error_chain`.
 fn refusal_words(value: &Value) -> Option<String> {
-    if value.get("success").is_some() {
-        return None;
-    }
     let short = |text: &str| text.chars().take(MAX_ERROR_CHARS).collect::<String>();
     let listed: Vec<String> = value
         .get("errors")
@@ -886,12 +883,27 @@ fn refusal_words(value: &Value) -> Option<String> {
                 .iter()
                 .take(MAX_ERRORS_SHOWN)
                 .filter_map(|error| {
-                    error
+                    let said = error
                         .as_str()
-                        .or_else(|| error.get("message").and_then(Value::as_str))
+                        .or_else(|| error.get("message").and_then(Value::as_str))?;
+                    let reasons: Vec<&str> = error
+                        .get("error_chain")
+                        .and_then(Value::as_array)
+                        .map(|chain| {
+                            chain
+                                .iter()
+                                .filter_map(|link| link.get("message").and_then(Value::as_str))
+                                .collect()
+                        })
+                        .unwrap_or_default();
+                    Some(if reasons.is_empty() {
+                        said.to_owned()
+                    } else {
+                        format!("{said} ({})", reasons.join("; "))
+                    })
                 })
                 .filter(|text| !text.is_empty())
-                .map(short)
+                .map(|text| short(&text))
                 .collect()
         })
         .unwrap_or_default();
@@ -1173,11 +1185,16 @@ mod tests {
             words(serde_json::json!({"error": "app not found"})),
             Some("app not found".to_owned())
         );
-        // Cloudflare's envelope, and nothing said.
+        // Cloudflare's envelope, with the exact reason in its chain.
         assert_eq!(
-            words(serde_json::json!({"success": false, "errors": [{"message": "x"}]})),
-            None
+            words(serde_json::json!({"success": false, "errors": [{
+                "code": 6003,
+                "message": "Invalid request headers",
+                "error_chain": [{"code": 6111, "message": "Invalid format for Authorization header"}],
+            }]})),
+            Some("Invalid request headers (Invalid format for Authorization header)".to_owned())
         );
+        // Nothing said.
         assert_eq!(words(serde_json::json!({"errors": []})), None);
     }
 
@@ -1780,7 +1797,7 @@ mod tests {
             let (http, task) = status_response_fixture(vec![("/resources", 200, body)]).await;
             let error = http
                 .json(
-                    Provider::Cloudflare,
+                    Provider::Vercel,
                     &Secret::new("token".into()),
                     Method::GET,
                     &["resources"],

@@ -1,0 +1,65 @@
+# Contributing to Hoista
+
+Issues and pull requests are welcome. Keep changes small, add tests for what you change, and run the [checks](#checks) before you open a pull request.
+
+Report security problems privately through [GitHub security advisories](https://github.com/TheDhejavu/hoista/security/advisories/new), not in public issues.
+
+## Setup
+
+You need [Rust](https://rustup.rs) 1.97 (pinned in `rust-toolchain.toml`) and Node.js 22. On Linux the desktop app also needs the system webview's libraries: `libwebkit2gtk-4.1-dev`, `libayatana-appindicator3-dev` and `librsvg2-dev` on Debian and Ubuntu.
+
+```sh
+git clone https://github.com/TheDhejavu/hoista.git
+cd hoista
+npm install
+scripts/dev.sh
+```
+
+`scripts/dev.sh` rebuilds `hoist` and `hoistd`, installs npm packages when the lockfile changed, starts the engine on the new build (or restarts a running one onto it), and opens the desktop app. Ctrl-C closes the app; the engine keeps running.
+
+- `scripts/dev.sh --demo` (or `npm run demo`) opens the app on the demo engine: Hoista's real engine on Sam Rivera's example projects, in `~/.hoista-demo`, with providers answered locally so nothing reaches the internet. Add `--fresh` to start over from the seed.
+- `HOISTA_SOCKET=/some/dir/hoistd.sock scripts/dev.sh` runs against a separate state folder, so you don't touch `~/.hoista`.
+- `npm run docs:dev` serves the docs at http://localhost:3001, and `npm run webpage:dev` serves hoista.dev at http://localhost:3000.
+
+## Project layout
+
+### Crates
+
+The workspace is split the way the engine is layered. Each crate depends only on the ones above it, so `hoista-domain` and `hoista-app` never use a database, an HTTP framework or a provider's API directly.
+
+| Crate                                  | What it is                                                                                                                                            |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`hoista-domain`](crates/domain)       | Core types and rules: projects, resources, deploys, access. No I/O.                                                                                   |
+| [`hoista-system`](crates/system)       | The operating system: running programs, finding them, Hoista's folders, reading files safely.                                                         |
+| [`hoista-app`](crates/app)             | The use cases, written against traits in its `ports` module. `Engine` and the services it hands out (`engine.deploys()`, `engine.accounts()`, …).     |
+| [`hoista-providers`](crates/providers) | One adapter per provider, implementing the provider port.                                                                                             |
+| [`hoista-store`](crates/store)         | The other ports' implementations: SQLite through sqlx, the keychain and credential keeper, backups, sandboxed builds.                                 |
+| [`hoista-server`](crates/server)       | HTTP API, MCP, the browser pages (askama templates in `templates/`), the client the CLI uses, and `wiring.rs`, which plugs the store into the engine. |
+| [`hoist`](bin/hoist)                   | The CLI binary.                                                                                                                                       |
+| [`hoistd`](bin/hoistd)                 | The engine daemon binary.                                                                                                                             |
+| [`hoista-demo`](bin/hoista-demo)       | The engine on seeded example data, with providers answered locally, for `npm run demo`.                                                               |
+
+Swapping SQLite for another store, or the keychain for another vault, means a new implementation of a port and one line in `wiring.rs`. `crates/server/tests/architecture.rs` keeps the layering honest.
+
+### Everything else
+
+- [`apps/desktop`](apps/desktop): the desktop app, on [Tauri](https://tauri.app): React screens in the system webview, with a Rust side for the windows, the menu bar icon and remotes.
+- [`apps/docs`](apps/docs): the docs site (Mintlify), at docs.hoista.dev.
+- [`apps/webpage`](apps/webpage): hoista.dev.
+- [`skills`](skills): skills for coding agents.
+- [`deploy/server`](deploy/server): Hoista as a remote, in Docker.
+- [`docs/backend`](docs/backend): notes for people working on the engine.
+
+## Checks
+
+CI runs:
+
+```sh
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --locked -- -D warnings
+cargo test --workspace --locked
+npm run desktop:check
+npm run docs:validate
+```
+
+The desktop app's Rust side is checked on its own: see [apps/desktop](apps/desktop/README.md#checks).

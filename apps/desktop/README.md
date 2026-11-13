@@ -42,7 +42,7 @@ npm install
 npm run desktop
 ```
 
-`scripts/dev.sh` does the same and also rebuilds and restarts the engine. `npm run demo` opens the app on the demo engine: Hoista's own engine on Sam Rivera's example projects, kept in `~/.hoista-demo`, with providers answered locally (`bin/hoista-demo`). `npm run demo -- --fresh` starts it over from the seed.
+`scripts/dev.sh` does the same and also rebuilds and restarts the engine. `npm run demo` opens the app on the demo engine: Hoista's own engine on Sam Rivera's example projects, kept in `~/.hoista-demo`, with providers answered locally (`bin/hoista-demo`). `npm run demo -- --fresh` starts it over from the seed. `npm run desktop:build` builds the app into `src-tauri/target/release/bundle/`.
 
 The first run compiles the Rust side, which takes a few minutes. `HOISTA_SOCKET=/some/dir/hoistd.sock` points the app at a test engine. `HOISTA_START_AT=welcome` opens it on a given screen.
 

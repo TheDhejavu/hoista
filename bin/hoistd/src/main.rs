@@ -14,6 +14,15 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 /// Daily engine log files kept.
 const LOG_DAYS_KEPT: usize = 14;
+/// The crates whose messages go into the engine logs.
+const LOGGED_CRATES: &[&str] = &[
+    "hoistd",
+    "hoista_server",
+    "hoista_app",
+    "hoista_providers",
+    "hoista_store",
+    "hoista_system",
+];
 /// The port Hoista on a server listens on when `PORT` isn't set.
 const DEFAULT_SERVER_PORT: u16 = 8080;
 
@@ -141,9 +150,11 @@ async fn main() -> anyhow::Result<()> {
                 .with_ansi(false),
         )
         .with(
-            tracing_subscriber::filter::Targets::new()
-                .with_target("hoistd", tracing::Level::INFO)
-                .with_target("hoista_server", tracing::Level::INFO),
+            tracing_subscriber::filter::Targets::new().with_targets(
+                LOGGED_CRATES
+                    .iter()
+                    .map(|target| (*target, tracing::Level::INFO)),
+            ),
         )
         .try_init()
         .context("Could not initialize engine logs")?;

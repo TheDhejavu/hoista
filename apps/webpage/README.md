@@ -2,19 +2,19 @@
 
 hoista.dev: plain HTML, CSS and JavaScript with no build step. The docs are separate, in `apps/docs`, at docs.hoista.dev.
 
-| File | Purpose |
-| --- | --- |
-| `index.html` | The page. Brand logos and the mascot are drawn once in the `<svg class="sprite">` at the top of `<body>` and placed with `<use href="#logo-railway">` |
-| `styles.css` | Colours for light and dark (`data-theme` on `<html>`), then each section in page order, then the tablet and phone changes |
-| `main.js` | The light/dark switch (remembered per visitor), the copy buttons, the two menus and the terminal recording |
-| `assets/shots/` | Screenshots of Hoista Desktop, each in a light copy (`name.webp`) and a dark one (`name-dark.webp`) |
-| `llms.txt` | A plain-text summary of Hoista for AI tools (llmstxt.org format) |
-| `skills/` | Hoista's skills as plain markdown, the same as `skills/` at the repository root, linked from `llms.txt` |
-| `_redirects` | Cloudflare Pages redirects: `hoista.dev/install.sh` goes to the installer in the repository |
+| File            | Purpose                                                                                                                                               |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html`    | The page. Brand logos and the mascot are drawn once in the `<svg class="sprite">` at the top of `<body>` and placed with `<use href="#logo-railway">` |
+| `styles.css`    | Colours for light and dark (`data-theme` on `<html>`), then each section in page order, then the tablet and phone changes                             |
+| `main.js`       | The light/dark switch (remembered per visitor), the copy buttons, the two menus and the terminal recording                                            |
+| `assets/shots/` | Screenshots of Hoista Desktop, each in a light copy (`name.webp`) and a dark one (`name-dark.webp`)                                                   |
+| `llms.txt`      | A plain-text summary of Hoista for AI tools (llmstxt.org format)                                                                                      |
+| `skills/`       | Hoista's skills as plain markdown, the same as `skills/` at the repository root, linked from `llms.txt`                                               |
+| `_redirects`    | Cloudflare Pages redirects: `hoista.dev/install.sh` goes to the installer in the repository                                                           |
 
 To add a logo, add a `<symbol id="logo-name" viewBox="0 0 24 24">` to the sprite and its brand colour as `.logo-name` in `styles.css`.
 
-Open `index.html` directly, or serve it with `python3 -m http.server 8080 --directory apps/webpage`, or run `scripts/dev.sh` to open it with the docs and the desktop app.
+Open `index.html` directly, or run `npm run webpage:dev` from the repository root to serve it at http://localhost:3000.
 
 ## Deploy
 

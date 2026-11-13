@@ -51,7 +51,9 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
     api: super::ProviderApi {
         base: "https://api.cloudflare.com/client/v4/",
         hosts: &["api.cloudflare.com", "dash.cloudflare.com"],
-        explains_refusals: false,
+        // Cloudflare's refusals name what's wrong, such as "Could not route to
+        // /accounts/...", so they're shown with the token removed.
+        explains_refusals: true,
         sign_in: super::SignIn::Bearer,
     },
     accounts: super::accounts::AccountListing {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Rebuilds Hoista and runs everything together: the engine, the desktop app,
-# the docs and the landing page. Ctrl-C stops the desktop app, docs and page;
-# the engine keeps running, like it does after the app closes.
+# Rebuilds Hoista and runs it: the engine and the desktop app on it. Ctrl-C
+# closes the desktop app; the engine keeps running, like it does after the app
+# closes.
 #
 #   scripts/dev.sh                  rebuild, (re)start the engine, open the desktop app on it
 #   scripts/dev.sh --demo           the same on the demo engine: Sam Rivera's example
@@ -17,11 +17,10 @@
 # HOISTA_SOCKET at the socket inside it; the engine and app both use it:
 #   HOISTA_SOCKET=/tmp/hoista-test-state/hoistd.sock scripts/dev.sh
 #
-# HOISTA_DEV_LOGS=FOLDER also keeps each part's output in FOLDER (web.log,
-# docs.log, desktop.log). The engine's own logs are in the state folder's logs/.
+# HOISTA_DEV_LOGS=FOLDER also keeps each part's output in FOLDER (desktop.log,
+# and demo.log for the demo). The engine's own logs are in the state folder's logs/.
 #
-# Webpage: http://localhost:3000 (apps/webpage)
-# Docs:    http://localhost:3001 (apps/docs; live at docs.hoista.dev)
+# The docs and hoista.dev run on their own: npm run docs:dev, npm run webpage:dev.
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
@@ -93,16 +92,6 @@ if [ ! -f node_modules/.package-lock.json ] || [ package-lock.json -nt node_modu
   npm install --no-audit --no-fund
 fi
 
-docs_port=3001
-web_port=3000
-
-for port in "$docs_port" "$web_port"; do
-  if lsof -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; then
-    echo "Port $port is already in use. Stop what's running there and try again." >&2
-    exit 1
-  fi
-done
-
 # Each one runs in its own process group, so stopping it stops everything
 # it started too.
 set -m
@@ -116,7 +105,7 @@ stop() {
 }
 trap stop INT TERM EXIT
 
-# Each one's output, with its name in front so the three can be told apart.
+# Each one's output, with its name in front so they can be told apart.
 # With HOISTA_DEV_LOGS set to a folder, each one's output is also kept there
 # as NAME.log, started fresh each run.
 logs="${HOISTA_DEV_LOGS:-}"
@@ -147,12 +136,8 @@ if [ -n "$demo" ]; then
     sleep 0.1
   done
 fi
-run web python3 -m http.server "$web_port" --bind 127.0.0.1 --directory apps/webpage
-run docs npm run -s docs:dev
 run desktop npm --workspace @hoista/desktop run dev
 
-echo "Webpage:      http://localhost:$web_port"
-echo "Docs:         http://localhost:$docs_port (the first start takes a minute or two)"
 if [ -n "$demo" ]; then
   echo "Engine:       the demo engine on Sam Rivera's example projects, state in $demo"
   echo "Desktop:      opens in its own window, on the demo (the first start compiles it, a few minutes)"
@@ -160,7 +145,7 @@ else
   echo "Engine:       running on this build ($("$hoist" --version 2>/dev/null || echo hoist)), state in ${HOISTA_SOCKET:+$(dirname "$HOISTA_SOCKET")}${HOISTA_SOCKET:-$HOME/.hoista}"
   echo "Desktop:      opens in its own window, on the engine at ${HOISTA_SOCKET:-$HOME/.hoista/hoistd.sock} (the first start compiles it, a few minutes)"
 fi
-echo "Press Ctrl-C to stop them all."
+echo "Press Ctrl-C to stop."
 
 # Stops everything when any one of them exits. (macOS's bash has no `wait -n`.)
 while true; do

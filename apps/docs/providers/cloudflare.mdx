@@ -10,7 +10,7 @@ Hoista finds the Workers, Pages projects, D1 databases, KV namespaces, R2 bucket
 
 In Desktop, open **Accounts**, choose Cloudflare, and paste an API token:
 
-1. Open [API Tokens](https://dash.cloudflare.com/profile/api-tokens): **My Profile → API Tokens → Create Token → Create Custom Token**. Name it Hoista.
+1. Open [API Tokens](https://dash.cloudflare.com/profile/api-tokens): **My Profile → API Tokens → Create Token → Start from scratch**. Name it Hoista.
 2. Add these permissions.
 
    | Scope | Permission | Access | Needed for |
@@ -20,11 +20,27 @@ In Desktop, open **Accounts**, choose Cloudflare, and paste an API token:
    | Account | Account Settings | Read | Always |
    | Account | Account Analytics | Read | Always |
    | Account | Workers Tail | Read | Always |
+   | Account | Workers Observability | Edit | Log history |
    | Account | Billing | Read | Always |
    | Account | D1 | Edit | D1 databases |
+   | Account | Workers KV Storage | Edit | KV namespaces |
+   | Account | Cloudflare Pages | Edit | Pages projects |
+   | Account | Workers Builds Configuration | Edit | Builds from Git |
+   | Account | Containers | Edit | Containers |
+   | Account | Queues | Edit | Queues |
+   | Account | Basin Pipelines | Edit | Pipelines |
+   | Account | Vectorize | Edit | Vectorize indexes |
+   | Account | Workers AI | Edit | Workers AI |
+   | Account | Secrets Store | Edit | Secrets Store |
+   | Account | Browser Run | Edit | Browser Rendering |
+   | Account | Hyperdrive | Edit | Hyperdrive |
+   | Account | Email Routing Addresses | Edit | Email Routing |
    | Zone | Zone | Edit | Your own domain |
    | Zone | DNS | Edit | Your own domain |
    | Zone | Workers Routes | Edit | Your own domain |
+   | Zone | SSL and Certificates | Edit | Your own domain |
+   | Zone | Cache Purge | Purge | Your own domain |
+   | Zone | Email Routing Rules | Edit | Email Routing |
 
 3. Paste the token into Hoista and pick the account.
 
