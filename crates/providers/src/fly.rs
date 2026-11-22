@@ -1297,7 +1297,7 @@ impl ProviderAdapter for Fly {
     async fn set_provider_variables(
         &self,
         token: &Secret,
-        account: &str,
+        _: &str,
         reference: &str,
         values: &[(String, Secret)],
         shared: bool,
@@ -1306,11 +1306,16 @@ impl ProviderAdapter for Fly {
         if shared {
             return Err(crate::application::ports::providers::unsupported());
         }
-        for (name, value) in values {
-            self.set_secret(token, account, reference, name, value)
-                .await?;
-        }
-        Ok(())
+        // One import, so the machines restart once with every value.
+        let payload = secret_input(values)?;
+        command(
+            &self.http,
+            token,
+            &["secrets", "import", "--app", reference],
+            None,
+            Some(&payload),
+        )
+        .await
     }
 
     async fn delete_provider_variable(
