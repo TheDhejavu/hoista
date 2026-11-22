@@ -103,8 +103,15 @@ export function layoutMap(
   map: ProjectMap,
   moved: MovedNodes = {},
 ): { nodes: MapNode[]; edges: MapEdge[] } {
-  const runtimeResources = map.nodes.filter((resource) => columnOf(resource.kind) === 1);
-  const dataResources = map.nodes.filter((resource) => columnOf(resource.kind) === 2);
+  const used = new Set(map.edges.map((link) => link.to));
+  const dependency = (resource: Resource): boolean =>
+    columnOf(resource.kind) === 1 && !resource.repo && used.has(resource.id);
+  const runtimeResources = map.nodes.filter(
+    (resource) => columnOf(resource.kind) === 1 && !dependency(resource),
+  );
+  const dataResources = map.nodes.filter(
+    (resource) => columnOf(resource.kind) === 2 || dependency(resource),
+  );
   const domainResources = map.nodes.filter((resource) => columnOf(resource.kind) === 0);
 
   // A project can deploy from several repositories (a provider that builds one
