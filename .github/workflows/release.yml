@@ -49,8 +49,12 @@ jobs:
       - name: Free disk space
         if: runner.os == 'Linux'
         run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+      # The tests build projects in bubblewrap, which the Arm runners don't
+      # come with.
       - if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config
+        run: |
+          sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config bubblewrap
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
       # The Arm Linux runners may come without rustup.
       - if: runner.os == 'Linux'
         run: command -v rustup >/dev/null || { curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none && echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"; }
