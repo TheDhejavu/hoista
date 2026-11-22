@@ -402,13 +402,11 @@ async function setUpDownloads() {
     }
   }
 
-  if (system === 'macOS' && chip === 'x86') {
-    useIntelBuild();
-    say('Detected a Mac with an Intel chip.');
-  } else if (system === 'macOS' && chip === 'arm') {
-    say('Detected a Mac with Apple Silicon. The command below installs Desktop without macOS’s unidentified developer warning.');
-  } else if (system === 'macOS') {
-    say('Detected a Mac. On an Intel Mac? ', link(intel.href, 'Get the Intel version'), '.');
+  // The button already names the Mac chip, so a Mac only gets a note when its
+  // chip is unknown.
+  if (system === 'macOS') {
+    if (chip === 'x86') useIntelBuild();
+    else if (chip !== 'arm') say('On an Intel Mac? ', link(intel.href, 'Get the Intel version'), '.');
   } else if (system === 'Linux') {
     const appImage = document.querySelector('[data-linux="appimage"]').href;
     const deb = document.querySelector('[data-linux="deb"]').href;
