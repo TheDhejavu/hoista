@@ -3726,7 +3726,9 @@ async fn call(
                     )),
                 };
             }
-            if a.project_id.is_some() || a.resource_ids.is_some() || a.review_token.is_some() {
+            // project_id may be the folder's project, filled in for every call; a
+            // link between two resources doesn't need one.
+            if a.resource_ids.is_some() || a.review_token.is_some() {
                 return Err(EngineError::Invalid(
                     "Grouping requires the original description.",
                 ));
