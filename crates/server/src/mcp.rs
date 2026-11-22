@@ -688,6 +688,8 @@ struct GiveKeyArgs {
     /// The service that gets the key in its variables.
     to_resource_id: String,
     /// The variable name; the provider's usual one when absent (RESEND_API_KEY).
+    /// For a key of several values (R2), their names' prefix: STORAGE gives
+    /// STORAGE_ACCESS_KEY_ID, STORAGE_SECRET_ACCESS_KEY, STORAGE_ENDPOINT, STORAGE_BUCKET.
     variable: Option<String>,
 }
 
@@ -1077,7 +1079,7 @@ fn engine_tools() -> Vec<Value> {
         ),
         definition::<GiveKeyArgs>(
             "give_key",
-            "Give one service a key to another without anyone handling it, and set it straight into that service's variables: on Resend Hoista makes a key that can only send from the domain (RESEND_API_KEY); on Supabase it takes the project's public anon or publishable key (SUPABASE_ANON_KEY; pass variable, such as NEXT_PUBLIC_SUPABASE_ANON_KEY, for a browser app). The key is never returned or kept. Use this instead of asking the person to create or paste a key.",
+            "Give one service a key to another without anyone handling it, and set it straight into that service's variables: on Resend Hoista makes a key that can only send from the domain (RESEND_API_KEY); on Supabase it takes the project's public anon or publishable key (SUPABASE_ANON_KEY; pass variable, such as NEXT_PUBLIC_SUPABASE_ANON_KEY, for a browser app); on a Cloudflare R2 bucket it makes a key that reads and writes only that bucket, set as AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ENDPOINT_URL_S3 and BUCKET_NAME, or under the prefix given as variable. The key is never returned or kept. Use this instead of asking the person to create or paste a key.",
             false,
         ),
         definition::<MoveResourcesArgs>(
@@ -2273,7 +2275,7 @@ async fn call(
         }
         "give_key" => {
             let a: GiveKeyArgs = parse(args)?;
-            let variable = engine
+            let variables = engine
                 .environments()
                 .give_key(
                     actor,
@@ -2284,7 +2286,7 @@ async fn call(
                 .await?;
             Ok(json!({
                 "to_resource_id": a.to_resource_id,
-                "variable": variable,
+                "variables": variables,
                 "set_at_provider": true,
             }))
         }

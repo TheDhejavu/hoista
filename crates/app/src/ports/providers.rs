@@ -1128,6 +1128,16 @@ pub struct ResourceBinding {
     pub target_reference: Option<String>,
 }
 
+/// One value of a key from [`ProviderAdapter::issue_keys`].
+pub struct IssuedKey {
+    /// The variable services usually read it from.
+    pub variable: Option<&'static str>,
+    /// Its name after a caller's prefix (`BUCKET` in `STORAGE_BUCKET`).
+    pub suffix: &'static str,
+    /// The value, never kept.
+    pub value: Secret,
+}
+
 /// One provider's adapter. An operation the provider doesn't do returns [`unsupported`]'s error.
 #[async_trait::async_trait]
 pub trait ProviderAdapter: Send + Sync {
@@ -1864,6 +1874,27 @@ pub trait ProviderAdapter: Send + Sync {
     /// The variable name services usually read this provider's key from.
     fn key_variable(&self) -> Option<&'static str> {
         None
+    }
+
+    /// Like [`Self::issue_key`], for a key of several values, such as an R2
+    /// bucket's access key ID, secret, endpoint and name. Defaults to the one
+    /// key from [`Self::issue_key`].
+    ///
+    /// # Errors
+    /// Returns unsupported, missing permission or provider failure.
+    async fn issue_keys(
+        &self,
+        token: &Secret,
+        external_id: &str,
+        reference: &str,
+        name: &str,
+    ) -> Result<Vec<IssuedKey>, EngineError> {
+        let value = self.issue_key(token, external_id, reference, name).await?;
+        Ok(vec![IssuedKey {
+            variable: self.key_variable(),
+            suffix: "",
+            value,
+        }])
     }
 
     /// Deletes one variable of a watched resource at its provider.

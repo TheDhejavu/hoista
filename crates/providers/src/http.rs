@@ -1663,6 +1663,123 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn cloudflare_give_key_makes_a_token_for_that_bucket_only() {
+        use crate::application::ports::providers::ProviderAdapter;
+        use sha2::{Digest, Sha256};
+        let (http, task) = capturing_fixture(vec![
+            (
+                "GET /accounts/acct/tokens/permission_groups",
+                200,
+                r#"{"success":true,"result":[{"id":"grp-read","name":"Workers R2 Storage Bucket Item Read"},{"id":"grp-write","name":"Workers R2 Storage Bucket Item Write"}]}"#,
+            ),
+            (
+                "POST /accounts/acct/tokens",
+                200,
+                r#"{"success":true,"result":{"id":"tok-1","value":"fixture-token-value"}}"#,
+            ),
+        ])
+        .await;
+        let keys = super::super::cloudflare::Cloudflare::new(http)
+            .issue_keys(
+                &Secret::new("fixture".into()),
+                "acct",
+                "r2:default:media",
+                "hoista media for api",
+            )
+            .await
+            .unwrap();
+        let sent = task.await.unwrap();
+        let body = sent[1].split_once("\r\n\r\n").unwrap().1;
+        let body: serde_json::Value = serde_json::from_str(body).unwrap();
+        assert_eq!(body["name"], "hoista media for api");
+        let policies = body["policies"].as_array().unwrap();
+        assert_eq!(policies.len(), 1);
+        assert_eq!(
+            policies[0]["permission_groups"],
+            serde_json::json!([{ "id": "grp-write" }])
+        );
+        assert_eq!(
+            policies[0]["resources"],
+            serde_json::json!({ "com.cloudflare.edge.r2.bucket.acct_default_media": "*" })
+        );
+        let values: Vec<_> = keys
+            .iter()
+            .map(|key| {
+                (
+                    key.variable.unwrap(),
+                    key.suffix,
+                    key.value.expose().to_owned(),
+                )
+            })
+            .collect();
+        assert_eq!(
+            values,
+            [
+                ("AWS_ACCESS_KEY_ID", "ACCESS_KEY_ID", "tok-1".to_owned()),
+                (
+                    "AWS_SECRET_ACCESS_KEY",
+                    "SECRET_ACCESS_KEY",
+                    format!("{:x}", Sha256::digest(b"fixture-token-value")),
+                ),
+                (
+                    "AWS_ENDPOINT_URL_S3",
+                    "ENDPOINT",
+                    "https://acct.r2.cloudflarestorage.com".to_owned(),
+                ),
+                ("BUCKET_NAME", "BUCKET", "media".to_owned()),
+            ]
+        );
+    }
+
+    #[tokio::test]
+    async fn cloudflare_give_key_says_which_permission_is_missing() {
+        use crate::application::ports::providers::ProviderAdapter;
+        let (http, task) = capturing_fixture(vec![(
+            "GET /accounts/acct/tokens/permission_groups",
+            403,
+            r#"{"success":false,"errors":[{"code":9109,"message":"Unauthorized to access requested resource"}]}"#,
+        )])
+        .await;
+        let refused = super::super::cloudflare::Cloudflare::new(http)
+            .issue_keys(
+                &Secret::new("fixture".into()),
+                "acct",
+                "r2:default:media",
+                "k",
+            )
+            .await
+            .err()
+            .unwrap();
+        // Nothing else was asked for: no token is made.
+        assert_eq!(task.await.unwrap().len(), 1);
+        assert_eq!(refused.code(), "cloudflare.cannot_make_tokens");
+        assert!(refused.to_string().contains("API Tokens"));
+    }
+
+    #[tokio::test]
+    async fn cloudflare_give_key_is_only_for_r2_buckets() {
+        use crate::application::ports::providers::ProviderAdapter;
+        let (http, task) = capturing_fixture(vec![]).await;
+        let cloudflare = super::super::cloudflare::Cloudflare::new(http);
+        let token = Secret::new("fixture".into());
+        let worker = cloudflare
+            .issue_keys(&token, "acct", "worker:api", "k")
+            .await
+            .err()
+            .unwrap();
+        assert!(crate::application::ports::providers::is_unsupported(
+            &worker
+        ));
+        let elsewhere = cloudflare
+            .issue_keys(&token, "acct", "r2:fedramp-high:media", "k")
+            .await
+            .err()
+            .unwrap();
+        assert_eq!(elsewhere.code(), "request.invalid");
+        assert!(task.await.unwrap().is_empty());
+    }
+
+    #[tokio::test]
     async fn resend_logs_are_that_domains_emails_in_range() {
         use crate::application::ports::providers::ProviderAdapter;
         use crate::domain::logs::{LogHistoryQuery, LogLevel};

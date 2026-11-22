@@ -1211,6 +1211,29 @@ impl ProviderAdapter for Journaled {
         self.inner.key_variable()
     }
 
+    async fn issue_keys(
+        &self,
+        token: &Secret,
+        external_id: &str,
+        reference: &str,
+        name: &str,
+    ) -> Result<Vec<crate::ports::providers::IssuedKey>, EngineError> {
+        let change = Change {
+            kind: "issue_key",
+            account: external_id,
+            target: format!("{name} for {reference}"),
+            repeats: true,
+            inputs: String::new(),
+        };
+        let operation = self.begin(&change).await?;
+        let result = self
+            .inner
+            .issue_keys(token, external_id, reference, name)
+            .await;
+        self.finish(operation, &result).await;
+        result
+    }
+
     async fn provider_deployment_logs(
         &self,
         token: &Secret,

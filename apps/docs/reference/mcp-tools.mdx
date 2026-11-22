@@ -85,7 +85,7 @@ Expand a tool for its description, or [download the catalog](/assets/mcp-catalog
 
 <Accordion title="give_key">
 
-**May change state.** Give one service a key to another without anyone handling it, and set it straight into that service's variables: on Resend Hoista makes a key that can only send from the domain (RESEND_API_KEY); on Supabase it takes the project's public anon or publishable key (SUPABASE_ANON_KEY; pass variable, such as NEXT_PUBLIC_SUPABASE_ANON_KEY, for a browser app). The key is never returned or kept. Use this instead of asking the person to create or paste a key.
+**May change state.** Give one service a key to another without anyone handling it, and set it straight into that service's variables: on Resend Hoista makes a key that can only send from the domain (RESEND_API_KEY); on Supabase it takes the project's public anon or publishable key (SUPABASE_ANON_KEY; pass variable, such as NEXT_PUBLIC_SUPABASE_ANON_KEY, for a browser app); on a Cloudflare R2 bucket it makes a key that reads and writes only that bucket, set as AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ENDPOINT_URL_S3 and BUCKET_NAME, or under the prefix given as variable. The key is never returned or kept. Use this instead of asking the person to create or paste a key.
 
 </Accordion>
 

@@ -63,7 +63,7 @@ Then follow it to the end.
 | A container or GPU model server | `image` | `image`, `port`; on Runpod `gpu`, or `cpu` and `vcpus` for CPU only |
 
    When `add_to_project` can't make something (a setting it doesn't take), `run_provider_operation` can; pass `project_id` so the result joins the project, or it becomes a project of its own and you move it back with `move_resources`.
-4. Wire the pieces together. A database address into the API's variables: `set_secret` with a reference such as `${{Postgres.DATABASE_URL}}`. Keys from a `.env` file: `set_secrets` with `env_file` and `names`. A key to a service Hoista is connected to (Resend, Supabase): `give_key`. Try `give_key` before you redesign around a missing key.
+4. Wire the pieces together. A database address into the API's variables: `set_secret` with a reference such as `${{Postgres.DATABASE_URL}}`. Keys from a `.env` file: `set_secrets` with `env_file` and `names`. A key to a service Hoista is connected to (Resend, Supabase, an R2 bucket): `give_key`; for R2, pass `variable` as the prefix the app reads, such as `STORAGE`. Try `give_key` before you redesign around a missing key.
 5. Follow each piece that runs code to the end.
 6. `get_project`: every piece should be in this project. Move strays back with `move_resources`.
 

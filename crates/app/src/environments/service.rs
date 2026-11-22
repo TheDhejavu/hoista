@@ -302,9 +302,10 @@ impl<'a> EnvironmentService<'a> {
     }
 
     /// Gives one service a key to another: makes the key at the provider it
-    /// unlocks (a Resend key that can only send from that domain) and puts
-    /// it straight into the other service's variables. The key is never
-    /// kept, logged or returned; only the variable name is.
+    /// unlocks (a Resend key for one domain, an R2 key for one bucket) and
+    /// puts it straight into the other service's variables, all in one change.
+    /// For a key of several values, `variable` is the names' prefix. The key
+    /// is never kept, logged or returned; only the variable names are.
     ///
     /// # Errors
     /// Rejects a provider that can't make keys, an invalid name, missing
@@ -315,7 +316,7 @@ impl<'a> EnvironmentService<'a> {
         from_resource: &str,
         to_resource: &str,
         variable: Option<&str>,
-    ) -> Result<String, EngineError> {
+    ) -> Result<Vec<String>, EngineError> {
         self.engine.authorize(actor, "apps:write").await?;
         let from = self
             .engine
@@ -330,11 +331,7 @@ impl<'a> EnvironmentService<'a> {
             .await?
             .ok_or(EngineError::NotFound)?;
         let adapter = self.engine.adapter(from.provider)?.clone();
-        let name = variable
-            .map(str::to_owned)
-            .or_else(|| adapter.key_variable().map(str::to_owned))
-            .ok_or(EngineError::Invalid("Name the variable the key goes in."))?;
-        if !valid_env_name(&name) {
+        if variable.is_some_and(|name| !valid_env_name(name)) {
             return Err(EngineError::Invalid(
                 "Use a variable name of letters, digits and underscores.",
             ));
@@ -346,8 +343,8 @@ impl<'a> EnvironmentService<'a> {
             .await?
             .ok_or(EngineError::NotFound)?;
         let token = self.engine.accounts().account_token(&account.id).await?;
-        let key = adapter
-            .issue_key(
+        let keys = adapter
+            .issue_keys(
                 &token,
                 &account.external_id,
                 &from.provider_ref,
@@ -355,18 +352,35 @@ impl<'a> EnvironmentService<'a> {
             )
             .await?;
         drop(token);
+        let names = key_names(variable, &keys)?;
+        let values: Vec<(String, Secret)> = names
+            .iter()
+            .cloned()
+            .zip(keys.into_iter().map(|key| key.value))
+            .collect();
         match (to.mode, to.project_id.as_deref()) {
             (Mode::Managed, Some(project)) => {
+                for (name, value) in values {
+                    self.engine
+                        .environments()
+                        .set_secret(actor, project, &to.id, &name, value)
+                        .await?;
+                }
+            }
+            // Together, so the service never runs with part of a key.
+            _ if values.len() > 1 => {
                 self.engine
                     .environments()
-                    .set_secret(actor, project, &to.id, &name, key)
+                    .set_provider_variables(actor, &to.id, values, false, true)
                     .await?;
             }
             _ => {
-                self.engine
-                    .environments()
-                    .set_provider_variable(actor, &to.id, &name, Some(key))
-                    .await?;
+                for (name, value) in values {
+                    self.engine
+                        .environments()
+                        .set_provider_variable(actor, &to.id, &name, Some(value))
+                        .await?;
+                }
             }
         }
         self.engine
@@ -376,14 +390,15 @@ impl<'a> EnvironmentService<'a> {
                 to.project_id.as_deref(),
                 "secret.changed",
                 &format!(
-                    "Made a {} key for {} and set it as {name} on {}; the key wasn't kept.",
+                    "Made a {} key for {} and set it as {} on {}; the key wasn't kept.",
                     from.provider.display_name(),
                     from.name,
+                    names.join(", "),
                     to.name
                 ),
             )
             .await?;
-        Ok(name)
+        Ok(names)
     }
 
     /// Writes a project secret to its provider only; Hoista keeps just its name and fingerprint.
@@ -507,5 +522,78 @@ impl<'a> EnvironmentService<'a> {
             )
             .await?;
         Ok(metadata)
+    }
+}
+
+/// The variable each value goes in: `chosen` for a single value, `chosen` as a
+/// prefix for several (`STORAGE_BUCKET`), otherwise the provider's usual names.
+fn key_names(
+    chosen: Option<&str>,
+    keys: &[crate::ports::providers::IssuedKey],
+) -> Result<Vec<String>, EngineError> {
+    let names: Vec<String> = match (keys, chosen) {
+        ([], _) => return Err(EngineError::Invalid("The provider made no key.")),
+        ([_], Some(name)) => vec![name.to_owned()],
+        (keys, Some(prefix)) => keys
+            .iter()
+            .map(|key| format!("{prefix}_{}", key.suffix))
+            .collect(),
+        (keys, None) => keys
+            .iter()
+            .map(|key| key.variable.map(str::to_owned))
+            .collect::<Option<_>>()
+            .ok_or(EngineError::Invalid("Name the variable the key goes in."))?,
+    };
+    if names.iter().any(|name| !valid_env_name(name)) {
+        return Err(EngineError::Invalid(
+            "Use a variable name of letters, digits and underscores.",
+        ));
+    }
+    Ok(names)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::key_names;
+    use crate::domain::Secret;
+    use crate::ports::providers::IssuedKey;
+
+    fn key(variable: Option<&'static str>, suffix: &'static str) -> IssuedKey {
+        IssuedKey {
+            variable,
+            suffix,
+            value: Secret::new("fixture".into()),
+        }
+    }
+
+    #[test]
+    fn one_key_takes_the_chosen_name_or_the_usual_one() {
+        let keys = [key(Some("RESEND_API_KEY"), "")];
+        assert_eq!(key_names(None, &keys).unwrap(), ["RESEND_API_KEY"]);
+        assert_eq!(key_names(Some("MAIL_KEY"), &keys).unwrap(), ["MAIL_KEY"]);
+        assert!(key_names(None, &[key(None, "")]).is_err());
+    }
+
+    #[test]
+    fn several_values_take_the_chosen_prefix_or_their_usual_names() {
+        let keys = [
+            key(Some("AWS_ACCESS_KEY_ID"), "ACCESS_KEY_ID"),
+            key(Some("BUCKET_NAME"), "BUCKET"),
+        ];
+        assert_eq!(
+            key_names(Some("STORAGE"), &keys).unwrap(),
+            ["STORAGE_ACCESS_KEY_ID", "STORAGE_BUCKET"]
+        );
+        assert_eq!(
+            key_names(None, &keys).unwrap(),
+            ["AWS_ACCESS_KEY_ID", "BUCKET_NAME"]
+        );
+    }
+
+    #[test]
+    fn a_name_that_isnt_a_variable_is_refused() {
+        let keys = [key(Some("A"), "ACCESS_KEY_ID"), key(Some("B"), "BUCKET")];
+        assert!(key_names(Some("1STORAGE"), &keys).is_err());
+        assert!(key_names(None, &[]).is_err());
     }
 }

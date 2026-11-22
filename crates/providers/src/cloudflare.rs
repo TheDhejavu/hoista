@@ -99,6 +99,34 @@ const OAUTH_AUTHORIZE_URL: &str = "https://dash.cloudflare.com/oauth2/auth";
 /// Where Cloudflare's sign-in codes and refresh tokens are exchanged.
 const OAUTH_TOKEN_URL: &str = "https://dash.cloudflare.com/oauth2/token";
 
+/// What an R2 key from `issue_keys` may do: read and write the bucket's objects.
+const R2_OBJECT_WRITE: &str = "Workers R2 Storage Bucket Item Write";
+
+/// The S3 endpoint of an account's buckets in one jurisdiction.
+fn r2_endpoint(account: &str, jurisdiction: &str) -> Option<String> {
+    match jurisdiction {
+        "default" => Some(format!("https://{account}.r2.cloudflarestorage.com")),
+        "eu" | "fedramp" => Some(format!(
+            "https://{account}.{jurisdiction}.r2.cloudflarestorage.com"
+        )),
+        _ => None,
+    }
+}
+
+/// An R2 key is an API token, so a token that can't make tokens can't make keys.
+fn cannot_make_tokens(error: EngineError) -> EngineError {
+    match &error {
+        EngineError::Provider { code, .. } if code == "provider.token_scope" => {
+            EngineError::Provider {
+                evidence: None,
+                code: "cloudflare.cannot_make_tokens".into(),
+                message: "Cloudflare refused to make the R2 key. An R2 key is a Cloudflare API token, and the token Hoista connects with can't create tokens. On Cloudflare's API Tokens page, edit that token, add the account permission API Tokens with Edit, save, and try again.".into(),
+            }
+        }
+        _ => error,
+    }
+}
+
 /// A Worker's address on the account's `workers.dev` subdomain.
 fn workers_dev_url(script: &str, subdomain: &str) -> String {
     format!("https://{script}.{subdomain}.workers.dev")
@@ -2346,6 +2374,93 @@ impl ProviderAdapter for Cloudflare {
 
     /// Deletes a Worker, a Pages project, a D1 database, an R2 bucket (in
     /// the default jurisdiction; it must be empty) or a domain's zone.
+    /// An account API token limited to one R2 bucket, as S3 credentials: the
+    /// token's ID is the access key ID and the SHA-256 of its value the secret.
+    async fn issue_keys(
+        &self,
+        token: &Secret,
+        account: &str,
+        reference: &str,
+        name: &str,
+    ) -> Result<Vec<IssuedKey>, EngineError> {
+        let Some((jurisdiction, bucket)) = reference
+            .strip_prefix("r2:")
+            .and_then(|rest| rest.split_once(':'))
+        else {
+            return Err(unsupported());
+        };
+        if account.is_empty()
+            || !account.bytes().all(|b| b.is_ascii_alphanumeric())
+            || bucket.is_empty()
+            || bucket.len() > MAX_NAME_CHARS
+            || !bucket
+                .bytes()
+                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'-')
+        {
+            return Err(invalid());
+        }
+        let endpoint = r2_endpoint(account, jurisdiction).ok_or(EngineError::Invalid(
+            "Hoista makes R2 keys for buckets in the default, EU and FedRAMP jurisdictions.",
+        ))?;
+        let groups = self
+            .call(
+                token,
+                Method::GET,
+                &["accounts", account, "tokens", "permission_groups"],
+                &[("name", R2_OBJECT_WRITE)],
+                None,
+            )
+            .await
+            .map_err(cannot_make_tokens)?;
+        let group = groups
+            .as_array()
+            .into_iter()
+            .flatten()
+            .find(|group| group["name"].as_str() == Some(R2_OBJECT_WRITE))
+            .and_then(|group| group["id"].as_str())
+            .ok_or_else(invalid)?;
+        let body = json!({
+            "name": name,
+            "policies": [{
+                "effect": "allow",
+                "permission_groups": [{ "id": group }],
+                "resources": {
+                    format!("com.cloudflare.edge.r2.bucket.{account}_{jurisdiction}_{bucket}"): "*",
+                },
+            }],
+        });
+        let made = self
+            .call(
+                token,
+                Method::POST,
+                &["accounts", account, "tokens"],
+                &[],
+                Some(&body),
+            )
+            .await
+            .map_err(cannot_make_tokens)?;
+        let id = text(&made, "id")?;
+        let value = text(&made, "value")?;
+        if id.is_empty() || value.is_empty() {
+            return Err(invalid());
+        }
+        let key = |variable, suffix, value: String| IssuedKey {
+            variable: Some(variable),
+            suffix,
+            value: Secret::new(value),
+        };
+        Ok(vec![
+            key("AWS_ACCESS_KEY_ID", "ACCESS_KEY_ID", id.to_owned()),
+            key(
+                "AWS_SECRET_ACCESS_KEY",
+                "SECRET_ACCESS_KEY",
+                format!("{:x}", Sha256::digest(value.as_bytes())),
+            ),
+            key("AWS_ENDPOINT_URL_S3", "ENDPOINT", endpoint),
+            key("BUCKET_NAME", "BUCKET", bucket.to_owned()),
+        ])
+    }
+
     async fn delete(
         &self,
         token: &Secret,
