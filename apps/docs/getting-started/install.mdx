@@ -11,7 +11,7 @@ curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.3
 ```
 
 ```powershell Windows
-.\install.ps1 -Version v0.1.0-beta.3
+& ([scriptblock]::Create((irm https://hoista.dev/install.ps1))) -Version v0.1.0-beta.3
 ```
 
 ```bash From source
@@ -26,7 +26,7 @@ The version is required. Both scripts need [cosign](https://docs.sigstore.dev/co
 
 ## macOS and Linux
 
-The script works on macOS (Apple Silicon or Intel) and Linux (x86_64). It installs `hoist` and `hoistd` into `~/.local/bin`, then runs `hoist service install` so Hoista starts at login. Add that folder to your `PATH` if it isn't there. It takes two more arguments, in this order:
+The script works on macOS (Apple Silicon or Intel) and Linux (x86_64 or Arm64). It installs `hoist` and `hoistd` into `~/.local/bin`, then runs `hoist service install` so Hoista starts at login. Add that folder to your `PATH` if it isn't there. It takes two more arguments, in this order:
 
 | Argument | Use |
 | --- | --- |
@@ -41,11 +41,16 @@ curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.3 "$HOME/.local/
 
 Without the login service, `hoist` still starts the daemon when a command needs it.
 
+On a Linux server or WSL:
+
+- **Tokens.** Without a keychain, `hoistd` won't start until you choose where tokens go. See [Without a keychain](/security/credentials#without-a-keychain).
+- **Staying up.** A systemd user service stops when you sign out. Run `loginctl enable-linger "$USER"` once to keep Hoista running.
+
 ## Windows
 
-On Windows (x86_64), run `scripts/install/install.ps1` from the repository. It installs `hoist.exe` and `hoistd.exe` into `%LOCALAPPDATA%\Hoista\bin`. Add `-Destination PATH` to choose another folder, and `-NoService` to skip login startup.
+On Windows (x86_64), run the command in PowerShell. It installs `hoist.exe` and `hoistd.exe` into `%LOCALAPPDATA%\Hoista\bin`. Add `-Destination PATH` to choose another folder, and `-NoService` to skip login startup.
 
-There is no Desktop app for Windows; the CLI and daemon are all you need.
+For the Desktop app, download `Hoista_*_x64-setup.exe` from [GitHub releases](https://github.com/TheDhejavu/hoista/releases) and run it. Install the CLI and daemon too.
 
 ## From source
 
@@ -74,12 +79,15 @@ Hoista isn't signed with an Apple Developer ID yet. A `.dmg` downloaded in a bro
 xattr -dr com.apple.quarantine /Applications/Hoista.app
 ```
 
-On Linux, download the package from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
+On Linux and Windows, download the package from [GitHub releases](https://github.com/TheDhejavu/hoista/releases). Use only the files listed on the release page.
 
 | System | Package |
 | --- | --- |
-| macOS | Apple Silicon and Intel |
-| Linux | AppImage and Debian package |
+| macOS | `.dmg` for Apple Silicon and Intel |
+| Linux | AppImage and `.deb`, for x86_64 and Arm64 |
+| Windows | `x64-setup.exe` installer |
+
+The Windows installer isn't signed yet, so SmartScreen may say it doesn't recognise the app. Choose **More info**, then **Run anyway**.
 
 Desktop uses the same daemon as the CLI, so install the CLI and daemon too.
 

@@ -103,11 +103,15 @@ fn cli_locations() -> Vec<PathBuf> {
     let on_path = std::env::var_os("PATH")
         .map(|path| std::env::split_paths(&path).collect::<Vec<_>>())
         .unwrap_or_default();
-    let usual = [
+    let mut usual = vec![
         home.join(".local/bin"),
         PathBuf::from("/opt/homebrew/bin"),
         PathBuf::from("/usr/local/bin"),
     ];
+    // Where install.ps1 puts it on Windows.
+    if let Some(local) = std::env::var_os("LOCALAPPDATA") {
+        usual.push(PathBuf::from(local).join("Hoista").join("bin"));
+    }
     on_path
         .into_iter()
         .chain(usual)

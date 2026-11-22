@@ -51,10 +51,23 @@ const STORES: Record<string, string> = {
 };
 const KEY_SOURCES: Record<string, string> = {
   'host-secret': 'A secret variable at your provider',
+  'local-key': 'A key file on this computer',
 };
 
 function place(info: VaultInfo): string {
-  return info.kept_in === 'keychain' ? 'This computer’s keychain' : 'Your remote’s sealed file';
+  if (info.kept_in === 'keychain') return 'This computer’s keychain';
+  return info.key_source === 'local-key'
+    ? 'A sealed file on this computer'
+    : 'Your remote’s sealed file';
+}
+
+function placeHint(info: VaultInfo): string {
+  if (info.kept_in === 'keychain') {
+    return 'Your system’s own password store. Only Hoista on this computer reads it.';
+  }
+  return info.key_source === 'local-key'
+    ? 'Sealed with the key in ~/.config/hoista/sealed-key, kept outside Hoista’s folder.'
+    : 'Sealed with a key Hoista never stores, and opened only by the remote’s credential keeper.';
 }
 
 /** Where tokens are kept, from the vault itself. */
@@ -64,14 +77,7 @@ function WhereKept({ info }: { info: VaultInfo }) {
       title="Where tokens are kept"
       description="Nobody at Hoista can see them, and agents never receive them. Project secrets go straight to your provider and aren’t kept here."
     >
-      <SettingRow
-        label="Vault"
-        hint={
-          info.kept_in === 'keychain'
-            ? 'Your system’s own password store. Only Hoista on this computer reads it.'
-            : 'Sealed with a key Hoista never stores, and opened only by the remote’s credential keeper.'
-        }
-      >
+      <SettingRow label="Vault" hint={placeHint(info)}>
         <FixedValue>{place(info)}</FixedValue>
       </SettingRow>
       <SettingRow
@@ -81,7 +87,14 @@ function WhereKept({ info }: { info: VaultInfo }) {
         <FixedValue>{STORES[info.token_store] ?? info.token_store}</FixedValue>
       </SettingRow>
       {info.key_source && (
-        <SettingRow label="Sealing key" hint="Set with HOISTA_KEY_SOURCE on the remote.">
+        <SettingRow
+          label="Sealing key"
+          hint={
+            info.key_source === 'local-key'
+              ? 'Or set with HOISTA_SEALED_KEY where Hoista runs.'
+              : 'Set with HOISTA_KEY_SOURCE on the remote.'
+          }
+        >
           <FixedValue>{KEY_SOURCES[info.key_source] ?? info.key_source}</FixedValue>
         </SettingRow>
       )}

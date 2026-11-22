@@ -1,3 +1,4 @@
 # Cloudflare Pages redirects for hoista.dev.
-# The installer lives in the repository; hoista.dev/install.sh is its short address.
+# The installers live in the repository; these are their short addresses.
 /install.sh https://raw.githubusercontent.com/TheDhejavu/hoista/main/scripts/install/install.sh 302
+/install.ps1 https://raw.githubusercontent.com/TheDhejavu/hoista/main/scripts/install/install.ps1 302

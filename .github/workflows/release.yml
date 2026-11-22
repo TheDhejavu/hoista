@@ -2,6 +2,13 @@ name: Signed release
 on:
   push:
     tags: ['v[0-9]*']
+  # A rehearsal: builds and signs everything for a version that isn't tagged
+  # yet, and publishes nothing.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The version to rehearse, such as v0.1.0-beta.4
+        required: true
 permissions:
   contents: read
 jobs:
@@ -13,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: CHANGELOG.md and the docs' Changelog page have this release
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.version || github.ref_name }}
         run: |
           python3 scripts/release/notes.py "$RELEASE_TAG" > /dev/null
           python3 scripts/release/docs_changelog.py --check
@@ -24,10 +31,10 @@ jobs:
       matrix:
         include:
           - {os: ubuntu-latest, target: x86_64-unknown-linux-gnu}
+          - {os: ubuntu-24.04-arm, target: aarch64-unknown-linux-gnu}
           - {os: macos-latest, target: aarch64-apple-darwin}
           - {os: macos-latest, target: x86_64-apple-darwin}
-          # Windows is left out until its deployment tests pass there:
-          # failed_local_build_keeps_snapshot_identity_in_durable_history.
+          - {os: windows-latest, target: x86_64-pc-windows-msvc}
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -44,6 +51,9 @@ jobs:
         run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
       - if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config
+      # The Arm Linux runners may come without rustup.
+      - if: runner.os == 'Linux'
+        run: command -v rustup >/dev/null || { curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none && echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"; }
       - run: rustup toolchain install 1.97.0 --profile minimal --component rustfmt --component clippy
       - run: rustup target add ${{ matrix.target }}
       - run: cargo fmt --all -- --check
@@ -75,6 +85,8 @@ jobs:
           - {os: macos-latest, target: aarch64-apple-darwin, bundles: dmg}
           - {os: macos-latest, target: x86_64-apple-darwin, bundles: dmg}
           - {os: ubuntu-22.04, target: x86_64-unknown-linux-gnu, bundles: 'deb,appimage'}
+          - {os: ubuntu-22.04-arm, target: aarch64-unknown-linux-gnu, bundles: 'deb,appimage'}
+          - {os: windows-latest, target: x86_64-pc-windows-msvc, bundles: nsis}
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -90,6 +102,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libdbus-1-dev pkg-config
+      - if: runner.os == 'Linux'
+        run: command -v rustup >/dev/null || { curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none && echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"; }
       - run: rustup toolchain install 1.97.0 --profile minimal
       - run: rustup target add ${{ matrix.target }}
       - run: npm ci
@@ -100,11 +114,15 @@ jobs:
         run: |
           mkdir release
           bundle=apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle
-          find "$bundle" -maxdepth 2 -type f \( -name '*.dmg' -o -name '*.deb' -o -name '*.AppImage' \) -exec cp {} release/ \;
+          find "$bundle" -maxdepth 2 -type f \( -name '*.dmg' -o -name '*.deb' -o -name '*.AppImage' -o -name '*-setup.exe' \) -exec cp {} release/ \;
           cd release
           [ -n "$(ls)" ] || { echo 'No installers were built.' >&2; exit 1; }
           for file in *; do
-            shasum -a 256 "$file" > "$file.sha256"
+            if command -v sha256sum >/dev/null; then
+              sha256sum "$file" > "$file.sha256"
+            else
+              shasum -a 256 "$file" > "$file.sha256"
+            fi
           done
       - uses: sigstore/cosign-installer@v4.1.0
         with:
@@ -112,7 +130,7 @@ jobs:
       - name: Sign installers using GitHub identity
         shell: bash
         run: |
-          for file in release/*.dmg release/*.deb release/*.AppImage; do
+          for file in release/*.dmg release/*.deb release/*.AppImage release/*.exe; do
             [ -e "$file" ] || continue
             cosign sign-blob --yes --bundle "$file.sigstore.json" "$file"
           done
@@ -123,6 +141,8 @@ jobs:
           if-no-files-found: error
   publish:
     needs: [build, desktop]
+    # A rehearsal stops at the signed files, kept as the run's artifacts.
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write

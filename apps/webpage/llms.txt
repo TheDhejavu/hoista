@@ -1,6 +1,6 @@
 # Hoista
 
-> Hoista is a free, open-source desktop app (macOS and Linux; Windows coming soon) that lets your AI deploy, fix and manage apps on hosting accounts you already own: Cloudflare, Vercel, Railway, Fly.io, Render, Neon and Supabase, Runpod and Modal for GPUs, and Resend for email, with GitHub for code. It is not a host. Nothing runs on Hoista's servers and there is no sign-up.
+> Hoista is a free, open-source desktop app (macOS, Windows and Linux) that lets your AI deploy, fix and manage apps on hosting accounts you already own: Cloudflare, Vercel, Railway, Fly.io, Render, Neon and Supabase, Runpod and Modal for GPUs, Resend for email and Hetzner for servers, with GitHub for code. It is not a host. Nothing runs on Hoista's servers and there is no sign-up.
 
 Key facts:
 
@@ -16,7 +16,7 @@ Key facts:
 
 Current release: Hoista 0.1.0 Beta 3 (`v0.1.0-beta.3`), a public beta. Release notes: https://docs.hoista.dev/changelog. Downloads: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3.
 
-- [Download for macOS](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3): also Linux.
+- [Download for macOS](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3): also Windows and Linux.
 - Command line: `curl -fsSL https://hoista.dev/install.sh | sh -s -- v0.1.0-beta.3` (needs cosign)
 - Claude Code: `claude mcp add --scope user hoista -- hoist mcp`
 - Cursor, Codex and other coding tools: run `hoist mcp` as an MCP server.

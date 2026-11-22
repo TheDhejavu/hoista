@@ -406,15 +406,25 @@ async function setUpDownloads() {
   // chip is unknown.
   if (system === 'macOS') {
     if (chip === 'x86') useIntelBuild();
-    else if (chip !== 'arm') say('On an Intel Mac? ', link(intel.href, 'Get the Intel version'), '.');
+    else if (chip !== 'arm')
+      say('On an Intel Mac? ', link(intel.href, 'Get the Intel version'), '.');
   } else if (system === 'Linux') {
-    const appImage = document.querySelector('[data-linux="appimage"]').href;
-    const deb = document.querySelector('[data-linux="deb"]').href;
-    say('Detected Linux. Get the ', link(appImage, 'AppImage'), ' or the ', link(deb, '.deb'), '.');
+    const arm = chip === 'arm' ? 'arm-' : '';
+    const appImage = document.querySelector(`[data-linux="${arm}appimage"]`).href;
+    const deb = document.querySelector(`[data-linux="${arm}deb"]`).href;
+    const which = arm ? 'Linux on Arm64' : 'Linux';
+    useDownload('Linux', arm ? 'Arm64 AppImage' : 'AppImage', appImage);
+    say(`Detected ${which}. Also as a `, link(deb, '.deb'), '.');
   } else if (system === 'Windows') {
-    say('Detected Windows. Hoista for Windows is coming soon.');
+    const command = document.querySelector('[data-install]');
+    if (command) {
+      command.textContent =
+        '& ([scriptblock]::Create((irm https://hoista.dev/install.ps1))) -Version v0.1.0-beta.3';
+    }
+    useDownload('Windows', 'x64', document.querySelector('[data-windows]').href);
+    say('Detected Windows. Run the command in PowerShell for the CLI.');
   } else if (system === 'iOS' || system === 'Android') {
-    say('Hoista runs on a computer. Open this page on a Mac or Linux PC to download it.');
+    say('Hoista runs on a computer. Open this page on a Mac, Windows or Linux PC to download it.');
   }
 
   function say(...parts) {
@@ -426,6 +436,16 @@ async function setUpDownloads() {
     const anchor = element('a', null, text);
     anchor.href = href;
     return anchor;
+  }
+
+  // The buttons download for this system instead of a Mac; the menu keeps the rest.
+  function useDownload(system, chip, href) {
+    for (const button of document.querySelectorAll('[data-mac-download]')) {
+      button.href = href;
+      button.querySelector('svg')?.remove();
+      button.replaceChildren(`Download for ${system} `, element('span', 'mac-chip', chip));
+    }
+    document.querySelector('[data-other-label]').textContent = 'Other downloads';
   }
 
   // The buttons take the Intel build, and the menu offers Apple Silicon instead.
@@ -455,7 +475,9 @@ async function detectComputer() {
   }
 
   let chip;
-  if (system === 'macOS' && navigator.userAgentData) {
+  // Firefox on Arm Linux says so in its user agent.
+  if (system === 'Linux' && /aarch64|arm64/i.test(agent)) chip = 'arm';
+  if ((system === 'macOS' || system === 'Linux') && navigator.userAgentData) {
     try {
       const values = await navigator.userAgentData.getHighEntropyValues(['architecture']);
       chip = values.architecture;

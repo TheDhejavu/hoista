@@ -8,10 +8,19 @@ Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas 
 
 ### Added
 
+- Windows: the CLI and daemon are in the release again, and `install.ps1` installs them. hoista.dev shows the PowerShell command on Windows.
+- Hoista Desktop for Windows, as an `x64-setup.exe` installer.
+- Linux on Arm64: the CLI and daemon (`install.sh` picks them on its own), and Desktop as an AppImage and a `.deb`.
+- Hoista runs on a computer without a keychain, such as a Linux server or WSL: put a key in `~/.config/hoista/sealed-key` and tokens are kept in a sealed file in `~/.hoista`. Before, `hoistd` didn't start there at all.
 - Hetzner Cloud: connect a project to see its servers and volumes, each server's CPU, disk and network, turn servers off and on, delete servers and volumes, and run Hetzner's own operations from the **Hetzner** tab.
 - Make a Hetzner server from a project (**Add server**, or `add_to_project` with kind `server`): Ubuntu 24.04 with Docker, a firewall that lets in only SSH, HTTP and HTTPS, security updates, and an SSH key that only Hoista holds.
 - A server Hoista made shows as deploying until it has set itself up, and as failing if that failed. **Add server** can attach a volume and turn on Hetzner's backups, and follows the server until it's ready. A server's Settings tab lists everything done on it.
 - Agents can work on servers Hoista made through new MCP tools: `server_status`, `server_logs`, `server_read_file`, `server_run`, `server_write_file` and `server_deploy_key`. Commands and files ask you first; with Full access they stop asking only once you allow it for that server, and steps that can lock you out always ask.
+
+### Fixed
+
+- The Windows install script asked for a download that no release had, so it always failed.
+- Desktop didn't find the CLI where `install.ps1` puts it on Windows.
 
 ## [0.1.0-beta.3] - 2026-11-13
 
@@ -77,5 +86,6 @@ The first public beta of Hoista: the open-source control plane for your infrastr
 - The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
 
 [Unreleased]: https://github.com/TheDhejavu/hoista/compare/v0.1.0-beta.3...HEAD
+[0.1.0-beta.3]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1

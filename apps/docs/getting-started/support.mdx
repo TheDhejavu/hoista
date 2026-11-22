@@ -9,8 +9,9 @@ What Hoista runs on, which providers it works with, and what to do when somethin
 
 | | macOS | Linux | Windows |
 | --- | --- | --- | --- |
-| CLI and daemon | Yes | Yes | Yes |
-| Desktop app | Apple silicon and Intel | AppImage and `.deb` | Not yet |
+| CLI and daemon | Apple silicon and Intel | x86_64 and Arm64 | x86_64 |
+| Desktop app | Apple silicon and Intel | AppImage and `.deb`, x86_64 and Arm64 | x86_64 installer |
+| Where tokens are kept | Keychain | Secret Service, or a [sealed file](/security/credentials#without-a-keychain) | Credential Manager |
 | Start at sign-in | launchd | systemd user service | Task Scheduler |
 | Isolated local builds | System sandbox | Needs bubblewrap (`bwrap`) | Not available |
 | Confirm it's you | Touch ID or your password | polkit password prompt | Windows Hello |
@@ -19,7 +20,7 @@ Without build isolation, Hoista stops local builds unless you allow them in **Se
 
 ## Providers
 
-Hoista works with Cloudflare, Fly.io, Railway, Vercel, Neon, Supabase, Render, Resend, Runpod, Modal and GitHub. What you can do depends on the provider, your plan and your token's permissions. Run `hoist providers` to see what your installed version supports, or read [Providers](/providers/overview).
+Hoista works with Cloudflare, Fly.io, Railway, Vercel, Neon, Supabase, Render, Resend, Runpod, Modal, Hetzner and GitHub. What you can do depends on the provider, your plan and your token's permissions. Run `hoist providers` to see what your installed version supports, or read [Providers](/providers/overview).
 
 ## Remotes
 

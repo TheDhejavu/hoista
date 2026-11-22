@@ -15,6 +15,7 @@ Hoista keeps its state in `~/.hoista`. Pass `--state-dir PATH` to `hoist` or `ho
 | `hoistd.sock` | The local socket the desktop app and `hoist` use to reach the engine ([HTTP API](/reference/api)) |
 | `hoistd.lock` | Stops two engines opening the same state. Never delete it to unlock a running daemon. |
 | `logs/` | Daemon logs, one file a day, last 14 kept |
+| `vault.sealed` | Provider tokens, sealed, on a remote or a computer [without a keychain](/security/credentials#without-a-keychain). The key isn't here. |
 | `tool-paths.json` | Folders saved by `hoist tools configure` |
 | `remotes.json` | Your [remotes](/guides/remote): names and addresses. Desktop and the CLI share it. |
 | `cli.json` | The remote and environment the CLI uses, from `hoist remote use` and `hoist environments use` |
@@ -57,7 +58,7 @@ hoist tools configure
 | Variable | Where | What it does |
 | --- | --- | --- |
 | `HOISTA_PUBLIC_URL` | Remote | The remote's HTTPS address, such as `https://your-host`, with no path. Setting it makes `hoistd` run as a remote. |
-| `HOISTA_SEALED_KEY` | Remote | The key that seals provider tokens on the remote. Make one with `hoistd --new-sealed-key` and keep it as a secret at your provider. |
+| `HOISTA_SEALED_KEY` | Remote, or a computer without a keychain | The key that seals provider tokens. Make one with `hoistd --new-sealed-key`. On a remote, keep it as a secret at your provider. On a computer, `~/.config/hoista/sealed-key` works too; see [Without a keychain](/security/credentials#without-a-keychain). |
 | `PORT` | Remote | The port the remote listens on. Default `8080`. |
 | `HOISTA_CLAIM_CODE` | Remote | The one-time claim code. Hoista sets it when it creates the remote; otherwise the remote prints a new one at start. |
 | `HOISTA_TOKEN_STORE` | Remote | Where tokens are kept. Only `built-in` works today. |

@@ -82,6 +82,17 @@ impl StatePaths {
     }
 }
 
+/// Where a computer without a keychain keeps the key that seals Hoista's
+/// vault file: `~/.config/hoista/sealed-key` on Linux, outside the state
+/// folder so a copy of that folder doesn't carry it.
+#[must_use]
+pub fn sealed_key_file() -> Option<PathBuf> {
+    let folder = crate::channel::current()
+        .state_folder_name()
+        .trim_start_matches('.');
+    dirs::config_dir().map(|config| config.join(folder).join("sealed-key"))
+}
+
 /// Creates `path` and its parents so only the current user can list or change it.
 ///
 /// # Errors

@@ -96,10 +96,12 @@ async fn main() -> anyhow::Result<()> {
         }
         ["--help" | "-h"] => {
             println!("Usage: hoistd [--state-dir PATH] [--supervised]");
-            println!("       hoistd --new-sealed-key   (a key for HOISTA_SEALED_KEY on a server)");
+            println!("       hoistd --new-sealed-key   (a key for HOISTA_SEALED_KEY)");
             println!();
             println!("On a server, set HOISTA_PUBLIC_URL=https://your-host and HOISTA_SEALED_KEY;");
             println!("Hoista then listens on PORT (default 8080) for agents and its owner.");
+            println!("On a computer without a keychain, a key in ~/.config/hoista/sealed-key");
+            println!("(or HOISTA_SEALED_KEY) keeps tokens in a sealed file in the state folder.");
             return Ok(());
         }
         ["--new-sealed-key"] => {
@@ -199,7 +201,13 @@ async fn main() -> anyhow::Result<()> {
     engine
         .check_vault()
         .await
-        .map_err(|error| anyhow::anyhow!("Hoista's token store isn't usable: {error}"))?;
+        .map_err(|error| {
+            anyhow::anyhow!(
+                "Hoista's token store isn't usable: {error}\n\
+                 Without a keychain (a Linux server or WSL), keep tokens in a sealed file instead: \
+                 mkdir -p ~/.config/hoista && (umask 077; hoistd --new-sealed-key > ~/.config/hoista/sealed-key)"
+            )
+        })?;
     let worker_engine = engine.clone();
     let worker_shutdown = force_shutdown.clone();
     let worker_drain = drain.clone();

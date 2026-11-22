@@ -17,18 +17,31 @@ use crate::{
 use hoista_system::paths::StatePaths;
 use std::sync::Arc;
 
-/// The engine on this computer, with the keychain vault. Reads no credentials and
-/// starts no workers.
+/// The engine on this computer, with the keychain vault, or a sealed file when
+/// the person set a sealing key. Reads no credentials and starts no workers.
 ///
 /// # Errors
 /// Fails when the provider HTTP clients can't be built.
 pub fn engine(store: SqliteStore, paths: &StatePaths) -> Result<Engine, EngineError> {
-    let vault = StoredVault::new(
-        Arc::new(NativeVault::default().traced(&paths.logs())),
-        VaultPlace::Keychain,
-        Arc::from(chosen_store()?),
-    );
-    let info = vault.info(None);
+    let sealed_key = local_sealed_key();
+    let vault = match &sealed_key {
+        // A computer without a keychain (a Linux server, WSL): tokens sealed in
+        // the state folder under a key the person keeps elsewhere.
+        Some(key) => StoredVault::new(
+            Arc::new(NativeVault::in_store(
+                "engine",
+                Arc::new(sealed_file(paths, key)?),
+            )),
+            VaultPlace::SealedFile,
+            Arc::from(chosen_store()?),
+        ),
+        None => StoredVault::new(
+            Arc::new(NativeVault::default().traced(&paths.logs())),
+            VaultPlace::Keychain,
+            Arc::from(chosen_store()?),
+        ),
+    };
+    let info = vault.info(sealed_key.as_ref().map(|_| "local-key"));
     Ok(build(
         store,
         paths,
@@ -41,6 +54,33 @@ pub fn engine(store: SqliteStore, paths: &StatePaths) -> Result<Engine, EngineEr
     ))
     // Servers are signed in to from this computer only, for now.
     .with_remote_servers(Arc::new(crate::infrastructure::ssh::SshServers)))
+}
+
+/// Where the key that seals the vault file comes from on a computer without a
+/// keychain.
+pub const SEALED_KEY_VARIABLE: &str = "HOISTA_SEALED_KEY";
+
+/// The sealing key, when the person chose a sealed file over the keychain: in
+/// `HOISTA_SEALED_KEY`, or in the file [`hoista_system::paths::sealed_key_file`]
+/// names, so the login service and every `hoist` command find it.
+fn local_sealed_key() -> Option<String> {
+    std::env::var(SEALED_KEY_VARIABLE)
+        .ok()
+        .or_else(|| {
+            hoista_system::paths::sealed_key_file()
+                .and_then(|file| std::fs::read_to_string(file).ok())
+        })
+        .map(|key| key.trim().to_owned())
+        .filter(|key| !key.is_empty())
+}
+
+/// The vault file in the state folder, sealed under `key`.
+fn sealed_file(
+    paths: &StatePaths,
+    key: &str,
+) -> Result<crate::infrastructure::sealed_store::SealedStore, EngineError> {
+    crate::infrastructure::sealed_store::SealedStore::new(paths.root().join("vault.sealed"), key)
+        .map_err(|_| EngineError::Invalid("HOISTA_SEALED_KEY must be 32 bytes of base64."))
 }
 
 /// The token store `HOISTA_TOKEN_STORE` names, on a computer as on a remote.
@@ -74,13 +114,11 @@ pub fn cloud_engine(
     public_url: &str,
     sealed_key: &str,
 ) -> Result<Engine, EngineError> {
-    let sealed = crate::infrastructure::sealed_store::SealedStore::new(
-        paths.root().join("vault.sealed"),
-        sealed_key,
-    )
-    .map_err(|_| EngineError::Invalid("HOISTA_SEALED_KEY must be 32 bytes of base64."))?;
     let vault = StoredVault::new(
-        Arc::new(NativeVault::in_store("engine", Arc::new(sealed))),
+        Arc::new(NativeVault::in_store(
+            "engine",
+            Arc::new(sealed_file(paths, sealed_key)?),
+        )),
         VaultPlace::SealedFile,
         Arc::from(chosen_store()?),
     );
