@@ -10,6 +10,7 @@ ignore = [
   { id = "RUSTSEC-2026-0370", reason = "zvariant is unmaintained and has no replacement. It comes in through keyring's Secret Service support on Linux. Revisit when keyring moves off it." },
   { id = "RUSTSEC-2026-0371", reason = "zbus_names is unmaintained and has no replacement. Same path as zvariant, through keyring on Linux." },
   { id = "RUSTSEC-2026-0372", reason = "zvariant_derive is unmaintained and has no replacement. Same path as zvariant, through keyring on Linux." },
+  { id = "RUSTSEC-2026-0543", reason = "chrono is unmaintained but works, and Hoista uses it for times throughout. Drop this once Hoista moves to jiff." },
 ]
 
 [licenses]
