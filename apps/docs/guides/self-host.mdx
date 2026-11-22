@@ -122,7 +122,7 @@ On a Linux server you can run `hoistd` as a systemd service instead. This doesn'
 
 In this mode Hoista splits itself in two so your provider tokens sit in a separate process: it starts as root, runs the credential keeper as the user `hoista-keeper` (the only one that can read the tokens) and the rest of Hoista as `hoista`. So it needs both users, and it must start as root.
 
-**1.** Install the binaries for all users, without the per-user login service the installer adds on a laptop. The installer needs [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) to check the release signature, and supports x86_64 Linux:
+**1.** Install the binaries for all users, without the per-user login service the installer adds on a laptop. The installer needs [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) to check the release signature, and supports x86_64 and Arm64 Linux:
 
 ```bash
 curl -fsSL https://hoista.dev/install.sh \
