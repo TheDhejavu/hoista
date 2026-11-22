@@ -6,6 +6,13 @@
     "selected_license": "MIT",
     "note": "The release commit has only LICENSE.md, which names MIT for this crate; this is the MIT text the project added later."
   },
+  "delegate@0.13.5": {
+    "file": "delegate-0.13.5-MIT.txt",
+    "source": "https://raw.githubusercontent.com/kobzol/rust-delegate/b129d4cbf4cc499eff7743365dcb0fe5d8d2e820/LICENSE-MIT",
+    "sha256": "be7ee8aa49dc586023669a0c600a0536fce6a9f61264a53a67cdd842564ed899",
+    "selected_license": "MIT",
+    "note": "The crate's package leaves out its license files; this is the MIT text from its release commit."
+  },
   "objc2-encode@4.1.0": {
     "file": "objc2-encode-4.1.0-MIT.txt",
     "source": "https://raw.githubusercontent.com/madsmtm/objc2/ee9a7ada2131f5944b8750428e265c15632f2a19/LICENSE-MIT.txt",
@@ -27,6 +34,13 @@
     "selected_license": "MIT",
     "note": "The release commit has only LICENSE.md, which names MIT for this crate; this is the MIT text the project added later."
   },
+  "pageant@0.2.5": {
+    "file": "pageant-0.2.5-Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/warp-tech/russh/183a22e8f8f490fa09b6eb7bd044ef99d8c4414f/LICENSE.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "selected_license": "Apache-2.0",
+    "note": "The crate's package leaves out the license file; this is the repository's Apache-2.0 text at the crate's release commit."
+  },
   "prost-reflect@0.14.7": {
     "file": "prost-reflect-0.14.7-MIT.txt",
     "source": "https://raw.githubusercontent.com/andrewhickman/prost-reflect/71c4c98d7565dfc30f76ebc7daaa139a443419e6/LICENSE-MIT",
@@ -38,6 +52,27 @@
     "source": "https://raw.githubusercontent.com/project-robius/robius/e18299f7c6a0efbb2ee93cebb83d41267c745f04/LICENSE",
     "sha256": "4411ed6ac0ab8ea859b56748e0b654a951a15205c165c63c0f1b63342ed55fac",
     "selected_license": "MIT"
+  },
+  "russh-cryptovec@0.62.0": {
+    "file": "russh-cryptovec-0.62.0-Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/warp-tech/russh/907c732562c5732aad6c140dba958eafddc41ba0/LICENSE.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "selected_license": "Apache-2.0",
+    "note": "The crate's package leaves out the license file; this is the repository's Apache-2.0 text at the crate's release commit."
+  },
+  "russh-util@0.52.0": {
+    "file": "russh-util-0.52.0-Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/warp-tech/russh/3d09c20c52a542ffa327723d3a44cb1edd9b0ca4/LICENSE-2.0.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "selected_license": "Apache-2.0",
+    "note": "The crate's package leaves out the license file; this is the repository's Apache-2.0 text at the crate's release commit."
+  },
+  "russh@0.65.4": {
+    "file": "russh-0.65.4-Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/warp-tech/russh/4977b1afba8802137ac93f3e2c8bf916c35f437c/LICENSE.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "selected_license": "Apache-2.0",
+    "note": "The crate's package leaves out the license file; this is the repository's Apache-2.0 text at the crate's release commit."
   },
   "ts-rs-macros@11.1.0": {
     "file": "ts-rs-macros-11.1.0-MIT.txt",
