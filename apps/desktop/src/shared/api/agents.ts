@@ -67,7 +67,7 @@ export interface Agent {
 }
 
 /** The kinds of resource an exception can name together. */
-export type ResourceGroup = 'services' | 'databases' | 'storage' | 'domains';
+export type ResourceGroup = 'services' | 'databases' | 'storage' | 'domains' | 'servers';
 
 /**
  * One exception to an agent's access: a group of resources (in every project

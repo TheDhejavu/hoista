@@ -108,6 +108,7 @@ const details: ProviderDetails = {
   shared_variable_names: null,
   private_domain: null,
   addresses: [],
+  public_ips: [],
 };
 
 describe('provider deployments on the Deploys tab', () => {

@@ -19,6 +19,7 @@ const GROUPS: Record<ResourceGroup, string> = {
   databases: 'Databases',
   storage: 'Storage',
   domains: 'Domains',
+  servers: 'Servers',
 };
 
 const ACCESS: Record<AgentException['access'], string> = {

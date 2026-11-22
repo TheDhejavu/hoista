@@ -376,6 +376,7 @@ const GROUP_WORDS: Record<NonNullable<AgentException['group']>, string> = {
   databases: 'Databases',
   storage: 'Storage',
   domains: 'Domains',
+  servers: 'Servers',
 };
 
 const EXCEPTION_WORDS: Record<AgentException['access'], string> = {

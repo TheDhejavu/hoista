@@ -9,8 +9,10 @@ import { serviceName } from '@shared/providers';
 import { useMoveResources } from '@ui/api/imports';
 import { useProject, useProjects } from '@ui/api/projects';
 import { useCan } from '@ui/api/providers';
+import { useServerAgents, useSetServerAgents } from '@ui/api/servers';
 import { ErrorMessage } from '@ui/components/ErrorMessage';
 import { Select } from '@ui/components/Select';
+import { Skeleton } from '@ui/components/Skeleton';
 import { DeleteAtProvider } from '../DeleteAtProvider';
 import { RemoveFromProject } from '../RemoveFromProject';
 import { Section } from './ResourceSection';
@@ -70,6 +72,10 @@ export function ResourceSettings({
         <ErrorMessage error={move.error} />
       </Section>
 
+      {resource.kind === 'server' && can(resource.provider, 'server_access') && (
+        <ServerAgents resourceId={resource.id} />
+      )}
+
       {watching && (
         <Section title="Remove">
           <div className={styles.settingRow}>
@@ -98,5 +104,48 @@ export function ResourceSettings({
         </Section>
       )}
     </div>
+  );
+}
+
+const AGENT_CHOICES = [
+  { value: false, label: 'Ask me first' },
+  { value: true, label: 'Don’t ask' },
+];
+
+/**
+ * Whether agents with Full access run commands and write files on this server
+ * without asking. Off until the person turns it on; risky steps (firewall,
+ * SSH, users, reboots, deleting system folders) ask either way.
+ */
+function ServerAgents({ resourceId }: { resourceId: string }) {
+  const agents = useServerAgents(resourceId);
+  const save = useSetServerAgents(resourceId);
+  return (
+    <Section title="Agents">
+      <div className={styles.settingRow}>
+        <div className={styles.settingText}>
+          <b>Agents with Full access</b>
+          <span>
+            {save.isPending
+              ? 'Saving'
+              : 'Whether they ask you before running a command or writing a file here. Changing the firewall, SSH, users or keys, rebooting, and deleting system folders always ask.'}
+          </span>
+        </div>
+        {agents.data === undefined ? (
+          <Skeleton width={140} height={32} />
+        ) : (
+          <Select
+            label="Agents with Full access"
+            value={agents.data.full_access}
+            options={AGENT_CHOICES}
+            disabled={save.isPending}
+            onChange={(fullAccess) => {
+              if (fullAccess !== agents.data.full_access) save.mutate(fullAccess);
+            }}
+          />
+        )}
+      </div>
+      <ErrorMessage error={agents.error ?? save.error} />
+    </Section>
   );
 }

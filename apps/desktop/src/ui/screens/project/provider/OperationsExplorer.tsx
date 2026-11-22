@@ -19,9 +19,10 @@ const AREAS_FOR: Record<ResourceKind, string[]> = {
   service: ['Services', 'Deployments', 'Projects', 'Machines'],
   job: ['Workers', 'Cron', 'Deployments'],
   database: ['Database', 'D1', 'Managed Postgres', 'Projects'],
-  bucket: ['R2', 'Storage', 'Buckets'],
+  bucket: ['R2', 'Storage', 'Buckets', 'Volumes'],
   email: ['Email Routing', 'Domains'],
   domain: ['DNS', 'Domains'],
+  server: ['Servers'],
 };
 
 /** The area the list opens on: one that fits the resource, else the API's first. */

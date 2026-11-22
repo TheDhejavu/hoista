@@ -268,7 +268,36 @@ export interface ProviderEntry {
    * it served, and daily requests by status, where it has them.
    */
   requests?: { logs: string; byStatus: string };
+  /** For a provider that makes servers: its word for one, and where Add server gets its choices. */
+  servers?: ServerChoices;
 }
+
+/**
+ * How the Add server dialog asks this provider for its locations and server
+ * types: an account-wide read for each, the list in its answer, and how each
+ * item reads.
+ */
+export interface ServerChoices {
+  /** What the provider calls a server: Server, Droplet, Instance. */
+  noun: string;
+  locations: ChoiceList;
+  types: ChoiceList & {
+    /** Whether it can be ordered at `location` now. */
+    offered: (item: ServerChoice, location: string) => boolean;
+  };
+}
+
+/** A list read from the provider: the read, where the list is in its answer, and how items read. */
+export interface ChoiceList {
+  op: string;
+  args?: Record<string, unknown>;
+  list: string;
+  value: (item: ServerChoice) => string;
+  label: (item: ServerChoice) => string;
+}
+
+/** One item from a provider's own list, as it sent it. */
+export type ServerChoice = Record<string, unknown>;
 
 /** The domain changes a provider takes through Hoista. */
 export interface DomainActions {

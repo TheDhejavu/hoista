@@ -10,6 +10,7 @@ const RESOURCE_KIND_LABELS: Record<ResourceKind, string> = {
   bucket: 'Bucket',
   email: 'Email sender',
   domain: 'Domain',
+  server: 'Server',
 };
 
 export function resourceKindLabel(kind: ResourceKind): string {

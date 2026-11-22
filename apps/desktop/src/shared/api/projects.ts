@@ -29,7 +29,8 @@ export type Status =
 export type ProjectMode = 'managed' | 'watching';
 
 /** What kind of thing a resource is. */
-export type ResourceKind = 'web' | 'service' | 'job' | 'database' | 'bucket' | 'email' | 'domain';
+export type ResourceKind =
+  'web' | 'service' | 'job' | 'database' | 'bucket' | 'email' | 'domain' | 'server';
 
 /** One row of the Projects list. */
 export interface ProjectSummary {
@@ -387,6 +388,8 @@ export interface ProviderDetails {
   tcp_proxies: { id: string; domain: string; proxy_port: number; application_port: number }[];
   /** For example `postgres.railway.internal`. */
   private_domain?: string | null;
+  /** A server's public IP addresses. */
+  public_ips?: string[];
 }
 
 export type TcpProxy = ProviderDetails['tcp_proxies'][number];

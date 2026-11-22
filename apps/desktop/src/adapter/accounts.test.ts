@@ -29,6 +29,8 @@ const none: Capabilities = {
   new_bucket: false,
   new_email_domain: false,
   new_from_image: false,
+  new_server: false,
+  server_access: false,
   bills: false,
   browser_sign_in: false,
   delete: false,

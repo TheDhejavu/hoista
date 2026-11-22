@@ -27,6 +27,7 @@ import { FailingOverview, lastDeployFailed } from './FailingOverview';
 import { Bars, Card, ProviderStats, lastDays } from './ProviderStats';
 import { PausedNotice } from './PausedNotice';
 import { AddResources } from './AddResources';
+import { AddServer } from './AddServer';
 import styles from './ProjectOverview.module.css';
 
 export function ProjectOverview() {
@@ -55,7 +56,10 @@ export function ProjectOverview() {
               <section aria-labelledby="resources-heading">
                 <div className={styles.sectionHead}>
                   <h2 id="resources-heading">Resources</h2>
-                  <AddResources projectId={projectId} />
+                  <div className={styles.headActions}>
+                    <AddServer projectId={projectId} />
+                    <AddResources projectId={projectId} />
+                  </div>
                 </div>
                 <Resources projectId={projectId} resources={detail.resources} />
                 {detail.stats.agent_question && <AskBar question={detail.stats.agent_question} />}

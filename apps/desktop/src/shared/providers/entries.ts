@@ -6,6 +6,7 @@ import type { CatalogueEntry, ConnectGuide, ServiceId } from '../api';
 import { cloudflare } from './cloudflare';
 import { fly } from './fly';
 import { github } from './github';
+import { hetzner } from './hetzner';
 import { neon } from './neon';
 import { modal } from './modal';
 import { netlify } from './netlify';
@@ -30,6 +31,7 @@ export const PROVIDER_ENTRIES: readonly ProviderEntry[] = [
   resend,
   runpod,
   modal,
+  hetzner,
   github,
 ];
 
