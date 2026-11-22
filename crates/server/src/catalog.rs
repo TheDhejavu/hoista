@@ -185,6 +185,7 @@ pub fn router(engine: Arc<Engine>) -> Router {
             "/resources/{id}/server/agents",
             get(server_agents).put(set_server_agents),
         )
+        .route("/resources/{id}/server/activity", get(server_activity))
         .route("/projects/{id}/servers", post(add_server))
         .route("/import/suggestions", get(import_suggestions))
         .route("/import/resolve", post(resolve_description))
@@ -921,6 +922,22 @@ async fn server_agents(
     Ok(Json(json!({ "full_access": full_access })))
 }
 
+/// `GET /resources/{id}/server/activity`: what was done on a server Hoista
+/// made, newest first: commands, files, deploy keys and its setup.
+async fn server_activity(
+    State(engine): State<Arc<Engine>>,
+    Path(id): Path<String>,
+) -> Result<Json<super::contracts::ActivityPage>, ApiFault> {
+    let events = engine.servers().activity(&Actor::Person, &id).await?;
+    Ok(Json(super::contracts::ActivityPage {
+        items: events
+            .into_iter()
+            .map(super::contracts::EventDto::from)
+            .collect(),
+        next_cursor: None,
+    }))
+}
+
 async fn set_server_agents(
     State(engine): State<Arc<Engine>>,
     Path(id): Path<String>,
@@ -942,6 +959,8 @@ struct AddServerInput {
     name: String,
     server_type: Option<String>,
     location: Option<String>,
+    volume_gb: Option<u32>,
+    backups: Option<bool>,
 }
 
 async fn add_server(
@@ -960,6 +979,8 @@ async fn add_server(
                 name: &input.name,
                 server_type: input.server_type.as_deref(),
                 location: input.location.as_deref(),
+                volume_gb: input.volume_gb,
+                backups: input.backups.unwrap_or(false),
                 setup: None,
             },
         )

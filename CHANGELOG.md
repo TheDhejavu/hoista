@@ -10,6 +10,7 @@ Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas 
 
 - Hetzner Cloud: connect a project to see its servers and volumes, each server's CPU, disk and network, turn servers off and on, delete servers and volumes, and run Hetzner's own operations from the **Hetzner** tab.
 - Make a Hetzner server from a project (**Add server**, or `add_to_project` with kind `server`): Ubuntu 24.04 with Docker, a firewall that lets in only SSH, HTTP and HTTPS, security updates, and an SSH key that only Hoista holds.
+- A server Hoista made shows as deploying until it has set itself up, and as failing if that failed. **Add server** can attach a volume and turn on Hetzner's backups, and follows the server until it's ready. A server's Settings tab lists everything done on it.
 - Agents can work on servers Hoista made through new MCP tools: `server_status`, `server_logs`, `server_read_file`, `server_run`, `server_write_file` and `server_deploy_key`. Commands and files ask you first; with Full access they stop asking only once you allow it for that server, and steps that can lock you out always ask.
 
 ## [0.1.0-beta.3] - 2026-11-13

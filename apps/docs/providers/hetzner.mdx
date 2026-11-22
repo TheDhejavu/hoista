@@ -29,7 +29,9 @@ Hetzner's API doesn't say which project a token belongs to, so connect each proj
 
 ## Make a server
 
-In Desktop, open a project and choose **Add server**: pick the account, a location and a server type, and name it. An agent can do the same with `add_to_project` and kind `server`.
+In Desktop, open a project and choose **Add server**: pick the account, a location and a server type, and name it. You can also attach a volume (10 GB to 1 TB in the dialog, up to 10 TB for an agent) and turn on Hetzner's backups, which Hetzner bills on top of the server. An agent can do the same with `add_to_project` and kind `server`, with `volume_gb` and `backups`.
+
+The dialog stays open and follows the server as it starts and sets itself up. In the project it shows as deploying until its setup has finished, then live; if the setup fails, it shows as failing, and the server's **Settings → Agents → Activity** has the last lines of what went wrong. A volume is mounted at `/mnt/HC_Volume_<id>`.
 
 Every server Hoista makes starts the same way:
 

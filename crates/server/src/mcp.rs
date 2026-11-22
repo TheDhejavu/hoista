@@ -239,6 +239,10 @@ struct ServerLogsArgs {
     lines: Option<u32>,
     /// Only lines after this: a time such as 2026-11-22 10:00:00, or a span such as 30m or 2h.
     since: Option<String>,
+    /// Only lines before this, written the same way. Not with follow_seconds.
+    until: Option<String>,
+    /// Also wait for new lines for this many seconds (at most 60), to watch something happen.
+    follow_seconds: Option<u32>,
 }
 
 /// `server_read_file` input.
@@ -529,6 +533,10 @@ struct AddToProjectArgs {
     /// server: the server type in the provider's own words, such as Hetzner's
     /// cx23; the smallest current one when left out.
     server_type: Option<String>,
+    /// server: a volume to attach and mount, in GB (10 to 10240); none when left out.
+    volume_gb: Option<u32>,
+    /// server: turn on the provider's own backups of it (billed by the provider).
+    backups: Option<bool>,
     /// image: a GPU type in the provider's own words, on a provider that runs GPUs.
     gpu: Option<String>,
     /// image: a CPU-only machine instead of a GPU, the CPU type in the provider's own words (Runpod: an id from its CPU catalog, such as cpu3c). Not with gpu.
@@ -1364,7 +1372,7 @@ fn engine_tools() -> Vec<Value> {
         ),
         definition::<AddToProjectArgs>(
             "add_to_project",
-            "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image), server (an Ubuntu 24.04 server, optional server_type and region; new_server: Hoista makes the keys, signs in as hoista, root and passwords can't sign in, and only ports 22, 80 and 443 are open; it sets itself up over a few minutes). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
+            "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image), server (an Ubuntu 24.04 server, optional server_type, region, volume_gb and backups; new_server: Hoista makes the keys, signs in as hoista, root and passwords can't sign in, and only ports 22, 80 and 443 are open; it sets itself up over a few minutes). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
             false,
         ),
         definition::<ServerArgs>(
@@ -1374,7 +1382,7 @@ fn engine_tools() -> Vec<Value> {
         ),
         definition::<ServerLogsArgs>(
             "server_logs",
-            "The newest lines from a server's journal: one systemd unit (unit), one Docker container (container), or the whole journal. Secrets are taken out of what comes back.",
+            "The newest lines from a server's journal: one systemd unit (unit), one Docker container (container), or the whole journal, optionally between since and until. follow_seconds also waits up to 60 seconds for new lines, to watch a restart or a request happen. Secrets are taken out of what comes back.",
             true,
         ),
         definition::<ServerReadArgs>(
@@ -2319,6 +2327,8 @@ async fn call(
                         container: a.container.as_deref(),
                         lines: a.lines,
                         since: a.since.as_deref(),
+                        until: a.until.as_deref(),
+                        follow_seconds: a.follow_seconds,
                     },
                 )
                 .await?;
@@ -3453,6 +3463,8 @@ async fn call(
                     name: need_name()?,
                     server_type: a.server_type.as_deref(),
                     location: a.region.as_deref(),
+                    volume_gb: a.volume_gb,
+                    backups: a.backups.unwrap_or(false),
                     setup: None,
                 },
             };

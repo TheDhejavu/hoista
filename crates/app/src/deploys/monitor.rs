@@ -364,7 +364,13 @@ impl<'a> DeployService<'a> {
             }
             Err(error) => return Err(error),
         };
-        let status = observed.status;
+        let mut status = observed.status;
+        // A server Hoista made is running before it has set itself up.
+        if status == ResourceStatus::Live
+            && let Some(setup) = self.engine.servers().setup_status(resource).await?
+        {
+            status = setup;
+        }
         let _mutation = self.engine.mutation.lock().await;
         let Some(mut current) = self.engine.repository.resource(&resource.id).await? else {
             return Ok(());

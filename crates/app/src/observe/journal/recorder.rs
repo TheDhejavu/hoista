@@ -331,11 +331,14 @@ fn new_inputs(what: &ProviderNew<'_>) -> String {
             name,
             server_type,
             location,
+            volume_gb,
+            backups,
             setup: _,
         } => format!(
-            "server|{name}|{}|{}",
+            "server|{name}|{}|{}|{}|{backups}",
             server_type.unwrap_or_default(),
-            location.unwrap_or_default()
+            location.unwrap_or_default(),
+            volume_gb.map(|gb| gb.to_string()).unwrap_or_default()
         ),
     }
 }

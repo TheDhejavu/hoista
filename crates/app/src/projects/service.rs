@@ -585,11 +585,15 @@ impl<'a> ProjectService<'a> {
                 name,
                 server_type,
                 location,
+                volume_gb,
+                backups,
                 ..
             } => ProviderNew::Server {
                 name,
                 server_type,
                 location,
+                volume_gb,
+                backups,
                 setup: setup.as_ref(),
             },
             other => other,
@@ -628,11 +632,20 @@ impl<'a> ProjectService<'a> {
             ));
         }
         if let (Some(pending), Some(setup)) = (pending, &setup) {
+            // The server's keys go with the server, not the volume made with it.
             for id in &resource_ids {
-                self.engine
-                    .vault
-                    .write(&crate::servers::vault_reference(id), setup.kept())
-                    .await?;
+                if self
+                    .engine
+                    .repository
+                    .resource(id)
+                    .await?
+                    .is_some_and(|resource| resource.kind == ResourceKind::Server)
+                {
+                    self.engine
+                        .vault
+                        .write(&crate::servers::vault_reference(id), setup.kept())
+                        .await?;
+                }
             }
             self.engine.vault.delete(&pending).await?;
         }

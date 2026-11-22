@@ -36,8 +36,14 @@ pub(super) struct NewServer<'a> {
     location: Option<&'a str>,
     /// The Hoista project it's for, when Hetzner takes it as a label value.
     project: Option<&'a str>,
+    /// A volume to attach and mount, in GB.
+    volume_gb: Option<u32>,
+    backups: bool,
     setup: &'a ServerSetup,
 }
+
+/// Hetzner's smallest and largest volumes, in GB.
+const VOLUME_GB: std::ops::RangeInclusive<u32> = 10..=10240;
 
 impl<'a> NewServer<'a> {
     /// The server in `what`, or None when it asks for something else.
@@ -52,6 +58,8 @@ impl<'a> NewServer<'a> {
             name,
             server_type,
             location,
+            volume_gb,
+            backups,
             setup,
         } = *what
         else {
@@ -60,6 +68,9 @@ impl<'a> NewServer<'a> {
         let setup = setup.ok_or(EngineError::Invalid(
             "A server needs the keys Hoista makes for it.",
         ))?;
+        if volume_gb.is_some_and(|gb| !VOLUME_GB.contains(&gb)) {
+            return Err(EngineError::Invalid("A Hetzner volume is 10 to 10240 GB."));
+        }
         if !crate::domain::model::valid_slug(name) {
             return Err(EngineError::Invalid(
                 "Use a lowercase name with letters, digits and hyphens.",
@@ -94,6 +105,8 @@ impl<'a> NewServer<'a> {
             server_type,
             location,
             project,
+            volume_gb,
+            backups,
             setup,
         }))
     }
@@ -191,12 +204,59 @@ impl Hetzner {
         let address = text(&server["public_net"]["ipv4"], "ip")
             .or_else(|| text(&server["public_net"]["ipv6"], "ip"));
         let place = super::location(server).unwrap_or_else(|| "Hetzner".to_owned());
+        let mut made = vec![format!("server:{id}")];
+        let mut extras = Vec::new();
+        if let Some(gb) = new.volume_gb {
+            let volume_name = format!("{}-data", new.name);
+            let volume = match self.named(token, "volumes", &volume_name).await? {
+                Some(volume) => volume,
+                None => self
+                    .call(
+                        token,
+                        Method::POST,
+                        &["volumes"],
+                        &[],
+                        Some(&json!({
+                            "name": volume_name,
+                            "size": gb,
+                            "server": id,
+                            "automount": true,
+                            "format": "ext4",
+                            "labels": new.labels(),
+                        })),
+                    )
+                    .await?["volume"]
+                    .clone(),
+            };
+            let volume_id = volume["id"].as_u64().ok_or_else(invalid)?;
+            made.push(format!("volume:{volume_id}"));
+            extras.push(format!(
+                "a {gb} GB volume, {volume_name}, mounted at /mnt/HC_Volume_{volume_id}"
+            ));
+        }
+        if new.backups {
+            self.call(
+                token,
+                Method::POST,
+                &["servers", &id.to_string(), "actions", "enable_backup"],
+                &[],
+                None,
+            )
+            .await?;
+            extras.push("Hetzner's backups on".to_owned());
+        }
+        let with = match extras.as_slice() {
+            [] => String::new(),
+            [one] => format!(", with {one}"),
+            [first, second] => format!(", with {first} and {second}"),
+            _ => format!(", with {}", extras.join(", ")),
+        };
         let summary = format!(
-            "Made server {} ({server_type}, {place}){}. It sets itself up over the next few minutes; Hoista signs in as {SERVER_USER}",
+            "Made server {} ({server_type}, {place}){}{with}. It sets itself up over the next few minutes; Hoista signs in as {SERVER_USER}",
             new.name,
             address.map_or_else(String::new, |address| format!(" at {address}"))
         );
-        Ok((vec![format!("server:{id}")], summary))
+        Ok((made, summary))
     }
 
     /// The item named `name` in one of Hetzner's lists, if there is one.
@@ -415,6 +475,8 @@ mod tests {
             name: "web-1",
             server_type: None,
             location: Some("fsn1"),
+            volume_gb: None,
+            backups: false,
             setup: Some(&setup),
         };
         let one = NewServer::from(&what, "shop").unwrap().unwrap();
@@ -428,6 +490,8 @@ mod tests {
             name: "web-1",
             server_type: Some("cx23; rm -rf /"),
             location: None,
+            volume_gb: None,
+            backups: false,
             setup: Some(&setup),
         };
         assert!(NewServer::from(&bad, "shop").is_err());
@@ -435,6 +499,8 @@ mod tests {
             name: "web-1",
             server_type: None,
             location: None,
+            volume_gb: None,
+            backups: false,
             setup: None,
         };
         assert!(NewServer::from(&keyless, "shop").is_err());

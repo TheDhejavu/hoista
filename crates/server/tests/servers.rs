@@ -174,6 +174,8 @@ impl RemoteServer for Answering {
         ));
         let stdout = if run.command.contains("ssh-keygen") {
             format!("{NEW_HOST_KEY}\n")
+        } else if run.command.contains("cloud-init status") {
+            "done\n".to_owned()
         } else {
             "deployed with AKIAIOSFODNN7EXAMPLE\n".to_owned()
         };
@@ -257,6 +259,8 @@ async fn made(fixture: &Fixture) -> String {
                 name: "web-1",
                 server_type: None,
                 location: None,
+                volume_gb: None,
+                backups: false,
                 setup: None,
             },
         )
@@ -381,4 +385,37 @@ async fn secrets_on_the_server_are_never_read() {
         .await
         .unwrap_err();
     assert!(matches!(refused, EngineError::Conflict(_)), "{refused:?}");
+}
+
+#[tokio::test]
+async fn a_server_is_setting_up_until_its_first_boot_is_done_and_its_history_is_kept() {
+    let fixture = setup(true).await;
+    let id = made(&fixture).await;
+    let resource = fixture
+        .engine
+        .repository
+        .resource(&id)
+        .await
+        .expect("read")
+        .expect("server");
+    let servers = fixture.engine.servers();
+    assert_eq!(
+        servers.setup_status(&resource).await.expect("check"),
+        Some(ResourceStatus::Live)
+    );
+    // Once it's done, Hoista stops checking and the provider's word stands.
+    assert_eq!(servers.setup_status(&resource).await.expect("check"), None);
+    assert!(kept(&fixture, &id).setup_finished);
+    servers
+        .run(&Actor::Person, &id, "docker compose up -d", None, None)
+        .await
+        .expect("run");
+    let kinds: Vec<String> = servers
+        .activity(&Actor::Person, &id)
+        .await
+        .expect("activity")
+        .into_iter()
+        .map(|event| event.kind)
+        .collect();
+    assert_eq!(kinds, ["server.command", "server.ready"]);
 }

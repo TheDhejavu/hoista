@@ -400,6 +400,10 @@ pub enum ProviderNew<'a> {
         /// Where to make it, in the provider's own words (Hetzner's `fsn1`);
         /// the provider picks when `None`.
         location: Option<&'a str>,
+        /// A volume to attach and mount, in GB; none when `None`.
+        volume_gb: Option<u32>,
+        /// Turn on the provider's own backups of it.
+        backups: bool,
         /// The keys it's made with. Hoista makes them when it adds the server;
         /// callers leave this `None`.
         setup: Option<&'a crate::servers::ServerSetup>,

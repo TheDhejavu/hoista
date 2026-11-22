@@ -982,6 +982,38 @@ pub trait CatalogRepository: Send + Sync {
         self.event(actor, project_id, kind, summary).await
     }
 
+    /// Appends an event about one record, such as a command run on a server,
+    /// so that record's own history can be read back.
+    ///
+    /// # Errors
+    /// Reports unavailable persistent state.
+    async fn event_about(
+        &self,
+        actor: &str,
+        project_id: Option<&str>,
+        subject_id: &str,
+        kind: &str,
+        summary: &str,
+    ) -> Result<(), EngineError> {
+        let _ = subject_id;
+        self.event(actor, project_id, kind, summary).await
+    }
+
+    /// The newest events about one record whose kind starts with
+    /// `kind_prefix` (such as `server.`), newest first, at most `limit`.
+    ///
+    /// # Errors
+    /// Reports unavailable persistent state.
+    async fn events_about(
+        &self,
+        subject_id: &str,
+        kind_prefix: &str,
+        limit: u32,
+    ) -> Result<Vec<crate::Event>, EngineError> {
+        let _ = (subject_id, kind_prefix, limit);
+        Ok(Vec::new())
+    }
+
     /// The detail recorded with an event, if any.
     ///
     /// # Errors

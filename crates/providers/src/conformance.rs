@@ -585,6 +585,8 @@ async fn check_adapter(
                     name: "web",
                     server_type: None,
                     location: None,
+                    volume_gb: None,
+                    backups: false,
                     setup: Some(&setup),
                 }
             )

@@ -84,6 +84,7 @@ impl ServerSetup {
             host_key: self.host_public_key.clone(),
             replace_host_key: true,
             agents_full_access: false,
+            setup_finished: false,
         }
         .to_secret()
     }
@@ -104,6 +105,8 @@ pub struct ServerAccess {
     /// The person lets agents with Full access run commands here without
     /// asking, except those on the always-ask list. Off until they turn it on.
     pub agents_full_access: bool,
+    /// Its first-boot setup has finished, so Hoista stops checking on it.
+    pub setup_finished: bool,
 }
 
 impl ServerAccess {
@@ -117,6 +120,7 @@ impl ServerAccess {
                 "host_key": self.host_key,
                 "replace_host_key": self.replace_host_key,
                 "agents_full_access": self.agents_full_access,
+                "setup_finished": self.setup_finished,
             })
             .to_string(),
         )
@@ -135,6 +139,7 @@ impl ServerAccess {
             host_key: field(&value, "host_key")?,
             replace_host_key: value["replace_host_key"].as_bool().unwrap_or(false),
             agents_full_access: value["agents_full_access"].as_bool().unwrap_or(false),
+            setup_finished: value["setup_finished"].as_bool().unwrap_or(false),
         })
     }
 }

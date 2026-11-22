@@ -16,18 +16,20 @@ Connect a [Hetzner](/providers/hetzner) project, then in a project choose **Add 
 
 > Make a small Hetzner server for this project in Falkenstein, call it web-1.
 
-It's ready for the agent once its setup has finished, a few minutes after it starts. `server_status` says when.
+It's ready for the agent once its setup has finished, a few minutes after it starts: until then it shows as deploying in the project, and `server_status` says where it is.
 
 ## What the agent can do
 
 | Tool | What it does | View only | Ask for approval | Full access |
 | --- | --- | --- | --- | --- |
 | `server_status` | setup, load, memory, disk, failed services, containers, waiting updates, whether a reboot is due | yes | yes | yes |
-| `server_logs` | the newest lines of a systemd unit, a Docker container or the whole journal | yes | yes | yes |
+| `server_logs` | the newest lines of a systemd unit, a Docker container or the whole journal, between two times, or new lines for up to a minute | yes | yes | yes |
 | `server_read_file` | one file, up to 1 MB | yes | yes | yes |
 | `server_run` | one command, as `hoista`, who can use `sudo` | no | asks each time | asks, unless you turned that off for this server |
 | `server_write_file` | one file, with its mode and owner | no | asks each time | asks, unless you turned that off for this server |
 | `server_deploy_key` | a key for CI that can run only one command | no | asks | asks |
+
+Everything done on a server (commands, files written, deploy keys, its setup) is listed on its **Settings** tab under **Agents → Activity**, as well as in the project's Activity.
 
 What comes back from the server goes through Hoista's secret scanner first, as logs do. Password hashes, private keys and other processes' environments are never read, wherever a link points.
 

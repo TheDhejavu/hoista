@@ -7,7 +7,7 @@ use super::{ServerAccess, ServerSetup, keys::ServerKey, pending_reference, vault
 use crate::{
     domain::{
         Secret,
-        model::{GatedAction, Resource, ResourceKind},
+        model::{GatedAction, Resource, ResourceKind, ResourceStatus},
         servers::{plain_path, shell_quote},
     },
     engine::{Actor, Engine},
@@ -30,6 +30,15 @@ const DEFAULT_RUN_SECONDS: u64 = 120;
 const MAX_OUTPUT: usize = 64 * 1024;
 /// The largest file read or written.
 const MAX_FILE: usize = 1024 * 1024;
+/// How long the setup check may take.
+const SETUP_CHECK_TIMEOUT: Duration = Duration::from_secs(20);
+/// How many things done on a server are shown.
+const MAX_ACTIVITY: u32 = 50;
+/// The first-boot setup's state on its first line (`status: done`), then,
+/// when it failed, the last lines of what it printed.
+const SETUP_SCRIPT: &str = r#"state="$(cloud-init status 2>/dev/null | sed -n 's/^status: //p')"
+echo "${state:-unknown}"
+case "$state" in *error*) sudo -n tail -n 5 /var/log/cloud-init-output.log 2>/dev/null ;; esac"#;
 /// How many log lines at most, and by default.
 const MAX_LOG_LINES: u32 = 2000;
 const DEFAULT_LOG_LINES: u32 = 200;
@@ -80,6 +89,94 @@ pub struct LogsAsk<'a> {
     /// Only lines after this, as `journalctl --since` and `docker logs
     /// --since` read it: `2026-11-22 10:00:00`, or `1h` and the like.
     pub since: Option<&'a str>,
+    /// Only lines before this, read the same way.
+    pub until: Option<&'a str>,
+    /// Keep reading new lines as they come, for this many seconds (at most
+    /// 60), after the newest ones.
+    pub follow_seconds: Option<u32>,
+}
+
+/// The longest a log read follows new lines.
+const MAX_FOLLOW_SECONDS: u32 = 60;
+/// What `timeout` exits with when it stopped a command.
+const TIMED_OUT: u32 = 124;
+
+/// A time as `journalctl` reads it: a span such as `1h` means "1h ago".
+fn journal_time(time: &str) -> String {
+    if time.bytes().all(|b| b.is_ascii_alphanumeric())
+        && time.starts_with(|c: char| c.is_ascii_digit())
+    {
+        format!("-{time}")
+    } else {
+        time.to_owned()
+    }
+}
+
+/// The command that reads the logs `ask` names, and how long it may take.
+fn log_command(ask: LogsAsk<'_>) -> Result<(String, Duration), EngineError> {
+    let lines = ask
+        .lines
+        .unwrap_or(DEFAULT_LOG_LINES)
+        .clamp(1, MAX_LOG_LINES);
+    if ask.unit.is_some() && ask.container.is_some() {
+        return Err(EngineError::Invalid(
+            "Give a unit or a container, not both.",
+        ));
+    }
+    if [ask.unit, ask.container]
+        .into_iter()
+        .flatten()
+        .any(|name| !plain_name(name))
+        || [ask.since, ask.until]
+            .into_iter()
+            .flatten()
+            .any(|time| !plain_since(time))
+    {
+        return Err(EngineError::Invalid(
+            "Give the unit or container by name, and since and until as a time such as 2026-11-22 10:00 or 1h.",
+        ));
+    }
+    if ask.follow_seconds.is_some() && ask.until.is_some() {
+        return Err(EngineError::Invalid(
+            "Follow new lines or read up to a time, not both.",
+        ));
+    }
+    let follow = ask
+        .follow_seconds
+        .map(|seconds| seconds.clamp(1, MAX_FOLLOW_SECONDS));
+    let (prefix, flag) = match follow {
+        Some(seconds) => (format!("sudo -n timeout {seconds} "), " -f"),
+        None => ("sudo -n ".to_owned(), ""),
+    };
+    let command = match ask.container {
+        Some(container) => {
+            let times: String = [("--since", ask.since), ("--until", ask.until)]
+                .into_iter()
+                .filter_map(|(name, time)| {
+                    time.map(|time| format!(" {name} {}", shell_quote(time)))
+                })
+                .collect();
+            format!(
+                "{prefix}docker logs --timestamps --tail {lines}{flag}{times} {} 2>&1",
+                shell_quote(container)
+            )
+        }
+        None => {
+            let unit = ask
+                .unit
+                .map(|unit| format!(" -u {}", shell_quote(unit)))
+                .unwrap_or_default();
+            let times: String = [("--since", ask.since), ("--until", ask.until)]
+                .into_iter()
+                .filter_map(|(name, time)| {
+                    time.map(|time| format!(" {name} {}", shell_quote(&journal_time(time))))
+                })
+                .collect();
+            format!("{prefix}journalctl --no-pager -o short-iso -n {lines}{flag}{unit}{times}")
+        }
+    };
+    let timeout = READ_TIMEOUT + Duration::from_secs(u64::from(follow.unwrap_or(0)));
+    Ok((command, timeout))
 }
 
 /// A file to write.
@@ -172,6 +269,11 @@ impl<'a> ServerService<'a> {
         scope: &str,
     ) -> Result<Reached, EngineError> {
         self.engine.authorize(actor, scope).await?;
+        self.reach_resource(resource_id).await
+    }
+
+    /// As [`Self::reach`], for Hoista itself checking on the server.
+    async fn reach_resource(self, resource_id: &str) -> Result<Reached, EngineError> {
         let resource = self
             .engine
             .repository
@@ -326,6 +428,101 @@ sudo systemctl reload ssh 2>/dev/null || sudo systemctl reload sshd";
         })
     }
 
+    /// Where a server Hoista made is in its first-boot setup, while it runs:
+    /// None once it's done (or for a server Hoista can't sign in to), so the
+    /// provider's word stands. A server still setting up reads as deploying,
+    /// and one whose setup failed as failing.
+    ///
+    /// # Errors
+    /// Reports a vault that can't be read or written.
+    pub async fn setup_status(
+        self,
+        resource: &Resource,
+    ) -> Result<Option<ResourceStatus>, EngineError> {
+        if resource.kind != ResourceKind::Server || self.engine.remote_servers.is_none() {
+            return Ok(None);
+        }
+        let Ok(access) = self.access(resource).await else {
+            return Ok(None);
+        };
+        if access.setup_finished {
+            return Ok(None);
+        }
+        // Not reachable yet: it's still starting.
+        let Ok(mut reached) = self.reach_resource(&resource.id).await else {
+            return Ok(Some(ResourceStatus::Deploying));
+        };
+        let Ok(said) = self
+            .send(&reached, SETUP_SCRIPT, None, SETUP_CHECK_TIMEOUT)
+            .await
+        else {
+            return Ok(Some(ResourceStatus::Deploying));
+        };
+        let said = text(&said.stdout);
+        let state = said.lines().next().unwrap_or_default().trim();
+        let (status, summary) = if state.contains("error") {
+            let scanner =
+                crate::domain::leaks::LeakScanner::new().map_err(|_| EngineError::Store)?;
+            let last: Vec<&str> = said
+                .lines()
+                .skip(1)
+                .filter(|line| !line.trim().is_empty())
+                .collect();
+            (
+                ResourceStatus::Failing,
+                format!(
+                    "{} couldn't finish setting itself up: {}",
+                    resource.name,
+                    scanner.redact(&last.join(" / "), &[])
+                ),
+            )
+        } else if state.starts_with("done") || state.starts_with("degraded done") {
+            (
+                ResourceStatus::Live,
+                format!("{} finished setting itself up", resource.name),
+            )
+        } else {
+            return Ok(Some(ResourceStatus::Deploying));
+        };
+        reached.access.setup_finished = true;
+        self.engine
+            .vault
+            .write(&vault_reference(&resource.id), reached.access.to_secret())
+            .await?;
+        self.engine
+            .repository
+            .event_about(
+                "engine",
+                resource.project_id.as_deref(),
+                &resource.id,
+                if status == ResourceStatus::Live {
+                    "server.ready"
+                } else {
+                    "server.setup_failed"
+                },
+                &summary,
+            )
+            .await?;
+        Ok(Some(status))
+    }
+
+    /// The newest things done on a server (commands, files, keys, its setup),
+    /// newest first.
+    ///
+    /// # Errors
+    /// Missing permission or unavailable state.
+    pub async fn activity(
+        self,
+        actor: &Actor,
+        resource_id: &str,
+    ) -> Result<Vec<crate::Event>, EngineError> {
+        self.engine.authorize(actor, "apps:read").await?;
+        self.engine
+            .repository
+            .events_about(resource_id, "server.", MAX_ACTIVITY)
+            .await
+    }
+
     /// Records what was done on a server, for the activity log.
     async fn record(
         self,
@@ -336,9 +533,10 @@ sudo systemctl reload ssh 2>/dev/null || sudo systemctl reload sshd";
     ) -> Result<(), EngineError> {
         self.engine
             .repository
-            .event(
+            .event_about(
                 actor.id(),
                 reached.resource.project_id.as_deref(),
+                &reached.resource.id,
                 kind,
                 &summary,
             )
@@ -358,7 +556,7 @@ sudo systemctl reload ssh 2>/dev/null || sudo systemctl reload sshd";
     }
 
     /// The newest lines of a systemd unit's journal, a container's logs, or
-    /// the whole journal.
+    /// the whole journal; between two times, or as they come for a while.
     ///
     /// # Errors
     /// As [`Self::status`], and a unit, container or time Hoista can't pass on.
@@ -368,60 +566,14 @@ sudo systemctl reload ssh 2>/dev/null || sudo systemctl reload sshd";
         resource_id: &str,
         ask: LogsAsk<'_>,
     ) -> Result<RunResult, EngineError> {
-        let lines = ask
-            .lines
-            .unwrap_or(DEFAULT_LOG_LINES)
-            .clamp(1, MAX_LOG_LINES);
-        if ask.unit.is_some() && ask.container.is_some() {
-            return Err(EngineError::Invalid(
-                "Give a unit or a container, not both.",
-            ));
-        }
-        if [ask.unit, ask.container]
-            .into_iter()
-            .flatten()
-            .any(|name| !plain_name(name))
-            || ask.since.is_some_and(|since| !plain_since(since))
-        {
-            return Err(EngineError::Invalid(
-                "Give the unit or container by name, and since as a time such as 2026-11-22 10:00 or 1h.",
-            ));
-        }
-        let command = match ask.container {
-            Some(container) => {
-                let since = ask
-                    .since
-                    .map(|since| format!(" --since {}", shell_quote(since)))
-                    .unwrap_or_default();
-                format!(
-                    "sudo -n docker logs --timestamps --tail {lines}{since} {} 2>&1",
-                    shell_quote(container)
-                )
-            }
-            None => {
-                let unit = ask
-                    .unit
-                    .map(|unit| format!(" -u {}", shell_quote(unit)))
-                    .unwrap_or_default();
-                // journalctl reads a span such as 1h as "1h ago".
-                let since = ask
-                    .since
-                    .map(|since| {
-                        let since = if since.bytes().all(|b| b.is_ascii_alphanumeric())
-                            && since.starts_with(|c: char| c.is_ascii_digit())
-                        {
-                            format!("-{since}")
-                        } else {
-                            since.to_owned()
-                        };
-                        format!(" --since {}", shell_quote(&since))
-                    })
-                    .unwrap_or_default();
-                format!("sudo -n journalctl --no-pager -o short-iso -n {lines}{unit}{since}")
-            }
-        };
+        let (command, timeout) = log_command(ask)?;
         let reached = self.reach(actor, resource_id, "apps:read").await?;
-        self.run_on(&reached, &command, None, READ_TIMEOUT).await
+        let mut read = self.run_on(&reached, &command, None, timeout).await?;
+        // Following ends when its time is up, which `timeout` reports as 124.
+        if ask.follow_seconds.is_some() && read.exit_code == Some(TIMED_OUT) {
+            read.exit_code = Some(0);
+        }
+        Ok(read)
     }
 
     /// A file's contents, up to 1 MB. Password hashes, private keys and
@@ -788,9 +940,10 @@ sudo systemctl reload ssh 2>/dev/null || sudo systemctl reload sshd";
             .await?;
         self.engine
             .repository
-            .event(
+            .event_about(
                 actor.id(),
                 resource.project_id.as_deref(),
+                &resource.id,
                 "server.agent_access",
                 &if on {
                     format!(
@@ -829,6 +982,40 @@ mod tests {
         assert_ne!(
             ServerService::write_target("r1", &write),
             ServerService::write_target("r1", &other)
+        );
+    }
+
+    #[test]
+    fn logs_read_a_range_or_follow_for_a_while() {
+        let (range, _) = log_command(LogsAsk {
+            unit: Some("caddy"),
+            since: Some("2h"),
+            until: Some("1h"),
+            ..LogsAsk::default()
+        })
+        .unwrap();
+        assert_eq!(
+            range,
+            "sudo -n journalctl --no-pager -o short-iso -n 200 -u 'caddy' --since '-2h' --until '-1h'"
+        );
+        let (follow, timeout) = log_command(LogsAsk {
+            container: Some("app-web-1"),
+            follow_seconds: Some(500),
+            ..LogsAsk::default()
+        })
+        .unwrap();
+        assert_eq!(
+            follow,
+            "sudo -n timeout 60 docker logs --timestamps --tail 200 -f 'app-web-1' 2>&1"
+        );
+        assert_eq!(timeout, READ_TIMEOUT + Duration::from_secs(60));
+        assert!(
+            log_command(LogsAsk {
+                follow_seconds: Some(5),
+                until: Some("1h"),
+                ..LogsAsk::default()
+            })
+            .is_err()
         );
     }
 

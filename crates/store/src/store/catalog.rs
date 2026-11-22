@@ -2990,6 +2990,60 @@ impl CatalogRepository for SqliteStore {
         tx.commit().await.map_err(failure)
     }
 
+    async fn event_about(
+        &self,
+        actor: &str,
+        project_id: Option<&str>,
+        subject_id: &str,
+        kind: &str,
+        summary: &str,
+    ) -> Result<(), EngineError> {
+        let mut tx = self.begin_write().await.map_err(failure)?;
+        append_about(&mut tx, actor, project_id, Some(subject_id), kind, summary).await?;
+        tx.commit().await.map_err(failure)
+    }
+
+    async fn events_about(
+        &self,
+        subject_id: &str,
+        kind_prefix: &str,
+        limit: u32,
+    ) -> Result<Vec<crate::application::Event>, EngineError> {
+        type Row = (
+            i64,
+            String,
+            String,
+            Option<String>,
+            Option<String>,
+            String,
+            String,
+        );
+        let rows: Vec<Row> = sqlx::query_as(
+            "SELECT id, at, actor, project_id, subject_id, kind, summary FROM events WHERE subject_id = ? AND substr(kind, 1, length(?)) = ? ORDER BY id DESC LIMIT ?",
+        )
+        .bind(subject_id)
+        .bind(kind_prefix)
+        .bind(kind_prefix)
+        .bind(i64::from(limit))
+        .fetch_all(&self.pool)
+        .await
+        .map_err(failure)?;
+        Ok(rows
+            .into_iter()
+            .map(|(id, at, actor, project_id, subject_id, kind, summary)| {
+                crate::application::Event {
+                    id,
+                    at,
+                    actor,
+                    project_id,
+                    subject_id,
+                    kind,
+                    summary,
+                }
+            })
+            .collect())
+    }
+
     async fn event_detail(&self, id: i64) -> Result<Option<String>, EngineError> {
         let row: Option<(Option<String>,)> =
             sqlx::query_as("SELECT detail FROM events WHERE id = ?")
