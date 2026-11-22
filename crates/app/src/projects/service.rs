@@ -512,6 +512,9 @@ impl<'a> ProjectService<'a> {
                 ProviderNew::Image { .. } => {
                     "This provider can't run an image. Pick an account on a provider whose capabilities include new_from_image."
                 }
+                ProviderNew::Server { .. } => {
+                    "This provider can't make a server. Pick an account on a provider whose capabilities include new_server."
+                }
             }));
         }
         if let Some(missing) = adapter.missing_grant(&account.scopes, &what) {
@@ -522,7 +525,8 @@ impl<'a> ProjectService<'a> {
             | ProviderNew::Folder { name, .. }
             | ProviderNew::Database { name, .. }
             | ProviderNew::Bucket { name }
-            | ProviderNew::Image { name, .. } => Some(name),
+            | ProviderNew::Image { name, .. }
+            | ProviderNew::Server { name, .. } => Some(name),
             ProviderNew::EmailDomain { .. } => None,
         };
         if name.is_some_and(|name| !valid_slug(name)) {
@@ -553,6 +557,42 @@ impl<'a> ProjectService<'a> {
             }
         } else {
             what
+        };
+        // A server is made with keys Hoista makes and keeps; they're saved
+        // before the provider is asked, so a retry uses the same ones.
+        let mut setup = None;
+        let pending = match what {
+            ProviderNew::Server { name, .. } => {
+                let reference = crate::servers::pending_reference(&account.id, name);
+                setup = Some(match self.engine.vault.read(&reference).await {
+                    Ok(saved) => crate::servers::ServerSetup::from_secret(&saved)?,
+                    Err(EngineError::NotFound) => {
+                        let made = crate::servers::ServerSetup::generate(name)?;
+                        self.engine
+                            .vault
+                            .write(&reference, made.to_secret())
+                            .await?;
+                        made
+                    }
+                    Err(error) => return Err(error),
+                });
+                Some(reference)
+            }
+            _ => None,
+        };
+        let what = match what {
+            ProviderNew::Server {
+                name,
+                server_type,
+                location,
+                ..
+            } => ProviderNew::Server {
+                name,
+                server_type,
+                location,
+                setup: setup.as_ref(),
+            },
+            other => other,
         };
         let beside = self
             .engine
@@ -586,6 +626,15 @@ impl<'a> ProjectService<'a> {
             return Err(EngineError::Conflict(
                 "The provider made it, but Hoista couldn't find it there yet. Run discovery on the account in a minute, then add it to the project from Found on your providers.",
             ));
+        }
+        if let (Some(pending), Some(setup)) = (pending, &setup) {
+            for id in &resource_ids {
+                self.engine
+                    .vault
+                    .write(&crate::servers::vault_reference(id), setup.kept())
+                    .await?;
+            }
+            self.engine.vault.delete(&pending).await?;
         }
         // The project keeps its mode: a managed project (one an agent made
         // with create_project) stays managed, so Hoista can still deploy to
@@ -1133,7 +1182,7 @@ impl<'a> ProjectService<'a> {
             .adapter(resource.provider)?
             .delete(&token, &account.external_id, &resource.provider_ref)
             .await?;
-        self.engine.repository.remove_resource(id).await?;
+        self.engine.forget_resource(&resource).await?;
         if !affected.is_empty() {
             self.engine
                 .repository

@@ -264,7 +264,7 @@ impl<'a> DeployService<'a> {
             // Gone at the provider, so gone here. A watched project mirrors one
             // at the provider, so left empty it goes too; a project made in
             // Hoista stays, empty, with its id, for what's deployed next.
-            self.engine.repository.remove_resource(&resource.id).await?;
+            self.engine.forget_resource(&resource).await?;
             if let Some(project_id) = resource.project_id.as_deref()
                 && self
                     .engine

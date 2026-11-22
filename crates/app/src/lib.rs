@@ -191,6 +191,8 @@ pub mod environments;
 pub mod observe;
 /// Projects and their resources.
 pub mod projects;
+/// Servers Hoista makes, and the keys it reaches them with.
+pub mod servers;
 /// Hoista's own settings.
 pub(crate) mod settings;
 /// Webhooks.

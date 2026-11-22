@@ -10,6 +10,7 @@ pub mod keeper;
 pub mod network;
 pub mod owner_check;
 pub mod providers;
+pub mod servers;
 pub mod sign_in_page;
 pub mod transfer;
 pub mod vault;

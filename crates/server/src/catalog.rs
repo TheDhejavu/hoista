@@ -181,6 +181,11 @@ pub fn router(engine: Arc<Engine>) -> Router {
         .route("/plans/{id}", get(get_plan).put(edit_plan))
         .route("/import/candidates", get(candidates))
         .route("/resources/{id}/ignored", put(set_ignored))
+        .route(
+            "/resources/{id}/server/agents",
+            get(server_agents).put(set_server_agents),
+        )
+        .route("/projects/{id}/servers", post(add_server))
         .route("/import/suggestions", get(import_suggestions))
         .route("/import/resolve", post(resolve_description))
         .route("/import/group-description", post(group_description))
@@ -895,6 +900,71 @@ async fn candidates(
             .import_candidates(&Actor::Person, query.ignored, query.cursor.as_deref())
             .await?,
     ))
+}
+
+/// `PUT /resources/{id}/server/agents`: whether agents with Full access
+/// work on this server without asking.
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ServerAgentsInput {
+    full_access: bool,
+}
+
+async fn server_agents(
+    State(engine): State<Arc<Engine>>,
+    Path(id): Path<String>,
+) -> Result<Json<Value>, ApiFault> {
+    let full_access = engine
+        .servers()
+        .agents_full_access(&Actor::Person, &id)
+        .await?;
+    Ok(Json(json!({ "full_access": full_access })))
+}
+
+async fn set_server_agents(
+    State(engine): State<Arc<Engine>>,
+    Path(id): Path<String>,
+    input: Result<Json<ServerAgentsInput>, JsonRejection>,
+) -> Result<Json<Value>, ApiFault> {
+    let full_access = body(input)?.full_access;
+    engine
+        .servers()
+        .set_agents_full_access(&Actor::Person, &id, full_access)
+        .await?;
+    Ok(Json(json!({ "full_access": full_access })))
+}
+
+/// `POST /projects/{id}/servers`: a new server at a provider, in this project.
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct AddServerInput {
+    account_id: String,
+    name: String,
+    server_type: Option<String>,
+    location: Option<String>,
+}
+
+async fn add_server(
+    State(engine): State<Arc<Engine>>,
+    Path(id): Path<String>,
+    input: Result<Json<AddServerInput>, JsonRejection>,
+) -> Result<Json<Value>, ApiFault> {
+    let input = body(input)?;
+    let (summary, resources) = engine
+        .projects()
+        .add_to_project(
+            &Actor::Person,
+            &id,
+            &input.account_id,
+            crate::application::ports::providers::ProviderNew::Server {
+                name: &input.name,
+                server_type: input.server_type.as_deref(),
+                location: input.location.as_deref(),
+                setup: None,
+            },
+        )
+        .await?;
+    Ok(Json(json!({ "summary": summary, "resources": resources })))
 }
 
 #[derive(Deserialize)]

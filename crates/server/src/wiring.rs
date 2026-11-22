@@ -38,7 +38,9 @@ pub fn engine(store: SqliteStore, paths: &StatePaths) -> Result<Engine, EngineEr
     .with_vault_info(info)
     .with_owner_check(Arc::new(
         crate::infrastructure::owner_check::SystemOwnerCheck,
-    )))
+    ))
+    // Servers are signed in to from this computer only, for now.
+    .with_remote_servers(Arc::new(crate::infrastructure::ssh::SshServers)))
 }
 
 /// The token store `HOISTA_TOKEN_STORE` names, on a computer as on a remote.

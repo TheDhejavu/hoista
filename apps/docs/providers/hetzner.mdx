@@ -6,6 +6,8 @@ icon: "/logos/hetzner.svg"
 
 Hoista finds the servers and volumes in a Hetzner Cloud project. It shows each server's CPU, disk and network, can turn a server off and on, and runs Hetzner's own operations, such as rebooting or taking a snapshot.
 
+It can also make a new server, set up and locked down, that your agents work on through Hoista without ever holding its key. See [Give your agent a server](/guides/servers).
+
 ## Connect
 
 Hetzner connects with an API token, and each token belongs to one project:
@@ -25,6 +27,20 @@ Hoista asks for the token in a hidden prompt. In scripts, use `hoist accounts ad
 
 Hetzner's API doesn't say which project a token belongs to, so connect each project as its own account, and give each one the project's name. When you rotate a token, use one from the same project.
 
+## Make a server
+
+In Desktop, open a project and choose **Add server**: pick the account, a location and a server type, and name it. An agent can do the same with `add_to_project` and kind `server`.
+
+Every server Hoista makes starts the same way:
+
+- Ubuntu 24.04, with Docker and Docker Compose from Ubuntu's own packages, and automatic security updates.
+- A Hetzner firewall that lets in only SSH (22), HTTP (80), HTTPS (443) and ping.
+- One user, `hoista`, who can use `sudo`. Root can't sign in over SSH, and nobody can sign in with a password.
+- Its own SSH key, made by Hoista and kept in your keychain with your tokens. Hetzner gets only the public half.
+- A host key Hoista made, so Hoista knows it's talking to this server from the first connection. Hetzner keeps a server's setup script where anyone with a Read token can fetch it, so on that first connection Hoista has the server make a new host key and keeps that one instead.
+
+The server takes a few minutes to set itself up after it starts. Deleting it in Hoista also removes the SSH key and firewall Hoista made for it at Hetzner.
+
 ## What you can do
 
 - See CPU, disk and network for each server on **Metrics**.
@@ -32,7 +48,9 @@ Hetzner's API doesn't say which project a token belongs to, so connect each proj
 - Use the **Hetzner** tab for Hetzner's own operations, such as rebooting, taking a snapshot, turning on backups or resizing a volume.
 - Delete a server or a volume after you confirm it by name. Deleting a server leaves its volumes, which you delete on their own. A volume that's attached is detached first.
 
-Hoista doesn't offer Hetzner's rescue system, console, root password reset, rebuild or SSH key operations, since each would let someone into a server without going through Hoista.
+Hoista doesn't offer Hetzner's rescue system, console, root password reset, rebuild or SSH key operations, since each would let someone into a server without going through Hoista. Uploading a TLS certificate is left out too, because it sends the certificate's private key.
+
+Agents can sign in only to servers Hoista made, and only from Hoista on your computer, not from a remote Hoista.
 
 ## Bring in existing resources
 
@@ -50,5 +68,5 @@ Projects start in **watching** mode. Run `hoist projects manage my-servers` when
 <CardGroup cols={3}>
 <Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
 <Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
-<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+<Card title="Give your agent a server" icon="terminal" href="/guides/servers">What agents can do on a server, and when they ask you.</Card>
 </CardGroup>

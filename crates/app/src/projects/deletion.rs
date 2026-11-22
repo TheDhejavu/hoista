@@ -392,6 +392,17 @@ impl<'a> ProjectService<'a> {
         if access_only || approval.decision != ApprovalDecision::Pending {
             return Ok(false);
         }
+        // On a server, Full access is the person's choice per server, and
+        // the always-ask list waits for them anyway.
+        if approval.action == GatedAction::ServerCommand
+            && !self
+                .engine
+                .servers()
+                .allowed_without_asking(&approval.target)
+                .await?
+        {
+            return Ok(false);
+        }
         let confirmation = approval
             .deletion
             .as_ref()

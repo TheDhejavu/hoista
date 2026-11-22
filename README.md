@@ -91,6 +91,7 @@ Details: [Security overview](https://docs.hoista.dev/security/overview), [Threat
 - [Environments](https://docs.hoista.dev/guides/environments) such as production and staging, each with its own projects and agent rules.
 - [Billing](https://docs.hoista.dev/guides/billing): what each provider has billed this period, and plan limits. Hoista never estimates cost.
 - [Agents](https://docs.hoista.dev/agents/connect) over MCP, with [per-agent access](https://docs.hoista.dev/agents/permissions) and a record of every call.
+- [Servers](https://docs.hoista.dev/guides/servers): make a Hetzner server and let agents set it up and run it through Hoista, without ever holding its key.
 - [Remotes](https://docs.hoista.dev/guides/remote): run Hoista on Railway, Fly.io or Docker and move your projects there in one step.
 - [Backups](https://docs.hoista.dev/guides/backups) of Hoista's own state, an encrypted export for moving to another computer, and [webhooks](https://docs.hoista.dev/guides/webhooks).
 

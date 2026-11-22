@@ -43,6 +43,7 @@
               "guides/environments",
               "guides/billing",
               "guides/resources",
+              "guides/servers",
               "examples/failed-deployment"
             ]
           },

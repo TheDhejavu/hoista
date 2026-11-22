@@ -1314,6 +1314,10 @@
           "description": "Can run Hoista itself as a remote, from the published image.",
           "type": "boolean"
         },
+        "server_access": {
+          "description": "Signs in to servers Hoista made, so agents can work on them through\nHoista without holding their key.",
+          "type": "boolean"
+        },
         "upload": {
           "description": "Uploads a folder for the provider to build and deploy.",
           "type": "boolean"
@@ -1347,6 +1351,7 @@
         "new_email_domain",
         "new_from_image",
         "new_server",
+        "server_access",
         "bills",
         "browser_sign_in",
         "delete",
@@ -3496,6 +3501,11 @@
           "description": "A destructive operation at a provider (delete, restore over, reset), from\nthe provider's operation list.",
           "type": "string",
           "const": "provider_change"
+        },
+        {
+          "description": "A command, a file written or a deploy key made on a server Hoista made.",
+          "type": "string",
+          "const": "server_command"
         }
       ]
     },

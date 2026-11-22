@@ -262,6 +262,7 @@ fn new_name(what: &ProviderNew<'_>) -> String {
         ProviderNew::Database { name, engine, .. } => format!("{engine} database {name}"),
         ProviderNew::Bucket { name } => format!("bucket {name}"),
         ProviderNew::EmailDomain { domain } => format!("sending domain {domain}"),
+        ProviderNew::Server { name, .. } => format!("server {name}"),
     }
 }
 
@@ -275,7 +276,8 @@ fn looked_up_by<'a>(names_databases: bool, what: &ProviderNew<'a>) -> Option<&'a
         | ProviderNew::Folder { name, .. }
         | ProviderNew::Image { name, .. }
         | ProviderNew::Database { name, .. }
-        | ProviderNew::Bucket { name } => Some(name),
+        | ProviderNew::Bucket { name }
+        | ProviderNew::Server { name, .. } => Some(name),
         ProviderNew::EmailDomain { domain } => Some(domain),
     }
 }
@@ -322,6 +324,18 @@ fn new_inputs(what: &ProviderNew<'_>) -> String {
                 .unwrap_or_default(),
             port.map(|port| port.to_string()).unwrap_or_default(),
             args.unwrap_or_default()
+        ),
+        // The keys aren't part of it: a retry makes the server with the
+        // same keys, which Hoista keeps until the server is made.
+        ProviderNew::Server {
+            name,
+            server_type,
+            location,
+            setup: _,
+        } => format!(
+            "server|{name}|{}|{}",
+            server_type.unwrap_or_default(),
+            location.unwrap_or_default()
         ),
     }
 }

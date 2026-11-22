@@ -42,6 +42,8 @@ pub mod source;
 pub mod agent_setup;
 pub mod diagnostic_report;
 pub mod owner_check;
+/// Reaching servers Hoista made, over SSH.
+pub mod ssh;
 pub mod webhooks;
 
 mod jsonc;

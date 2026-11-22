@@ -326,7 +326,7 @@ pub enum ProviderCreate<'a> {
 /// Something new to make at a provider and add to a Hoista project. Which kinds a
 /// provider takes follows its capabilities: `new_project` for a repository,
 /// `new_from_folder` for a folder, `new_database`, `new_bucket`,
-/// `new_email_domain` and `new_from_image`.
+/// `new_email_domain`, `new_from_image` and `new_server`.
 #[derive(Debug, Clone, Copy)]
 pub enum ProviderNew<'a> {
     /// Code the provider builds from a GitHub repository (`owner/name`).
@@ -390,6 +390,20 @@ pub enum ProviderNew<'a> {
         /// The command line after the image's entrypoint, when it needs one.
         args: Option<&'a str>,
     },
+    /// A Linux server, set up so Hoista can reach it and nobody else can sign in.
+    Server {
+        /// Its name at the provider.
+        name: &'a str,
+        /// The server type, in the provider's own words (Hetzner's `cx23`);
+        /// the smallest the provider offers when `None`.
+        server_type: Option<&'a str>,
+        /// Where to make it, in the provider's own words (Hetzner's `fsn1`);
+        /// the provider picks when `None`.
+        location: Option<&'a str>,
+        /// The keys it's made with. Hoista makes them when it adds the server;
+        /// callers leave this `None`.
+        setup: Option<&'a crate::servers::ServerSetup>,
+    },
 }
 
 /// A CPU-only machine for an image, in the provider's own words.
@@ -425,6 +439,7 @@ impl ProviderNew<'_> {
             Self::Bucket { .. } => "new_bucket",
             Self::EmailDomain { .. } => "new_email_domain",
             Self::Image { .. } => "new_from_image",
+            Self::Server { .. } => "new_server",
         }
     }
 
@@ -438,6 +453,7 @@ impl ProviderNew<'_> {
             Self::Bucket { .. } => can.new_bucket,
             Self::EmailDomain { .. } => can.new_email_domain,
             Self::Image { .. } => can.new_from_image,
+            Self::Server { .. } => can.new_server,
         }
     }
 

@@ -40,8 +40,13 @@ Day-to-day questions and changes. Most are one or two calls; the work is picking
 | Delete a watched resource at its provider | `remove_service`, one resource at a time; the project leaves Hoista when its last resource does |
 | Delete a project Hoista made | `delete_project` |
 | Anything else the provider can do (environments, backups, CDN, cron runs, SQL) | `list_provider_operations`, `describe_provider_operation`, `run_provider_operation` |
+| Get a Linux server (Hetzner) | `add_to_project` with kind `server`; it sets itself up over a few minutes, then `server_status` says so |
+| Look at a server, its logs or a file | `server_status`, `server_logs`, `server_read_file` |
+| Set something up on a server | `server_run`, `server_write_file` (mode 600 for secrets); a CI deploy with `server_deploy_key` |
 
 Anything that redeploys (variables, settings, rollback) isn't finished until `wait_for_deploy` says so. Say it worked only after that.
+
+On a server, you set things up however suits the app: Docker Compose, a systemd unit, a reverse proxy, a GitHub Actions workflow that deploys with a key from `server_deploy_key`. Hoista only signs in for you; it never deploys there itself. Run one step per `server_run` and check what it printed before the next.
 
 ## How to answer
 

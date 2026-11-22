@@ -217,6 +217,86 @@ struct RunProviderOpArgs {
     env_arg: Option<String>,
 }
 
+/// A server Hoista made, from get_project.
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct ServerArgs {
+    /// The server's resource id, from get_project.
+    resource_id: String,
+}
+
+/// `server_logs` input.
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct ServerLogsArgs {
+    /// The server's resource id, from get_project.
+    resource_id: String,
+    /// A systemd unit, such as caddy or docker. Not with container.
+    unit: Option<String>,
+    /// A Docker container, by name or id. Not with unit.
+    container: Option<String>,
+    /// How many of the newest lines: 200 by default, at most 2000.
+    lines: Option<u32>,
+    /// Only lines after this: a time such as 2026-11-22 10:00:00, or a span such as 30m or 2h.
+    since: Option<String>,
+}
+
+/// `server_read_file` input.
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct ServerReadArgs {
+    /// The server's resource id, from get_project.
+    resource_id: String,
+    /// The file's full path, such as /srv/app/compose.yaml.
+    path: String,
+}
+
+/// `server_run` input.
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct ServerRunArgs {
+    /// The server's resource id, from get_project.
+    resource_id: String,
+    /// One command line for bash, run as hoista, who can use sudo.
+    command: String,
+    /// Seconds it may take before it's stopped: 120 by default, at most 900.
+    timeout_seconds: Option<u64>,
+    /// From the earlier call that asked the person.
+    approval_id: Option<String>,
+}
+
+/// `server_write_file` input.
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct ServerWriteArgs {
+    /// The server's resource id, from get_project.
+    resource_id: String,
+    /// The file's full path; its folder is made if needed.
+    path: String,
+    /// What goes in the file, as text. At most 1 MB.
+    content: String,
+    /// Its mode in octal, such as 644 (the default) or 600 for anything secret.
+    mode: Option<String>,
+    /// Who owns it: user or user:group, such as hoista. root by default.
+    owner: Option<String>,
+    /// From the earlier call that asked the person.
+    approval_id: Option<String>,
+}
+
+/// `server_deploy_key` input.
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct ServerDeployKeyArgs {
+    /// The server's resource id, from get_project.
+    resource_id: String,
+    /// A name for the key: lowercase letters, digits and hyphens, such as github-actions.
+    name: String,
+    /// The one command the key may run, such as /srv/app/deploy.sh. No double quotes.
+    command: String,
+    /// From the earlier call that asked the person.
+    approval_id: Option<String>,
+}
+
 /// `get_metrics` input: one resource and a time range.
 #[derive(Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
@@ -402,6 +482,8 @@ enum AddKind {
     EmailDomain,
     /// A container image to run: give `image`.
     Image,
+    /// A Linux server Hoista sets up and can sign in to (new_server): give `name`.
+    Server,
 }
 
 /// `add_to_project` input.
@@ -437,12 +519,16 @@ struct AddToProjectArgs {
     folder: Option<String>,
     /// database: postgres, mysql, redis or mongo, as the provider offers them.
     engine: Option<String>,
-    /// database: region in the provider's own words; the provider's default when left out.
+    /// database or server: region or location in the provider's own words
+    /// (Hetzner: fsn1, nbg1, hel1, ash, hil, sin); the provider's default when left out.
     region: Option<String>,
     /// email_domain: the domain to send from, such as mail.example.com.
     domain: Option<String>,
     /// image: the container image, such as vllm/vllm-openai:latest.
     image: Option<String>,
+    /// server: the server type in the provider's own words, such as Hetzner's
+    /// cx23; the smallest current one when left out.
+    server_type: Option<String>,
     /// image: a GPU type in the provider's own words, on a provider that runs GPUs.
     gpu: Option<String>,
     /// image: a CPU-only machine instead of a GPU, the CPU type in the provider's own words (Runpod: an id from its CPU catalog, such as cpu3c). Not with gpu.
@@ -1276,7 +1362,37 @@ fn engine_tools() -> Vec<Value> {
         ),
         definition::<AddToProjectArgs>(
             "add_to_project",
-            "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
+            "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image), server (an Ubuntu 24.04 server, optional server_type and region; new_server: Hoista makes the keys, signs in as hoista, root and passwords can't sign in, and only ports 22, 80 and 443 are open; it sets itself up over a few minutes). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
+            false,
+        ),
+        definition::<ServerArgs>(
+            "server_status",
+            "How a server Hoista made is: whether its setup has finished, load, memory, disk, failed services, running containers, waiting updates and whether it needs a reboot. Hoista signs in with the key it keeps; you never get the key.",
+            true,
+        ),
+        definition::<ServerLogsArgs>(
+            "server_logs",
+            "The newest lines from a server's journal: one systemd unit (unit), one Docker container (container), or the whole journal. Secrets are taken out of what comes back.",
+            true,
+        ),
+        definition::<ServerReadArgs>(
+            "server_read_file",
+            "Read one file on a server, up to 1 MB. Password hashes, private keys and other processes' environments are never read. Secrets are taken out of what comes back.",
+            true,
+        ),
+        definition::<ServerRunArgs>(
+            "server_run",
+            "Run one command on a server Hoista made, as the user hoista (who can use sudo), and get its output and exit code. Asks the person first: each command with Ask for approval; with Full access, unless the person let agents work on this server without asking. Commands that can lock people out or can't be undone (deleting system folders, formatting disks, firewall, SSH, users and keys, reboots) always ask. If it answers pending, retry with approval_id once the person allows it. Set up apps however suits them, such as Docker Compose, a systemd unit or a CI deploy with server_deploy_key.",
+            false,
+        ),
+        definition::<ServerWriteArgs>(
+            "server_write_file",
+            "Write a file on a server Hoista made, with its mode and owner, making its folder if needed. Use mode 600 for anything secret. Asks the person first, like server_run; files that change who can sign in (SSH, sudoers, users) always ask.",
+            false,
+        ),
+        definition::<ServerDeployKeyArgs>(
+            "server_deploy_key",
+            "Make an SSH key for a CI job (a GitHub Actions secret, say) that signs in as hoista and can only run the one command given, so a leaked secret can't open a shell. Always asks the person. Returns the private key once: put it straight into the CI secret, and never show or save it anywhere else.",
             false,
         ),
         definition::<BucketCreateArgs>(
@@ -2058,6 +2174,9 @@ fn deploy_status(found: &Value) -> String {
 }
 
 /// Tools that only read.
+/// The longest approval question for something on a server.
+const MAX_SERVER_REASON_BYTES: usize = 500;
+
 const READ_TOOLS: &[&str] = &[
     "use_project",
     "list_environments",
@@ -2087,6 +2206,9 @@ const READ_TOOLS: &[&str] = &[
     "resolve_resources",
     "list_import_candidates",
     "get_my_access",
+    "server_status",
+    "server_logs",
+    "server_read_file",
 ];
 
 async fn call(
@@ -2177,6 +2299,181 @@ async fn call(
                 "moved": moved.iter().map(|resource| json!({"id": resource.id, "name": resource.name})).collect::<Vec<_>>(),
                 "removed_projects": removed,
             }))
+        }
+        "server_status" => {
+            let a: ServerArgs = parse(args)?;
+            let done = engine.servers().status(actor, &a.resource_id).await?;
+            Ok(json!(done))
+        }
+        "server_logs" => {
+            let a: ServerLogsArgs = parse(args)?;
+            let done = engine
+                .servers()
+                .logs(
+                    actor,
+                    &a.resource_id,
+                    crate::application::servers::LogsAsk {
+                        unit: a.unit.as_deref(),
+                        container: a.container.as_deref(),
+                        lines: a.lines,
+                        since: a.since.as_deref(),
+                    },
+                )
+                .await?;
+            Ok(json!(done))
+        }
+        "server_read_file" => {
+            let a: ServerReadArgs = parse(args)?;
+            let done = engine
+                .servers()
+                .read_file(actor, &a.resource_id, &a.path)
+                .await?;
+            Ok(json!({"path": a.path, "content": done.output, "truncated": done.truncated}))
+        }
+        "server_run" | "server_write_file" | "server_deploy_key" => {
+            use crate::application::servers::{FileWrite, ServerService};
+            let (resource_id, approval_id, target, sentence) = match name {
+                "server_run" => {
+                    let a: ServerRunArgs = parse(args.clone())?;
+                    let target = ServerService::run_target(&a.resource_id, &a.command);
+                    (
+                        a.resource_id,
+                        a.approval_id,
+                        target,
+                        format!("Run: {}", a.command),
+                    )
+                }
+                "server_write_file" => {
+                    let a: ServerWriteArgs = parse(args.clone())?;
+                    let target = ServerService::write_target(
+                        &a.resource_id,
+                        &FileWrite {
+                            path: &a.path,
+                            content: a.content.as_bytes(),
+                            mode: a.mode.as_deref(),
+                            owner: a.owner.as_deref(),
+                        },
+                    );
+                    let sentence = format!(
+                        "Write {} ({} bytes, mode {}, owner {})",
+                        a.path,
+                        a.content.len(),
+                        a.mode.as_deref().unwrap_or("644"),
+                        a.owner.as_deref().unwrap_or("root")
+                    );
+                    (a.resource_id, a.approval_id, target, sentence)
+                }
+                _ => {
+                    let a: ServerDeployKeyArgs = parse(args.clone())?;
+                    let target =
+                        ServerService::deploy_key_target(&a.resource_id, &a.name, &a.command);
+                    let sentence = format!(
+                        "Make deploy key {} that can only run: {}",
+                        a.name, a.command
+                    );
+                    (a.resource_id, a.approval_id, target, sentence)
+                }
+            };
+            let about = engine
+                .repository
+                .resource(&resource_id)
+                .await?
+                .map(|resource| format!("On {}: ", resource.name))
+                .unwrap_or_default();
+            let mut reason = format!("{about}{sentence}");
+            if reason.len() > MAX_SERVER_REASON_BYTES {
+                let mut end = MAX_SERVER_REASON_BYTES - 3;
+                while !reason.is_char_boundary(end) {
+                    end -= 1;
+                }
+                reason.truncate(end);
+                reason.push('…');
+            }
+            if matches!(actor, Actor::Agent { .. }) {
+                match approval_id.as_deref() {
+                    None => {
+                        let approval = engine
+                            .request_approval(actor, GatedAction::ServerCommand, target, reason)
+                            .await?;
+                        return Ok(json!({
+                            "status": "pending",
+                            "approval_id": approval.id,
+                            "expires_at": approval.expires_at,
+                        }));
+                    }
+                    Some(id) => {
+                        if let Some(reply) = approval_state(
+                            engine,
+                            actor,
+                            id,
+                            GatedAction::ServerCommand,
+                            &target,
+                            reason,
+                        )
+                        .await?
+                        {
+                            return Ok(reply);
+                        }
+                    }
+                }
+            }
+            match name {
+                "server_run" => {
+                    let a: ServerRunArgs = parse(args)?;
+                    let done = engine
+                        .servers()
+                        .run(
+                            actor,
+                            &a.resource_id,
+                            &a.command,
+                            a.timeout_seconds,
+                            a.approval_id.as_deref(),
+                        )
+                        .await?;
+                    Ok(json!(done))
+                }
+                "server_write_file" => {
+                    let a: ServerWriteArgs = parse(args)?;
+                    let done = engine
+                        .servers()
+                        .write_file(
+                            actor,
+                            &a.resource_id,
+                            FileWrite {
+                                path: &a.path,
+                                content: a.content.as_bytes(),
+                                mode: a.mode.as_deref(),
+                                owner: a.owner.as_deref(),
+                            },
+                            a.approval_id.as_deref(),
+                        )
+                        .await?;
+                    Ok(json!({
+                        "path": a.path,
+                        "written": done.exit_code == Some(0),
+                        "errors": done.errors,
+                    }))
+                }
+                _ => {
+                    let a: ServerDeployKeyArgs = parse(args)?;
+                    let key = engine
+                        .servers()
+                        .deploy_key(
+                            actor,
+                            &a.resource_id,
+                            &a.name,
+                            &a.command,
+                            a.approval_id.as_deref(),
+                        )
+                        .await?;
+                    Ok(json!({
+                        "user": key.user,
+                        "public_key": key.public_key,
+                        "private_key": key.private_key.expose(),
+                        "message": "This private key is shown once and Hoista doesn't keep it. Put it in the CI secret now; never print or save it anywhere else.",
+                    }))
+                }
+            }
         }
         "run_provider_operation" => {
             let a: RunProviderOpArgs = parse(args)?;
@@ -3149,6 +3446,12 @@ async fn call(
                     }),
                     port: a.port,
                     args: a.args.as_deref(),
+                },
+                AddKind::Server => ProviderNew::Server {
+                    name: need_name()?,
+                    server_type: a.server_type.as_deref(),
+                    location: a.region.as_deref(),
+                    setup: None,
                 },
             };
             let account_id = match a.account_id {

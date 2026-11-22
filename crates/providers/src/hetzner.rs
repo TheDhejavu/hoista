@@ -2,7 +2,7 @@
 //! Hetzner Cloud API.
 //!
 //! A token belongs to one project, and the API never names it, so Hoista
-//! names the account itself (see [`account_id`]) and the person names it.
+//! names the account itself (after a hash of the token) and the person names it.
 
 use super::http::ProviderHttp;
 use crate::{
@@ -16,6 +16,8 @@ use crate::{
 use reqwest::Method;
 use serde_json::Value;
 use std::time::Duration;
+
+mod setup;
 
 /// Hetzner Cloud's API adapter, for the project its token belongs to.
 pub struct Hetzner {
@@ -49,6 +51,8 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         metrics: true,
         pause: true,
         delete: true,
+        new_server: true,
+        server_access: true,
         ..Capabilities::NONE
     },
     cli: None,
@@ -225,7 +229,8 @@ fn resource(kind: Kind, item: &Value) -> Result<RemoteResource, EngineError> {
             Kind::Volume => volume_status(status),
         },
         url: None,
-        group: None,
+        // Servers Hoista made carry their project; Hetzner's own grouping.
+        group: text(&item["labels"], setup::PROJECT_LABEL),
     })
 }
 
@@ -662,8 +667,25 @@ impl ProviderAdapter for Hetzner {
         Ok(ResourceStatus::Deploying)
     }
 
-    /// Deletes a server, whose volumes stay (each is deleted on its own), or
-    /// a volume, detached from its server first.
+    /// Makes a server, set up so Hoista can reach it and nobody else can
+    /// sign in.
+    async fn provider_add(
+        &self,
+        token: &Secret,
+        _account: &str,
+        project: &str,
+        _beside: Option<&str>,
+        what: &crate::application::ports::providers::ProviderNew<'_>,
+    ) -> Result<(Vec<String>, String), EngineError> {
+        let Some(new) = setup::NewServer::from(what, project)? else {
+            return Err(crate::application::ports::providers::unsupported());
+        };
+        self.make_server(token, &new).await
+    }
+
+    /// Deletes a server, whose volumes stay (each is deleted on its own),
+    /// with the sign-in key and firewall Hoista made for it; or a volume,
+    /// detached from its server first.
     async fn delete(
         &self,
         token: &Secret,
@@ -671,7 +693,22 @@ impl ProviderAdapter for Hetzner {
         reference: &str,
     ) -> Result<(), EngineError> {
         let (kind, id) = split(reference)?;
-        if kind == Kind::Volume && self.one(token, kind, id).await?["server"].is_u64() {
+        if kind == Kind::Server {
+            let server = self.one(token, kind, id).await?;
+            let answer = self
+                .call(token, Method::DELETE, &["servers", id], &[], None)
+                .await?;
+            self.finished(token, &answer).await?;
+            // The server is gone either way; a key or firewall left behind
+            // costs nothing and can be removed in the Console.
+            if self.remove_made_with(token, &server).await.is_err() {
+                tracing::warn!(
+                    "couldn't remove the SSH key and firewall made for a deleted Hetzner server"
+                );
+            }
+            return Ok(());
+        }
+        if self.one(token, kind, id).await?["server"].is_u64() {
             let answer = self
                 .call(
                     token,

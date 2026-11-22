@@ -16,6 +16,7 @@ pub mod oauth;
 pub mod provenance;
 pub mod provider;
 pub mod schedules;
+pub mod servers;
 
 pub use provider::{Provider, UnknownProvider};
 

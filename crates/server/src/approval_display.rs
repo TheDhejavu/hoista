@@ -330,6 +330,44 @@ async fn display(engine: &Engine, approval: Approval) -> Result<ApprovalDisplay,
             view.if_allowed = "The agent can do exactly this, once.".into();
             view.if_declined = "Nothing changes.".into();
         }
+        GatedAction::ServerCommand => {
+            // The target is `{resource}:{what}:{digest}`; the reason says
+            // exactly what runs or what's written.
+            let mut pieces = approval.target.splitn(3, ':');
+            let on = pieces.next().unwrap_or_default();
+            let what = pieces.next().unwrap_or_default();
+            match engine.repository.resource(on).await? {
+                Some(resource) => {
+                    view.title = match what {
+                        "write" | "write_always_ask" => {
+                            format!("{agent_name} wants to write a file on {}", resource.name)
+                        }
+                        "deploy_key" => {
+                            format!("{agent_name} wants a deploy key for {}", resource.name)
+                        }
+                        _ => format!("{agent_name} wants to run a command on {}", resource.name),
+                    };
+                    view.targets.push(ApprovalDisplayTarget {
+                        label: "Server".into(),
+                        name: resource.name.clone(),
+                        provider: resource.provider,
+                    });
+                }
+                None => {
+                    view.allow_blocked =
+                        Some("That server is gone from Hoista. Nothing to allow.".into());
+                }
+            }
+            if what.ends_with("_always_ask") {
+                view.details.push(ApprovalDisplayDetail {
+                    label: "Why it asks".into(),
+                    value: "It can lock people out or can't be undone, so Hoista always asks, even with Full access.".into(),
+                });
+            }
+            view.agent_detail = String::new();
+            view.if_allowed = "The agent can do exactly this on the server, once.".into();
+            view.if_declined = "Nothing runs on the server.".into();
+        }
         _ => {
             view.allow_blocked =
                 Some("This action's detailed Desktop review is not available yet. Review it through the CLI.".into());

@@ -122,6 +122,8 @@ pub struct Engine {
     pub(crate) resource_reads: Semaphore,
     pub(crate) builder: Arc<dyn BuildService>,
     pub(crate) database_exporter: Option<Arc<dyn DatabaseExporter>>,
+    /// Signs in to servers Hoista made; unset on a remote Hoista.
+    pub(crate) remote_servers: Option<Arc<dyn crate::ports::servers::RemoteServer>>,
     /// Where backups are kept; unset where Hoista keeps none.
     pub(crate) backup_folder: Option<Arc<dyn BackupFolder>>,
     pub(crate) transfer_seal: Option<Arc<dyn TransferSeal>>,
@@ -176,6 +178,7 @@ impl Engine {
             inspector,
             builder,
             database_exporter: None,
+            remote_servers: None,
             backup_folder: None,
             transfer_seal: None,
             sign_in_page: None,
@@ -239,6 +242,16 @@ impl Engine {
         self.transfer_seal
             .clone()
             .ok_or_else(|| EngineError::Unsupported("Transfers aren't available here.".into()))
+    }
+
+    /// Signs in to servers Hoista made with `servers`.
+    #[must_use]
+    pub fn with_remote_servers(
+        mut self,
+        servers: Arc<dyn crate::ports::servers::RemoteServer>,
+    ) -> Self {
+        self.remote_servers = Some(servers);
+        self
     }
 
     /// Exports databases with `exporter`.
@@ -857,6 +870,18 @@ impl Engine {
             ));
         }
         Ok(resource_ids)
+    }
+
+    /// Forgets a resource that's gone at its provider, with the keys Hoista
+    /// kept to reach it when it's a server.
+    pub(crate) async fn forget_resource(&self, resource: &Resource) -> Result<(), EngineError> {
+        self.repository.remove_resource(&resource.id).await?;
+        if resource.kind == ResourceKind::Server {
+            self.vault
+                .delete(&crate::servers::vault_reference(&resource.id))
+                .await?;
+        }
+        Ok(())
     }
 
     /// The provider starts the first deploy as it makes the resource.

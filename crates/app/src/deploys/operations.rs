@@ -27,7 +27,7 @@ impl Engine {
         self.adapter(resource.provider)?
             .delete(&token, &account.external_id, &resource.provider_ref)
             .await?;
-        self.repository.remove_resource(&resource.id).await
+        self.forget_resource(resource).await
     }
 
     pub(crate) async fn execute_rollback(&self, deploy: &mut Deploy) -> Result<(), EngineError> {

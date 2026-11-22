@@ -572,6 +572,23 @@ async fn check_adapter(
                 }
             )
         );
+        let setup = crate::application::servers::ServerSetup::generate("web").unwrap();
+        claim!(
+            "new_server",
+            can.new_server,
+            adapter.provider_add(
+                &token,
+                account,
+                "project",
+                None,
+                &ProviderNew::Server {
+                    name: "web",
+                    server_type: None,
+                    location: None,
+                    setup: Some(&setup),
+                }
+            )
+        );
     }
     claim!("bills", can.bills, adapter.provider_bill(&token, account));
     claim!(

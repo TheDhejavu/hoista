@@ -42,6 +42,7 @@ uuid = { version = "1", features = ["v4"] }
 zeroize = "1"
 tempfile = "3"
 tower = { version = "0.5", features = ["util"] }
+russh = { version = "0.65", default-features = false, features = ["ring"] }
 
 interprocess = { version = "2.4", features = ["tokio"] }
 widestring = "1"

@@ -242,7 +242,7 @@ export type DeployStatus = "queued" | "running" | "live" | "failed" | "rolled_ba
 export type StepStatus = "pending" | "running" | "succeeded" | "failed" | "skipped";
 export type AccountStatus = "connected" | "expired" | "missing_scopes" | "disconnected";
 export type ApprovalDecision = "pending" | "allowed" | "declined" | "expired" | "consumed";
-export type GatedAction = "connect_agent" | "delete_project" | "delete_resource" | "delete_domain" | "connect_account" | "provider_change";
+export type GatedAction = "connect_agent" | "delete_project" | "delete_resource" | "delete_domain" | "connect_account" | "provider_change" | "server_command";
 export type AgentTransport = "stdio" | "link";
 export type Money = { 
 /**
@@ -3114,6 +3114,11 @@ new_from_image: boolean,
  * through Hoista.
  */
 new_server: boolean, 
+/**
+ * Signs in to servers Hoista made, so agents can work on them through
+ * Hoista without holding their key.
+ */
+server_access: boolean, 
 /**
  * Reports what the provider has billed so far this period.
  */

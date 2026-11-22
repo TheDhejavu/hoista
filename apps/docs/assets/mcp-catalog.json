@@ -346,7 +346,37 @@
   },
   {
     "name": "add_to_project",
-    "description": "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
+    "description": "Make something new at a provider and add it to an existing project, so one project can have pieces on every provider. kind: repo (a provider builds a GitHub repo; capability new_project; runs_as web, static, worker or cron where the provider offers them), folder (the provider's own tool deploys a folder on this computer; new_from_folder), database (engine postgres, mysql, redis or mongo; new_database), bucket (new_bucket), email_domain (a domain to send email from; new_email_domain; returns the DNS records to add), image (a container image; on a provider with both, gpu for a GPU machine or cpu and vcpus for a CPU-only one; new_from_image), server (an Ubuntu 24.04 server, optional server_type and region; new_server: Hoista makes the keys, signs in as hoista, root and passwords can't sign in, and only ports 22, 80 and 443 are open; it sets itself up over a few minutes). get_my_access shows each connected account and what it can make. Where the project already has a resource on that account, the new one is made next to it. For a project that already exists (get_my_access shows the folder's active_project), add to it; create_project only for a new one. Call this once per piece. For code, follow with get_provider_details and wait_for_deploy. Connect pieces with set_secret.",
+    "read_only_hint": false
+  },
+  {
+    "name": "server_status",
+    "description": "How a server Hoista made is: whether its setup has finished, load, memory, disk, failed services, running containers, waiting updates and whether it needs a reboot. Hoista signs in with the key it keeps; you never get the key.",
+    "read_only_hint": true
+  },
+  {
+    "name": "server_logs",
+    "description": "The newest lines from a server's journal: one systemd unit (unit), one Docker container (container), or the whole journal. Secrets are taken out of what comes back.",
+    "read_only_hint": true
+  },
+  {
+    "name": "server_read_file",
+    "description": "Read one file on a server, up to 1 MB. Password hashes, private keys and other processes' environments are never read. Secrets are taken out of what comes back.",
+    "read_only_hint": true
+  },
+  {
+    "name": "server_run",
+    "description": "Run one command on a server Hoista made, as the user hoista (who can use sudo), and get its output and exit code. Asks the person first: each command with Ask for approval; with Full access, unless the person let agents work on this server without asking. Commands that can lock people out or can't be undone (deleting system folders, formatting disks, firewall, SSH, users and keys, reboots) always ask. If it answers pending, retry with approval_id once the person allows it. Set up apps however suits them, such as Docker Compose, a systemd unit or a CI deploy with server_deploy_key.",
+    "read_only_hint": false
+  },
+  {
+    "name": "server_write_file",
+    "description": "Write a file on a server Hoista made, with its mode and owner, making its folder if needed. Use mode 600 for anything secret. Asks the person first, like server_run; files that change who can sign in (SSH, sudoers, users) always ask.",
+    "read_only_hint": false
+  },
+  {
+    "name": "server_deploy_key",
+    "description": "Make an SSH key for a CI job (a GitHub Actions secret, say) that signs in as hoista and can only run the one command given, so a leaked secret can't open a shell. Always asks the person. Returns the private key once: put it straight into the CI secret, and never show or save it anywhere else.",
     "read_only_hint": false
   },
   {

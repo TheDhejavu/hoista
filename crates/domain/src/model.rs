@@ -197,6 +197,8 @@ pub enum GatedAction {
     /// A destructive operation at a provider (delete, restore over, reset), from
     /// the provider's operation list.
     ProviderChange,
+    /// A command, a file written or a deploy key made on a server Hoista made.
+    ServerCommand,
 }
 
 /// How an agent reaches the engine.
@@ -904,6 +906,9 @@ pub struct Capabilities {
     /// Creates a Linux server, set up and locked down, that agents reach
     /// through Hoista.
     pub new_server: bool,
+    /// Signs in to servers Hoista made, so agents can work on them through
+    /// Hoista without holding their key.
+    pub server_access: bool,
     /// Reports what the provider has billed so far this period.
     pub bills: bool,
     /// Connects by signing in on the provider's own page, instead of a pasted token.
@@ -950,6 +955,7 @@ impl Capabilities {
         new_email_domain: false,
         new_from_image: false,
         new_server: false,
+        server_access: false,
         bills: false,
         browser_sign_in: false,
         delete: false,
