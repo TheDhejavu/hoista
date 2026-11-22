@@ -47,9 +47,9 @@ This list catches mistakes; it isn't a sandbox. If you don't want an agent to ha
 
 ## Examples
 
-**Docker Compose.** Ask the agent to run your app with Compose behind Caddy. It typically writes `/srv/app/compose.yaml` and a `Caddyfile` with `server_write_file`, then runs `docker compose up -d` in `/srv/app` with `server_run`, and checks `server_logs` for the containers. Secrets go in a `.env` file written with mode `600`.
+**Docker Compose.** Ask the agent to run your app with Compose behind Caddy. It typically writes `/srv/app/compose.yaml` and a `Caddyfile` with `server_write_file`, then runs `docker compose up -d` in `/srv/app` with `server_run`, and checks the containers with `server_logs`. Secrets go in a `.env` file beside them, written with mode `600` and owner `hoista`: Compose runs as `hoista` and reads that file itself, so a file only root can read would stop it.
 
-**Deploy on every push.** Ask the agent to set up GitHub Actions. It writes a deploy script on the server (say `/srv/app/deploy.sh`, which pulls and restarts), makes a key with `server_deploy_key` that can run only that script, and adds the key to the repository's Actions secrets. A leaked CI secret can then run your deploy script and nothing else.
+**Deploy on every push.** Ask the agent to set up GitHub Actions. It writes a deploy script on the server, such as `/srv/app/deploy.sh`, that gets the new version and restarts the app: `docker compose pull && docker compose up -d` for images pushed to a registry, or a `git pull` and rebuild. A private repository or registry needs its own read access on the server, such as a GitHub deploy key. The agent then makes a key with `server_deploy_key` that can run only that script. That key, the server's address and its host key (from `/etc/ssh/ssh_host_ed25519_key.pub`, which `server_read_file` can read) go into the repository's Actions secrets. Hoista doesn't set GitHub secrets; the agent does it with `gh secret set` on your computer, or you paste them in the repository's settings. The workflow's deploy step is then `ssh hoista@<address>`. A leaked CI secret can run your deploy script and nothing else.
 
 ## Limits
 
