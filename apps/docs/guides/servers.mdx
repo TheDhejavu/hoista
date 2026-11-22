@@ -3,56 +3,164 @@ title: "Servers"
 description: "Make a Linux server and let your coding agents set it up and run apps on it through Hoista, without holding its key."
 ---
 
-A server of your own (a Hetzner Cloud server, for now) costs a few euros a month and runs whatever you put on it. An agent can set it up for you: install what your app needs, write a Docker Compose file, put a reverse proxy in front, or add a GitHub Actions workflow that deploys on every push.
+A server of your own (a Hetzner Cloud server, for now) costs a few euros a month and runs whatever you put on it. Your coding agent can set it up for you: install what your app needs, write a Docker Compose file, put a reverse proxy in front, or add a GitHub Actions workflow that deploys on every push.
 
-Hoista is how the agent gets in. It makes the server, keeps its SSH key in your keychain, and signs in on the agent's behalf. The agent never sees the key, everything it does is in **Activity**, and anything risky waits for you.
+Hoista is how the agent gets in:
+
+- Hoista makes the server and keeps its SSH key in your keychain. The agent never sees the key.
+- The agent asks Hoista to run a command or write a file, and Hoista signs in to do it.
+- Anything risky waits for you, and everything is recorded.
 
 Hoista doesn't deploy to the server itself. How your app gets there is up to you and your agent.
 
-## Make the server
+## Make a server
 
-Connect a [Hetzner](/providers/hetzner) project, then in a project choose **Add server**, or ask your agent:
+<Steps>
+<Step title="Connect Hetzner">
+Connect a Hetzner project in **Accounts**. See [Hetzner](/providers/hetzner) for the token it needs.
+</Step>
+<Step title="Add the server to a project">
+In a project, choose **Add server** and pick the account, location and server type. Or ask your agent:
 
 > Make a small Hetzner server for this project in Falkenstein, call it web-1.
-
-It's ready for the agent once its setup has finished, a few minutes after it starts: until then it shows as deploying in the project, and `server_status` says where it is.
+</Step>
+<Step title="Wait for its setup">
+The server sets itself up over a few minutes. Until then it shows as deploying in the project, and `server_status` says where it is. Once it's live, the agent can work on it.
+</Step>
+</Steps>
 
 ## What the agent can do
 
 | Tool | What it does | View only | Ask for approval | Full access |
 | --- | --- | --- | --- | --- |
-| `server_status` | setup, load, memory, disk, failed services, containers, waiting updates, whether a reboot is due | yes | yes | yes |
-| `server_logs` | the newest lines of a systemd unit, a Docker container or the whole journal, between two times, or new lines for up to a minute | yes | yes | yes |
-| `server_read_file` | one file, up to 1 MB | yes | yes | yes |
-| `server_run` | one command, as `hoista`, who can use `sudo` | no | asks each time | asks, unless you turned that off for this server |
-| `server_write_file` | one file, with its mode and owner | no | asks each time | asks, unless you turned that off for this server |
-| `server_deploy_key` | a key for CI that can run only one command | no | asks | asks |
+| `server_status` | Setup, load, memory, disk, failed services, containers, waiting updates, and whether a reboot is due | Yes | Yes | Yes |
+| `server_logs` | The newest lines of a systemd unit, a Docker container or the whole journal; between two times, or new lines for up to a minute | Yes | Yes | Yes |
+| `server_read_file` | One file, up to 1 MB | Yes | Yes | Yes |
+| `server_run` | One command, as `hoista`, who can use `sudo` | No | Asks each time | Asks, unless you turn that off for this server |
+| `server_write_file` | One file, with its mode and owner | No | Asks each time | Asks, unless you turn that off for this server |
+| `server_deploy_key` | A key for CI that can run only one command | No | Asks | Asks |
 
-Everything done on a server (commands, files written, deploy keys, its setup) is listed on its **Settings** tab under **Agents → Activity**, as well as in the project's Activity.
+### What Hoista keeps from the agent
 
-What comes back from the server goes through Hoista's secret scanner first, as logs do. Password hashes, private keys and other processes' environments are never read, wherever a link points.
+- **The server's key.** Hoista signs in itself; no tool returns the key.
+- **Secrets in output.** What comes back from the server goes through Hoista's secret scanner first, as logs do.
+- **Secret files.** Password hashes, private keys and other processes' environments are never read, wherever a link points.
 
-## When it asks you
+### Where you see what happened
 
-With **Ask for approval**, every command and every file waits for you. With **Full access**, they still do until you change it for that server: open the server, then **Settings → Agents → Agents with Full access**, and choose **Don't ask**. Hoista asks you to confirm it's you first.
+Everything done on a server is listed on its **Settings** tab under **Agents → Activity**: commands, files written, deploy keys, and its setup. It's also in the project's **Activity**.
 
-Some steps ask you whatever that setting says, because they can lock you out or can't be undone:
+## When the agent asks you
 
-- deleting system folders (`rm -rf` on `/`, `/etc`, `/usr` and the like), formatting or overwriting disks;
+### Ask for approval
+
+Every command and every file waits for you to allow it.
+
+### Full access
+
+Commands and files still wait for you until you change it for that server:
+
+1. Open the server, then its **Settings** tab.
+2. Under **Agents**, set **Agents with Full access** to **Don't ask**.
+3. Confirm it's you when Hoista asks.
+
+### Steps that always ask
+
+These wait for you whatever the setting says, because they can lock you out or can't be undone:
+
+- deleting system folders (`rm -rf` on `/`, `/etc`, `/usr` and the like), and formatting or overwriting disks;
 - changing the firewall (`ufw`, `iptables`, `nft`), SSH, users, groups, passwords, `sudo` or `authorized_keys`;
 - rebooting or shutting down;
 - writing files under `/etc/ssh`, `~/.ssh`, `/etc/sudoers.d`, `/etc/pam.d` or `/boot`.
 
-This list catches mistakes; it isn't a sandbox. If you don't want an agent to have a shell on a server at all, keep it on **Ask for approval** or **View only**, or limit it to some projects in **Agents**.
+<Warning>This list catches mistakes; it isn't a sandbox. If you don't want an agent to have a shell on a server at all, keep it on **Ask for approval** or **View only**, or limit it to some projects in **Agents**.</Warning>
 
 ## Examples
 
-**Docker Compose.** Ask the agent to run your app with Compose behind Caddy. It typically writes `/srv/app/compose.yaml` and a `Caddyfile` with `server_write_file`, then runs `docker compose up -d` in `/srv/app` with `server_run`, and checks the containers with `server_logs`. Secrets go in a `.env` file beside them, written with mode `600` and owner `hoista`: Compose runs as `hoista` and reads that file itself, so a file only root can read would stop it.
+### Run an app with Docker Compose
 
-**Deploy on every push.** Ask the agent to set up GitHub Actions. It writes a deploy script on the server, such as `/srv/app/deploy.sh`, that gets the new version and restarts the app: `docker compose pull && docker compose up -d` for images pushed to a registry, or a `git pull` and rebuild. A private repository or registry needs its own read access on the server, such as a GitHub deploy key. The agent then makes a key with `server_deploy_key` that can run only that script. That key, the server's address and its host key (from `/etc/ssh/ssh_host_ed25519_key.pub`, which `server_read_file` can read) go into the repository's Actions secrets. Hoista doesn't set GitHub secrets; the agent does it with `gh secret set` on your computer, or you paste them in the repository's settings. The workflow's deploy step is then `ssh hoista@<address>`. A leaked CI secret can run your deploy script and nothing else.
+Ask the agent:
+
+> Run this app on web-1 with Docker Compose, behind Caddy for HTTPS on app.example.com.
+
+What it typically does:
+
+1. Writes `/srv/app/compose.yaml` and a `Caddyfile` with `server_write_file`.
+2. Writes the app's secrets to `/srv/app/.env` with mode `600` and owner `hoista`.
+3. Runs `docker compose up -d` in `/srv/app` with `server_run`.
+4. Checks the containers with `server_logs`.
+
+<Note>The `.env` file must be owned by `hoista`. Compose runs as `hoista` and reads the file itself, so a file only root can read stops it.</Note>
+
+### Deploy on every push
+
+Ask the agent:
+
+> Set up a GitHub Actions workflow that deploys this app to web-1 on every push to main.
+
+What it typically does:
+
+<Steps>
+<Step title="Write a deploy script on the server">
+For example `/srv/app/deploy.sh`, which gets the new version and restarts the app:
+
+- for images pushed to a registry: `docker compose pull && docker compose up -d`;
+- for code built on the server: `git pull`, then a rebuild.
+
+A private repository or registry needs its own read access on the server, such as a GitHub deploy key.
+</Step>
+<Step title="Make a deploy key">
+`server_deploy_key` makes a key that signs in as `hoista` and can run only `/srv/app/deploy.sh`. Hoista shows its private half once and doesn't keep it.
+</Step>
+<Step title="Add the repository's secrets">
+Three secrets go into the repository's Actions secrets:
+
+| Secret | Where it comes from |
+| --- | --- |
+| `DEPLOY_KEY` | The private key from `server_deploy_key` |
+| `SERVER_ADDRESS` | The server's IPv4 address, on its page in Hoista |
+| `SERVER_HOST_KEY` | `/etc/ssh/ssh_host_ed25519_key.pub` on the server, which `server_read_file` can read |
+
+Hoista doesn't set GitHub secrets. The agent sets them with `gh secret set` on your computer, or you add them in the repository's settings.
+</Step>
+<Step title="Add the workflow">
+The deploy step signs in with the key; the key runs the deploy script whatever command is sent:
+
+```yaml .github/workflows/deploy.yml
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to the server
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+          SERVER_HOST_KEY: ${{ secrets.SERVER_HOST_KEY }}
+        run: |
+          install -m 600 /dev/null ~/deploy_key
+          printf '%s\n' "$DEPLOY_KEY" > ~/deploy_key
+          printf '%s %s\n' "$SERVER_ADDRESS" "$SERVER_HOST_KEY" > ~/known_hosts
+          ssh -i ~/deploy_key -o UserKnownHostsFile=~/known_hosts hoista@"$SERVER_ADDRESS"
+```
+</Step>
+</Steps>
+
+A leaked CI secret can run your deploy script and nothing else.
 
 ## Limits
 
-- Agents reach only servers Hoista made, and only through Hoista on your computer, not a remote Hoista.
-- Each tool call is one command, up to 15 minutes, with up to 64 KB of output kept. For long jobs, have the agent start them in the background (a systemd unit or `docker compose up -d`) and read the logs after.
-- The server's IP address can be seen on the server's page. If you rebuild the server outside Hoista, its host key changes and Hoista refuses to connect until you make it again.
+- **Which servers.** Agents reach only servers Hoista made, and only through Hoista on your computer, not a remote Hoista.
+- **Command size.** Each tool call is one command, up to 15 minutes, keeping up to 64 KB of output. For long jobs, have the agent start them in the background (a systemd unit, or `docker compose up -d`) and read the logs after.
+- **Rebuilt servers.** If you rebuild a server outside Hoista, its host key changes and Hoista refuses to connect until you make it again.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Hetzner" icon="server" href="/providers/hetzner">Connect a project and make servers.</Card>
+<Card title="Agent access" icon="shield-check" href="/agents/permissions">View only, Ask for approval and Full access.</Card>
+<Card title="Logs and metrics" icon="chart-line" href="/guides/logs">Read a server's charts and logs.</Card>
+</CardGroup>
