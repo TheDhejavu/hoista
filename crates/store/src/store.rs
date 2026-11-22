@@ -17,7 +17,10 @@ use sqlx::{
 use std::{fs::File, sync::Arc, time::Duration};
 
 /// How long a query waits for another connection's write to finish.
-const BUSY_TIMEOUT: Duration = Duration::from_secs(5);
+/// How long a write waits for another to finish before it fails. Writes take
+/// the lock at once (`BEGIN IMMEDIATE`) and sync to disk, which is slow on some
+/// disks (Windows runners), so a burst of them can queue well past a few seconds.
+const BUSY_TIMEOUT: Duration = Duration::from_secs(30);
 const MAX_CONNECTIONS: u32 = 4;
 
 /// Why the database couldn't be opened. The messages never include what's in it.
