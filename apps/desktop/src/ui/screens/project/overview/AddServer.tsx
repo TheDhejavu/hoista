@@ -12,7 +12,7 @@ import type { ServerChoice, ServerChoices } from '@shared/providers/types';
 import { useAccounts } from '@ui/api/accounts';
 import { useProviderRead } from '@ui/api/providerOperations';
 import { useCan } from '@ui/api/providers';
-import { useAddServer } from '@ui/api/servers';
+import { useAddServer, useNewServer } from '@ui/api/servers';
 import { Button } from '@ui/components/Button';
 import { Dialog, DialogText } from '@ui/components/Dialog';
 import { ErrorMessage } from '@ui/components/ErrorMessage';
@@ -82,7 +82,11 @@ function AddServerDialog({
   const [location, setLocation] = useState(NONE);
   const [serverType, setServerType] = useState(NONE);
   const [name, setName] = useState('');
+  const [volume, setVolume] = useState<number | null>(null);
+  const [backups, setBackups] = useState(false);
   const add = useAddServer();
+  const madeId = add.data?.resources.find((resource) => resource.kind === 'server')?.id ?? null;
+  const made = useNewServer(projectId, madeId);
   const chosen = accounts.find((item) => item.account.id === accountId);
   const target = chosen ? { kind: 'account' as const, id: chosen.account.id } : null;
   const locations = useProviderRead(
@@ -112,11 +116,8 @@ function AddServerDialog({
       >
         <DialogText>
           <p>{add.data.summary}</p>
-          <p>
-            It shows in this project now. Agents can work on it through Hoista once its setup has
-            finished, in a few minutes.
-          </p>
         </DialogText>
+        <Progress status={made.data?.status} />
       </Dialog>
     );
   }
@@ -171,6 +172,8 @@ function AddServerDialog({
                 name,
                 serverType,
                 location,
+                volumeGb: volume,
+                backups,
               });
             }}
           >
@@ -227,6 +230,40 @@ function AddServerDialog({
                 />
               )}
             </div>
+            {chosen.choices.volumeSizes && (
+              <div className={styles.field}>
+                <span className={styles.label}>Volume</span>
+                <Select
+                  label="Volume"
+                  value={volume}
+                  options={[
+                    { value: null, label: 'None' },
+                    ...chosen.choices.volumeSizes.map((gb) => ({
+                      value: gb,
+                      label: `${String(gb)} GB, mounted on the server`,
+                    })),
+                  ]}
+                  disabled={add.isPending}
+                  onChange={setVolume}
+                />
+              </div>
+            )}
+            {chosen.choices.backups && (
+              <div className={styles.field}>
+                <span className={styles.label}>Backups</span>
+                <Select
+                  label="Backups"
+                  value={backups}
+                  options={[
+                    { value: false, label: 'Off' },
+                    { value: true, label: 'On' },
+                  ]}
+                  disabled={add.isPending}
+                  onChange={setBackups}
+                />
+                <span className={styles.hint}>{chosen.choices.backups.note}</span>
+              </div>
+            )}
             <TextField
               label="Name"
               value={name}
@@ -239,5 +276,35 @@ function AddServerDialog({
         <ErrorMessage error={locations.error ?? types.error ?? add.error} />
       </div>
     </Dialog>
+  );
+}
+
+/**
+ * Where a new server is, from what the project shows: made, then starting
+ * and setting itself up, then ready (or its setup failed). Closing the
+ * dialog doesn't stop it.
+ */
+function Progress({ status }: { status: string | undefined }) {
+  const ready = status === 'live';
+  const failed = status === 'failing';
+  const steps: { label: string; state: 'done' | 'now' | 'later' | 'failed' }[] = [
+    { label: 'Made at the provider', state: 'done' },
+    {
+      label: 'Starting and setting itself up, a few minutes',
+      state: ready ? 'done' : failed ? 'failed' : 'now',
+    },
+    { label: 'Ready for agents', state: ready ? 'done' : 'later' },
+  ];
+  return (
+    <ol className={styles.steps} aria-live="polite">
+      {steps.map((step) => (
+        <li key={step.label} className={styles[step.state]}>
+          <span className={styles.mark} aria-hidden="true" />
+          {step.state === 'failed'
+            ? 'Its setup failed. The server’s Activity on its Settings tab says why.'
+            : step.label}
+        </li>
+      ))}
+    </ol>
   );
 }

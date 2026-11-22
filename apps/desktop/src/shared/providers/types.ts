@@ -280,6 +280,10 @@ export interface ProviderEntry {
 export interface ServerChoices {
   /** What the provider calls a server: Server, Droplet, Instance. */
   noun: string;
+  /** Volume sizes to offer, in GB, when the provider can attach one at the start. */
+  volumeSizes?: number[];
+  /** The provider can back the server up, and what to say about it. */
+  backups?: { note: string };
   locations: ChoiceList;
   types: ChoiceList & {
     /** Whether it can be ordered at `location` now. */

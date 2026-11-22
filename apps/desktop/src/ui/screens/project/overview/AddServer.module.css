@@ -14,3 +14,59 @@
   font-size: var(--text-sm);
   color: var(--text);
 }
+
+.hint {
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--text-3);
+}
+
+.steps {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: var(--text-md);
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+
+.mark {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+}
+
+.done .mark {
+  background: var(--good);
+  box-shadow: none;
+}
+
+.now .mark {
+  box-shadow: inset 0 0 0 2px var(--accent);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.steps .later {
+  color: var(--text-3);
+}
+
+.failed .mark {
+  background: var(--bad);
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}

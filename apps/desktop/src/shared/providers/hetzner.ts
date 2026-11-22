@@ -187,6 +187,8 @@ export const hetzner: ProviderEntry = {
   tile: { for: 'Linux servers and volumes', group: 'hosting' },
   servers: {
     noun: 'Server',
+    volumeSizes: [10, 20, 50, 100, 250, 500, 1000],
+    backups: { note: 'Hetzner keeps 7 daily backups and bills them on top of the server.' },
     locations: {
       op: 'listLocations',
       list: 'locations',

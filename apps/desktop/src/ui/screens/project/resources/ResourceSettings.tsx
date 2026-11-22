@@ -9,7 +9,10 @@ import { serviceName } from '@shared/providers';
 import { useMoveResources } from '@ui/api/imports';
 import { useProject, useProjects } from '@ui/api/projects';
 import { useCan } from '@ui/api/providers';
-import { useServerAgents, useSetServerAgents } from '@ui/api/servers';
+import { useAgents } from '@ui/api/agents';
+import { useServerActivity, useServerAgents, useSetServerAgents } from '@ui/api/servers';
+import { agentDisplayName } from '@shared/agentLogos';
+import { timeAgo } from '@ui/lib/format';
 import { ErrorMessage } from '@ui/components/ErrorMessage';
 import { Select } from '@ui/components/Select';
 import { Skeleton } from '@ui/components/Skeleton';
@@ -146,6 +149,41 @@ function ServerAgents({ resourceId }: { resourceId: string }) {
         )}
       </div>
       <ErrorMessage error={agents.error ?? save.error} />
+      <ServerActivity resourceId={resourceId} />
     </Section>
+  );
+}
+
+/** What was done on the server, newest first: who did it, what, and when. */
+function ServerActivity({ resourceId }: { resourceId: string }) {
+  const activity = useServerActivity(resourceId);
+  const agents = useAgents().data?.items ?? [];
+  const who = (actor: string) => {
+    if (actor === 'person') return 'You';
+    if (actor === 'engine') return 'Hoista';
+    const agent = agents.find((item) => item.id === actor);
+    return agent ? agentDisplayName(agent.name) : 'An agent';
+  };
+  return (
+    <div className={styles.serverActivity}>
+      <b>Activity</b>
+      {activity.isPending ? (
+        <Skeleton height={14} />
+      ) : (activity.data?.items.length ?? 0) === 0 ? (
+        <span className={styles.serverActivityEmpty}>Nothing done on this server yet.</span>
+      ) : (
+        <ul>
+          {activity.data?.items.map((event) => (
+            <li key={event.id}>
+              <span>
+                {who(event.actor)}: {event.summary}
+              </span>
+              <time dateTime={event.at}>{timeAgo(event.at)}</time>
+            </li>
+          ))}
+        </ul>
+      )}
+      <ErrorMessage error={activity.error} />
+    </div>
   );
 }
