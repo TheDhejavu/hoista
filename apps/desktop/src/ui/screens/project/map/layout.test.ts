@@ -144,6 +144,38 @@ describe('layoutMap', () => {
     expect(labels).toContain('DATABASE_URL');
   });
 
+  it('puts an app another resource uses with the data, without a deploy line', () => {
+    const fly: ProjectMap = {
+      nodes: [resource('api', 'service', 'api'), resource('pg', 'service', 'pg')],
+      edges: [{ from: 'api', to: 'pg', via: 'DATABASE_URL' }],
+      traffic: {},
+    };
+    const { nodes, edges } = layoutMap(project, fly);
+    const column = (id: string) => nodes.find((node) => node.id === id)?.x;
+    const ids = edges.map((edge) => edge.id);
+
+    expect(column('pg')).toBeGreaterThan(column('api') ?? 0);
+    expect(ids).toContain('source>api');
+    expect(ids).not.toContain('source>pg');
+    expect(ids).toContain('api>pg');
+  });
+
+  it('keeps the deploy line for a used app built from a repository', () => {
+    const fly: ProjectMap = {
+      nodes: [
+        resource('api', 'service', 'api'),
+        { ...resource('auth', 'service', 'auth'), repo: 'sam/project' },
+      ],
+      edges: [{ from: 'api', to: 'auth', via: 'AUTH_URL' }],
+      traffic: {},
+    };
+    const ids = layoutMap({ ...project, sourceRepo: 'sam/project' }, fly).edges.map(
+      (edge) => edge.id,
+    );
+
+    expect(ids).toContain('source>auth');
+  });
+
   it('leads the address to the service when the provider calls everything a service', () => {
     const [first] = map.nodes;
     if (!first) throw new Error('fixture has resources');
