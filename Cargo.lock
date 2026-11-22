@@ -1743,7 +1743,7 @@ dependencies = [
 
 [[package]]
 name = "hoist"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1770,7 +1770,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-app"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
@@ -1797,7 +1797,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-demo"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1812,7 +1812,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-domain"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -1827,7 +1827,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-providers"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "async-trait",
  "axum",
@@ -1864,7 +1864,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-server"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "askama",
  "async-stream",
@@ -1908,7 +1908,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-store"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "argon2 0.5.3",
  "async-trait",
@@ -1950,7 +1950,7 @@ dependencies = [
 
 [[package]]
 name = "hoista-system"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "dirs",
  "hoista-domain",
@@ -1966,7 +1966,7 @@ dependencies = [
 
 [[package]]
 name = "hoistd"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 dependencies = [
  "anyhow",
  "axum",

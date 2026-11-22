@@ -6,6 +6,8 @@ Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas 
 
 ## [Unreleased]
 
+## [0.1.0-beta.4] - 2026-11-22
+
 ### Added
 
 - Windows: the CLI and daemon are in the release again, and `install.ps1` installs them. hoista.dev shows the PowerShell command on Windows.
@@ -21,6 +23,14 @@ Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas 
 
 - The Windows install script asked for a download that no release had, so it always failed.
 - Desktop didn't find the CLI where `install.ps1` puts it on Windows.
+
+### Known limitations
+
+- Hoista Desktop is not yet signed with an Apple Developer ID or notarized, so macOS asks you to confirm the first open. The Windows installer isn't signed either, so SmartScreen asks too.
+- On Windows, local builds can't run isolated, so Hoista stops them unless you allow them in **Settings → Safety**.
+- There are no builds for Windows on Arm.
+- Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
+- The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
 
 ## [0.1.0-beta.3] - 2026-11-13
 
@@ -85,7 +95,8 @@ The first public beta of Hoista: the open-source control plane for your infrastr
 - Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
 - The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
 
-[Unreleased]: https://github.com/TheDhejavu/hoista/compare/v0.1.0-beta.3...HEAD
+[Unreleased]: https://github.com/TheDhejavu/hoista/compare/v0.1.0-beta.4...HEAD
+[0.1.0-beta.4]: https://github.com/TheDhejavu/hoista/compare/v0.1.0-beta.3...v0.1.0-beta.4
 [0.1.0-beta.3]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1

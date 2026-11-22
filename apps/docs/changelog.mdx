@@ -8,6 +8,34 @@ rss: true
 
 Each release is on [GitHub releases](https://github.com/TheDhejavu/hoista/releases), with signed downloads. Betas are published as pre-releases.
 
+<Update label="0.1.0 Beta 4" description="v0.1.0-beta.4 · 22 November 2026" tags={["Beta"]}>
+**Added**
+
+- Windows: the CLI and daemon are in the release again, and `install.ps1` installs them. hoista.dev shows the PowerShell command on Windows.
+- Hoista Desktop for Windows, as an `x64-setup.exe` installer.
+- Linux on Arm64: the CLI and daemon (`install.sh` picks them on its own), and Desktop as an AppImage and a `.deb`.
+- Hoista runs on a computer without a keychain, such as a Linux server or WSL: put a key in `~/.config/hoista/sealed-key` and tokens are kept in a sealed file in `~/.hoista`. Before, `hoistd` didn't start there at all.
+- Hetzner Cloud: connect a project to see its servers and volumes, each server's CPU, disk and network, turn servers off and on, delete servers and volumes, and run Hetzner's own operations from the **Hetzner** tab.
+- Make a Hetzner server from a project (**Add server**, or `add_to_project` with kind `server`): Ubuntu 24.04 with Docker, a firewall that lets in only SSH, HTTP and HTTPS, security updates, and an SSH key that only Hoista holds.
+- A server Hoista made shows as deploying until it has set itself up, and as failing if that failed. **Add server** can attach a volume and turn on Hetzner's backups, and follows the server until it's ready. A server's Settings tab lists everything done on it.
+- Agents can work on servers Hoista made through new MCP tools: `server_status`, `server_logs`, `server_read_file`, `server_run`, `server_write_file` and `server_deploy_key`. Commands and files ask you first; with Full access they stop asking only once you allow it for that server, and steps that can lock you out always ask.
+
+**Fixed**
+
+- The Windows install script asked for a download that no release had, so it always failed.
+- Desktop didn't find the CLI where `install.ps1` puts it on Windows.
+
+**Known limitations**
+
+- Hoista Desktop is not yet signed with an Apple Developer ID or notarized, so macOS asks you to confirm the first open. The Windows installer isn't signed either, so SmartScreen asks too.
+- On Windows, local builds can't run isolated, so Hoista stops them unless you allow them in **Settings → Safety**.
+- There are no builds for Windows on Arm.
+- Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
+- The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
+
+[v0.1.0-beta.4 on GitHub](https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.4)
+</Update>
+
 <Update label="0.1.0 Beta 3" description="v0.1.0-beta.3 · 13 November 2026" tags={["Beta"]}>
 **Fixed**
 
