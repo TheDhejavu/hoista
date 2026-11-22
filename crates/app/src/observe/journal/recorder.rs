@@ -189,6 +189,8 @@ fn outcome_unknown(error: &EngineError, repeats: bool) -> bool {
         // A command that ran to the end and said why it failed is a clear
         // answer, like a provider refusing a request: it didn't happen.
         EngineError::Provider { code, .. } if code == "provider.command_failed" => false,
+        // Cloudflare refused to make the key; nothing before that changes anything.
+        EngineError::Provider { code, .. } if code == "cloudflare.cannot_make_tokens" => false,
         // Such a change is often several calls; a refusal after the first can leave part of it.
         EngineError::Provider { .. } if repeats => true,
         EngineError::Provider { code, .. } => matches!(
@@ -1305,5 +1307,28 @@ impl ProviderAdapter for Journaled {
         day: &str,
     ) -> Result<Usage, EngineError> {
         self.inner.usage(token, external_id, resource, day).await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::outcome_unknown;
+    use crate::ports::catalog::EngineError;
+
+    fn provider(code: &str) -> EngineError {
+        EngineError::Provider {
+            evidence: None,
+            code: code.into(),
+            message: String::new(),
+        }
+    }
+
+    #[test]
+    fn a_refused_key_did_not_happen() {
+        assert!(!outcome_unknown(
+            &provider("cloudflare.cannot_make_tokens"),
+            true
+        ));
+        assert!(outcome_unknown(&provider("provider.token_scope"), true));
     }
 }
