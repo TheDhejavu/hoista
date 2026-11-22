@@ -35,6 +35,7 @@ In Desktop, open **Accounts**, choose Cloudflare, and paste an API token:
    | Account | Browser Run | Edit | Browser Rendering |
    | Account | Hyperdrive | Edit | Hyperdrive |
    | Account | Email Routing Addresses | Edit | Email Routing |
+   | Account | API Tokens | Edit | R2 keys for other services |
    | Zone | Zone | Edit | Your own domain |
    | Zone | DNS | Edit | Your own domain |
    | Zone | Workers Routes | Edit | Your own domain |
@@ -60,6 +61,7 @@ It asks for the token in a hidden prompt and finds the account from it. In scrip
 
 - Deploy a Worker from a folder with `hoist deploy`, and roll back with `hoist rollback`.
 - Create a D1 database or an R2 bucket.
+- Give another service a key that reads and writes only one R2 bucket, with the agent tool [`give_key`](/reference/mcp-tools). Hoista sets the key, endpoint and bucket name in that service's variables.
 - Set variables and secrets on the **Variables** tab or with `hoist env`.
 - Add custom domains on your zones with `hoist domains add`.
 - Follow a Worker's live logs on the **Logs** tab or with `hoist logs --follow`.
