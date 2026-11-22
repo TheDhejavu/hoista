@@ -610,3 +610,75 @@ async fn a_plan_uses_the_projects_database_instead_of_a_new_one() {
     assert!(plan.warnings.iter().any(|w| w.contains("sentinel-db")));
     store.close().await;
 }
+
+#[tokio::test]
+async fn a_link_between_two_resources_works_inside_a_project() {
+    let (temp, store, engine) = setup().await;
+    let actor = agent(&engine).await;
+    let root = temp.path().join("rollmade");
+    std::fs::create_dir_all(&root).expect("fixture");
+    let project = engine
+        .projects()
+        .create_project(
+            &Actor::Person,
+            "rollmade".into(),
+            folder(&root),
+            Mode::Managed,
+        )
+        .await
+        .expect("fixture");
+    store
+        .put_account(&Account {
+            last_discovery: None,
+            id: "fly".into(),
+            provider: hoista_server::Provider::Fly,
+            label: "fixture".into(),
+            external_id: "remote".into(),
+            scopes: vec![],
+            status: AccountStatus::Connected,
+            connected_at: chrono::Utc::now().to_rfc3339(),
+            credential: None,
+            in_1password: false,
+        })
+        .await
+        .expect("fixture");
+    for (id, kind) in [
+        ("api", ResourceKind::Service),
+        ("pg", ResourceKind::Database),
+    ] {
+        store
+            .put_resource(&Resource {
+                id: id.into(),
+                project_id: Some(project.id.clone()),
+                account_id: "fly".into(),
+                provider: hoista_server::Provider::Fly,
+                provider_ref: format!("rollmade-{id}"),
+                name: format!("rollmade-{id}"),
+                kind,
+                mode: Mode::Watching,
+                region: None,
+                status: ResourceStatus::Live,
+                url: None,
+                group: None,
+            })
+            .await
+            .expect("fixture");
+    }
+
+    let link = json!({"from_resource": "api", "to_resource": "pg", "via": "DATABASE_URL"});
+    let made = call_in(&engine, &actor, Some(&root), "link_resources", link).await;
+    assert!(!made["error"].as_bool().expect("fixture"), "{made}");
+    let links = store.links(&project.id).await.expect("fixture");
+    assert!(
+        links
+            .iter()
+            .any(|l| l.from_resource == "api" && l.to_resource == "pg" && l.via == "DATABASE_URL"),
+        "{links:?}"
+    );
+
+    // Grouping still needs the description it was reviewed with.
+    let stray = json!({"resource_ids": ["api"], "review_token": "token"});
+    let refused = call_in(&engine, &actor, Some(&root), "link_resources", stray).await;
+    assert!(refused["error"].as_bool().expect("fixture"), "{refused}");
+    store.close().await;
+}
