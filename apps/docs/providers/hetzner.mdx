@@ -1,0 +1,54 @@
+---
+title: "Hetzner"
+description: "Connect a Hetzner Cloud project to see and manage its servers and volumes."
+icon: "/logos/hetzner.svg"
+---
+
+Hoista finds the servers and volumes in a Hetzner Cloud project. It shows each server's CPU, disk and network, can turn a server off and on, and runs Hetzner's own operations, such as rebooting or taking a snapshot.
+
+## Connect
+
+Hetzner connects with an API token, and each token belongs to one project:
+
+1. Open the [Hetzner Console](https://console.hetzner.com/projects), choose the project, then **Security → API tokens → Generate API token**.
+2. Name it Hoista and choose **Read & Write**. A **Read** token lets Hoista see your servers but not turn them off or on.
+3. Copy the token. Hetzner shows it once.
+4. In Desktop, open **Accounts**, choose Hetzner, paste the token and name the account after the project.
+
+From the CLI:
+
+```bash
+hoist accounts add hetzner
+```
+
+Hoista asks for the token in a hidden prompt. In scripts, use `hoist accounts add hetzner --name NAME --token-stdin`.
+
+Hetzner's API doesn't say which project a token belongs to, so connect each project as its own account, and give each one the project's name. When you rotate a token, use one from the same project.
+
+## What you can do
+
+- See CPU, disk and network for each server on **Metrics**.
+- Turn a server off and on again. Turning off asks the system to shut down, and cuts the power if it hasn't stopped after about a minute and a half. Hetzner keeps billing a server that's off; delete it to stop paying for it.
+- Use the **Hetzner** tab for Hetzner's own operations, such as rebooting, taking a snapshot, turning on backups or resizing a volume.
+- Delete a server or a volume after you confirm it by name. Deleting a server leaves its volumes, which you delete on their own. A volume that's attached is detached first.
+
+Hoista doesn't offer Hetzner's rescue system, console, root password reset, rebuild or SSH key operations, since each would let someone into a server without going through Hoista.
+
+## Bring in existing resources
+
+Hoista looks for servers and volumes when you connect. In Desktop, add them as described in [Bring in an existing project](/guides/import-apps). From the CLI:
+
+```bash
+hoist import --list
+hoist import <resource-id> --new my-servers
+```
+
+Projects start in **watching** mode. Run `hoist projects manage my-servers` when you want Hoista to make changes. To look again, run `hoist accounts refresh <account>` with the name or ID from `hoist accounts`.
+
+## Related
+
+<CardGroup cols={3}>
+<Card title="Providers" icon="server" href="/providers/overview">What Hoista supports on each provider.</Card>
+<Card title="Connect hosting accounts" icon="plug" href="/guides/accounts">Connect, check and rotate accounts.</Card>
+<Card title="Bring in a project" icon="folder-plus" href="/guides/import-apps">Add what an account already runs.</Card>
+</CardGroup>

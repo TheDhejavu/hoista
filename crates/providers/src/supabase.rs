@@ -57,7 +57,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: true,
         sign_in: super::SignIn::Bearer,
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Get {
             path: &["organizations"],
             query: &[],
@@ -68,7 +68,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "id",
         pages: super::accounts::Pages::One,
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Supabase::new(http)),
     #[cfg(test)]
     fake: FAKE,
@@ -690,6 +690,7 @@ impl ProviderAdapter for Supabase {
             tcp_proxies: vec![],
             addresses: vec![],
             private_domain: function.is_none().then_some(database_host).flatten(),
+            public_ips: Vec::new(),
         })
     }
 

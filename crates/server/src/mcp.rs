@@ -3729,6 +3729,7 @@ async fn narrowing(
             ResourceGroup::Databases,
             ResourceGroup::Storage,
             ResourceGroup::Domains,
+            ResourceGroup::Servers,
         ]
     };
     match project_id {

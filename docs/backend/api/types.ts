@@ -234,9 +234,9 @@ values: Array<PublicEnvironmentValue>,
  * The ones left empty, and why.
  */
 unavailable: Array<PublicEnvironmentUnavailable>, };
-export type Provider = "cloudflare" | "fly" | "railway" | "vercel" | "neon" | "supabase" | "render" | "resend" | "runpod" | "modal" | "github";
+export type Provider = "cloudflare" | "fly" | "railway" | "vercel" | "neon" | "supabase" | "render" | "resend" | "runpod" | "modal" | "hetzner" | "github";
 export type Mode = "managed" | "watching";
-export type ResourceKind = "web" | "service" | "job" | "database" | "bucket" | "email" | "domain";
+export type ResourceKind = "web" | "service" | "job" | "database" | "bucket" | "email" | "domain" | "server";
 export type ResourceStatus = "live" | "sleeping" | "idle" | "failing" | "paused" | "deploying" | "not_deployed" | "stopped" | "unknown";
 export type DeployStatus = "queued" | "running" | "live" | "failed" | "rolled_back";
 export type StepStatus = "pending" | "running" | "succeeded" | "failed" | "skipped";
@@ -914,7 +914,12 @@ private_domain: string | null,
  * such as another provider's database. Never the value itself, a password
  * or anything after the host.
  */
-addresses: Array<VariableAddress>, };
+addresses: Array<VariableAddress>, 
+/**
+ * The public IP addresses it answers on, for a server. Empty when the
+ * provider gives it none of its own.
+ */
+public_ips: Array<string>, };
 export type SignInStart = { 
 /**
  * Pass to finish the sign-in.
@@ -2229,7 +2234,7 @@ resource_id: string | null,
  * How far it narrows access.
  */
 access: Restriction, };
-export type ResourceGroup = "services" | "databases" | "storage" | "domains";
+export type ResourceGroup = "services" | "databases" | "storage" | "domains" | "servers";
 export type Restriction = "always_ask" | "view_only" | "no_access";
 export type ServerRecord = { 
 /**
@@ -3104,6 +3109,11 @@ new_email_domain: boolean,
  * Runs a container image as a new resource (a service, or a GPU pod).
  */
 new_from_image: boolean, 
+/**
+ * Creates a Linux server, set up and locked down, that agents reach
+ * through Hoista.
+ */
+new_server: boolean, 
 /**
  * Reports what the provider has billed so far this period.
  */

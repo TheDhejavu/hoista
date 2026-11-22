@@ -1270,6 +1270,10 @@
           "description": "Creates a new project at the provider from a repository.",
           "type": "boolean"
         },
+        "new_server": {
+          "description": "Creates a Linux server, set up and locked down, that agents reach\nthrough Hoista.",
+          "type": "boolean"
+        },
         "pause": {
           "description": "Pauses and resumes resources.",
           "type": "boolean"
@@ -1342,6 +1346,7 @@
         "new_bucket",
         "new_email_domain",
         "new_from_image",
+        "new_server",
         "bills",
         "browser_sign_in",
         "delete",
@@ -5014,6 +5019,11 @@
           "const": "modal"
         },
         {
+          "description": "Hetzner Cloud: servers, volumes and firewalls in one Hetzner project.",
+          "type": "string",
+          "const": "hetzner"
+        },
+        {
           "description": "GitHub: the repositories projects are built from. It runs nothing itself.",
           "type": "string",
           "const": "github"
@@ -5293,6 +5303,13 @@
             "null"
           ]
         },
+        "public_ips": {
+          "description": "The public IP addresses it answers on, for a server. Empty when the\nprovider gives it none of its own.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "references": {
           "description": "Variables that point at another service on the same provider (Railway's\n`${{Postgres.DATABASE_URL}}`): how this resource connects to others.",
           "type": "array",
@@ -5348,7 +5365,8 @@
         "references",
         "volumes",
         "tcp_proxies",
-        "addresses"
+        "addresses",
+        "public_ips"
       ]
     },
     "ProviderDnsCheck": {
@@ -6143,6 +6161,11 @@
           "description": "Domains.",
           "type": "string",
           "const": "domains"
+        },
+        {
+          "description": "Servers.",
+          "type": "string",
+          "const": "servers"
         }
       ]
     },
@@ -6183,6 +6206,11 @@
           "description": "A domain or its DNS.",
           "type": "string",
           "const": "domain"
+        },
+        {
+          "description": "A Linux server the person rents (a cloud server or bare metal), which\nruns whatever they or their agents set up on it.",
+          "type": "string",
+          "const": "server"
         }
       ]
     },

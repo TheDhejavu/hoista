@@ -45,7 +45,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: false,
         sign_in: super::SignIn::Bearer,
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Get {
             path: &["user", "orgs"],
             query: &[("per_page", "100")],
@@ -56,7 +56,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "login",
         pages: super::accounts::Pages::One,
-    },
+    }),
     adapter: |http| std::sync::Arc::new(GitHub::new(http)),
     #[cfg(test)]
     fake: FAKE,

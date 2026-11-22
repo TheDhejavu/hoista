@@ -117,6 +117,10 @@ providers! {
     Modal = "modal", "Modal", "workspace",
         signup: "https://modal.com/signup",
         tokens: "https://modal.com/settings/tokens";
+    /// Hetzner Cloud: servers, volumes and firewalls in one Hetzner project.
+    Hetzner = "hetzner", "Hetzner", "project",
+        signup: "https://accounts.hetzner.com/signUp",
+        tokens: "https://console.hetzner.com/projects";
     /// GitHub: the repositories projects are built from. It runs nothing itself.
     Github = "github", "GitHub", "account",
         signup: "https://github.com/signup",

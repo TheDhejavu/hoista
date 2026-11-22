@@ -56,7 +56,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: true,
         sign_in: super::SignIn::Bearer,
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Get {
             path: &["accounts"],
             query: &[("per_page", "50")],
@@ -67,7 +67,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "id",
         pages: super::accounts::Pages::Counted(&["result_info", "total_pages"]),
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Cloudflare::new(http)),
     #[cfg(test)]
     fake: FAKE,
@@ -1171,6 +1171,7 @@ impl ProviderAdapter for Cloudflare {
             tcp_proxies: vec![],
             addresses: vec![],
             private_domain: None,
+            public_ips: Vec::new(),
         };
         if let Some(name) = reference.strip_prefix("pages:") {
             if !valid_slug(name) {

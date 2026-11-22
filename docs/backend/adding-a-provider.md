@@ -18,7 +18,7 @@ Everything about a provider lives in one file in the engine and one in the deskt
      - `capabilities`: what the adapter can do (see the table below), declared once; the adapter's `capabilities()` returns these;
      - `cli`: its command-line tool, when the adapter runs one: the program, the variable it reads the token from, the rest of its environment, and the commands the credential keeper may run on a server. `None` otherwise;
      - `api`: the base URL, every API host it may call, whether the provider's refusal messages are safe to pass on, and how its token signs a request in;
-     - `accounts`: how a token lists its accounts (the request, where the rows are, the id field, how it pages);
+     - `accounts`: how a token lists its accounts (the request, where the rows are, the id field, how it pages), or `None` when the provider can't name a token's account and the adapter answers `account_choices` itself (Hetzner);
      - `adapter`: how to build it.
    - a type implementing `ProviderAdapter`. Only `provider`, `capabilities`, `account_choices`, `verify` and `discover` are required; everything else defaults to "not supported".
    - `capabilities` saying exactly what it implements. The desktop app and agents read these and show nothing else, and the engine's generic code decides by them, never by the provider's name.

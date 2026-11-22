@@ -1,0 +1,7968 @@
+{
+ "source": "hetzner OpenAPI spec",
+ "operations": [
+  {
+   "name": "getAction",
+   "area": "Actions",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMultipleActions",
+   "area": "Actions",
+   "risk": "read",
+   "description": "Get multiple Actions",
+   "method": "GET",
+   "path": "/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteCertificate",
+   "area": "Certificates",
+   "risk": "destroy",
+   "description": "Delete a Certificate",
+   "method": "DELETE",
+   "path": "/certificates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Certificate.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCertificate",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "Get a Certificate",
+   "method": "GET",
+   "path": "/certificates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Certificate.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getCertificateAction",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/certificates/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForCertificate",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "List Actions for a Certificate",
+   "method": "GET",
+   "path": "/certificates/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Certificate.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listCertificateActions",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/certificates/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listCertificates",
+   "area": "Certificates",
+   "risk": "read",
+   "description": "List Certificates",
+   "method": "GET",
+   "path": "/certificates",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "uploaded",
+        "managed"
+       ],
+       "description": "Type of the Certificate."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceCertificate",
+   "area": "Certificates",
+   "risk": "change",
+   "description": "Update a Certificate",
+   "method": "PUT",
+   "path": "/certificates/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Certificate.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New Certificate name."
+     }
+    }
+   ]
+  },
+  {
+   "name": "retryIssuanceOrRenewal",
+   "area": "Certificates",
+   "risk": "change",
+   "description": "Retry Issuance or Renewal",
+   "method": "POST",
+   "path": "/certificates/{id}/actions/retry",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Certificate.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "applyToResources",
+   "area": "Firewalls",
+   "risk": "destroy",
+   "description": "Apply to Resources",
+   "method": "POST",
+   "path": "/firewalls/{id}/actions/apply_to_resources",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "apply_to",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Resources to apply the Firewall to.\n\nExtends existing resources.\n",
+      "items": {
+       "type": "object",
+       "description": "Resource a Firewall should be applied to.",
+       "required": [
+        "type"
+       ],
+       "properties": {
+        "label_selector": {
+         "type": "object",
+         "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+         "required": [
+          "selector"
+         ]
+        },
+        "server": {
+         "type": "object",
+         "description": "ID of the Resource",
+         "required": [
+          "id"
+         ]
+        },
+        "type": {
+         "type": "string",
+         "enum": [
+          "label_selector",
+          "server"
+         ],
+         "description": "Type of the resource."
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "createFirewall",
+   "area": "Firewalls",
+   "risk": "change",
+   "description": "Create a Firewall",
+   "method": "POST",
+   "path": "/firewalls",
+   "args": [
+    {
+     "name": "apply_to",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Resources to apply the Firewall to.\n\nResources added directly are taking precedence over those added via a Label Selector.\n",
+      "items": {
+       "type": "object",
+       "description": "Resource a Firewall should be applied to.",
+       "required": [
+        "type"
+       ],
+       "properties": {
+        "label_selector": {
+         "type": "object",
+         "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+         "required": [
+          "selector"
+         ]
+        },
+        "server": {
+         "type": "object",
+         "description": "ID of the Resource",
+         "required": [
+          "id"
+         ]
+        },
+        "type": {
+         "type": "string",
+         "enum": [
+          "label_selector",
+          "server"
+         ],
+         "description": "Type of the resource."
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Firewall.\n\nMust be unique per Project.\n"
+     }
+    },
+    {
+     "name": "rules",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of rules.\n\nRules are limited to 50 entries per Firewall and [500 effective rules](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n",
+      "items": {
+       "type": "object",
+       "description": "Rule of a firewall.",
+       "required": [
+        "direction",
+        "protocol"
+       ],
+       "properties": {
+        "description": {
+         "type": "string",
+         "description": "Description of the rule.",
+         "nullable": true
+        },
+        "destination_ips": {
+         "type": "array",
+         "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with",
+         "items": {
+          "type": "string"
+         }
+        },
+        "direction": {
+         "type": "string",
+         "enum": [
+          "in",
+          "out"
+         ],
+         "description": "Traffic direction in which the rule should be applied to.\n\nUse `source_ips` for direction `in` and `destination_ips` for direction `out` to specify IPs.\n"
+        },
+        "port": {
+         "type": "string",
+         "description": "Port or port range to apply the rule for.\n\nOnly applicable for protocols `tcp` and `udp`.\n\nA port range can be specified by separating lower and upper bounds with a dash. `1024-5000` will include\nall ports starting from 1024 up to port 5000.\n",
+         "nullable": true
+        },
+        "protocol": {
+         "type": "string",
+         "enum": [
+          "esp",
+          "gre",
+          "icmp",
+          "tcp",
+          "udp"
+         ],
+         "description": "Network protocol to apply the rule for."
+        },
+        "source_ips": {
+         "type": "array",
+         "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single h",
+         "items": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteFirewall",
+   "area": "Firewalls",
+   "risk": "destroy",
+   "description": "Delete a Firewall",
+   "method": "DELETE",
+   "path": "/firewalls/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFirewall",
+   "area": "Firewalls",
+   "risk": "read",
+   "description": "Get a Firewall",
+   "method": "GET",
+   "path": "/firewalls/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFirewallAction",
+   "area": "Firewalls",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/firewalls/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForFirewall",
+   "area": "Firewalls",
+   "risk": "read",
+   "description": "List Actions for a Firewall",
+   "method": "GET",
+   "path": "/firewalls/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFirewallActions",
+   "area": "Firewalls",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/firewalls/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFirewalls",
+   "area": "Firewalls",
+   "risk": "read",
+   "description": "List Firewalls",
+   "method": "GET",
+   "path": "/firewalls",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeFromResources",
+   "area": "Firewalls",
+   "risk": "destroy",
+   "description": "Remove from Resources",
+   "method": "POST",
+   "path": "/firewalls/{id}/actions/remove_from_resources",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "remove_from",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Resources to remove the Firewall from.",
+      "items": {
+       "type": "object",
+       "description": "Resource a Firewall should be applied to.",
+       "required": [
+        "type"
+       ],
+       "properties": {
+        "label_selector": {
+         "type": "object",
+         "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+         "required": [
+          "selector"
+         ]
+        },
+        "server": {
+         "type": "object",
+         "description": "ID of the Resource",
+         "required": [
+          "id"
+         ]
+        },
+        "type": {
+         "type": "string",
+         "enum": [
+          "label_selector",
+          "server"
+         ],
+         "description": "Type of the resource."
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceFirewall",
+   "area": "Firewalls",
+   "risk": "change",
+   "description": "Update a Firewall",
+   "method": "PUT",
+   "path": "/firewalls/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Firewall.\n\nMust be unique per Project.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "setRules",
+   "area": "Firewalls",
+   "risk": "destroy",
+   "description": "Set Rules",
+   "method": "POST",
+   "path": "/firewalls/{id}/actions/set_rules",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Firewall.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "rules",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of rules.\n\nRules are limited to 50 entries per Firewall and [500 effective rules](https://docs.hetzner.com/cloud/firewalls/overview#limits).\n\nExisting rules will be replaced.\n",
+      "items": {
+       "type": "object",
+       "description": "Rule of a firewall.",
+       "required": [
+        "direction",
+        "protocol"
+       ],
+       "properties": {
+        "description": {
+         "type": "string",
+         "description": "Description of the rule.",
+         "nullable": true
+        },
+        "destination_ips": {
+         "type": "array",
+         "description": "List of permitted IPv4/IPv6 addresses for outgoing traffic.\n\nThe `direction` must be set to `out`.\n\nIPs must be in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single host with",
+         "items": {
+          "type": "string"
+         }
+        },
+        "direction": {
+         "type": "string",
+         "enum": [
+          "in",
+          "out"
+         ],
+         "description": "Traffic direction in which the rule should be applied to.\n\nUse `source_ips` for direction `in` and `destination_ips` for direction `out` to specify IPs.\n"
+        },
+        "port": {
+         "type": "string",
+         "description": "Port or port range to apply the rule for.\n\nOnly applicable for protocols `tcp` and `udp`.\n\nA port range can be specified by separating lower and upper bounds with a dash. `1024-5000` will include\nall ports starting from 1024 up to port 5000.\n",
+         "nullable": true
+        },
+        "protocol": {
+         "type": "string",
+         "enum": [
+          "esp",
+          "gre",
+          "icmp",
+          "tcp",
+          "udp"
+         ],
+         "description": "Network protocol to apply the rule for."
+        },
+        "source_ips": {
+         "type": "array",
+         "description": "List of permitted IPv4/IPv6 addresses for incoming traffic.\n\nThe `direction` must be set to `in`.\n\nIPs must be provided in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR\nblocks at most.\n\nThe CIDR blocks may refer to networks (with empty host bits) or single hosts.\nFor example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,\nand a single h",
+         "items": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "assignFloatingIpToServer",
+   "area": "Floating IPs",
+   "risk": "change",
+   "description": "Assign a Floating IP to a Server",
+   "method": "POST",
+   "path": "/floating_ips/{id}/actions/assign",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "server",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
+      "format": "int64",
+      "nullable": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeFloatingIpProtection",
+   "area": "Floating IPs",
+   "risk": "destroy",
+   "description": "Change Floating IP Protection",
+   "method": "POST",
+   "path": "/floating_ips/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Prevent the Resource from being deleted."
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeReverseDnsRecordsForFloatingIp",
+   "area": "Floating IPs",
+   "risk": "change",
+   "description": "Change reverse DNS records for a Floating IP",
+   "method": "POST",
+   "path": "/floating_ips/{id}/actions/change_dns_ptr",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "dns_ptr",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS. Set to null to reset (IPv4) to the default value or remove (IPv6) the record.\n",
+      "nullable": true
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Single IPv4 or IPv6 address to create pointer for.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createFloatingIp",
+   "area": "Floating IPs",
+   "risk": "change",
+   "description": "Create a Floating IP",
+   "method": "POST",
+   "path": "/floating_ips",
+   "args": [
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Description of the Resource.",
+      "nullable": true
+     }
+    },
+    {
+     "name": "home_location",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n | Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
+      "type": "string"
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Resource. Must be unique per Project.\n\nA name will be generated if none is given.\n"
+     }
+    },
+    {
+     "name": "server",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Server the Floating IP is assigned to.\n\n`null` if not assigned.\n",
+      "format": "int64",
+      "nullable": true
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "ipv4",
+       "ipv6"
+      ],
+      "description": "The Floating IP type. | Type of Primary IP the price is for. | Type of Floating IP the price is for. | Primary IP type."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteFloatingIp",
+   "area": "Floating IPs",
+   "risk": "destroy",
+   "description": "Delete a Floating IP",
+   "method": "DELETE",
+   "path": "/floating_ips/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFloatingIp",
+   "area": "Floating IPs",
+   "risk": "read",
+   "description": "Get a Floating IP",
+   "method": "GET",
+   "path": "/floating_ips/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getFloatingIpAction",
+   "area": "Floating IPs",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/floating_ips/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForFloatingIp",
+   "area": "Floating IPs",
+   "risk": "read",
+   "description": "List Actions for a Floating IP",
+   "method": "GET",
+   "path": "/floating_ips/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFloatingIpActions",
+   "area": "Floating IPs",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/floating_ips/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listFloatingIps",
+   "area": "Floating IPs",
+   "risk": "read",
+   "description": "List Floating IPs",
+   "method": "GET",
+   "path": "/floating_ips",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceFloatingIp",
+   "area": "Floating IPs",
+   "risk": "change",
+   "description": "Update a Floating IP",
+   "method": "PUT",
+   "path": "/floating_ips/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Description of the Resource.",
+      "nullable": true
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Resource. Must be unique per Project."
+     }
+    }
+   ]
+  },
+  {
+   "name": "unassignFloatingIp",
+   "area": "Floating IPs",
+   "risk": "destroy",
+   "description": "Unassign a Floating IP",
+   "method": "POST",
+   "path": "/floating_ips/{id}/actions/unassign",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Floating IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeImageProtection",
+   "area": "Images",
+   "risk": "destroy",
+   "description": "Change Image Protection",
+   "method": "POST",
+   "path": "/images/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Image.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If true, prevents the snapshot from being deleted."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteImage",
+   "area": "Images",
+   "risk": "destroy",
+   "description": "Delete an Image",
+   "method": "DELETE",
+   "path": "/images/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Image.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getImage",
+   "area": "Images",
+   "risk": "read",
+   "description": "Get an Image",
+   "method": "GET",
+   "path": "/images/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Image.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getImageAction",
+   "area": "Images",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/images/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getIso",
+   "area": "Images",
+   "risk": "read",
+   "description": "Get an ISO",
+   "method": "GET",
+   "path": "/isos/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the ISO.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForImage",
+   "area": "Images",
+   "risk": "read",
+   "description": "List Actions for an Image",
+   "method": "GET",
+   "path": "/images/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Image.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listImageActions",
+   "area": "Images",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/images/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listImages",
+   "area": "Images",
+   "risk": "read",
+   "description": "List Images",
+   "method": "GET",
+   "path": "/images",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "system",
+        "app",
+        "snapshot",
+        "backup"
+       ],
+       "description": "Type of the Image."
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "available",
+        "creating",
+        "unavailable"
+       ],
+       "description": "Status of the Image."
+      }
+     }
+    },
+    {
+     "name": "bound_to",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "include_deprecated",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "architecture",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "x86",
+       "arm"
+      ],
+      "description": "CPU architecture of the Resource."
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listIsos",
+   "area": "Images",
+   "risk": "read",
+   "description": "List ISOs",
+   "method": "GET",
+   "path": "/isos",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "architecture",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "x86",
+       "arm"
+      ],
+      "description": "CPU architecture of the Resource."
+     }
+    },
+    {
+     "name": "include_architecture_wildcard",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceImage",
+   "area": "Images",
+   "risk": "change",
+   "description": "Update an Image",
+   "method": "PUT",
+   "path": "/images/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Image.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New description of Image."
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "snapshot"
+      ],
+      "description": "Destination Image type to convert to."
+     }
+    }
+   ]
+  },
+  {
+   "name": "addService",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Add Service",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/add_service",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "destination_port",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Port the Load Balancer will balance to."
+     }
+    },
+    {
+     "name": "health_check",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "A Service health check.",
+      "required": [
+       "interval",
+       "port",
+       "protocol",
+       "retries",
+       "timeout"
+      ],
+      "properties": {
+       "http": {
+        "type": "object",
+        "description": "Additional configuration for protocol http.",
+        "required": [
+         "domain",
+         "path"
+        ],
+        "properties": {
+         "domain": {
+          "type": "string",
+          "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
+          "nullable": true
+         },
+         "path": {
+          "type": "string",
+          "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead."
+         },
+         "response": {
+          "type": "string",
+          "description": "String that must be contained in HTTP response in order to pass the health check."
+         },
+         "status_codes": {
+          "type": "array",
+          "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
+          "default": [
+           "2??",
+           "3??"
+          ],
+          "items": {
+           "type": "string"
+          }
+         },
+         "tls": {
+          "type": "boolean",
+          "description": "Use HTTPS for health check."
+         }
+        }
+       },
+       "interval": {
+        "type": "integer",
+        "description": "Time interval in seconds health checks are performed.",
+        "minimum": 3,
+        "maximum": 60
+       },
+       "port": {
+        "type": "integer",
+        "description": "Port the health check will be performed on."
+       },
+       "protocol": {
+        "type": "string",
+        "enum": [
+         "http",
+         "tcp"
+        ],
+        "description": "Type of the health check."
+       },
+       "retries": {
+        "type": "integer",
+        "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again.",
+        "minimum": 1,
+        "maximum": 5
+       },
+       "timeout": {
+        "type": "integer",
+        "description": "Time in seconds after an attempt is considered a timeout.",
+        "minimum": 1,
+        "maximum": 60
+       }
+      }
+     }
+    },
+    {
+     "name": "listen_port",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Port the Load Balancer listens on."
+     }
+    },
+    {
+     "name": "protocol",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "http",
+       "https",
+       "tcp"
+      ],
+      "description": "Protocol of the Load Balancer."
+     }
+    },
+    {
+     "name": "proxyprotocol",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Is Proxyprotocol enabled or not."
+     }
+    },
+    {
+     "name": "http",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration option for protocols http and https.",
+      "properties": {
+       "certificates": {
+        "type": "array",
+        "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is `http`.",
+        "items": {
+         "type": "integer",
+         "format": "int64"
+        }
+       },
+       "cookie_lifetime": {
+        "type": "integer",
+        "description": "Lifetime of the cookie used for sticky sessions (in seconds).",
+        "minimum": 30,
+        "maximum": 86400,
+        "default": 300
+       },
+       "cookie_name": {
+        "type": "string",
+        "description": "Name of the cookie used for sticky sessions.",
+        "default": "HCLBSTICKY"
+       },
+       "redirect_http": {
+        "type": "boolean",
+        "description": "Redirect HTTP requests to HTTPS. Only available if `protocol` is `https`.",
+        "default": false
+       },
+       "sticky_sessions": {
+        "type": "boolean",
+        "description": "Use sticky sessions. Only available if `protocol` is `http` or `https`.",
+        "default": false
+       },
+       "timeout_idle": {
+        "type": "integer",
+        "description": "Idle timeout in seconds for the client and server side."
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "addTarget",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Add Target",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/add_target",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`. | Configuration for an IP target. It is",
+      "required": [
+       "ip"
+      ],
+      "properties": {
+       "ip": {
+        "type": "string",
+        "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch."
+       }
+      }
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+      "required": [
+       "selector"
+      ],
+      "properties": {
+       "selector": {
+        "type": "string",
+        "description": "The selector. | Label selector."
+       }
+      }
+     }
+    },
+    {
+     "name": "server",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "The server of a target to be added to a load balancer.",
+      "required": [
+       "id"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer",
+        "description": "ID of the Server.",
+        "format": "int64",
+        "maximum": 9007199254740991
+       },
+       "ip": {
+        "type": "string",
+        "description": "Optional public IP of the Server to use as target.\nMust be the Primary IPv4 of the Server, or an IPv6 host address within IPv6 /64 subnet of the Server. If omitted, the Primary IPv4 of the Server is used. Must not be a private IP and is only valid for public targets."
+       }
+      }
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "ip",
+       "label_selector",
+       "server"
+      ],
+      "description": "Type of the resource."
+     }
+    },
+    {
+     "name": "use_private_ip",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network. Only valid for target types `server` and `label_selector`.",
+      "default": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "attachLoadBalancerToNetwork",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Attach a Load Balancer to a Network",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/attach_to_network",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP to request to be assigned to this Load Balancer; if you do not provide this then you will be auto assigned an IP address."
+     }
+    },
+    {
+     "name": "ip_range",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP range in CIDR block notation of the subnet to attach to.\n\nThis allows for auto assigning an IP address for a specific subnet.\nProviding `ip` that is not part of `ip_range` will result in an error.\n"
+     }
+    },
+    {
+     "name": "network",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of an existing network to attach the Load Balancer to.",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeAlgorithm",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Change Algorithm",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/change_algorithm",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "least_connections",
+       "round_robin"
+      ],
+      "description": "Type of the algorithm."
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeLoadBalancerProtection",
+   "area": "Load Balancers",
+   "risk": "destroy",
+   "description": "Change Load Balancer Protection",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If true, prevents the Load Balancer from being deleted."
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeReverseDnsEntryForThisLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Change reverse DNS entry for this Load Balancer",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/change_dns_ptr",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "dns_ptr",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS. Set to null to reset (IPv4) to the default value or remove (IPv6) the record.\n",
+      "nullable": true
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Single IPv4 or IPv6 address to create pointer for.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeTypeOfLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "destroy",
+   "description": "Change the Type of a Load Balancer",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/change_type",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "load_balancer_type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID or name of Load Balancer type the Load Balancer should migrate to."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Create a Load Balancer",
+   "method": "POST",
+   "path": "/load_balancers",
+   "args": [
+    {
+     "name": "algorithm",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Algorithm of the Load Balancer. | Request for POST https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_algorithm",
+      "required": [
+       "type"
+      ],
+      "default": {
+       "type": "round_robin"
+      },
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "least_connections",
+         "round_robin"
+        ],
+        "description": "Type of the algorithm."
+       }
+      }
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "load_balancer_type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID or name of the Load Balancer type this Load Balancer should be created with."
+     }
+    },
+    {
+     "name": "location",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID or name of Location to create Load Balancer in."
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Load Balancer."
+     }
+    },
+    {
+     "name": "network",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the network the Load Balancer should be attached to on creation.",
+      "format": "int64"
+     }
+    },
+    {
+     "name": "network_zone",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of network zone."
+     }
+    },
+    {
+     "name": "public_interface",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Enable or disable the public interface of the Load Balancer."
+     }
+    },
+    {
+     "name": "public_net",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Public network options of the Load Balancer.\n\nOnly allowed if the public interface is enabled.\n",
+      "properties": {
+       "ipv4": {
+        "type": "integer",
+        "description": "ID of an existing Primary IP of type `ipv4` to assign to the Load Balancer.\n\nThe Primary IP must be unassigned, must not be blocked and must be bound to the\nsame Location as the Load Balancer.\n\nOmit or set to `null` to get a system managed IP address instead. System managed IP addresses are\nnot Primary IPs and are created and deleted together with the Load Balancer.\n",
+        "format": "int64",
+        "minimum": 1,
+        "maximum": 9007199254740991,
+        "nullable": true
+       },
+       "ipv6": {
+        "type": "integer",
+        "description": "ID of an existing Primary IP of type `ipv6` to assign to the Load Balancer.\n\nThe Primary IP must be unassigned, must not be blocked and must be bound to the\nsame Location as the Load Balancer.\n\nOmit or set to `null` to get a system managed IP address instead. System managed IP addresses are\nnot Primary IPs and are created and deleted together with the Load Balancer.\n",
+        "format": "int64",
+        "minimum": 1,
+        "maximum": 9007199254740991,
+        "nullable": true
+       }
+      }
+     }
+    },
+    {
+     "name": "services",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of services.",
+      "items": {
+       "description": "A service for a Load Balancer.",
+       "type": "object",
+       "anyOf": [
+        {
+         "properties": {
+          "destination_port": {
+           "type": "integer",
+           "description": "Port the Load Balancer will balance to."
+          },
+          "health_check": {
+           "type": "object",
+           "description": "A Service health check.",
+           "required": [
+            "interval",
+            "port",
+            "protocol",
+            "retries",
+            "timeout"
+           ]
+          },
+          "listen_port": {
+           "type": "integer",
+           "description": "Port the Load Balancer listens on."
+          },
+          "protocol": {
+           "type": "string",
+           "enum": [
+            "http",
+            "https",
+            "tcp"
+           ],
+           "description": "Protocol of the Load Balancer."
+          },
+          "proxyprotocol": {
+           "type": "boolean",
+           "description": "Is Proxyprotocol enabled or not."
+          }
+         },
+         "type": "object",
+         "required": [
+          "destination_port",
+          "health_check",
+          "listen_port",
+          "protocol",
+          "proxyprotocol"
+         ]
+        },
+        {
+         "properties": {
+          "destination_port": {
+           "type": "integer",
+           "description": "Port the Load Balancer will balance to."
+          },
+          "health_check": {
+           "type": "object",
+           "description": "A Service health check.",
+           "required": [
+            "interval",
+            "port",
+            "protocol",
+            "retries",
+            "timeout"
+           ]
+          },
+          "listen_port": {
+           "type": "integer",
+           "description": "Port the Load Balancer listens on."
+          },
+          "protocol": {
+           "type": "string",
+           "enum": [
+            "http",
+            "https",
+            "tcp"
+           ],
+           "description": "Protocol of the Load Balancer."
+          },
+          "proxyprotocol": {
+           "type": "boolean",
+           "description": "Is Proxyprotocol enabled or not."
+          },
+          "http": {
+           "type": "object",
+           "description": "Configuration option for protocol http.",
+           "required": [
+            "cookie_lifetime",
+            "cookie_name",
+            "sticky_sessions",
+            "timeout_idle"
+           ],
+           "properties": {
+            "cookie_lifetime": {
+             "type": "integer",
+             "description": "Lifetime of the cookie used for sticky sessions (in seconds).",
+             "minimum": 30,
+             "maximum": 86400,
+             "default": 300
+            },
+            "cookie_name": {
+             "type": "string",
+             "description": "Name of the cookie used for sticky sessions.",
+             "default": "HCLBSTICKY"
+            },
+            "sticky_sessions": {
+             "type": "boolean",
+             "description": "Use sticky sessions.",
+             "default": false
+            },
+            "timeout_idle": {
+             "type": "integer",
+             "description": "Idle timeout in seconds for the client and server side.",
+             "minimum": 30,
+             "maximum": 300,
+             "default": 50
+            }
+           }
+          }
+         },
+         "type": "object",
+         "required": [
+          "destination_port",
+          "health_check",
+          "http",
+          "listen_port",
+          "protocol",
+          "proxyprotocol"
+         ]
+        },
+        {
+         "properties": {
+          "destination_port": {
+           "type": "integer",
+           "description": "Port the Load Balancer will balance to."
+          },
+          "health_check": {
+           "type": "object",
+           "description": "A Service health check.",
+           "required": [
+            "interval",
+            "port",
+            "protocol",
+            "retries",
+            "timeout"
+           ]
+          },
+          "listen_port": {
+           "type": "integer",
+           "description": "Port the Load Balancer listens on."
+          },
+          "protocol": {
+           "type": "string",
+           "enum": [
+            "http",
+            "https",
+            "tcp"
+           ],
+           "description": "Protocol of the Load Balancer."
+          },
+          "proxyprotocol": {
+           "type": "boolean",
+           "description": "Is Proxyprotocol enabled or not."
+          },
+          "http": {
+           "type": "object",
+           "description": "Configuration option for protocol https.",
+           "required": [
+            "certificates",
+            "cookie_lifetime",
+            "cookie_name",
+            "redirect_http",
+            "sticky_sessions",
+            "timeout_idle"
+           ],
+           "properties": {
+            "certificates": {
+             "type": "array",
+             "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough.",
+             "items": {
+              "type": "integer",
+              "format": "int64"
+             }
+            },
+            "cookie_lifetime": {
+             "type": "integer",
+             "description": "Lifetime of the cookie used for sticky sessions (in seconds).",
+             "minimum": 30,
+             "maximum": 86400,
+             "default": 300
+            },
+            "cookie_name": {
+             "type": "string",
+             "description": "Name of the cookie used for sticky sessions.",
+             "default": "HCLBSTICKY"
+            },
+            "redirect_http": {
+             "type": "boolean",
+             "description": "Redirect HTTP requests to HTTPS.",
+             "default": false
+            },
+            "sticky_sessions": {
+             "type": "boolean",
+             "description": "Use sticky sessions.",
+             "default": false
+            },
+            "timeout_idle": {
+             "type": "integer",
+             "description": "Idle timeout in seconds for the client and server side.",
+             "minimum": 30,
+             "maximum": 300,
+             "default": 50
+            }
+           }
+          }
+         },
+         "type": "object",
+         "required": [
+          "destination_port",
+          "health_check",
+          "http",
+          "listen_port",
+          "protocol",
+          "proxyprotocol"
+         ]
+        }
+       ]
+      }
+     }
+    },
+    {
+     "name": "targets",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of targets.",
+      "items": {
+       "description": "A target to be added to a load balancer.",
+       "properties": {
+        "ip": {
+         "type": "object",
+         "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`. | Configuration for an IP target. It is",
+         "required": [
+          "ip"
+         ]
+        },
+        "label_selector": {
+         "type": "object",
+         "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+         "required": [
+          "selector"
+         ]
+        },
+        "server": {
+         "type": "object",
+         "description": "The server of a target to be added to a load balancer.",
+         "required": [
+          "id"
+         ]
+        },
+        "type": {
+         "type": "string",
+         "enum": [
+          "ip",
+          "label_selector",
+          "server"
+         ],
+         "description": "Type of the resource."
+        },
+        "use_private_ip": {
+         "type": "boolean",
+         "description": "Use the private network IP instead of the public IP of the Server, requires the Server and Load Balancer to be in the same network. Only valid for target types `server` and `label_selector`.",
+         "default": false
+        }
+       },
+       "type": "object",
+       "required": [
+        "type"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "destroy",
+   "description": "Delete a Load Balancer",
+   "method": "DELETE",
+   "path": "/load_balancers/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteService",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Delete Service",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/delete_service",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "listen_port",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "The listen port of the service you want to delete."
+     }
+    }
+   ]
+  },
+  {
+   "name": "detachLoadBalancerFromNetwork",
+   "area": "Load Balancers",
+   "risk": "destroy",
+   "description": "Detach a Load Balancer from a Network",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/detach_from_network",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "network",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of an existing network to detach the Load Balancer from.",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "disablePublicInterfaceOfLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "destroy",
+   "description": "Disable the public interface of a Load Balancer",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/disable_public_interface",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "enablePublicInterfaceOfLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Enable the public interface of a Load Balancer",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/enable_public_interface",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "Get a Load Balancer",
+   "method": "GET",
+   "path": "/load_balancers/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getLoadBalancerAction",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/load_balancers/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getLoadBalancerType",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "Get a Load Balancer Type",
+   "method": "GET",
+   "path": "/load_balancer_types/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer Type.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMetricsForLoadbalancer",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "Get Metrics for a LoadBalancer",
+   "method": "GET",
+   "path": "/load_balancers/{id}/metrics",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "open_connections",
+        "connections_per_second",
+        "requests_per_second",
+        "bandwidth"
+       ]
+      }
+     }
+    },
+    {
+     "name": "start",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "end",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "step",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "List Actions for a Load Balancer",
+   "method": "GET",
+   "path": "/load_balancers/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listLoadBalancerActions",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/load_balancers/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listLoadBalancerTypes",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "List Load Balancer Types",
+   "method": "GET",
+   "path": "/load_balancer_types",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listLoadBalancers",
+   "area": "Load Balancers",
+   "risk": "read",
+   "description": "List Load Balancers",
+   "method": "GET",
+   "path": "/load_balancers",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeTarget",
+   "area": "Load Balancers",
+   "risk": "destroy",
+   "description": "Remove Target",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/remove_target",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "IP target where the traffic should be routed to. It is only possible to use the (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project owner. IPs belonging to other users are blocked. Additionally IPs belonging to services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as well. Only present for target type `ip`. | Configuration for an IP target. It is",
+      "required": [
+       "ip"
+      ],
+      "properties": {
+       "ip": {
+        "type": "string",
+        "description": "IP of a server that belongs to the same customer (public IPv4/IPv6) or private IP in a subnet type vswitch."
+       }
+      }
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration for type LabelSelector, required if type is `label_selector`",
+      "required": [
+       "selector"
+      ],
+      "properties": {
+       "selector": {
+        "type": "string",
+        "description": "The selector. | Label selector."
+       }
+      }
+     }
+    },
+    {
+     "name": "server",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "ID of the Resource",
+      "required": [
+       "id"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer",
+        "description": "ID of the Server.",
+        "format": "int64",
+        "minimum": 1,
+        "maximum": 9007199254740991
+       }
+      }
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "ip",
+       "label_selector",
+       "server"
+      ],
+      "description": "Type of the resource."
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceLoadBalancer",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Update a Load Balancer",
+   "method": "PUT",
+   "path": "/load_balancers/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New Load Balancer name."
+     }
+    }
+   ]
+  },
+  {
+   "name": "updateService",
+   "area": "Load Balancers",
+   "risk": "change",
+   "description": "Update Service",
+   "method": "POST",
+   "path": "/load_balancers/{id}/actions/update_service",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Load Balancer.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "destination_port",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Port the Load Balancer will balance to."
+     }
+    },
+    {
+     "name": "health_check",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "A Service health check.",
+      "required": [
+       "interval",
+       "port",
+       "protocol",
+       "retries",
+       "timeout"
+      ],
+      "properties": {
+       "http": {
+        "type": "object",
+        "description": "Additional configuration for protocol http.",
+        "required": [
+         "domain",
+         "path"
+        ],
+        "properties": {
+         "domain": {
+          "type": "string",
+          "description": "Host header to send in the HTTP request. May not contain spaces, percent or backslash symbols. Can be null, in that case no host header is sent.",
+          "nullable": true
+         },
+         "path": {
+          "type": "string",
+          "description": "HTTP path to use for health checks. May not contain literal spaces, use percent-encoding instead."
+         },
+         "response": {
+          "type": "string",
+          "description": "String that must be contained in HTTP response in order to pass the health check."
+         },
+         "status_codes": {
+          "type": "array",
+          "description": "List of returned HTTP status codes in order to pass the health check. Supports the wildcards `?` for exactly one character and `*` for multiple ones.",
+          "default": [
+           "2??",
+           "3??"
+          ],
+          "items": {
+           "type": "string"
+          }
+         },
+         "tls": {
+          "type": "boolean",
+          "description": "Use HTTPS for health check."
+         }
+        }
+       },
+       "interval": {
+        "type": "integer",
+        "description": "Time interval in seconds health checks are performed.",
+        "minimum": 3,
+        "maximum": 60
+       },
+       "port": {
+        "type": "integer",
+        "description": "Port the health check will be performed on."
+       },
+       "protocol": {
+        "type": "string",
+        "enum": [
+         "http",
+         "tcp"
+        ],
+        "description": "Type of the health check."
+       },
+       "retries": {
+        "type": "integer",
+        "description": "Unsuccessful retries needed until a target is considered unhealthy; an unhealthy target needs the same number of successful retries to become healthy again.",
+        "minimum": 1,
+        "maximum": 5
+       },
+       "timeout": {
+        "type": "integer",
+        "description": "Time in seconds after an attempt is considered a timeout.",
+        "minimum": 1,
+        "maximum": 60
+       }
+      }
+     }
+    },
+    {
+     "name": "listen_port",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Port the Load Balancer listens on."
+     }
+    },
+    {
+     "name": "protocol",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "http",
+       "https",
+       "tcp"
+      ],
+      "description": "Protocol of the Load Balancer."
+     }
+    },
+    {
+     "name": "proxyprotocol",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Is Proxyprotocol enabled or not."
+     }
+    },
+    {
+     "name": "http",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Configuration option for protocols http and https.",
+      "properties": {
+       "certificates": {
+        "type": "array",
+        "description": "IDs of the Certificates to use for TLS/SSL termination by the Load Balancer; empty for TLS/SSL passthrough or if `protocol` is `http`.",
+        "items": {
+         "type": "integer",
+         "format": "int64"
+        }
+       },
+       "cookie_lifetime": {
+        "type": "integer",
+        "description": "Lifetime of the cookie used for sticky sessions (in seconds).",
+        "minimum": 30,
+        "maximum": 86400
+       },
+       "cookie_name": {
+        "type": "string",
+        "description": "Name of the cookie used for sticky sessions."
+       },
+       "redirect_http": {
+        "type": "boolean",
+        "description": "Redirect HTTP requests to HTTPS. Only available if `protocol` is `https`.",
+        "default": false
+       },
+       "sticky_sessions": {
+        "type": "boolean",
+        "description": "Use sticky sessions. Only available if `protocol` is `http` or `https`.",
+        "default": false
+       },
+       "timeout_idle": {
+        "type": "integer",
+        "description": "Idle timeout in seconds for the client and server side."
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "getLocation",
+   "area": "Locations",
+   "risk": "read",
+   "description": "Get a Location",
+   "method": "GET",
+   "path": "/locations/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Location.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listLocations",
+   "area": "Locations",
+   "risk": "read",
+   "description": "List Locations",
+   "method": "GET",
+   "path": "/locations",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "addRouteToNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Add a route to a Network",
+   "method": "POST",
+   "path": "/networks/{id}/actions/add_route",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "destination",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Destination network or host of the route.\n\nPackages addressed for IPs matching the destination IP prefix will be send to the specified gateway.\n\nMust be one of\n* private IPv4 ranges of RFC1918\n* or `0.0.0.0/0`.\n\nMust not overlap with\n* an existing ip_range in any subnets\n* or with any destinations in other routes\n* or with `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public netwo"
+     }
+    },
+    {
+     "name": "gateway",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Gateway of the route.\n\nPackages addressed for the specified destination will be send to this IP address.\n\nCannot be\n* the first IP of the networks ip_range,\n* an IP behind a vSwitch or\n* `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "addSubnetToNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Add a subnet to a Network",
+   "method": "POST",
+   "path": "/networks/{id}/actions/add_subnet",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "ip_range",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP range of the subnet.\n\nUses CIDR notation.\n\nMust be a subnet of the parent Networks `ip_range`.\n\nMust not overlap with any other subnets or with any destinations in routes.\n\nMinimum network size is /30. We highly recommend that you pick a larger subnet with a /24 netmask.\n"
+     }
+    },
+    {
+     "name": "network_zone",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Network Zone.\n\nThe Location contains the `network_zone` property it belongs to.\n | Name of the Network Zone.\n\nThe Location contains the `network_zone` it belongs to.\n"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "cloud",
+       "server",
+       "vswitch"
+      ],
+      "description": "Type of subnet.\n"
+     }
+    },
+    {
+     "name": "vswitch_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the robot vSwitch.\n\nMust only be supplied for subnets of type `vswitch`.\n | ID of the robot vSwitch.\n\nMust be supplied if the subnet is of type `vswitch`.\n",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeIpRangeOfNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Change IP range of a Network",
+   "method": "POST",
+   "path": "/networks/{id}/actions/change_ip_range",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "ip_range",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP range of the Network.\n\nUses CIDR notation.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger Network with a /16 netmask.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeNetworkProtection",
+   "area": "Networks",
+   "risk": "destroy",
+   "description": "Change Network Protection",
+   "method": "POST",
+   "path": "/networks/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Delete protection setting.\n\nIf true, prevents the Network from being deleted.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Create a Network",
+   "method": "POST",
+   "path": "/networks",
+   "args": [
+    {
+     "name": "expose_routes_to_vswitch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Toggle to expose routes to the Networks vSwitch.\n\nIndicates if the routes from this Network should be exposed to the vSwitch in this Network. Only takes effect if a [vSwitch is setup](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch) in this Network.\n"
+     }
+    },
+    {
+     "name": "ip_range",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP range of the Network.\n\nUses CIDR notation.\n\nMust span all included subnets. Must be one of the private IPv4 ranges of RFC1918.\n\nMinimum network size is /24. We highly recommend that you pick a larger Network with a /16 netmask.\n"
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Network."
+     }
+    },
+    {
+     "name": "routes",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of routes set in this Network.",
+      "items": {
+       "type": "object",
+       "description": "Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route | Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route",
+       "required": [
+        "destination",
+        "gateway"
+       ],
+       "properties": {
+        "destination": {
+         "type": "string",
+         "description": "Destination network or host of the route.\n\nPackages addressed for IPs matching the destination IP prefix will be send to the specified gateway.\n\nMust be one of\n* private IPv4 ranges of RFC1918\n* or `0.0.0.0/0`.\n\nMust not overlap with\n* an existing ip_range in any subnets\n* or with any destinations in other routes\n* or with `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public netwo"
+        },
+        "gateway": {
+         "type": "string",
+         "description": "Gateway of the route.\n\nPackages addressed for the specified destination will be send to this IP address.\n\nCannot be\n* the first IP of the networks ip_range,\n* an IP behind a vSwitch or\n* `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n"
+        }
+       }
+      }
+     }
+    },
+    {
+     "name": "subnets",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Array of subnets to allocate.",
+      "items": {
+       "type": "object",
+       "description": "Subnets divide the ip_range from the parent Network object into multiple Subnetworks that you can use for different specific purposes.",
+       "required": [
+        "network_zone",
+        "type"
+       ],
+       "properties": {
+        "ip_range": {
+         "type": "string",
+         "description": "IP range of the subnet.\n\nUses CIDR notation.\n\nMust be a subnet of the parent Networks `ip_range`.\n\nMust not overlap with any other subnets or with any destinations in routes.\n\nMinimum network size is /30. We highly recommend that you pick a larger subnet with a /24 netmask.\n"
+        },
+        "network_zone": {
+         "type": "string",
+         "description": "Name of the Network Zone.\n\nThe Location contains the `network_zone` property it belongs to.\n | Name of the Network Zone.\n\nThe Location contains the `network_zone` it belongs to.\n"
+        },
+        "type": {
+         "type": "string",
+         "enum": [
+          "cloud",
+          "server",
+          "vswitch"
+         ],
+         "description": "Type of subnet.\n"
+        },
+        "vswitch_id": {
+         "type": "integer",
+         "description": "ID of the robot vSwitch.\n\nMust only be supplied for subnets of type `vswitch`.\n | ID of the robot vSwitch.\n\nMust be supplied if the subnet is of type `vswitch`.\n",
+         "format": "int64"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteNetwork",
+   "area": "Networks",
+   "risk": "destroy",
+   "description": "Delete a Network",
+   "method": "DELETE",
+   "path": "/networks/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteRouteFromNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Delete a route from a Network",
+   "method": "POST",
+   "path": "/networks/{id}/actions/delete_route",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "destination",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Destination network or host of the route.\n\nPackages addressed for IPs matching the destination IP prefix will be send to the specified gateway.\n\nMust be one of\n* private IPv4 ranges of RFC1918\n* or `0.0.0.0/0`.\n\nMust not overlap with\n* an existing ip_range in any subnets\n* or with any destinations in other routes\n* or with `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public netwo"
+     }
+    },
+    {
+     "name": "gateway",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Gateway of the route.\n\nPackages addressed for the specified destination will be send to this IP address.\n\nCannot be\n* the first IP of the networks ip_range,\n* an IP behind a vSwitch or\n* `172.31.1.1`.\n\n`172.31.1.1` is being used as a gateway for the public network interface of Servers.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deleteSubnetFromNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Delete a subnet from a Network",
+   "method": "POST",
+   "path": "/networks/{id}/actions/delete_subnet",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "ip_range",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP range in CIDR block notation of the subnet to delete."
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNetwork",
+   "area": "Networks",
+   "risk": "read",
+   "description": "Get a Network",
+   "method": "GET",
+   "path": "/networks/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getNetworkAction",
+   "area": "Networks",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/networks/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForNetwork",
+   "area": "Networks",
+   "risk": "read",
+   "description": "List Actions for a Network",
+   "method": "GET",
+   "path": "/networks/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listMembersOfNetwork",
+   "area": "Networks",
+   "risk": "read",
+   "description": "List Members of a Network",
+   "method": "GET",
+   "path": "/networks/{id}/members",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "server",
+        "load_balancer"
+       ],
+       "description": "Type of the resource attached to the Network.\n"
+      }
+     }
+    },
+    {
+     "name": "subnet",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "ok",
+        "attaching",
+        "detaching",
+        "updating",
+        "error"
+       ],
+       "description": "Status of the resource within the Network.\n"
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "type",
+        "type:asc",
+        "type:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "ip",
+        "ip:asc",
+        "ip:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listNetworkActions",
+   "area": "Networks",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/networks/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listNetworks",
+   "area": "Networks",
+   "risk": "read",
+   "description": "List Networks",
+   "method": "GET",
+   "path": "/networks",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceNetwork",
+   "area": "Networks",
+   "risk": "change",
+   "description": "Update a Network",
+   "method": "PUT",
+   "path": "/networks/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Network.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "expose_routes_to_vswitch",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Toggle to expose routes to the Networks vSwitch.\n\nIndicates if the routes from this Network should be exposed to the vSwitch in this Network. Only takes effect if a [vSwitch is setup](https://docs.hetzner.com/cloud/networks/connect-dedi-vswitch) in this Network.\n"
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New Network name."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createPlacementgroup",
+   "area": "Placement Groups",
+   "risk": "change",
+   "description": "Create a PlacementGroup",
+   "method": "POST",
+   "path": "/placement_groups",
+   "args": [
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Placement Group."
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "spread"
+      ],
+      "description": "Define the Placement Group Type."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deletePlacementgroup",
+   "area": "Placement Groups",
+   "risk": "destroy",
+   "description": "Delete a PlacementGroup",
+   "method": "DELETE",
+   "path": "/placement_groups/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Placement Group.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPlacementgroup",
+   "area": "Placement Groups",
+   "risk": "read",
+   "description": "Get a PlacementGroup",
+   "method": "GET",
+   "path": "/placement_groups/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Placement Group.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPlacementGroups",
+   "area": "Placement Groups",
+   "risk": "read",
+   "description": "List Placement Groups",
+   "method": "GET",
+   "path": "/placement_groups",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "spread"
+       ],
+       "description": "Type of Placement Group.\n"
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "replacePlacementgroup",
+   "area": "Placement Groups",
+   "risk": "change",
+   "description": "Update a PlacementGroup",
+   "method": "PUT",
+   "path": "/placement_groups/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Placement Group.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New Placement Group name."
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPrices",
+   "area": "Pricing",
+   "risk": "read",
+   "description": "Get all prices",
+   "method": "GET",
+   "path": "/pricing",
+   "args": []
+  },
+  {
+   "name": "assignPrimaryIpToResource",
+   "area": "Primary IPs",
+   "risk": "change",
+   "description": "Assign a Primary IP to a resource",
+   "method": "POST",
+   "path": "/primary_ips/{id}/actions/assign",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "assignee_id",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of a resource of type `assignee_type`.",
+      "format": "int64"
+     }
+    },
+    {
+     "name": "assignee_type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "server"
+      ],
+      "description": "Type of resource assigning the Primary IP to."
+     }
+    }
+   ]
+  },
+  {
+   "name": "changePrimaryIpProtection",
+   "area": "Primary IPs",
+   "risk": "destroy",
+   "description": "Change Primary IP Protection",
+   "method": "POST",
+   "path": "/primary_ips/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Prevent the Resource from being deleted."
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeReverseDnsRecordsForPrimaryIp",
+   "area": "Primary IPs",
+   "risk": "change",
+   "description": "Change reverse DNS records for a Primary IP",
+   "method": "POST",
+   "path": "/primary_ips/{id}/actions/change_dns_ptr",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "dns_ptr",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS. Set to null to reset (IPv4) to the default value or remove (IPv6) the record.\n",
+      "nullable": true
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Single IPv4 or IPv6 address to create pointer for.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "createPrimaryIp",
+   "area": "Primary IPs",
+   "risk": "change",
+   "description": "Create a Primary IP",
+   "method": "POST",
+   "path": "/primary_ips",
+   "args": [
+    {
+     "name": "assignee_id",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n",
+      "format": "int64",
+      "nullable": true
+     }
+    },
+    {
+     "name": "assignee_type",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "server",
+       "unassigned"
+      ],
+      "description": "Type of resource to assign the Primary IP to.\n\nOmitted if the Primary IP should not get assigned.\n"
+     }
+    },
+    {
+     "name": "auto_delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Auto deletion state.\n\nIf enabled the Primary IP will be deleted once the assigned resource gets deleted.\n",
+      "default": false
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "location",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "description": "Home Location for the Floating IP.\n\nEither the ID or the name of the Location.\n\nOnly optional if no Server is provided. Routing is optimized for this Locations.\n | Location ID or name the Primary IP will be bound to.\n\nOmit if `assignee_id`/`assignee_type` or `datacenter` are provided.\n",
+      "type": "string"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Resource. Must be unique per Project."
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "ipv4",
+       "ipv6"
+      ],
+      "description": "The Floating IP type. | Type of Primary IP the price is for. | Type of Floating IP the price is for. | Primary IP type."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deletePrimaryIp",
+   "area": "Primary IPs",
+   "risk": "destroy",
+   "description": "Delete a Primary IP",
+   "method": "DELETE",
+   "path": "/primary_ips/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPrimaryIp",
+   "area": "Primary IPs",
+   "risk": "read",
+   "description": "Get a Primary IP",
+   "method": "GET",
+   "path": "/primary_ips/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getPrimaryIpAction",
+   "area": "Primary IPs",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/primary_ips/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForPrimaryIp",
+   "area": "Primary IPs",
+   "risk": "read",
+   "description": "List Actions for a Primary IP",
+   "method": "GET",
+   "path": "/primary_ips/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPrimaryIpActions",
+   "area": "Primary IPs",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/primary_ips/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listPrimaryIps",
+   "area": "Primary IPs",
+   "risk": "read",
+   "description": "List Primary IPs",
+   "method": "GET",
+   "path": "/primary_ips",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "ip",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "replacePrimaryIp",
+   "area": "Primary IPs",
+   "risk": "change",
+   "description": "Update a Primary IP",
+   "method": "PUT",
+   "path": "/primary_ips/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "auto_delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Auto deletion state.\n\nIf enabled the Primary IP will be deleted once the assigned resource gets deleted.\n",
+      "default": false
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the Resource. Must be unique per Project."
+     }
+    }
+   ]
+  },
+  {
+   "name": "unassignPrimaryIpFromResource",
+   "area": "Primary IPs",
+   "risk": "destroy",
+   "description": "Unassign a Primary IP from a resource",
+   "method": "POST",
+   "path": "/primary_ips/{id}/actions/unassign",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Primary IP.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getSshKey",
+   "area": "SSH keys",
+   "risk": "read",
+   "description": "Get a SSH key",
+   "method": "GET",
+   "path": "/ssh_keys/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the SSH Key.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listSshKeys",
+   "area": "SSH keys",
+   "risk": "read",
+   "description": "List SSH keys",
+   "method": "GET",
+   "path": "/ssh_keys",
+   "args": [
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "fingerprint",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "getServerType",
+   "area": "Server types",
+   "risk": "read",
+   "description": "Get a Server Type",
+   "method": "GET",
+   "path": "/server_types/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server Type.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listServerTypes",
+   "area": "Server types",
+   "risk": "read",
+   "description": "List Server Types",
+   "method": "GET",
+   "path": "/server_types",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "addServerToPlacementGroup",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Add a Server to a Placement Group",
+   "method": "POST",
+   "path": "/servers/{id}/actions/add_to_placement_group",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "placement_group",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of Placement Group the Server should be added to.",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "attachServerToNetwork",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Attach a Server to a Network",
+   "method": "POST",
+   "path": "/servers/{id}/actions/attach_to_network",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "alias_ips",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "Additional IPs to be assigned to this Server.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP to request to be assigned to this Server; if you do not provide this then you will be auto assigned an IP address."
+     }
+    },
+    {
+     "name": "ip_range",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "IP range in CIDR block notation of the subnet to attach to.\n\nThis allows for auto assigning an IP address for a specific subnet.\nProviding `ip` that is not part of `ip_range` will result in an error.\n"
+     }
+    },
+    {
+     "name": "network",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of an existing network to attach the Server to.",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeAliasIpsOfNetwork",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Change alias IPs of a Network",
+   "method": "POST",
+   "path": "/servers/{id}/actions/change_alias_ips",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "alias_ips",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "description": "New alias IPs to set for this Server.",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "name": "network",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of an existing Network already attached to the Server.",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeReverseDnsEntryForThisServer",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Change reverse DNS entry for this Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/change_dns_ptr",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "dns_ptr",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Domain Name to point to.\n\nPTR record content used for reverse DNS. Set to null to reset (IPv4) to the default value or remove (IPv6) the record.\n",
+      "nullable": true
+     }
+    },
+    {
+     "name": "ip",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Single IPv4 or IPv6 address to create pointer for.\n"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeServerProtection",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Change Server Protection",
+   "method": "POST",
+   "path": "/servers/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If true, prevents the Server from being deleted (currently delete and rebuild attribute needs to have the same value)."
+     }
+    },
+    {
+     "name": "rebuild",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If true, prevents the Server from being rebuilt (currently delete and rebuild attribute needs to have the same value)."
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeTypeOfServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Change the Type of a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/change_type",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "server_type",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "ID or name of Server type the Server should migrate to."
+     }
+    },
+    {
+     "name": "upgrade_disk",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If false, do not upgrade the disk (this allows downgrading the Server type later)."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createImageFromServer",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Create Image from a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/create_image",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "description",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Description of the Image, will be auto-generated if not set."
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "type",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "enum": [
+       "backup",
+       "snapshot"
+      ],
+      "description": "Type of Image to create.",
+      "default": "snapshot"
+     }
+    }
+   ]
+  },
+  {
+   "name": "detachIsoFromServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Detach an ISO from a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/detach_iso",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "detachServerFromNetwork",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Detach a Server from a Network",
+   "method": "POST",
+   "path": "/servers/{id}/actions/detach_from_network",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "network",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of an existing network to detach the Server from.",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "disableBackupsForServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Disable Backups for a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/disable_backup",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "disableRescueModeForServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Disable Rescue Mode for a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/disable_rescue",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "enableAndConfigureBackupsForServer",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Enable and Configure Backups for a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/enable_backup",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getMetricsForServer",
+   "area": "Servers",
+   "risk": "read",
+   "description": "Get Metrics for a Server",
+   "method": "GET",
+   "path": "/servers/{id}/metrics",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "type",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "cpu",
+        "disk",
+        "network"
+       ]
+      }
+     }
+    },
+    {
+     "name": "start",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "end",
+     "in": "query",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "step",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    }
+   ]
+  },
+  {
+   "name": "getServer",
+   "area": "Servers",
+   "risk": "read",
+   "description": "Get a Server",
+   "method": "GET",
+   "path": "/servers/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getServerAction",
+   "area": "Servers",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/servers/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForServer",
+   "area": "Servers",
+   "risk": "read",
+   "description": "List Actions for a Server",
+   "method": "GET",
+   "path": "/servers/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listServerActions",
+   "area": "Servers",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/servers/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listServers",
+   "area": "Servers",
+   "risk": "read",
+   "description": "List Servers",
+   "method": "GET",
+   "path": "/servers",
+   "args": [
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "initializing",
+        "starting",
+        "stopping",
+        "off",
+        "deleting",
+        "migrating",
+        "rebuilding",
+        "unknown"
+       ],
+       "description": "Status of the Server."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "powerOffServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Power off a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/poweroff",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "powerOnServer",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Power on a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/poweron",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "removeFromPlacementGroup",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Remove from Placement Group",
+   "method": "POST",
+   "path": "/servers/{id}/actions/remove_from_placement_group",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceServer",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Update a Server",
+   "method": "PUT",
+   "path": "/servers/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New name to set."
+     }
+    }
+   ]
+  },
+  {
+   "name": "resetServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Reset a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/reset",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "shutdownServer",
+   "area": "Servers",
+   "risk": "destroy",
+   "description": "Shutdown a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/shutdown",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "softRebootServer",
+   "area": "Servers",
+   "risk": "change",
+   "description": "Soft-reboot a Server",
+   "method": "POST",
+   "path": "/servers/{id}/actions/reboot",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "server",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Server.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "attachVolumeToResource",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Attach Volume to a Resource",
+   "method": "POST",
+   "path": "/volumes/{id}/actions/attach",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "assignee",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Resource the Volume is attached to, null if it is not attached at all. | Resource to which to attach the Volume once it's created (Volume will be created in the same Location as the resource). | Resource the Volume will be attached to.",
+      "required": [
+       "id",
+       "type"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer",
+        "description": "ID of the Resource. | ID of resource referenced.",
+        "format": "int64",
+        "minimum": 1,
+        "maximum": 9007199254740991
+       },
+       "type": {
+        "type": "string",
+        "description": "Type of the Resource. | Type of resource referenced."
+       }
+      }
+     }
+    },
+    {
+     "name": "automount",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Auto-mount the Volume after attaching it."
+     }
+    },
+    {
+     "name": "server",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "This field is deprecated, use the `assignee` field with `server` as the `type` instead.\n\nID of the Server the Volume will be attached to.\n",
+      "format": "int64"
+     }
+    }
+   ]
+  },
+  {
+   "name": "changeVolumeProtection",
+   "area": "Volumes",
+   "risk": "destroy",
+   "description": "Change Volume Protection",
+   "method": "POST",
+   "path": "/volumes/{id}/actions/change_protection",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "delete",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "If true, prevents the Volume from being deleted."
+     }
+    }
+   ]
+  },
+  {
+   "name": "createVolume",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Create a Volume",
+   "method": "POST",
+   "path": "/volumes",
+   "args": [
+    {
+     "name": "assignee",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "Resource the Volume is attached to, null if it is not attached at all. | Resource to which to attach the Volume once it's created (Volume will be created in the same Location as the resource). | Resource the Volume will be attached to.",
+      "required": [
+       "id",
+       "type"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer",
+        "description": "ID of the Resource. | ID of resource referenced.",
+        "format": "int64",
+        "minimum": 1,
+        "maximum": 9007199254740991
+       },
+       "type": {
+        "type": "string",
+        "description": "Type of the Resource. | Type of resource referenced."
+       }
+      }
+     }
+    },
+    {
+     "name": "automount",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "boolean",
+      "description": "Auto-mount Volume after attach. `server` must be provided."
+     }
+    },
+    {
+     "name": "format",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Format Volume after creation. One of: `xfs`, `ext4`."
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "location",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Location to create the Volume in (can be omitted if Server is specified)."
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "Name of the volume."
+     }
+    },
+    {
+     "name": "server",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "This field is deprecated, use the `assignee` field with `server` as the `type` instead.\n\nServer to which to attach the Volume once it's created (Volume will be created in the same Location as the server).\n",
+      "format": "int64"
+     }
+    },
+    {
+     "name": "size",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "Size of the Volume in GB."
+     }
+    }
+   ]
+  },
+  {
+   "name": "detachVolume",
+   "area": "Volumes",
+   "risk": "destroy",
+   "description": "Detach Volume",
+   "method": "POST",
+   "path": "/volumes/{id}/actions/detach",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getVolume",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "Get a Volume",
+   "method": "GET",
+   "path": "/volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "getVolumeAction",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "Get an Action",
+   "method": "GET",
+   "path": "/volumes/actions/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Action.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    }
+   ]
+  },
+  {
+   "name": "listActionsForVolume",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List Actions for a Volume",
+   "method": "GET",
+   "path": "/volumes/{id}/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listVolumeActions",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List Actions",
+   "method": "GET",
+   "path": "/volumes/actions",
+   "args": [
+    {
+     "name": "id",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "description": "ID of the Action.",
+       "format": "int64",
+       "minimum": 1,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "command",
+        "command:asc",
+        "command:desc",
+        "status",
+        "status:asc",
+        "status:desc",
+        "started",
+        "started:asc",
+        "started:desc",
+        "finished",
+        "finished:asc",
+        "finished:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "running",
+        "success",
+        "error"
+       ],
+       "description": "Status of the Action."
+      }
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "listVolumes",
+   "area": "Volumes",
+   "risk": "read",
+   "description": "List Volumes",
+   "method": "GET",
+   "path": "/volumes",
+   "args": [
+    {
+     "name": "status",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "available",
+        "creating"
+       ],
+       "description": "Status of the Volume."
+      }
+     }
+    },
+    {
+     "name": "sort",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "id",
+        "id:asc",
+        "id:desc",
+        "name",
+        "name:asc",
+        "name:desc",
+        "created",
+        "created:asc",
+        "created:desc"
+       ]
+      }
+     }
+    },
+    {
+     "name": "name",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "label_selector",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string"
+     }
+    },
+    {
+     "name": "page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "default": 1
+     }
+    },
+    {
+     "name": "per_page",
+     "in": "query",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 25
+     }
+    }
+   ]
+  },
+  {
+   "name": "replaceVolume",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Update a Volume",
+   "method": "PUT",
+   "path": "/volumes/{id}",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "labels",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "object",
+      "description": "User-defined labels (`key/value` pairs) for the Resource.\nFor more information, see \"Labels\".\n | User-defined labels (`key/value` pairs) for the Resource.\n\nNote that the set of Labels provided in the request will overwrite the\nexisting one.\n\nFor more information, see \"Labels\".\n"
+     }
+    },
+    {
+     "name": "name",
+     "in": "body",
+     "required": false,
+     "context": null,
+     "schema": {
+      "type": "string",
+      "description": "New Volume name."
+     }
+    }
+   ]
+  },
+  {
+   "name": "resizeVolume",
+   "area": "Volumes",
+   "risk": "change",
+   "description": "Resize Volume",
+   "method": "POST",
+   "path": "/volumes/{id}/actions/resize",
+   "args": [
+    {
+     "name": "id",
+     "in": "path",
+     "required": true,
+     "context": "volume",
+     "schema": {
+      "type": "integer",
+      "description": "ID of the Volume.",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     }
+    },
+    {
+     "name": "size",
+     "in": "body",
+     "required": true,
+     "context": null,
+     "schema": {
+      "type": "number",
+      "description": "New Volume size in GB (must be greater than current size)."
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "hetzner",
+  "name": "Hetzner",
+  "api": {
+    "kind": "rest",
+    "base": "",
+    "operations": "api_ops.json"
+  },
+  "actions": [
+    {
+      "label": "Server details",
+      "on": "server",
+      "run": "getServer",
+      "description": "The server's type, image, addresses, volumes and protection."
+    },
+    {
+      "label": "Recent actions",
+      "on": "server",
+      "run": "listActionsForServer",
+      "description": "What was done to the server lately, such as power changes and backups.",
+      "args": {
+        "sort": ["id:desc"],
+        "per_page": 20
+      }
+    },
+    {
+      "label": "Reboot",
+      "on": "server",
+      "run": "softRebootServer",
+      "description": "Asks the operating system to restart."
+    },
+    {
+      "label": "Volume details",
+      "on": "bucket",
+      "run": "getVolume",
+      "description": "The volume's size, location and the server it's attached to."
+    }
+  ]
+}

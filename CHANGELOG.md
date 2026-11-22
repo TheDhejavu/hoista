@@ -4,6 +4,12 @@ All notable changes to Hoista are recorded here. The format follows [Keep a Chan
 
 Pre-releases carry a suffix: `0.1.0-beta.1` is the first beta of `0.1.0`. Betas are published on GitHub as pre-releases; each one replaces the last, until `0.1.0` itself is released.
 
+## [Unreleased]
+
+### Added
+
+- Hetzner Cloud: connect a project to see its servers and volumes, each server's CPU, disk and network, turn servers off and on, delete servers and volumes, and run Hetzner's own operations from the **Hetzner** tab.
+
 ## [0.1.0-beta.3] - 2026-11-13
 
 ### Fixed
@@ -67,5 +73,6 @@ The first public beta of Hoista: the open-source control plane for your infrastr
 - Providers connect with API tokens only; one-click sign-in with a provider is turned off for now.
 - The beta update channel in Desktop's settings is not available yet. To move to a newer beta, install it from its release page.
 
+[Unreleased]: https://github.com/TheDhejavu/hoista/compare/v0.1.0-beta.3...HEAD
 [0.1.0-beta.2]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/TheDhejavu/hoista/releases/tag/v0.1.0-beta.1

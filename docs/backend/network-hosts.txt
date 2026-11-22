@@ -10,4 +10,5 @@ api.render.com
 api.resend.com
 api.runpod.io
 api.modal.com
+api.hetzner.cloud
 api.github.com

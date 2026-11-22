@@ -106,7 +106,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: true,
         sign_in: super::SignIn::Headers(sign_in),
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Graphql {
             url: Some(GRAPHQL),
             query: "query HoistaAccountChoices($after:String) { organizations(first:100,after:$after) { nodes { slug name } pageInfo { hasNextPage endCursor } } }",
@@ -119,7 +119,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
             more: &["data", "organizations", "pageInfo", "hasNextPage"],
             end: &["data", "organizations", "pageInfo", "endCursor"],
         },
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Fly::new(http)),
     #[cfg(test)]
     fake: FAKE,
@@ -966,6 +966,7 @@ impl ProviderAdapter for Fly {
             tcp_proxies: vec![],
             addresses: vec![],
             private_domain: Some(format!("{app}.internal")),
+            public_ips: Vec::new(),
         })
     }
 

@@ -885,7 +885,7 @@ async fn env_resource(
         .filter(|resource| {
             !matches!(
                 resource["kind"].as_str(),
-                Some("database" | "bucket" | "domain" | "volume")
+                Some("database" | "bucket" | "domain" | "volume" | "server")
             )
         })
         .collect();

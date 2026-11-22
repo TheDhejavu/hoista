@@ -734,6 +734,7 @@ pub(super) fn builtin(id: &str) -> &'static Manifest {
     static RESEND: OnceLock<Manifest> = OnceLock::new();
     static RUNPOD: OnceLock<Manifest> = OnceLock::new();
     static MODAL: OnceLock<Manifest> = OnceLock::new();
+    static HETZNER: OnceLock<Manifest> = OnceLock::new();
     static NONE: OnceLock<Manifest> = OnceLock::new();
     let (cell, text, files): (_, &str, &[(&str, &str)]) = match id {
         "supabase" => (
@@ -819,6 +820,11 @@ pub(super) fn builtin(id: &str) -> &'static Manifest {
                 ("cli.json", include_str!("modal/cli.json")),
                 ("requirements.txt", include_str!("modal/requirements.txt")),
             ],
+        ),
+        "hetzner" => (
+            &HETZNER,
+            include_str!("hetzner/manifest.json"),
+            &[("api_ops.json", include_str!("hetzner/api_ops.json"))],
         ),
         _ => (&NONE, "", &[]),
     };
@@ -943,7 +949,8 @@ mod tests {
     #[test]
     fn every_built_in_manifest_loads() {
         for id in [
-            "supabase", "railway", "fly", "wrangler", "vercel", "neon", "render", "resend", "modal",
+            "supabase", "railway", "fly", "wrangler", "vercel", "neon", "render", "resend",
+            "modal", "hetzner",
         ] {
             let manifest = builtin(id);
             if manifest.id != id {

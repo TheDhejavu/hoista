@@ -477,6 +477,7 @@ pub(super) async fn details(
         tcp_proxies: vec![],
         private_domain: None,
         addresses: vec![],
+        public_ips: Vec::new(),
     };
     let Some(environment) = environment else {
         return Ok(details);
@@ -2992,7 +2993,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: true,
         sign_in: super::SignIn::Bearer,
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Graphql {
             url: None,
             query: "query HoistaAccountChoices { me { workspaces { id name } } }",
@@ -3002,7 +3003,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "id",
         pages: super::accounts::Pages::One,
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Railway::new(http)),
     #[cfg(test)]
     fake: FAKE,

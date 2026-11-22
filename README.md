@@ -24,7 +24,7 @@
 
 Most projects end up spread across providers: the frontend on Vercel, the API on Railway or Fly.io, Postgres on Neon, a Worker on Cloudflare, email through Resend. Each has its own dashboard, CLI, logs and bill, and each coding agent you use wants its own API token for each of them.
 
-Hoista connects to those accounts (Cloudflare, Fly.io, Railway, Vercel, Neon, Supabase, Render, Resend, Runpod, Modal and GitHub) and gives you one view of everything running on them. From the desktop app, the `hoist` CLI or any MCP-capable agent you can deploy, read logs and metrics, set variables, add domains, roll back and see what each provider billed.
+Hoista connects to those accounts (Cloudflare, Fly.io, Railway, Vercel, Neon, Supabase, Render, Resend, Runpod, Modal, Hetzner and GitHub) and gives you one view of everything running on them. From the desktop app, the `hoist` CLI or any MCP-capable agent you can deploy, read logs and metrics, set variables, add domains, roll back and see what each provider billed.
 
 It's not a host. Your apps keep running on your providers, and nothing sits between them and your users. Hoista keeps your tokens in the system keychain and runs on your computer, or on a server of yours if you want it reachable while your laptop is closed.
 
@@ -136,6 +136,7 @@ Details: [Security overview](https://docs.hoista.dev/security/overview), [Threat
 | Resend     | Email sending domains                                    |
 | Runpod     | GPU and CPU pods, Serverless endpoints and volumes       |
 | Modal      | Serverless GPU apps and volumes                          |
+| Hetzner    | Cloud servers and volumes                                |
 | GitHub     | The repositories projects deploy from                    |
 
 Per-provider detail: [Providers](https://docs.hoista.dev/providers/overview).

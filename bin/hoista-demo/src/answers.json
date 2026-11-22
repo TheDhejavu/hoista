@@ -297,5 +297,44 @@
       "selected_addons": [{ "type": "compute_instance", "variant": { "id": "ci_nano", "name": "Nano" } }],
       "available_addons": []
     }
+  },
+  "hetzner": {
+    "getServer": {
+      "server": {
+        "id": 58213904,
+        "name": "media-box",
+        "status": "running",
+        "created": "@-6d",
+        "public_net": {
+          "ipv4": { "ip": "203.0.113.24", "dns_ptr": "static.24.113.0.203.clients.your-server.de" },
+          "ipv6": { "ip": "2001:db8:5a1::/64" }
+        },
+        "server_type": { "name": "cx32", "cores": 4, "memory": 8.0, "disk": 80 },
+        "datacenter": { "name": "fsn1-dc14", "location": { "name": "fsn1", "city": "Falkenstein" } },
+        "image": { "name": "ubuntu-24.04", "description": "Ubuntu 24.04" },
+        "protection": { "delete": false, "rebuild": false },
+        "backup_window": null,
+        "volumes": [102938]
+      }
+    },
+    "listActionsForServer": {
+      "actions": [
+        { "id": 901, "command": "start_server", "status": "success", "started": "@-2d", "finished": "@-2d" },
+        { "id": 900, "command": "create_server", "status": "success", "started": "@-6d", "finished": "@-6d" }
+      ]
+    },
+    "getVolume": {
+      "volume": {
+        "id": 102938,
+        "name": "media",
+        "status": "available",
+        "size": 500,
+        "server": 58213904,
+        "location": { "name": "fsn1", "city": "Falkenstein" },
+        "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_102938",
+        "format": "ext4",
+        "created": "@-6d"
+      }
+    }
   }
 }

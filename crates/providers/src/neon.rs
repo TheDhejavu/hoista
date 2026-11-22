@@ -51,7 +51,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: false,
         sign_in: super::SignIn::Bearer,
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Get {
             path: &["users", "me", "organizations"],
             query: &[],
@@ -62,7 +62,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "id",
         pages: super::accounts::Pages::One,
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Neon::new(http)),
     #[cfg(test)]
     fake: FAKE,

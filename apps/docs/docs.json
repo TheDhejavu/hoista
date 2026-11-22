@@ -123,6 +123,12 @@
             ]
           },
           {
+            "group": "Server providers",
+            "pages": [
+              "providers/hetzner"
+            ]
+          },
+          {
             "group": "Database providers",
             "pages": [
               "providers/neon",

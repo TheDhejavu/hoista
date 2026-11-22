@@ -53,6 +53,9 @@ pub struct ProviderDetails {
     /// such as another provider's database. Never the value itself, a password
     /// or anything after the host.
     pub addresses: Vec<VariableAddress>,
+    /// The public IP addresses it answers on, for a server. Empty when the
+    /// provider gives it none of its own.
+    pub public_ips: Vec<String>,
 }
 
 /// One address a variable points at, as far as it shows where, never what

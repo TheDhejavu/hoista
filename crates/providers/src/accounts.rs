@@ -74,7 +74,9 @@ pub(super) async fn list(
     provider: Provider,
     token: &Secret,
 ) -> Result<Vec<AccountChoice>, EngineError> {
-    let listing = &super::entry(provider).accounts;
+    let Some(listing) = &super::entry(provider).accounts else {
+        return Err(crate::application::ports::providers::unsupported());
+    };
     let mut choices = Vec::new();
     let mut cursor = String::new();
     let mut cursors = HashSet::new();

@@ -752,6 +752,22 @@ impl ProviderAdapter for DemoProvider {
                     &|_| 212.0e6,
                 ),
             ],
+            ResourceKind::Server => vec![
+                chart(
+                    "cpu",
+                    "CPU",
+                    MetricUnit::Percent,
+                    MetricSummary::Average,
+                    &|i| answers::wave(i, 18.0, 12.0),
+                ),
+                chart(
+                    "network",
+                    "Network per second",
+                    MetricUnit::Bytes,
+                    MetricSummary::Average,
+                    &|i| answers::wave(i, 240.0e3, 180.0e3),
+                ),
+            ],
             ResourceKind::Bucket => vec![chart(
                 "stored",
                 "Stored",
@@ -1096,6 +1112,7 @@ fn details(provider: Provider, resource: &world::Resource, now: DateTime<Utc>) -
             _ => None,
         },
         addresses: Vec::new(),
+        public_ips: Vec::new(),
     }
 }
 

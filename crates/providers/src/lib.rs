@@ -25,6 +25,7 @@ pub mod cloudflare;
 pub mod fly;
 /// GitHub, where projects' code lives.
 pub mod github;
+pub mod hetzner;
 pub mod modal;
 pub mod neon;
 mod railway;
@@ -136,7 +137,10 @@ pub(crate) struct ProviderEntry {
     /// Its command-line tool, for providers whose adapter runs one.
     pub cli: Option<ProviderCli>,
     pub api: ProviderApi,
-    pub accounts: accounts::AccountListing,
+    /// How a token lists its accounts, for providers that have a list. None
+    /// when the provider has no way to name an account, and its adapter answers
+    /// account choices itself.
+    pub accounts: Option<accounts::AccountListing>,
     pub adapter: fn(http::ProviderHttp) -> Arc<dyn ProviderAdapter>,
     /// A fake of the provider for the conformance suite every adapter must pass.
     #[cfg(test)]
@@ -155,6 +159,7 @@ pub(crate) const ENTRIES: &[ProviderEntry] = &[
     resend::ENTRY,
     runpod::ENTRY,
     modal::ENTRY,
+    hetzner::ENTRY,
     github::ENTRY,
 ];
 

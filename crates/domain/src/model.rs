@@ -35,6 +35,9 @@ pub enum ResourceKind {
     Email,
     /// A domain or its DNS.
     Domain,
+    /// A Linux server the person rents (a cloud server or bare metal), which
+    /// runs whatever they or their agents set up on it.
+    Server,
 }
 
 impl ResourceKind {
@@ -498,6 +501,8 @@ pub enum ResourceGroup {
     Storage,
     /// Domains.
     Domains,
+    /// Servers.
+    Servers,
 }
 
 impl ResourceGroup {
@@ -511,6 +516,7 @@ impl ResourceGroup {
             ResourceKind::Database => Self::Databases,
             ResourceKind::Bucket => Self::Storage,
             ResourceKind::Domain => Self::Domains,
+            ResourceKind::Server => Self::Servers,
         }
     }
 }
@@ -895,6 +901,9 @@ pub struct Capabilities {
     pub new_email_domain: bool,
     /// Runs a container image as a new resource (a service, or a GPU pod).
     pub new_from_image: bool,
+    /// Creates a Linux server, set up and locked down, that agents reach
+    /// through Hoista.
+    pub new_server: bool,
     /// Reports what the provider has billed so far this period.
     pub bills: bool,
     /// Connects by signing in on the provider's own page, instead of a pasted token.
@@ -940,6 +949,7 @@ impl Capabilities {
         new_bucket: false,
         new_email_domain: false,
         new_from_image: false,
+        new_server: false,
         bills: false,
         browser_sign_in: false,
         delete: false,

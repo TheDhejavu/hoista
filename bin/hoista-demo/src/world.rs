@@ -158,6 +158,16 @@ pub const ACCOUNTS: &[Account] = &[
         connected_days_ago: 12,
     },
     Account {
+        id: "acc-hetzner",
+        provider: Provider::Hetzner,
+        label: "Home lab",
+        external_id: "hz-3c1f7a9e2b4d6058",
+        scopes: &["read", "write"],
+        expired: false,
+        in_1password: false,
+        connected_days_ago: 6,
+    },
+    Account {
         id: "acc-vercel",
         provider: Provider::Vercel,
         label: "Sam's projects",
@@ -723,6 +733,28 @@ pub const RESOURCES: &[Resource] = &[
             ResourceKind::Bucket,
             "volume:v8k2m4p6",
             "models",
+        )
+    },
+    Resource {
+        region: Some("Falkenstein"),
+        ..resource(
+            "found-media-box",
+            None,
+            "acc-hetzner",
+            ResourceKind::Server,
+            "server:58213904",
+            "media-box",
+        )
+    },
+    Resource {
+        region: Some("Falkenstein"),
+        ..resource(
+            "found-media-disk",
+            None,
+            "acc-hetzner",
+            ResourceKind::Bucket,
+            "volume:102938",
+            "media",
         )
     },
 ];

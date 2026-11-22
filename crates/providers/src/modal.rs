@@ -81,7 +81,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: true,
         sign_in: super::SignIn::Headers(sign_in),
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Get {
             path: &["modal.client.ModalClient", "TokenInfoGet"],
             query: &[],
@@ -92,7 +92,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "workspace_id",
         pages: super::accounts::Pages::One,
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Modal::new(http)),
     #[cfg(test)]
     fake: FAKE,
@@ -1242,6 +1242,7 @@ impl ProviderAdapter for Modal {
             tcp_proxies: Vec::new(),
             private_domain: None,
             addresses: Vec::new(),
+            public_ips: Vec::new(),
         })
     }
 

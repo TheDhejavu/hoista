@@ -39,7 +39,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         explains_refusals: false,
         sign_in: super::SignIn::Bearer,
     },
-    accounts: super::accounts::AccountListing {
+    accounts: Some(super::accounts::AccountListing {
         fetch: super::accounts::Fetch::Get {
             path: &["v2", "teams"],
             query: &[("limit", "100")],
@@ -50,7 +50,7 @@ pub(crate) const ENTRY: super::ProviderEntry = super::ProviderEntry {
         item: &[],
         id: "id",
         pages: super::accounts::Pages::Next(&["pagination", "next"]),
-    },
+    }),
     adapter: |http| std::sync::Arc::new(Vercel::new(http)),
     #[cfg(test)]
     fake: FAKE,
@@ -757,6 +757,7 @@ impl ProviderAdapter for Vercel {
             tcp_proxies: vec![],
             addresses: vec![],
             private_domain: None,
+            public_ips: Vec::new(),
         })
     }
 
